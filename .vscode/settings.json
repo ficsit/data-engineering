@@ -1,0 +1,57 @@
+{
+  // Editor
+
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [80, 110],
+
+  // Linting & Code Style
+
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+
+  // Let ESLint handle auto-formatting for all files.
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnSave": true,
+
+  "eslint.validate": [
+    "css",
+    "graphql",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "markdown",
+    "typescript",
+    "typescriptreact",
+    "yaml"
+  ],
+
+  // …and make sure that any user-defined settings don't cause multiple
+  // formatters to confuse things.
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false
+  },
+  "[css]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[graphql]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[javascript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[javascriptreact]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[json]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[jsonc]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[markdown]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[typescript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[typescriptreact]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[yaml]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+
+  // Simplify the VS Code Explorer to just important files
+  "files.exclude": {
+    "**/.*": true,
+    "node_modules/": true,
+    "typings/": true,
+    "**/*.config.*": true,
+    "**/tsconfig*.json": true,
+    "**/*.log*": true,
+    "*LICENSE*": true,
+    "yarn.lock": true
+  }
+}
