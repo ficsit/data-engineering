@@ -1,6 +1,18 @@
 {
   "name": "@ficsit/data-engineering",
+  "version": "1.0.1",
+  "description": "FicsIt's official data engineering toolbox.",
+  "repository": "https://github.com/ficsit/data-engineering",
+  "author": "FicsIt Employees",
+  "license": "Apache-2.0",
   "private": true,
+  "scripts": {
+    "checkout-source-data": "./scripts/checkout-source-data.sh",
+    "checkout-community-resources": "./scripts/checkout-community-resources.sh",
+    "checkout": "yarn run checkout-source-data && yarn run checkout-community-resources"
+  },
+  "dependencies": {
+  },
   "devDependencies": {
     "@ficsit/code-style": "^1.0.2",
     "eslint": "^6.8.0"
