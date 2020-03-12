@@ -1,0 +1,16 @@
+{
+  "name": "@ficsit/pipeline-ue4pak-cleaner",
+  "version": "0.0.0",
+  "description": "Tool that converts the game's headers into TypeScript interfaces",
+  "repository": "https://github.com/ficsit/data-engineering",
+  "author": "FicsIt Employees",
+  "license": "Apache-2.0",
+  "scripts": {
+    "ue4pak-clean": "../../node_modules/.bin/ts-node ./main"
+  },
+  "dependencies": {
+    "stream-chain": "^2.2.1",
+    "stream-json": "^1.3.3"
+  },
+  "devDependencies": {}
+}
