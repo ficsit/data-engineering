@@ -1,1 +1,6 @@
 extends: '@ficsit/code-style'
+
+overrides:
+  - files: 'pipeline/headers-to-interfaces/**.{ts,tsx}'
+    parserOptions:
+      project: 'pipeline/headers-to-interfaces/tsconfig.json'

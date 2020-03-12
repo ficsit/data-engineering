@@ -6,6 +6,9 @@
   "author": "FicsIt Employees",
   "license": "Apache-2.0",
   "private": true,
+  "workspaces": [
+    "pipeline/*"
+  ],
   "scripts": {
     "checkout-source-data": "./scripts/checkout-source-data.sh",
     "checkout-community-resources": "./scripts/checkout-community-resources.sh",
@@ -15,8 +18,10 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@ficsit/code-style": "^1.4.1",
+    "@ficsit/code-style": "^1.4.2",
+    "@types/node": "^13.9.0",
     "eslint": "^6.8.0",
+    "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
   }
 }

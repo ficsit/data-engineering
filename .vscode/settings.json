@@ -46,7 +46,7 @@
   // Simplify the VS Code Explorer to just important files
   "files.exclude": {
     "**/.*": true,
-    "node_modules/": true,
+    "**/node_modules/": true,
     "typings/": true,
     "**/*.config.*": true,
     "**/tsconfig*.json": true,
