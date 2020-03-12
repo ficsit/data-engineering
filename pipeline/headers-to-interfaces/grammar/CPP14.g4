@@ -925,19 +925,10 @@ virtspecifier
    : Override
    | Final
    ;
-/*
-purespecifier:
-   '=' '0'//Conflicts with the lexer
- ;
- */
-
 
 purespecifier
-   : Assign val = Octalliteral
-   {if($val.text.compareTo("0")!=0) throw new InputMismatchException(this);}
+   : '=' '0'
    ;
-/*Derived classes*/
-
 
 baseclause
    : ':' basespecifierlist
