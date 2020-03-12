@@ -1,10 +1,10 @@
-const StreamArray = require('stream-json/streamers/StreamArray');
-const path = require('path');
-const fs = require('fs');
+import * as fs from 'fs';
+import * as path from 'path';
+import * as StreamArray from 'stream-json/streamers/StreamArray';
 
 const jsonStream = StreamArray.withParser();
 
-jsonStream.on('data', ({key, value}) => {
+jsonStream.on('data', ({ key, value }) => {
   console.log(key, value);
 });
 

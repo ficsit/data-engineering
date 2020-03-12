@@ -1,6 +1,12 @@
 extends: '@ficsit/code-style'
 
+ignorePatterns:
+  - 'pipeline/headers-to-interfaces/grammar/*'
+
 overrides:
-  - files: 'pipeline/headers-to-interfaces/**.{ts,tsx}'
+  - files: 'pipeline/headers-to-interfaces/**/*.{ts,tsx}'
     parserOptions:
       project: 'pipeline/headers-to-interfaces/tsconfig.json'
+  - files: 'pipeline/ue4pak-cleaner/**/*.{ts,tsx}'
+    parserOptions:
+      project: 'pipeline/ue4pak-cleaner/tsconfig.json'
