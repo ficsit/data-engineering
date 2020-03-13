@@ -6,7 +6,7 @@ ue4pak can be downloaded [here](https://github.com/Vilsol/ue4pak/releases) and s
 The individual files can be generated as such:
 
 - buildable.json:
-  - `ue4pak.exe --pak ".\FactoryGame-WindowsNoEditor.pak" extract --pretty -a "FactoryGame/Content/FactoryGame/Buildable/\*Desc_\*","FactoryGame/Content/FactoryGame/Buildable/\*Build_\*" -o buildable.json`
+  - `ue4pak.exe --pak ".\FactoryGame-WindowsNoEditor.pak" extract --pretty -a "FactoryGame/Content/FactoryGame/Buildable/\*Desc_\*","FactoryGame/Content/FactoryGame/Buildable/\*/Build_\*" -o buildable.json`
 - schematics.json:
   - `ue4pak.exe --pak ".\FactoryGame-WindowsNoEditor.pak" extract --pretty -a "FactoryGame/Content/FactoryGame/Schematics\*" -o schematics.json`
 - resources.json:

@@ -14,7 +14,7 @@
     "checkout-community-resources": "./scripts/checkout-community-resources.sh",
     "checkout": "yarn run checkout-source-data && yarn run checkout-community-resources",
     "fix-style": "git ls-tree -r --name-only HEAD | xargs eslint --no-error-on-unmatched-pattern --fix",
-    "test-style": "git ls-tree -r --name-only HEAD | xargs eslint --no-error-on-unmatched-pattern --quiet"
+    "test-style": "git ls-tree -r --name-only HEAD | xargs eslint --no-error-on-unmatched-pattern"
   },
   "dependencies": {},
   "devDependencies": {
