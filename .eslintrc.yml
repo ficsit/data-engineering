@@ -2,6 +2,7 @@ extends: '@ficsit/code-style'
 
 ignorePatterns:
   - 'pipeline/headers-to-interfaces/grammar/*'
+  - 'pipeline/ue4pak-cleaner/fixtures/*'
 
 overrides:
   - files: 'pipeline/headers-to-interfaces/**/*.{ts,tsx}'

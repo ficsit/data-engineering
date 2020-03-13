@@ -1,5 +1,5 @@
-import {SatisfactoryPropertyType} from "../propertyParser";
-import {cleanString} from "../../utils/textUtils";
+import { cleanString } from '../../utils/textUtils';
+import { SatisfactoryPropertyType } from '../propertyParser';
 
 class EnumProperty {
   private name: string;
@@ -7,7 +7,7 @@ class EnumProperty {
   private tagData: string;
 
   constructor(property: SatisfactoryPropertyType) {
-    const {name, tag, tag_data: tagData} = property;
+    const { name, tag, tag_data: tagData } = property;
 
     //TODO: Probably gather all enums together to stitch together?
     this.name = cleanString(name);

@@ -1,11 +1,11 @@
-import {SatisfactoryPropertyType} from "../propertyParser";
-import {cleanString} from "../../utils/textUtils";
+import { cleanString } from '../../utils/textUtils';
+import { SatisfactoryPropertyType } from '../propertyParser';
 
 class StructProperty {
   private name: string;
 
   constructor(property: SatisfactoryPropertyType) {
-    const {name} = property;
+    const { name } = property;
 
     // if (name === "mInventoryIcon\u0000") {
     //   if (property.tag_data.type === 'SlateBrush\u0000') {

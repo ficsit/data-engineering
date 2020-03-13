@@ -1,30 +1,31 @@
-import TextProperty from "./propertyTypes/TextProperty";
-import {stripNullTerminator} from "../utils/textUtils";
-import ObjectProperty from "./propertyTypes/ObjectProperty";
-import StructProperty from "./propertyTypes/StructProperty";
-import NameProperty from "./propertyTypes/NameProperty";
-import FloatProperty from "./propertyTypes/FloatProperty";
-import BoolProperty from "./propertyTypes/BoolProperty";
-import ByteProperty from "./propertyTypes/ByteProperty";
-import EnumProperty from "./propertyTypes/EnumProperty";
-import IntProperty from "./propertyTypes/IntProperty";
-import Int8Property from "./propertyTypes/Int8Property";
-import ArrayProperty from "./propertyTypes/ArrayProperty";
+import { stripNullTerminator } from '../utils/textUtils';
+
+import ArrayProperty from './propertyTypes/ArrayProperty';
+import BoolProperty from './propertyTypes/BoolProperty';
+import ByteProperty from './propertyTypes/ByteProperty';
+import EnumProperty from './propertyTypes/EnumProperty';
+import FloatProperty from './propertyTypes/FloatProperty';
+import Int8Property from './propertyTypes/Int8Property';
+import IntProperty from './propertyTypes/IntProperty';
+import NameProperty from './propertyTypes/NameProperty';
+import ObjectProperty from './propertyTypes/ObjectProperty';
+import StructProperty from './propertyTypes/StructProperty';
+import TextProperty from './propertyTypes/TextProperty';
 
 export interface SatisfactoryPropertyType {
-  name: string,
-  property_type: string,
-  tag_data: any,
-  size: number,
-  array_index: number,
-  tag: any
+  name: string;
+  property_type: string;
+  tag_data: any;
+  size: number;
+  array_index: number;
+  tag: any;
 }
 
 const processProperty = (property: SatisfactoryPropertyType, overriddenPropertyType: string = null): any => {
-  const {property_type: propertyType} = property;
+  const { property_type: propertyType } = property;
 
-  const cleanedPropertyType = overriddenPropertyType !==
-  null ? overriddenPropertyType : stripNullTerminator(propertyType);
+  const cleanedPropertyType =
+    overriddenPropertyType !== null ? overriddenPropertyType : stripNullTerminator(propertyType);
 
   switch (cleanedPropertyType) {
     case 'ObjectProperty':
@@ -50,7 +51,7 @@ const processProperty = (property: SatisfactoryPropertyType, overriddenPropertyT
     case 'Int8Property':
       return new Int8Property(property);
     default:
-      throw new Error(`Unimplemented property type: ${cleanedPropertyType}`)
+      throw new Error(`Unimplemented property type: ${cleanedPropertyType}`);
   }
 };
 

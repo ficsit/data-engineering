@@ -1,5 +1,5 @@
-import {SatisfactoryPropertyType} from "../propertyParser";
-import {cleanString} from "../../utils/textUtils";
+import { cleanString } from '../../utils/textUtils';
+import { SatisfactoryPropertyType } from '../propertyParser';
 
 class ByteProperty {
   private name: string;
@@ -7,7 +7,7 @@ class ByteProperty {
   private tagData: string;
 
   constructor(property: SatisfactoryPropertyType) {
-    const {name, tag, tag_data: tagData} = property;
+    const { name, tag, tag_data: tagData } = property;
 
     //TODO: I'm still not sure why the tag is mixed here. Should I tread everything as bytes?
     this.name = cleanString(name);

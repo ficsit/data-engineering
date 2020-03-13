@@ -1,5 +1,5 @@
-import {SatisfactoryPropertyType} from "../propertyParser";
-import {cleanString} from "../../utils/textUtils";
+import { cleanString } from '../../utils/textUtils';
+import { SatisfactoryPropertyType } from '../propertyParser';
 
 const allNames = new Set();
 
@@ -8,7 +8,9 @@ class ArrayProperty {
   private tag_data: number;
 
   constructor(property: SatisfactoryPropertyType) {
-    const {name, tag_data: tagData, tag} = property;
+    const { name, tag_data: tagData, tag } = property;
+
+    console.log(tag);
 
     // The subtypes of this object are typed according to tagData.
     const subTypes = tagData;
@@ -25,7 +27,6 @@ class ArrayProperty {
     // 'Timelines\u0000',
     // 'Meshes\u0000',
     // 'mPlatformConnections\u0000'
-
 
     //   'NameProperty\u0000',
     // Possible names:  'mLegSocketNames\u0000', 'ComponentTags\u0000', 'Tags\u0000'
@@ -47,7 +48,6 @@ class ArrayProperty {
     //   "Foot_08\u0000"
     // ]
     // }
-
 
     //   'StructProperty\u0000',
     // 'mSortRules\u0000',
@@ -265,7 +265,6 @@ class ArrayProperty {
     // ]
     // }
 
-
     //   'SoftObjectProperty\u0000',
     // possible names:  'mDefaultFuelClasses\u0000' }
     // {
@@ -283,7 +282,6 @@ class ArrayProperty {
     // ]
     // }
 
-
     //   'EnumProperty\u0000',
     // possible names:  'mAllowedResourceForms\u0000'
     // {
@@ -297,7 +295,6 @@ class ArrayProperty {
     //   "EResourceForm::RF_LIQUID\u0000"
     // ]
     // }
-
 
     //   'IntProperty\u0000'
     // Possible names: mGeneratorVisibilityLevels
@@ -316,7 +313,7 @@ class ArrayProperty {
 
     // console.log(allTypes)
 
-    if (subTypes === "ObjectProperty\u0000" && property.name === 'mAllowedResources\u0000') {
+    if (subTypes === 'ObjectProperty\u0000' && property.name === 'mAllowedResources\u0000') {
       console.log(JSON.stringify(property, null, 2));
       allNames.add(property.name);
       console.log(allNames);
