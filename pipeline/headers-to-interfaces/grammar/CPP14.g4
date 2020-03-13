@@ -21,7 +21,70 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
+/**
+ * This file has been modified to support UE4 & Satisfactory macro annotations.
+ *
+ * The original source can be found at:
+ * https://github.com/antlr/grammars-v4/blob/master/cpp/CPP14.g4
+ */
+
 grammar CPP14;
+
+/* UE4 & Satisfactory */
+
+gameapitag
+   : 'FACTORYGAME_API'
+   ;
+
+uclass
+   : 'UCLASS' ueannotationlist
+   ;
+
+ufunction
+   : 'UFUNCTION' ueannotationlist
+   ;
+
+uproperty
+   : 'UPROPERTY' ueannotationlist
+   ;
+
+uparam
+   : 'UPARAM' ueannotationlist
+   ;
+
+generatedbody
+   : 'GENERATED_BODY' ueannotationlist
+   ;
+
+ueannotationlist
+   : '(' ueannotationlistentries? ')'
+   ;
+
+ueannotationlistentries
+   : ueannotation
+   | ueannotationlistentries ',' ueannotation
+   ;
+
+ueannotation
+   : uekeyvalueannotation
+   | ueannotationname
+   ;
+
+ueannotationvalue
+   : Stringliteral
+   | booleanliteral
+   | Identifier
+   | ueannotationlist
+   ;
+
+ueannotationname
+   : Identifier
+   ;
+
+uekeyvalueannotation
+   : ueannotationname '=' ueannotationvalue
+   ;
+
 /*Basic concepts*/
 
 
@@ -818,10 +881,10 @@ parameterdeclarationlist
    ;
 
 parameterdeclaration
-   : attributespecifierseq? declspecifierseq declarator
-   | attributespecifierseq? declspecifierseq declarator '=' initializerclause
-   | attributespecifierseq? declspecifierseq abstractdeclarator?
-   | attributespecifierseq? declspecifierseq abstractdeclarator? '=' initializerclause
+   : uparam? attributespecifierseq? declspecifierseq declarator
+   | uparam? attributespecifierseq? declspecifierseq declarator '=' initializerclause
+   | uparam? attributespecifierseq? declspecifierseq abstractdeclarator?
+   | uparam? attributespecifierseq? declspecifierseq abstractdeclarator? '=' initializerclause
    ;
 
 functiondefinition
@@ -868,12 +931,12 @@ classname
    ;
 
 classspecifier
-   : classhead '{' memberspecification? '}'
+   : uclass? classhead '{' generatedbody? memberspecification? '}'
    ;
 
 classhead
-   : classkey attributespecifierseq? classheadname classvirtspecifier? baseclause?
-   | classkey attributespecifierseq? baseclause?
+   : classkey gameapitag? attributespecifierseq? classheadname classvirtspecifier? baseclause?
+   | classkey gameapitag? attributespecifierseq? baseclause?
    ;
 
 classheadname
@@ -896,7 +959,7 @@ memberspecification
    ;
 
 memberdeclaration
-   : attributespecifierseq? declspecifierseq? memberdeclaratorlist? ';'
+   : uproperty? ufunction? attributespecifierseq? declspecifierseq? memberdeclaratorlist? ';'
    | functiondefinition
    | usingdeclaration
    | static_assertdeclaration

@@ -3,6 +3,18 @@
 
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
+import { GameapitagContext } from "./CPP14Parser";
+import { UclassContext } from "./CPP14Parser";
+import { UfunctionContext } from "./CPP14Parser";
+import { UpropertyContext } from "./CPP14Parser";
+import { UparamContext } from "./CPP14Parser";
+import { GeneratedbodyContext } from "./CPP14Parser";
+import { UeannotationlistContext } from "./CPP14Parser";
+import { UeannotationlistentriesContext } from "./CPP14Parser";
+import { UeannotationContext } from "./CPP14Parser";
+import { UeannotationvalueContext } from "./CPP14Parser";
+import { UeannotationnameContext } from "./CPP14Parser";
+import { UekeyvalueannotationContext } from "./CPP14Parser";
 import { TranslationunitContext } from "./CPP14Parser";
 import { PrimaryexpressionContext } from "./CPP14Parser";
 import { IdexpressionContext } from "./CPP14Parser";
@@ -210,6 +222,138 @@ import { UserdefinedliteralContext } from "./CPP14Parser";
  * `CPP14Parser`.
  */
 export interface CPP14Listener extends ParseTreeListener {
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.gameapitag`.
+	 * @param ctx the parse tree
+	 */
+	enterGameapitag?: (ctx: GameapitagContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.gameapitag`.
+	 * @param ctx the parse tree
+	 */
+	exitGameapitag?: (ctx: GameapitagContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.uclass`.
+	 * @param ctx the parse tree
+	 */
+	enterUclass?: (ctx: UclassContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.uclass`.
+	 * @param ctx the parse tree
+	 */
+	exitUclass?: (ctx: UclassContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.ufunction`.
+	 * @param ctx the parse tree
+	 */
+	enterUfunction?: (ctx: UfunctionContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.ufunction`.
+	 * @param ctx the parse tree
+	 */
+	exitUfunction?: (ctx: UfunctionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.uproperty`.
+	 * @param ctx the parse tree
+	 */
+	enterUproperty?: (ctx: UpropertyContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.uproperty`.
+	 * @param ctx the parse tree
+	 */
+	exitUproperty?: (ctx: UpropertyContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.uparam`.
+	 * @param ctx the parse tree
+	 */
+	enterUparam?: (ctx: UparamContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.uparam`.
+	 * @param ctx the parse tree
+	 */
+	exitUparam?: (ctx: UparamContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.generatedbody`.
+	 * @param ctx the parse tree
+	 */
+	enterGeneratedbody?: (ctx: GeneratedbodyContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.generatedbody`.
+	 * @param ctx the parse tree
+	 */
+	exitGeneratedbody?: (ctx: GeneratedbodyContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.ueannotationlist`.
+	 * @param ctx the parse tree
+	 */
+	enterUeannotationlist?: (ctx: UeannotationlistContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.ueannotationlist`.
+	 * @param ctx the parse tree
+	 */
+	exitUeannotationlist?: (ctx: UeannotationlistContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.ueannotationlistentries`.
+	 * @param ctx the parse tree
+	 */
+	enterUeannotationlistentries?: (ctx: UeannotationlistentriesContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.ueannotationlistentries`.
+	 * @param ctx the parse tree
+	 */
+	exitUeannotationlistentries?: (ctx: UeannotationlistentriesContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.ueannotation`.
+	 * @param ctx the parse tree
+	 */
+	enterUeannotation?: (ctx: UeannotationContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.ueannotation`.
+	 * @param ctx the parse tree
+	 */
+	exitUeannotation?: (ctx: UeannotationContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.ueannotationvalue`.
+	 * @param ctx the parse tree
+	 */
+	enterUeannotationvalue?: (ctx: UeannotationvalueContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.ueannotationvalue`.
+	 * @param ctx the parse tree
+	 */
+	exitUeannotationvalue?: (ctx: UeannotationvalueContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.ueannotationname`.
+	 * @param ctx the parse tree
+	 */
+	enterUeannotationname?: (ctx: UeannotationnameContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.ueannotationname`.
+	 * @param ctx the parse tree
+	 */
+	exitUeannotationname?: (ctx: UeannotationnameContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `CPP14Parser.uekeyvalueannotation`.
+	 * @param ctx the parse tree
+	 */
+	enterUekeyvalueannotation?: (ctx: UekeyvalueannotationContext) => void;
+	/**
+	 * Exit a parse tree produced by `CPP14Parser.uekeyvalueannotation`.
+	 * @param ctx the parse tree
+	 */
+	exitUekeyvalueannotation?: (ctx: UekeyvalueannotationContext) => void;
+
 	/**
 	 * Enter a parse tree produced by `CPP14Parser.translationunit`.
 	 * @param ctx the parse tree
