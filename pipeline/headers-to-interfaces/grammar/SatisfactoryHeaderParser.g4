@@ -148,7 +148,7 @@ statDeclaration
 // Class Methods
 
 classMethod
-  : uedeprecatedMacro? ufunctionMacro? functionModifier* typeDeclaration? functionName OPEN_PAREN classMethodParameterList? CLOSE_PAREN classMethodResultModifier* classMethodEnd
+  : uedeprecatedMacro? ufunctionMacro? functionModifier* typeDeclaration? functionName contentWithNestedParens classMethodResultModifier* classMethodEnd
   ;
 
 classMethodEnd
@@ -160,21 +160,6 @@ classMethodEnd
 classMethodResultModifier
   : CONST
   | OVERRIDE
-  ;
-
-classMethodParameterList
-  : classMethodParameter
-  | classMethodParameter COMMA classMethodParameterList
-  | identifier
-  ;
-
-classMethodParameterName
-  : identifier
-  ;
-
-classMethodParameter
-  : typeDeclaration classMethodParameterName
-  | typeDeclaration classMethodParameterName EQUALS value
   ;
 
 classInitializerList
@@ -276,6 +261,7 @@ contentWithNestedAnglesInner
 
 functionName
   : identifier
+  | OPERATOR EQUALS
   | OPERATOR EQUALS EQUALS
   | OPERATOR OPEN_SQUARE CLOSE_SQUARE
   ;

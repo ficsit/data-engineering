@@ -33,9 +33,6 @@ import { StatDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { ClassMethodContext } from "./SatisfactoryHeaderParserParser";
 import { ClassMethodEndContext } from "./SatisfactoryHeaderParserParser";
 import { ClassMethodResultModifierContext } from "./SatisfactoryHeaderParserParser";
-import { ClassMethodParameterListContext } from "./SatisfactoryHeaderParserParser";
-import { ClassMethodParameterNameContext } from "./SatisfactoryHeaderParserParser";
-import { ClassMethodParameterContext } from "./SatisfactoryHeaderParserParser";
 import { ClassInitializerListContext } from "./SatisfactoryHeaderParserParser";
 import { ClassInitializerContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyContext } from "./SatisfactoryHeaderParserParser";
@@ -408,39 +405,6 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitClassMethodResultModifier?: (ctx: ClassMethodResultModifierContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classMethodParameterList`.
-	 * @param ctx the parse tree
-	 */
-	enterClassMethodParameterList?: (ctx: ClassMethodParameterListContext) => void;
-	/**
-	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.classMethodParameterList`.
-	 * @param ctx the parse tree
-	 */
-	exitClassMethodParameterList?: (ctx: ClassMethodParameterListContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classMethodParameterName`.
-	 * @param ctx the parse tree
-	 */
-	enterClassMethodParameterName?: (ctx: ClassMethodParameterNameContext) => void;
-	/**
-	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.classMethodParameterName`.
-	 * @param ctx the parse tree
-	 */
-	exitClassMethodParameterName?: (ctx: ClassMethodParameterNameContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classMethodParameter`.
-	 * @param ctx the parse tree
-	 */
-	enterClassMethodParameter?: (ctx: ClassMethodParameterContext) => void;
-	/**
-	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.classMethodParameter`.
-	 * @param ctx the parse tree
-	 */
-	exitClassMethodParameter?: (ctx: ClassMethodParameterContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classInitializerList`.
