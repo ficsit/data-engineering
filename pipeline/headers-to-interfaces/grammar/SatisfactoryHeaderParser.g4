@@ -12,6 +12,7 @@ element
   : classDeclaration
   | enumDeclaration
   | staticMethodCall
+  | typedef
   ;
 
 // Primitive
@@ -53,7 +54,12 @@ typeDeclaration
   ;
 
 templateType
-  : OPEN_ANGLE typeDeclaration CLOSE_ANGLE
+  : OPEN_ANGLE templateTypeList CLOSE_ANGLE
+  ;
+
+templateTypeList
+  : typeDeclaration
+  | typeDeclaration COMMA templateTypeList
   ;
 
 typeModifier
@@ -194,6 +200,10 @@ enumEntry
 
 staticMethodCall
   : identifier OPEN_PAREN ~(CLOSE_PAREN)+ CLOSE_PAREN SEMICOLON
+  ;
+
+typedef
+  : TYPEDEF typeDeclaration identifier SEMICOLON
   ;
 
 // Macros

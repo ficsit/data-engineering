@@ -13,6 +13,7 @@ import { NumericLiteralContext } from "./SatisfactoryHeaderParserParser";
 import { BooleanLiteralContext } from "./SatisfactoryHeaderParserParser";
 import { TypeDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { TemplateTypeContext } from "./SatisfactoryHeaderParserParser";
+import { TemplateTypeListContext } from "./SatisfactoryHeaderParserParser";
 import { TypeModifierContext } from "./SatisfactoryHeaderParserParser";
 import { TypeReferenceTypeContext } from "./SatisfactoryHeaderParserParser";
 import { ClassDeclarationContext } from "./SatisfactoryHeaderParserParser";
@@ -41,6 +42,7 @@ import { EnumHeaderContext } from "./SatisfactoryHeaderParserParser";
 import { EnumBodyContext } from "./SatisfactoryHeaderParserParser";
 import { EnumEntryContext } from "./SatisfactoryHeaderParserParser";
 import { StaticMethodCallContext } from "./SatisfactoryHeaderParserParser";
+import { TypedefContext } from "./SatisfactoryHeaderParserParser";
 import { UclassMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UenumMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UfunctionMacroContext } from "./SatisfactoryHeaderParserParser";
@@ -169,6 +171,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitTemplateType?: (ctx: TemplateTypeContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.templateTypeList`.
+	 * @param ctx the parse tree
+	 */
+	enterTemplateTypeList?: (ctx: TemplateTypeListContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.templateTypeList`.
+	 * @param ctx the parse tree
+	 */
+	exitTemplateTypeList?: (ctx: TemplateTypeListContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.typeModifier`.
@@ -477,6 +490,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitStaticMethodCall?: (ctx: StaticMethodCallContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.typedef`.
+	 * @param ctx the parse tree
+	 */
+	enterTypedef?: (ctx: TypedefContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.typedef`.
+	 * @param ctx the parse tree
+	 */
+	exitTypedef?: (ctx: TypedefContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.uclassMacro`.

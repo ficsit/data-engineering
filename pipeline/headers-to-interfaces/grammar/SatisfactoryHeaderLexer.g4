@@ -18,6 +18,7 @@ PROTECTED: 'protected';
 PUBLIC: 'public';
 STATIC: 'static';
 TRUE: 'true';
+TYPEDEF: 'typedef';
 VIRTUAL: 'virtual';
 
 // Satisfactory Specifics
