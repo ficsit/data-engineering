@@ -187,7 +187,7 @@ enumBody
   ;
 
 enumEntry
-  : identifier
+  : identifier umetaMacro?
   ;
 
 // Miscellaneous
@@ -208,6 +208,10 @@ uenumMacro
 
 ufunctionMacro
   : UFUNCTION macroPropertyList
+  ;
+
+umetaMacro
+  : UMETA macroPropertyList
   ;
 
 uParamMacro

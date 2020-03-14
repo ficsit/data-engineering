@@ -41,42 +41,43 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	public static readonly UCLASS = 13;
 	public static readonly UENUM = 14;
 	public static readonly UFUNCTION = 15;
-	public static readonly UPARAM = 16;
-	public static readonly UPROPERTY = 17;
-	public static readonly SF_CLASS_TAG = 18;
-	public static readonly SF_GENERATED_BODY = 19;
-	public static readonly FORCEINLINE = 20;
-	public static readonly COLON = 21;
-	public static readonly OPEN_PAREN = 22;
-	public static readonly CLOSE_PAREN = 23;
-	public static readonly OPEN_BRACE = 24;
-	public static readonly CLOSE_BRACE = 25;
-	public static readonly OPEN_ANGLE = 26;
-	public static readonly CLOSE_ANGLE = 27;
-	public static readonly COMMA = 28;
-	public static readonly PERIOD = 29;
-	public static readonly EQUALS = 30;
-	public static readonly SEMICOLON = 31;
-	public static readonly STAR = 32;
-	public static readonly AMPERSAND = 33;
-	public static readonly HYPHEN = 34;
-	public static readonly PIPE = 35;
-	public static readonly BANG = 36;
-	public static readonly IDENTIFIER = 37;
-	public static readonly STRING_LITERAL = 38;
-	public static readonly FLOAT_LITERAL = 39;
-	public static readonly INTEGER_LITERAL = 40;
-	public static readonly PREPROCESSOR = 41;
-	public static readonly LINE_COMMENT_START = 42;
-	public static readonly BLOCK_COMMENT_START = 43;
-	public static readonly WHITESPACE = 44;
-	public static readonly LINE_COMMENT_END = 45;
-	public static readonly LINE_COMMENT_TEXT = 46;
-	public static readonly LINE_COMMENT_OTHER = 47;
-	public static readonly BLOCK_COMMENT_END = 48;
-	public static readonly BLOCK_COMMENT_NEW_LINE = 49;
-	public static readonly BLOCK_COMMENT_TEXT = 50;
-	public static readonly BLOCK_COMMENT_OTHER = 51;
+	public static readonly UMETA = 16;
+	public static readonly UPARAM = 17;
+	public static readonly UPROPERTY = 18;
+	public static readonly SF_CLASS_TAG = 19;
+	public static readonly SF_GENERATED_BODY = 20;
+	public static readonly FORCEINLINE = 21;
+	public static readonly COLON = 22;
+	public static readonly OPEN_PAREN = 23;
+	public static readonly CLOSE_PAREN = 24;
+	public static readonly OPEN_BRACE = 25;
+	public static readonly CLOSE_BRACE = 26;
+	public static readonly OPEN_ANGLE = 27;
+	public static readonly CLOSE_ANGLE = 28;
+	public static readonly COMMA = 29;
+	public static readonly PERIOD = 30;
+	public static readonly EQUALS = 31;
+	public static readonly SEMICOLON = 32;
+	public static readonly STAR = 33;
+	public static readonly AMPERSAND = 34;
+	public static readonly HYPHEN = 35;
+	public static readonly PIPE = 36;
+	public static readonly BANG = 37;
+	public static readonly IDENTIFIER = 38;
+	public static readonly STRING_LITERAL = 39;
+	public static readonly FLOAT_LITERAL = 40;
+	public static readonly INTEGER_LITERAL = 41;
+	public static readonly PREPROCESSOR = 42;
+	public static readonly LINE_COMMENT_START = 43;
+	public static readonly BLOCK_COMMENT_START = 44;
+	public static readonly WHITESPACE = 45;
+	public static readonly LINE_COMMENT_END = 46;
+	public static readonly LINE_COMMENT_TEXT = 47;
+	public static readonly LINE_COMMENT_OTHER = 48;
+	public static readonly BLOCK_COMMENT_END = 49;
+	public static readonly BLOCK_COMMENT_NEW_LINE = 50;
+	public static readonly BLOCK_COMMENT_TEXT = 51;
+	public static readonly BLOCK_COMMENT_OTHER = 52;
 	public static readonly RULE_file = 0;
 	public static readonly RULE_element = 1;
 	public static readonly RULE_value = 2;
@@ -118,13 +119,14 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	public static readonly RULE_uclassMacro = 38;
 	public static readonly RULE_uenumMacro = 39;
 	public static readonly RULE_ufunctionMacro = 40;
-	public static readonly RULE_uParamMacro = 41;
-	public static readonly RULE_upropertyMacro = 42;
-	public static readonly RULE_generatedBodyMacro = 43;
-	public static readonly RULE_macroPropertyList = 44;
-	public static readonly RULE_macroPropertyListEntries = 45;
-	public static readonly RULE_macroProperty = 46;
-	public static readonly RULE_macroPropertyPair = 47;
+	public static readonly RULE_umetaMacro = 41;
+	public static readonly RULE_uParamMacro = 42;
+	public static readonly RULE_upropertyMacro = 43;
+	public static readonly RULE_generatedBodyMacro = 44;
+	public static readonly RULE_macroPropertyList = 45;
+	public static readonly RULE_macroPropertyListEntries = 46;
+	public static readonly RULE_macroProperty = 47;
+	public static readonly RULE_macroPropertyPair = 48;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
 		"file", "element", "value", "literal", "identifier", "stringLiteral", 
@@ -136,23 +138,23 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		"classMethodResultModifier", "classMethodParameterList", "classMethodParameterName", 
 		"classMethodParameter", "classMethodBody", "classProperty", "classPropertyDefaultValue", 
 		"enumDeclaration", "enumHeader", "enumBody", "enumEntry", "staticMethodCall", 
-		"uclassMacro", "uenumMacro", "ufunctionMacro", "uParamMacro", "upropertyMacro", 
-		"generatedBodyMacro", "macroPropertyList", "macroPropertyListEntries", 
+		"uclassMacro", "uenumMacro", "ufunctionMacro", "umetaMacro", "uParamMacro", 
+		"upropertyMacro", "generatedBodyMacro", "macroPropertyList", "macroPropertyListEntries", 
 		"macroProperty", "macroPropertyPair",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
 		undefined, "'class'", "'const'", "'enum'", "'false'", "'friend'", "'override'", 
 		"'private'", "'protected'", "'public'", "'static'", "'true'", "'virtual'", 
-		"'UCLASS'", "'UENUM'", "'UFUNCTION'", "'UPARAM'", "'UPROPERTY'", "'FACTORYGAME_API'", 
-		"'GENERATED_BODY'", "'FORCEINLINE'", "':'", "'('", "')'", "'{'", "'}'", 
-		"'<'", "'>'", "','", "'.'", "'='", "';'", "'*'", "'&'", "'-'", "'|'", 
-		"'!'",
+		"'UCLASS'", "'UENUM'", "'UFUNCTION'", "'UMETA'", "'UPARAM'", "'UPROPERTY'", 
+		"'FACTORYGAME_API'", "'GENERATED_BODY'", "'FORCEINLINE'", "':'", "'('", 
+		"')'", "'{'", "'}'", "'<'", "'>'", "','", "'.'", "'='", "';'", "'*'", 
+		"'&'", "'-'", "'|'", "'!'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
 		undefined, "CLASS", "CONST", "ENUM", "FALSE", "FRIEND", "OVERRIDE", "PRIVATE", 
 		"PROTECTED", "PUBLIC", "STATIC", "TRUE", "VIRTUAL", "UCLASS", "UENUM", 
-		"UFUNCTION", "UPARAM", "UPROPERTY", "SF_CLASS_TAG", "SF_GENERATED_BODY", 
+		"UFUNCTION", "UMETA", "UPARAM", "UPROPERTY", "SF_CLASS_TAG", "SF_GENERATED_BODY", 
 		"FORCEINLINE", "COLON", "OPEN_PAREN", "CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", 
 		"OPEN_ANGLE", "CLOSE_ANGLE", "COMMA", "PERIOD", "EQUALS", "SEMICOLON", 
 		"STAR", "AMPERSAND", "HYPHEN", "PIPE", "BANG", "IDENTIFIER", "STRING_LITERAL", 
@@ -191,17 +193,17 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 99;
+			this.state = 101;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.CLASS) | (1 << SatisfactoryHeaderParserParser.ENUM) | (1 << SatisfactoryHeaderParserParser.UCLASS) | (1 << SatisfactoryHeaderParserParser.UENUM))) !== 0) || _la === SatisfactoryHeaderParserParser.IDENTIFIER) {
 				{
 				{
-				this.state = 96;
+				this.state = 98;
 				this.element();
 				}
 				}
-				this.state = 101;
+				this.state = 103;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
@@ -226,14 +228,14 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		let _localctx: ElementContext = new ElementContext(this._ctx, this.state);
 		this.enterRule(_localctx, 2, SatisfactoryHeaderParserParser.RULE_element);
 		try {
-			this.state = 105;
+			this.state = 107;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case SatisfactoryHeaderParserParser.CLASS:
 			case SatisfactoryHeaderParserParser.UCLASS:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 102;
+				this.state = 104;
 				this.classDeclaration();
 				}
 				break;
@@ -241,14 +243,14 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case SatisfactoryHeaderParserParser.UENUM:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 103;
+				this.state = 105;
 				this.enumDeclaration();
 				}
 				break;
 			case SatisfactoryHeaderParserParser.IDENTIFIER:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 104;
+				this.state = 106;
 				this.staticMethodCall();
 				}
 				break;
@@ -275,13 +277,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		let _localctx: ValueContext = new ValueContext(this._ctx, this.state);
 		this.enterRule(_localctx, 4, SatisfactoryHeaderParserParser.RULE_value);
 		try {
-			this.state = 109;
+			this.state = 111;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case SatisfactoryHeaderParserParser.IDENTIFIER:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 107;
+				this.state = 109;
 				this.identifier();
 				}
 				break;
@@ -292,7 +294,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case SatisfactoryHeaderParserParser.INTEGER_LITERAL:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 108;
+				this.state = 110;
 				this.literal();
 				}
 				break;
@@ -319,13 +321,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		let _localctx: LiteralContext = new LiteralContext(this._ctx, this.state);
 		this.enterRule(_localctx, 6, SatisfactoryHeaderParserParser.RULE_literal);
 		try {
-			this.state = 114;
+			this.state = 116;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case SatisfactoryHeaderParserParser.STRING_LITERAL:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 111;
+				this.state = 113;
 				this.stringLiteral();
 				}
 				break;
@@ -333,7 +335,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case SatisfactoryHeaderParserParser.INTEGER_LITERAL:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 112;
+				this.state = 114;
 				this.numericLiteral();
 				}
 				break;
@@ -341,7 +343,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case SatisfactoryHeaderParserParser.TRUE:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 113;
+				this.state = 115;
 				this.booleanLiteral();
 				}
 				break;
@@ -368,13 +370,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		let _localctx: IdentifierContext = new IdentifierContext(this._ctx, this.state);
 		this.enterRule(_localctx, 8, SatisfactoryHeaderParserParser.RULE_identifier);
 		try {
-			this.state = 121;
+			this.state = 123;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 4, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 116;
+				this.state = 118;
 				this.match(SatisfactoryHeaderParserParser.IDENTIFIER);
 				}
 				break;
@@ -382,13 +384,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 117;
-				this.match(SatisfactoryHeaderParserParser.IDENTIFIER);
-				this.state = 118;
-				this.match(SatisfactoryHeaderParserParser.COLON);
 				this.state = 119;
-				this.match(SatisfactoryHeaderParserParser.COLON);
+				this.match(SatisfactoryHeaderParserParser.IDENTIFIER);
 				this.state = 120;
+				this.match(SatisfactoryHeaderParserParser.COLON);
+				this.state = 121;
+				this.match(SatisfactoryHeaderParserParser.COLON);
+				this.state = 122;
 				this.match(SatisfactoryHeaderParserParser.IDENTIFIER);
 				}
 				break;
@@ -415,7 +417,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 123;
+			this.state = 125;
 			this.match(SatisfactoryHeaderParserParser.STRING_LITERAL);
 			}
 		}
@@ -441,7 +443,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 125;
+			this.state = 127;
 			_la = this._input.LA(1);
 			if (!(_la === SatisfactoryHeaderParserParser.FLOAT_LITERAL || _la === SatisfactoryHeaderParserParser.INTEGER_LITERAL)) {
 			this._errHandler.recoverInline(this);
@@ -477,7 +479,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 127;
+			this.state = 129;
 			_la = this._input.LA(1);
 			if (!(_la === SatisfactoryHeaderParserParser.FALSE || _la === SatisfactoryHeaderParserParser.TRUE)) {
 			this._errHandler.recoverInline(this);
@@ -513,38 +515,38 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 132;
+			this.state = 134;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.CLASS) | (1 << SatisfactoryHeaderParserParser.CONST) | (1 << SatisfactoryHeaderParserParser.UPARAM))) !== 0)) {
 				{
 				{
-				this.state = 129;
+				this.state = 131;
 				this.typeModifier();
 				}
 				}
-				this.state = 134;
+				this.state = 136;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 135;
-			this.identifier();
 			this.state = 137;
+			this.identifier();
+			this.state = 139;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.OPEN_ANGLE) {
 				{
-				this.state = 136;
+				this.state = 138;
 				this.templateType();
 				}
 			}
 
-			this.state = 140;
+			this.state = 142;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.STAR || _la === SatisfactoryHeaderParserParser.AMPERSAND) {
 				{
-				this.state = 139;
+				this.state = 141;
 				this.typeReferenceType();
 				}
 			}
@@ -572,11 +574,11 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 142;
-			this.match(SatisfactoryHeaderParserParser.OPEN_ANGLE);
-			this.state = 143;
-			this.typeDeclaration();
 			this.state = 144;
+			this.match(SatisfactoryHeaderParserParser.OPEN_ANGLE);
+			this.state = 145;
+			this.typeDeclaration();
+			this.state = 146;
 			this.match(SatisfactoryHeaderParserParser.CLOSE_ANGLE);
 			}
 		}
@@ -599,27 +601,27 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		let _localctx: TypeModifierContext = new TypeModifierContext(this._ctx, this.state);
 		this.enterRule(_localctx, 20, SatisfactoryHeaderParserParser.RULE_typeModifier);
 		try {
-			this.state = 149;
+			this.state = 151;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case SatisfactoryHeaderParserParser.CLASS:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 146;
+				this.state = 148;
 				this.match(SatisfactoryHeaderParserParser.CLASS);
 				}
 				break;
 			case SatisfactoryHeaderParserParser.CONST:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 147;
+				this.state = 149;
 				this.match(SatisfactoryHeaderParserParser.CONST);
 				}
 				break;
 			case SatisfactoryHeaderParserParser.UPARAM:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 148;
+				this.state = 150;
 				this.uParamMacro();
 				}
 				break;
@@ -649,7 +651,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 151;
+			this.state = 153;
 			_la = this._input.LA(1);
 			if (!(_la === SatisfactoryHeaderParserParser.STAR || _la === SatisfactoryHeaderParserParser.AMPERSAND)) {
 			this._errHandler.recoverInline(this);
@@ -685,20 +687,20 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 153;
-			this.classHeader();
-			this.state = 154;
-			this.match(SatisfactoryHeaderParserParser.OPEN_BRACE);
 			this.state = 155;
-			this.classBody();
+			this.classHeader();
 			this.state = 156;
-			this.match(SatisfactoryHeaderParserParser.CLOSE_BRACE);
+			this.match(SatisfactoryHeaderParserParser.OPEN_BRACE);
+			this.state = 157;
+			this.classBody();
 			this.state = 158;
+			this.match(SatisfactoryHeaderParserParser.CLOSE_BRACE);
+			this.state = 160;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.SEMICOLON) {
 				{
-				this.state = 157;
+				this.state = 159;
 				this.match(SatisfactoryHeaderParserParser.SEMICOLON);
 				}
 			}
@@ -727,36 +729,36 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 161;
+			this.state = 163;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.UCLASS) {
 				{
-				this.state = 160;
+				this.state = 162;
 				this.uclassMacro();
 				}
 			}
 
-			this.state = 163;
-			this.match(SatisfactoryHeaderParserParser.CLASS);
 			this.state = 165;
+			this.match(SatisfactoryHeaderParserParser.CLASS);
+			this.state = 167;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.SF_CLASS_TAG) {
 				{
-				this.state = 164;
+				this.state = 166;
 				this.match(SatisfactoryHeaderParserParser.SF_CLASS_TAG);
 				}
 			}
 
-			this.state = 167;
-			this.identifier();
 			this.state = 169;
+			this.identifier();
+			this.state = 171;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.COLON) {
 				{
-				this.state = 168;
+				this.state = 170;
 				this.classInheritance();
 				}
 			}
@@ -784,9 +786,9 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 171;
+			this.state = 173;
 			this.match(SatisfactoryHeaderParserParser.COLON);
-			this.state = 172;
+			this.state = 174;
 			this.classExtensionList();
 			}
 		}
@@ -809,13 +811,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		let _localctx: ClassExtensionListContext = new ClassExtensionListContext(this._ctx, this.state);
 		this.enterRule(_localctx, 30, SatisfactoryHeaderParserParser.RULE_classExtensionList);
 		try {
-			this.state = 179;
+			this.state = 181;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 13, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 174;
+				this.state = 176;
 				this.classExtension();
 				}
 				break;
@@ -823,11 +825,11 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 175;
-				this.classExtension();
-				this.state = 176;
-				this.match(SatisfactoryHeaderParserParser.COMMA);
 				this.state = 177;
+				this.classExtension();
+				this.state = 178;
+				this.match(SatisfactoryHeaderParserParser.COMMA);
+				this.state = 179;
 				this.classExtensionList();
 				}
 				break;
@@ -854,9 +856,9 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 181;
+			this.state = 183;
 			this.classVisibilityModifier();
-			this.state = 182;
+			this.state = 184;
 			this.identifier();
 			}
 		}
@@ -882,22 +884,22 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 185;
+			this.state = 187;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.SF_GENERATED_BODY) {
 				{
-				this.state = 184;
+				this.state = 186;
 				this.generatedBodyMacro();
 				}
 			}
 
-			this.state = 188;
+			this.state = 190;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.CLASS) | (1 << SatisfactoryHeaderParserParser.CONST) | (1 << SatisfactoryHeaderParserParser.FRIEND) | (1 << SatisfactoryHeaderParserParser.PRIVATE) | (1 << SatisfactoryHeaderParserParser.PROTECTED) | (1 << SatisfactoryHeaderParserParser.PUBLIC) | (1 << SatisfactoryHeaderParserParser.STATIC) | (1 << SatisfactoryHeaderParserParser.VIRTUAL) | (1 << SatisfactoryHeaderParserParser.UFUNCTION) | (1 << SatisfactoryHeaderParserParser.UPARAM) | (1 << SatisfactoryHeaderParserParser.UPROPERTY) | (1 << SatisfactoryHeaderParserParser.FORCEINLINE))) !== 0) || _la === SatisfactoryHeaderParserParser.IDENTIFIER) {
 				{
-				this.state = 187;
+				this.state = 189;
 				this.classEntries();
 				}
 			}
@@ -926,14 +928,14 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 190;
-			this.classEntry();
 			this.state = 192;
+			this.classEntry();
+			this.state = 194;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.CLASS) | (1 << SatisfactoryHeaderParserParser.CONST) | (1 << SatisfactoryHeaderParserParser.FRIEND) | (1 << SatisfactoryHeaderParserParser.PRIVATE) | (1 << SatisfactoryHeaderParserParser.PROTECTED) | (1 << SatisfactoryHeaderParserParser.PUBLIC) | (1 << SatisfactoryHeaderParserParser.STATIC) | (1 << SatisfactoryHeaderParserParser.VIRTUAL) | (1 << SatisfactoryHeaderParserParser.UFUNCTION) | (1 << SatisfactoryHeaderParserParser.UPARAM) | (1 << SatisfactoryHeaderParserParser.UPROPERTY) | (1 << SatisfactoryHeaderParserParser.FORCEINLINE))) !== 0) || _la === SatisfactoryHeaderParserParser.IDENTIFIER) {
 				{
-				this.state = 191;
+				this.state = 193;
 				this.classEntries();
 				}
 			}
@@ -959,13 +961,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		let _localctx: ClassEntryContext = new ClassEntryContext(this._ctx, this.state);
 		this.enterRule(_localctx, 38, SatisfactoryHeaderParserParser.RULE_classEntry);
 		try {
-			this.state = 198;
+			this.state = 200;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 17, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 194;
+				this.state = 196;
 				this.classVisibility();
 				}
 				break;
@@ -973,7 +975,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 195;
+				this.state = 197;
 				this.classMethod();
 				}
 				break;
@@ -981,7 +983,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 3:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 196;
+				this.state = 198;
 				this.friendClassDeclaration();
 				}
 				break;
@@ -989,7 +991,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 4:
 				this.enterOuterAlt(_localctx, 4);
 				{
-				this.state = 197;
+				this.state = 199;
 				this.classProperty();
 				}
 				break;
@@ -1016,9 +1018,9 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 200;
+			this.state = 202;
 			this.classVisibilityModifier();
-			this.state = 201;
+			this.state = 203;
 			this.match(SatisfactoryHeaderParserParser.COLON);
 			}
 		}
@@ -1044,7 +1046,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 203;
+			this.state = 205;
 			_la = this._input.LA(1);
 			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.PRIVATE) | (1 << SatisfactoryHeaderParserParser.PROTECTED) | (1 << SatisfactoryHeaderParserParser.PUBLIC))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -1079,13 +1081,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 205;
-			this.match(SatisfactoryHeaderParserParser.FRIEND);
-			this.state = 206;
-			this.match(SatisfactoryHeaderParserParser.CLASS);
 			this.state = 207;
-			this.identifier();
+			this.match(SatisfactoryHeaderParserParser.FRIEND);
 			this.state = 208;
+			this.match(SatisfactoryHeaderParserParser.CLASS);
+			this.state = 209;
+			this.identifier();
+			this.state = 210;
 			this.match(SatisfactoryHeaderParserParser.SEMICOLON);
 			}
 		}
@@ -1112,73 +1114,73 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 211;
+			this.state = 213;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.UFUNCTION) {
 				{
-				this.state = 210;
+				this.state = 212;
 				this.ufunctionMacro();
 				}
 			}
 
-			this.state = 216;
+			this.state = 218;
 			this._errHandler.sync(this);
 			_alt = this.interpreter.adaptivePredict(this._input, 19, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					{
 					{
-					this.state = 213;
+					this.state = 215;
 					this.classMethodModifier();
 					}
 					}
 				}
-				this.state = 218;
+				this.state = 220;
 				this._errHandler.sync(this);
 				_alt = this.interpreter.adaptivePredict(this._input, 19, this._ctx);
 			}
-			this.state = 220;
+			this.state = 222;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 20, this._ctx) ) {
 			case 1:
 				{
-				this.state = 219;
+				this.state = 221;
 				this.typeDeclaration();
 				}
 				break;
 			}
-			this.state = 222;
+			this.state = 224;
 			this.identifier();
-			this.state = 223;
-			this.match(SatisfactoryHeaderParserParser.OPEN_PAREN);
 			this.state = 225;
+			this.match(SatisfactoryHeaderParserParser.OPEN_PAREN);
+			this.state = 227;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.CLASS) | (1 << SatisfactoryHeaderParserParser.CONST) | (1 << SatisfactoryHeaderParserParser.UPARAM))) !== 0) || _la === SatisfactoryHeaderParserParser.IDENTIFIER) {
 				{
-				this.state = 224;
+				this.state = 226;
 				this.classMethodParameterList();
 				}
 			}
 
-			this.state = 227;
+			this.state = 229;
 			this.match(SatisfactoryHeaderParserParser.CLOSE_PAREN);
-			this.state = 231;
+			this.state = 233;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while (_la === SatisfactoryHeaderParserParser.CONST || _la === SatisfactoryHeaderParserParser.OVERRIDE) {
 				{
 				{
-				this.state = 228;
+				this.state = 230;
 				this.classMethodResultModifier();
 				}
 				}
-				this.state = 233;
+				this.state = 235;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 234;
+			this.state = 236;
 			this.classMethodEnd();
 			}
 		}
@@ -1202,27 +1204,27 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		this.enterRule(_localctx, 48, SatisfactoryHeaderParserParser.RULE_classMethodEnd);
 		let _la: number;
 		try {
-			this.state = 241;
+			this.state = 243;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case SatisfactoryHeaderParserParser.SEMICOLON:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 236;
+				this.state = 238;
 				this.match(SatisfactoryHeaderParserParser.SEMICOLON);
 				}
 				break;
 			case SatisfactoryHeaderParserParser.OPEN_BRACE:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 237;
-				this.classMethodBody();
 				this.state = 239;
+				this.classMethodBody();
+				this.state = 241;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === SatisfactoryHeaderParserParser.SEMICOLON) {
 					{
-					this.state = 238;
+					this.state = 240;
 					this.match(SatisfactoryHeaderParserParser.SEMICOLON);
 					}
 				}
@@ -1255,7 +1257,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 243;
+			this.state = 245;
 			_la = this._input.LA(1);
 			if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.CONST) | (1 << SatisfactoryHeaderParserParser.STATIC) | (1 << SatisfactoryHeaderParserParser.VIRTUAL) | (1 << SatisfactoryHeaderParserParser.FORCEINLINE))) !== 0))) {
 			this._errHandler.recoverInline(this);
@@ -1291,7 +1293,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 245;
+			this.state = 247;
 			_la = this._input.LA(1);
 			if (!(_la === SatisfactoryHeaderParserParser.CONST || _la === SatisfactoryHeaderParserParser.OVERRIDE)) {
 			this._errHandler.recoverInline(this);
@@ -1324,13 +1326,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		let _localctx: ClassMethodParameterListContext = new ClassMethodParameterListContext(this._ctx, this.state);
 		this.enterRule(_localctx, 54, SatisfactoryHeaderParserParser.RULE_classMethodParameterList);
 		try {
-			this.state = 252;
+			this.state = 254;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 25, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 247;
+				this.state = 249;
 				this.classMethodParameter();
 				}
 				break;
@@ -1338,11 +1340,11 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 248;
-				this.classMethodParameter();
-				this.state = 249;
-				this.match(SatisfactoryHeaderParserParser.COMMA);
 				this.state = 250;
+				this.classMethodParameter();
+				this.state = 251;
+				this.match(SatisfactoryHeaderParserParser.COMMA);
+				this.state = 252;
 				this.classMethodParameterList();
 				}
 				break;
@@ -1369,7 +1371,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 254;
+			this.state = 256;
 			this.identifier();
 			}
 		}
@@ -1392,15 +1394,15 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		let _localctx: ClassMethodParameterContext = new ClassMethodParameterContext(this._ctx, this.state);
 		this.enterRule(_localctx, 58, SatisfactoryHeaderParserParser.RULE_classMethodParameter);
 		try {
-			this.state = 264;
+			this.state = 266;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 26, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 256;
+				this.state = 258;
 				this.typeDeclaration();
-				this.state = 257;
+				this.state = 259;
 				this.classMethodParameterName();
 				}
 				break;
@@ -1408,13 +1410,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 259;
-				this.typeDeclaration();
-				this.state = 260;
-				this.classMethodParameterName();
 				this.state = 261;
-				this.match(SatisfactoryHeaderParserParser.EQUALS);
+				this.typeDeclaration();
 				this.state = 262;
+				this.classMethodParameterName();
+				this.state = 263;
+				this.match(SatisfactoryHeaderParserParser.EQUALS);
+				this.state = 264;
 				this.value();
 				}
 				break;
@@ -1442,25 +1444,25 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 266;
-			this.match(SatisfactoryHeaderParserParser.OPEN_BRACE);
 			this.state = 268;
+			this.match(SatisfactoryHeaderParserParser.OPEN_BRACE);
+			this.state = 270;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.OPEN_BRACE) {
 				{
-				this.state = 267;
+				this.state = 269;
 				this.classMethodBody();
 				}
 			}
 
-			this.state = 273;
+			this.state = 275;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.CLASS) | (1 << SatisfactoryHeaderParserParser.CONST) | (1 << SatisfactoryHeaderParserParser.ENUM) | (1 << SatisfactoryHeaderParserParser.FALSE) | (1 << SatisfactoryHeaderParserParser.FRIEND) | (1 << SatisfactoryHeaderParserParser.OVERRIDE) | (1 << SatisfactoryHeaderParserParser.PRIVATE) | (1 << SatisfactoryHeaderParserParser.PROTECTED) | (1 << SatisfactoryHeaderParserParser.PUBLIC) | (1 << SatisfactoryHeaderParserParser.STATIC) | (1 << SatisfactoryHeaderParserParser.TRUE) | (1 << SatisfactoryHeaderParserParser.VIRTUAL) | (1 << SatisfactoryHeaderParserParser.UCLASS) | (1 << SatisfactoryHeaderParserParser.UENUM) | (1 << SatisfactoryHeaderParserParser.UFUNCTION) | (1 << SatisfactoryHeaderParserParser.UPARAM) | (1 << SatisfactoryHeaderParserParser.UPROPERTY) | (1 << SatisfactoryHeaderParserParser.SF_CLASS_TAG) | (1 << SatisfactoryHeaderParserParser.SF_GENERATED_BODY) | (1 << SatisfactoryHeaderParserParser.FORCEINLINE) | (1 << SatisfactoryHeaderParserParser.COLON) | (1 << SatisfactoryHeaderParserParser.OPEN_PAREN) | (1 << SatisfactoryHeaderParserParser.CLOSE_PAREN) | (1 << SatisfactoryHeaderParserParser.OPEN_ANGLE) | (1 << SatisfactoryHeaderParserParser.CLOSE_ANGLE) | (1 << SatisfactoryHeaderParserParser.COMMA) | (1 << SatisfactoryHeaderParserParser.PERIOD) | (1 << SatisfactoryHeaderParserParser.EQUALS) | (1 << SatisfactoryHeaderParserParser.SEMICOLON))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (SatisfactoryHeaderParserParser.STAR - 32)) | (1 << (SatisfactoryHeaderParserParser.AMPERSAND - 32)) | (1 << (SatisfactoryHeaderParserParser.HYPHEN - 32)) | (1 << (SatisfactoryHeaderParserParser.PIPE - 32)) | (1 << (SatisfactoryHeaderParserParser.BANG - 32)) | (1 << (SatisfactoryHeaderParserParser.IDENTIFIER - 32)) | (1 << (SatisfactoryHeaderParserParser.STRING_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.FLOAT_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.INTEGER_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.PREPROCESSOR - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_START - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_START - 32)) | (1 << (SatisfactoryHeaderParserParser.WHITESPACE - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_END - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_TEXT - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_OTHER - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_END - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_NEW_LINE - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_TEXT - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_OTHER - 32)))) !== 0)) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.CLASS) | (1 << SatisfactoryHeaderParserParser.CONST) | (1 << SatisfactoryHeaderParserParser.ENUM) | (1 << SatisfactoryHeaderParserParser.FALSE) | (1 << SatisfactoryHeaderParserParser.FRIEND) | (1 << SatisfactoryHeaderParserParser.OVERRIDE) | (1 << SatisfactoryHeaderParserParser.PRIVATE) | (1 << SatisfactoryHeaderParserParser.PROTECTED) | (1 << SatisfactoryHeaderParserParser.PUBLIC) | (1 << SatisfactoryHeaderParserParser.STATIC) | (1 << SatisfactoryHeaderParserParser.TRUE) | (1 << SatisfactoryHeaderParserParser.VIRTUAL) | (1 << SatisfactoryHeaderParserParser.UCLASS) | (1 << SatisfactoryHeaderParserParser.UENUM) | (1 << SatisfactoryHeaderParserParser.UFUNCTION) | (1 << SatisfactoryHeaderParserParser.UMETA) | (1 << SatisfactoryHeaderParserParser.UPARAM) | (1 << SatisfactoryHeaderParserParser.UPROPERTY) | (1 << SatisfactoryHeaderParserParser.SF_CLASS_TAG) | (1 << SatisfactoryHeaderParserParser.SF_GENERATED_BODY) | (1 << SatisfactoryHeaderParserParser.FORCEINLINE) | (1 << SatisfactoryHeaderParserParser.COLON) | (1 << SatisfactoryHeaderParserParser.OPEN_PAREN) | (1 << SatisfactoryHeaderParserParser.CLOSE_PAREN) | (1 << SatisfactoryHeaderParserParser.OPEN_ANGLE) | (1 << SatisfactoryHeaderParserParser.CLOSE_ANGLE) | (1 << SatisfactoryHeaderParserParser.COMMA) | (1 << SatisfactoryHeaderParserParser.PERIOD) | (1 << SatisfactoryHeaderParserParser.EQUALS))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (SatisfactoryHeaderParserParser.SEMICOLON - 32)) | (1 << (SatisfactoryHeaderParserParser.STAR - 32)) | (1 << (SatisfactoryHeaderParserParser.AMPERSAND - 32)) | (1 << (SatisfactoryHeaderParserParser.HYPHEN - 32)) | (1 << (SatisfactoryHeaderParserParser.PIPE - 32)) | (1 << (SatisfactoryHeaderParserParser.BANG - 32)) | (1 << (SatisfactoryHeaderParserParser.IDENTIFIER - 32)) | (1 << (SatisfactoryHeaderParserParser.STRING_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.FLOAT_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.INTEGER_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.PREPROCESSOR - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_START - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_START - 32)) | (1 << (SatisfactoryHeaderParserParser.WHITESPACE - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_END - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_TEXT - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_OTHER - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_END - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_NEW_LINE - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_TEXT - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_OTHER - 32)))) !== 0)) {
 				{
 				{
-				this.state = 270;
+				this.state = 272;
 				_la = this._input.LA(1);
 				if (_la <= 0 || (_la === SatisfactoryHeaderParserParser.OPEN_BRACE || _la === SatisfactoryHeaderParserParser.CLOSE_BRACE)) {
 				this._errHandler.recoverInline(this);
@@ -1474,11 +1476,11 @@ export class SatisfactoryHeaderParserParser extends Parser {
 				}
 				}
 				}
-				this.state = 275;
+				this.state = 277;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 276;
+			this.state = 278;
 			this.match(SatisfactoryHeaderParserParser.CLOSE_BRACE);
 			}
 		}
@@ -1504,49 +1506,49 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 279;
+			this.state = 281;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.UPROPERTY) {
 				{
-				this.state = 278;
+				this.state = 280;
 				this.upropertyMacro();
 				}
 			}
 
-			this.state = 282;
+			this.state = 284;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.STATIC) {
 				{
-				this.state = 281;
+				this.state = 283;
 				this.match(SatisfactoryHeaderParserParser.STATIC);
 				}
 			}
 
-			this.state = 285;
+			this.state = 287;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 31, this._ctx) ) {
 			case 1:
 				{
-				this.state = 284;
+				this.state = 286;
 				this.typeDeclaration();
 				}
 				break;
 			}
-			this.state = 287;
-			this.identifier();
 			this.state = 289;
+			this.identifier();
+			this.state = 291;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.COLON) {
 				{
-				this.state = 288;
+				this.state = 290;
 				this.classPropertyDefaultValue();
 				}
 			}
 
-			this.state = 291;
+			this.state = 293;
 			this.match(SatisfactoryHeaderParserParser.SEMICOLON);
 			}
 		}
@@ -1571,9 +1573,9 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 293;
+			this.state = 295;
 			this.match(SatisfactoryHeaderParserParser.COLON);
-			this.state = 294;
+			this.state = 296;
 			this.literal();
 			}
 		}
@@ -1599,20 +1601,20 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 296;
-			this.enumHeader();
-			this.state = 297;
-			this.match(SatisfactoryHeaderParserParser.OPEN_BRACE);
 			this.state = 298;
-			this.enumBody();
+			this.enumHeader();
 			this.state = 299;
-			this.match(SatisfactoryHeaderParserParser.CLOSE_BRACE);
+			this.match(SatisfactoryHeaderParserParser.OPEN_BRACE);
+			this.state = 300;
+			this.enumBody();
 			this.state = 301;
+			this.match(SatisfactoryHeaderParserParser.CLOSE_BRACE);
+			this.state = 303;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la === SatisfactoryHeaderParserParser.SEMICOLON) {
 				{
-				this.state = 300;
+				this.state = 302;
 				this.match(SatisfactoryHeaderParserParser.SEMICOLON);
 				}
 			}
@@ -1639,35 +1641,35 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		this.enterRule(_localctx, 68, SatisfactoryHeaderParserParser.RULE_enumHeader);
 		let _la: number;
 		try {
-			this.state = 322;
+			this.state = 324;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 38, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 304;
+				this.state = 306;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === SatisfactoryHeaderParserParser.UENUM) {
 					{
-					this.state = 303;
+					this.state = 305;
 					this.uenumMacro();
 					}
 				}
 
-				this.state = 306;
-				this.match(SatisfactoryHeaderParserParser.ENUM);
 				this.state = 308;
+				this.match(SatisfactoryHeaderParserParser.ENUM);
+				this.state = 310;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === SatisfactoryHeaderParserParser.CLASS) {
 					{
-					this.state = 307;
+					this.state = 309;
 					this.match(SatisfactoryHeaderParserParser.CLASS);
 					}
 				}
 
-				this.state = 310;
+				this.state = 312;
 				this.identifier();
 				}
 				break;
@@ -1675,33 +1677,33 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 312;
+				this.state = 314;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === SatisfactoryHeaderParserParser.UENUM) {
 					{
-					this.state = 311;
+					this.state = 313;
 					this.uenumMacro();
 					}
 				}
 
-				this.state = 314;
-				this.match(SatisfactoryHeaderParserParser.ENUM);
 				this.state = 316;
+				this.match(SatisfactoryHeaderParserParser.ENUM);
+				this.state = 318;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === SatisfactoryHeaderParserParser.CLASS) {
 					{
-					this.state = 315;
+					this.state = 317;
 					this.match(SatisfactoryHeaderParserParser.CLASS);
 					}
 				}
 
-				this.state = 318;
-				this.identifier();
-				this.state = 319;
-				this.match(SatisfactoryHeaderParserParser.COLON);
 				this.state = 320;
+				this.identifier();
+				this.state = 321;
+				this.match(SatisfactoryHeaderParserParser.COLON);
+				this.state = 322;
 				this.typeDeclaration();
 				}
 				break;
@@ -1726,13 +1728,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		let _localctx: EnumBodyContext = new EnumBodyContext(this._ctx, this.state);
 		this.enterRule(_localctx, 70, SatisfactoryHeaderParserParser.RULE_enumBody);
 		try {
-			this.state = 329;
+			this.state = 331;
 			this._errHandler.sync(this);
 			switch ( this.interpreter.adaptivePredict(this._input, 39, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 324;
+				this.state = 326;
 				this.enumEntry();
 				}
 				break;
@@ -1740,11 +1742,11 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 325;
-				this.enumEntry();
-				this.state = 326;
-				this.match(SatisfactoryHeaderParserParser.COMMA);
 				this.state = 327;
+				this.enumEntry();
+				this.state = 328;
+				this.match(SatisfactoryHeaderParserParser.COMMA);
+				this.state = 329;
 				this.enumBody();
 				}
 				break;
@@ -1768,11 +1770,22 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	public enumEntry(): EnumEntryContext {
 		let _localctx: EnumEntryContext = new EnumEntryContext(this._ctx, this.state);
 		this.enterRule(_localctx, 72, SatisfactoryHeaderParserParser.RULE_enumEntry);
+		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 331;
+			this.state = 333;
 			this.identifier();
+			this.state = 335;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			if (_la === SatisfactoryHeaderParserParser.UMETA) {
+				{
+				this.state = 334;
+				this.umetaMacro();
+				}
+			}
+
 			}
 		}
 		catch (re) {
@@ -1797,17 +1810,17 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 333;
+			this.state = 337;
 			this.identifier();
-			this.state = 334;
+			this.state = 338;
 			this.match(SatisfactoryHeaderParserParser.OPEN_PAREN);
-			this.state = 336;
+			this.state = 340;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			do {
 				{
 				{
-				this.state = 335;
+				this.state = 339;
 				_la = this._input.LA(1);
 				if (_la <= 0 || (_la === SatisfactoryHeaderParserParser.CLOSE_PAREN)) {
 				this._errHandler.recoverInline(this);
@@ -1821,13 +1834,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 				}
 				}
 				}
-				this.state = 338;
+				this.state = 342;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.CLASS) | (1 << SatisfactoryHeaderParserParser.CONST) | (1 << SatisfactoryHeaderParserParser.ENUM) | (1 << SatisfactoryHeaderParserParser.FALSE) | (1 << SatisfactoryHeaderParserParser.FRIEND) | (1 << SatisfactoryHeaderParserParser.OVERRIDE) | (1 << SatisfactoryHeaderParserParser.PRIVATE) | (1 << SatisfactoryHeaderParserParser.PROTECTED) | (1 << SatisfactoryHeaderParserParser.PUBLIC) | (1 << SatisfactoryHeaderParserParser.STATIC) | (1 << SatisfactoryHeaderParserParser.TRUE) | (1 << SatisfactoryHeaderParserParser.VIRTUAL) | (1 << SatisfactoryHeaderParserParser.UCLASS) | (1 << SatisfactoryHeaderParserParser.UENUM) | (1 << SatisfactoryHeaderParserParser.UFUNCTION) | (1 << SatisfactoryHeaderParserParser.UPARAM) | (1 << SatisfactoryHeaderParserParser.UPROPERTY) | (1 << SatisfactoryHeaderParserParser.SF_CLASS_TAG) | (1 << SatisfactoryHeaderParserParser.SF_GENERATED_BODY) | (1 << SatisfactoryHeaderParserParser.FORCEINLINE) | (1 << SatisfactoryHeaderParserParser.COLON) | (1 << SatisfactoryHeaderParserParser.OPEN_PAREN) | (1 << SatisfactoryHeaderParserParser.OPEN_BRACE) | (1 << SatisfactoryHeaderParserParser.CLOSE_BRACE) | (1 << SatisfactoryHeaderParserParser.OPEN_ANGLE) | (1 << SatisfactoryHeaderParserParser.CLOSE_ANGLE) | (1 << SatisfactoryHeaderParserParser.COMMA) | (1 << SatisfactoryHeaderParserParser.PERIOD) | (1 << SatisfactoryHeaderParserParser.EQUALS) | (1 << SatisfactoryHeaderParserParser.SEMICOLON))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (SatisfactoryHeaderParserParser.STAR - 32)) | (1 << (SatisfactoryHeaderParserParser.AMPERSAND - 32)) | (1 << (SatisfactoryHeaderParserParser.HYPHEN - 32)) | (1 << (SatisfactoryHeaderParserParser.PIPE - 32)) | (1 << (SatisfactoryHeaderParserParser.BANG - 32)) | (1 << (SatisfactoryHeaderParserParser.IDENTIFIER - 32)) | (1 << (SatisfactoryHeaderParserParser.STRING_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.FLOAT_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.INTEGER_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.PREPROCESSOR - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_START - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_START - 32)) | (1 << (SatisfactoryHeaderParserParser.WHITESPACE - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_END - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_TEXT - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_OTHER - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_END - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_NEW_LINE - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_TEXT - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_OTHER - 32)))) !== 0));
-			this.state = 340;
+			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.CLASS) | (1 << SatisfactoryHeaderParserParser.CONST) | (1 << SatisfactoryHeaderParserParser.ENUM) | (1 << SatisfactoryHeaderParserParser.FALSE) | (1 << SatisfactoryHeaderParserParser.FRIEND) | (1 << SatisfactoryHeaderParserParser.OVERRIDE) | (1 << SatisfactoryHeaderParserParser.PRIVATE) | (1 << SatisfactoryHeaderParserParser.PROTECTED) | (1 << SatisfactoryHeaderParserParser.PUBLIC) | (1 << SatisfactoryHeaderParserParser.STATIC) | (1 << SatisfactoryHeaderParserParser.TRUE) | (1 << SatisfactoryHeaderParserParser.VIRTUAL) | (1 << SatisfactoryHeaderParserParser.UCLASS) | (1 << SatisfactoryHeaderParserParser.UENUM) | (1 << SatisfactoryHeaderParserParser.UFUNCTION) | (1 << SatisfactoryHeaderParserParser.UMETA) | (1 << SatisfactoryHeaderParserParser.UPARAM) | (1 << SatisfactoryHeaderParserParser.UPROPERTY) | (1 << SatisfactoryHeaderParserParser.SF_CLASS_TAG) | (1 << SatisfactoryHeaderParserParser.SF_GENERATED_BODY) | (1 << SatisfactoryHeaderParserParser.FORCEINLINE) | (1 << SatisfactoryHeaderParserParser.COLON) | (1 << SatisfactoryHeaderParserParser.OPEN_PAREN) | (1 << SatisfactoryHeaderParserParser.OPEN_BRACE) | (1 << SatisfactoryHeaderParserParser.CLOSE_BRACE) | (1 << SatisfactoryHeaderParserParser.OPEN_ANGLE) | (1 << SatisfactoryHeaderParserParser.CLOSE_ANGLE) | (1 << SatisfactoryHeaderParserParser.COMMA) | (1 << SatisfactoryHeaderParserParser.PERIOD) | (1 << SatisfactoryHeaderParserParser.EQUALS))) !== 0) || ((((_la - 32)) & ~0x1F) === 0 && ((1 << (_la - 32)) & ((1 << (SatisfactoryHeaderParserParser.SEMICOLON - 32)) | (1 << (SatisfactoryHeaderParserParser.STAR - 32)) | (1 << (SatisfactoryHeaderParserParser.AMPERSAND - 32)) | (1 << (SatisfactoryHeaderParserParser.HYPHEN - 32)) | (1 << (SatisfactoryHeaderParserParser.PIPE - 32)) | (1 << (SatisfactoryHeaderParserParser.BANG - 32)) | (1 << (SatisfactoryHeaderParserParser.IDENTIFIER - 32)) | (1 << (SatisfactoryHeaderParserParser.STRING_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.FLOAT_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.INTEGER_LITERAL - 32)) | (1 << (SatisfactoryHeaderParserParser.PREPROCESSOR - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_START - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_START - 32)) | (1 << (SatisfactoryHeaderParserParser.WHITESPACE - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_END - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_TEXT - 32)) | (1 << (SatisfactoryHeaderParserParser.LINE_COMMENT_OTHER - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_END - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_NEW_LINE - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_TEXT - 32)) | (1 << (SatisfactoryHeaderParserParser.BLOCK_COMMENT_OTHER - 32)))) !== 0));
+			this.state = 344;
 			this.match(SatisfactoryHeaderParserParser.CLOSE_PAREN);
-			this.state = 341;
+			this.state = 345;
 			this.match(SatisfactoryHeaderParserParser.SEMICOLON);
 			}
 		}
@@ -1852,9 +1865,9 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 343;
+			this.state = 347;
 			this.match(SatisfactoryHeaderParserParser.UCLASS);
-			this.state = 344;
+			this.state = 348;
 			this.macroPropertyList();
 			}
 		}
@@ -1879,9 +1892,9 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 346;
+			this.state = 350;
 			this.match(SatisfactoryHeaderParserParser.UENUM);
-			this.state = 347;
+			this.state = 351;
 			this.macroPropertyList();
 			}
 		}
@@ -1906,9 +1919,36 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 349;
+			this.state = 353;
 			this.match(SatisfactoryHeaderParserParser.UFUNCTION);
-			this.state = 350;
+			this.state = 354;
+			this.macroPropertyList();
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public umetaMacro(): UmetaMacroContext {
+		let _localctx: UmetaMacroContext = new UmetaMacroContext(this._ctx, this.state);
+		this.enterRule(_localctx, 82, SatisfactoryHeaderParserParser.RULE_umetaMacro);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 356;
+			this.match(SatisfactoryHeaderParserParser.UMETA);
+			this.state = 357;
 			this.macroPropertyList();
 			}
 		}
@@ -1929,13 +1969,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	// @RuleVersion(0)
 	public uParamMacro(): UParamMacroContext {
 		let _localctx: UParamMacroContext = new UParamMacroContext(this._ctx, this.state);
-		this.enterRule(_localctx, 82, SatisfactoryHeaderParserParser.RULE_uParamMacro);
+		this.enterRule(_localctx, 84, SatisfactoryHeaderParserParser.RULE_uParamMacro);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 352;
+			this.state = 359;
 			this.match(SatisfactoryHeaderParserParser.UPARAM);
-			this.state = 353;
+			this.state = 360;
 			this.macroPropertyList();
 			}
 		}
@@ -1956,13 +1996,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	// @RuleVersion(0)
 	public upropertyMacro(): UpropertyMacroContext {
 		let _localctx: UpropertyMacroContext = new UpropertyMacroContext(this._ctx, this.state);
-		this.enterRule(_localctx, 84, SatisfactoryHeaderParserParser.RULE_upropertyMacro);
+		this.enterRule(_localctx, 86, SatisfactoryHeaderParserParser.RULE_upropertyMacro);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 355;
+			this.state = 362;
 			this.match(SatisfactoryHeaderParserParser.UPROPERTY);
-			this.state = 356;
+			this.state = 363;
 			this.macroPropertyList();
 			}
 		}
@@ -1983,13 +2023,13 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	// @RuleVersion(0)
 	public generatedBodyMacro(): GeneratedBodyMacroContext {
 		let _localctx: GeneratedBodyMacroContext = new GeneratedBodyMacroContext(this._ctx, this.state);
-		this.enterRule(_localctx, 86, SatisfactoryHeaderParserParser.RULE_generatedBodyMacro);
+		this.enterRule(_localctx, 88, SatisfactoryHeaderParserParser.RULE_generatedBodyMacro);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 358;
+			this.state = 365;
 			this.match(SatisfactoryHeaderParserParser.SF_GENERATED_BODY);
-			this.state = 359;
+			this.state = 366;
 			this.macroPropertyList();
 			}
 		}
@@ -2010,24 +2050,24 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	// @RuleVersion(0)
 	public macroPropertyList(): MacroPropertyListContext {
 		let _localctx: MacroPropertyListContext = new MacroPropertyListContext(this._ctx, this.state);
-		this.enterRule(_localctx, 88, SatisfactoryHeaderParserParser.RULE_macroPropertyList);
+		this.enterRule(_localctx, 90, SatisfactoryHeaderParserParser.RULE_macroPropertyList);
 		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 361;
+			this.state = 368;
 			this.match(SatisfactoryHeaderParserParser.OPEN_PAREN);
-			this.state = 363;
+			this.state = 370;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.FALSE) | (1 << SatisfactoryHeaderParserParser.TRUE) | (1 << SatisfactoryHeaderParserParser.OPEN_PAREN))) !== 0) || ((((_la - 37)) & ~0x1F) === 0 && ((1 << (_la - 37)) & ((1 << (SatisfactoryHeaderParserParser.IDENTIFIER - 37)) | (1 << (SatisfactoryHeaderParserParser.STRING_LITERAL - 37)) | (1 << (SatisfactoryHeaderParserParser.FLOAT_LITERAL - 37)) | (1 << (SatisfactoryHeaderParserParser.INTEGER_LITERAL - 37)))) !== 0)) {
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.FALSE) | (1 << SatisfactoryHeaderParserParser.TRUE) | (1 << SatisfactoryHeaderParserParser.OPEN_PAREN))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (SatisfactoryHeaderParserParser.IDENTIFIER - 38)) | (1 << (SatisfactoryHeaderParserParser.STRING_LITERAL - 38)) | (1 << (SatisfactoryHeaderParserParser.FLOAT_LITERAL - 38)) | (1 << (SatisfactoryHeaderParserParser.INTEGER_LITERAL - 38)))) !== 0)) {
 				{
-				this.state = 362;
+				this.state = 369;
 				this.macroPropertyListEntries();
 				}
 			}
 
-			this.state = 365;
+			this.state = 372;
 			this.match(SatisfactoryHeaderParserParser.CLOSE_PAREN);
 			}
 		}
@@ -2048,16 +2088,16 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	// @RuleVersion(0)
 	public macroPropertyListEntries(): MacroPropertyListEntriesContext {
 		let _localctx: MacroPropertyListEntriesContext = new MacroPropertyListEntriesContext(this._ctx, this.state);
-		this.enterRule(_localctx, 90, SatisfactoryHeaderParserParser.RULE_macroPropertyListEntries);
+		this.enterRule(_localctx, 92, SatisfactoryHeaderParserParser.RULE_macroPropertyListEntries);
 		let _la: number;
 		try {
-			this.state = 373;
+			this.state = 380;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 43, this._ctx) ) {
+			switch ( this.interpreter.adaptivePredict(this._input, 44, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 367;
+				this.state = 374;
 				this.macroProperty();
 				}
 				break;
@@ -2065,16 +2105,16 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 368;
+				this.state = 375;
 				this.macroProperty();
-				this.state = 369;
+				this.state = 376;
 				this.match(SatisfactoryHeaderParserParser.COMMA);
-				this.state = 371;
+				this.state = 378;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.FALSE) | (1 << SatisfactoryHeaderParserParser.TRUE) | (1 << SatisfactoryHeaderParserParser.OPEN_PAREN))) !== 0) || ((((_la - 37)) & ~0x1F) === 0 && ((1 << (_la - 37)) & ((1 << (SatisfactoryHeaderParserParser.IDENTIFIER - 37)) | (1 << (SatisfactoryHeaderParserParser.STRING_LITERAL - 37)) | (1 << (SatisfactoryHeaderParserParser.FLOAT_LITERAL - 37)) | (1 << (SatisfactoryHeaderParserParser.INTEGER_LITERAL - 37)))) !== 0)) {
+				if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << SatisfactoryHeaderParserParser.FALSE) | (1 << SatisfactoryHeaderParserParser.TRUE) | (1 << SatisfactoryHeaderParserParser.OPEN_PAREN))) !== 0) || ((((_la - 38)) & ~0x1F) === 0 && ((1 << (_la - 38)) & ((1 << (SatisfactoryHeaderParserParser.IDENTIFIER - 38)) | (1 << (SatisfactoryHeaderParserParser.STRING_LITERAL - 38)) | (1 << (SatisfactoryHeaderParserParser.FLOAT_LITERAL - 38)) | (1 << (SatisfactoryHeaderParserParser.INTEGER_LITERAL - 38)))) !== 0)) {
 					{
-					this.state = 370;
+					this.state = 377;
 					this.macroPropertyListEntries();
 					}
 				}
@@ -2100,15 +2140,15 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	// @RuleVersion(0)
 	public macroProperty(): MacroPropertyContext {
 		let _localctx: MacroPropertyContext = new MacroPropertyContext(this._ctx, this.state);
-		this.enterRule(_localctx, 92, SatisfactoryHeaderParserParser.RULE_macroProperty);
+		this.enterRule(_localctx, 94, SatisfactoryHeaderParserParser.RULE_macroProperty);
 		try {
-			this.state = 379;
+			this.state = 386;
 			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 44, this._ctx) ) {
+			switch ( this.interpreter.adaptivePredict(this._input, 45, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 375;
+				this.state = 382;
 				this.identifier();
 				}
 				break;
@@ -2116,7 +2156,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 2:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 376;
+				this.state = 383;
 				this.literal();
 				}
 				break;
@@ -2124,7 +2164,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 3:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 377;
+				this.state = 384;
 				this.macroPropertyPair();
 				}
 				break;
@@ -2132,7 +2172,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 			case 4:
 				this.enterOuterAlt(_localctx, 4);
 				{
-				this.state = 378;
+				this.state = 385;
 				this.macroPropertyList();
 				}
 				break;
@@ -2155,15 +2195,15 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	// @RuleVersion(0)
 	public macroPropertyPair(): MacroPropertyPairContext {
 		let _localctx: MacroPropertyPairContext = new MacroPropertyPairContext(this._ctx, this.state);
-		this.enterRule(_localctx, 94, SatisfactoryHeaderParserParser.RULE_macroPropertyPair);
+		this.enterRule(_localctx, 96, SatisfactoryHeaderParserParser.RULE_macroPropertyPair);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 381;
+			this.state = 388;
 			this.identifier();
-			this.state = 382;
+			this.state = 389;
 			this.match(SatisfactoryHeaderParserParser.EQUALS);
-			this.state = 383;
+			this.state = 390;
 			this.macroProperty();
 			}
 		}
@@ -2183,7 +2223,7 @@ export class SatisfactoryHeaderParserParser extends Parser {
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x035\u0184\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x036\u018B\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
 		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x04\f\t\f\x04\r\t\r\x04" +
 		"\x0E\t\x0E\x04\x0F\t\x0F\x04\x10\t\x10\x04\x11\t\x11\x04\x12\t\x12\x04" +
@@ -2191,175 +2231,178 @@ export class SatisfactoryHeaderParserParser extends Parser {
 		"\x18\t\x18\x04\x19\t\x19\x04\x1A\t\x1A\x04\x1B\t\x1B\x04\x1C\t\x1C\x04" +
 		"\x1D\t\x1D\x04\x1E\t\x1E\x04\x1F\t\x1F\x04 \t \x04!\t!\x04\"\t\"\x04#" +
 		"\t#\x04$\t$\x04%\t%\x04&\t&\x04\'\t\'\x04(\t(\x04)\t)\x04*\t*\x04+\t+" +
-		"\x04,\t,\x04-\t-\x04.\t.\x04/\t/\x040\t0\x041\t1\x03\x02\x07\x02d\n\x02" +
-		"\f\x02\x0E\x02g\v\x02\x03\x03\x03\x03\x03\x03\x05\x03l\n\x03\x03\x04\x03" +
-		"\x04\x05\x04p\n\x04\x03\x05\x03\x05\x03\x05\x05\x05u\n\x05\x03\x06\x03" +
-		"\x06\x03\x06\x03\x06\x03\x06\x05\x06|\n\x06\x03\x07\x03\x07\x03\b\x03" +
-		"\b\x03\t\x03\t\x03\n\x07\n\x85\n\n\f\n\x0E\n\x88\v\n\x03\n\x03\n\x05\n" +
-		"\x8C\n\n\x03\n\x05\n\x8F\n\n\x03\v\x03\v\x03\v\x03\v\x03\f\x03\f\x03\f" +
-		"\x05\f\x98\n\f\x03\r\x03\r\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x05" +
-		"\x0E\xA1\n\x0E\x03\x0F\x05\x0F\xA4\n\x0F\x03\x0F\x03\x0F\x05\x0F\xA8\n" +
-		"\x0F\x03\x0F\x03\x0F\x05\x0F\xAC\n\x0F\x03\x10\x03\x10\x03\x10\x03\x11" +
-		"\x03\x11\x03\x11\x03\x11\x03\x11\x05\x11\xB6\n\x11\x03\x12\x03\x12\x03" +
-		"\x12\x03\x13\x05\x13\xBC\n\x13\x03\x13\x05\x13\xBF\n\x13\x03\x14\x03\x14" +
-		"\x05\x14\xC3\n\x14\x03\x15\x03\x15\x03\x15\x03\x15\x05\x15\xC9\n\x15\x03" +
+		"\x04,\t,\x04-\t-\x04.\t.\x04/\t/\x040\t0\x041\t1\x042\t2\x03\x02\x07\x02" +
+		"f\n\x02\f\x02\x0E\x02i\v\x02\x03\x03\x03\x03\x03\x03\x05\x03n\n\x03\x03" +
+		"\x04\x03\x04\x05\x04r\n\x04\x03\x05\x03\x05\x03\x05\x05\x05w\n\x05\x03" +
+		"\x06\x03\x06\x03\x06\x03\x06\x03\x06\x05\x06~\n\x06\x03\x07\x03\x07\x03" +
+		"\b\x03\b\x03\t\x03\t\x03\n\x07\n\x87\n\n\f\n\x0E\n\x8A\v\n\x03\n\x03\n" +
+		"\x05\n\x8E\n\n\x03\n\x05\n\x91\n\n\x03\v\x03\v\x03\v\x03\v\x03\f\x03\f" +
+		"\x03\f\x05\f\x9A\n\f\x03\r\x03\r\x03\x0E\x03\x0E\x03\x0E\x03\x0E\x03\x0E" +
+		"\x05\x0E\xA3\n\x0E\x03\x0F\x05\x0F\xA6\n\x0F\x03\x0F\x03\x0F\x05\x0F\xAA" +
+		"\n\x0F\x03\x0F\x03\x0F\x05\x0F\xAE\n\x0F\x03\x10\x03\x10\x03\x10\x03\x11" +
+		"\x03\x11\x03\x11\x03\x11\x03\x11\x05\x11\xB8\n\x11\x03\x12\x03\x12\x03" +
+		"\x12\x03\x13\x05\x13\xBE\n\x13\x03\x13\x05\x13\xC1\n\x13\x03\x14\x03\x14" +
+		"\x05\x14\xC5\n\x14\x03\x15\x03\x15\x03\x15\x03\x15\x05\x15\xCB\n\x15\x03" +
 		"\x16\x03\x16\x03\x16\x03\x17\x03\x17\x03\x18\x03\x18\x03\x18\x03\x18\x03" +
-		"\x18\x03\x19\x05\x19\xD6\n\x19\x03\x19\x07\x19\xD9\n\x19\f\x19\x0E\x19" +
-		"\xDC\v\x19\x03\x19\x05\x19\xDF\n\x19\x03\x19\x03\x19\x03\x19\x05\x19\xE4" +
-		"\n\x19\x03\x19\x03\x19\x07\x19\xE8\n\x19\f\x19\x0E\x19\xEB\v\x19\x03\x19" +
-		"\x03\x19\x03\x1A\x03\x1A\x03\x1A\x05\x1A\xF2\n\x1A\x05\x1A\xF4\n\x1A\x03" +
+		"\x18\x03\x19\x05\x19\xD8\n\x19\x03\x19\x07\x19\xDB\n\x19\f\x19\x0E\x19" +
+		"\xDE\v\x19\x03\x19\x05\x19\xE1\n\x19\x03\x19\x03\x19\x03\x19\x05\x19\xE6" +
+		"\n\x19\x03\x19\x03\x19\x07\x19\xEA\n\x19\f\x19\x0E\x19\xED\v\x19\x03\x19" +
+		"\x03\x19\x03\x1A\x03\x1A\x03\x1A\x05\x1A\xF4\n\x1A\x05\x1A\xF6\n\x1A\x03" +
 		"\x1B\x03\x1B\x03\x1C\x03\x1C\x03\x1D\x03\x1D\x03\x1D\x03\x1D\x03\x1D\x05" +
-		"\x1D\xFF\n\x1D\x03\x1E\x03\x1E\x03\x1F\x03\x1F\x03\x1F\x03\x1F\x03\x1F" +
-		"\x03\x1F\x03\x1F\x03\x1F\x05\x1F\u010B\n\x1F\x03 \x03 \x05 \u010F\n \x03" +
-		" \x07 \u0112\n \f \x0E \u0115\v \x03 \x03 \x03!\x05!\u011A\n!\x03!\x05" +
-		"!\u011D\n!\x03!\x05!\u0120\n!\x03!\x03!\x05!\u0124\n!\x03!\x03!\x03\"" +
-		"\x03\"\x03\"\x03#\x03#\x03#\x03#\x03#\x05#\u0130\n#\x03$\x05$\u0133\n" +
-		"$\x03$\x03$\x05$\u0137\n$\x03$\x03$\x05$\u013B\n$\x03$\x03$\x05$\u013F" +
-		"\n$\x03$\x03$\x03$\x03$\x05$\u0145\n$\x03%\x03%\x03%\x03%\x03%\x05%\u014C" +
-		"\n%\x03&\x03&\x03\'\x03\'\x03\'\x06\'\u0153\n\'\r\'\x0E\'\u0154\x03\'" +
-		"\x03\'\x03\'\x03(\x03(\x03(\x03)\x03)\x03)\x03*\x03*\x03*\x03+\x03+\x03" +
-		"+\x03,\x03,\x03,\x03-\x03-\x03-\x03.\x03.\x05.\u016E\n.\x03.\x03.\x03" +
-		"/\x03/\x03/\x03/\x05/\u0176\n/\x05/\u0178\n/\x030\x030\x030\x030\x050" +
-		"\u017E\n0\x031\x031\x031\x031\x031\x02\x02\x022\x02\x02\x04\x02\x06\x02" +
-		"\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x16\x02\x18\x02\x1A" +
-		"\x02\x1C\x02\x1E\x02 \x02\"\x02$\x02&\x02(\x02*\x02,\x02.\x020\x022\x02" +
-		"4\x026\x028\x02:\x02<\x02>\x02@\x02B\x02D\x02F\x02H\x02J\x02L\x02N\x02" +
-		"P\x02R\x02T\x02V\x02X\x02Z\x02\\\x02^\x02`\x02\x02\n\x03\x02)*\x04\x02" +
-		"\x06\x06\r\r\x03\x02\"#\x03\x02\t\v\x06\x02\x04\x04\f\f\x0E\x0E\x16\x16" +
-		"\x04\x02\x04\x04\b\b\x03\x02\x1A\x1B\x03\x02\x19\x19\x02\u0187\x02e\x03" +
-		"\x02\x02\x02\x04k\x03\x02\x02\x02\x06o\x03\x02\x02\x02\bt\x03\x02\x02" +
-		"\x02\n{\x03\x02\x02\x02\f}\x03\x02\x02\x02\x0E\x7F\x03\x02\x02\x02\x10" +
-		"\x81\x03\x02\x02\x02\x12\x86\x03\x02\x02\x02\x14\x90\x03\x02\x02\x02\x16" +
-		"\x97\x03\x02\x02\x02\x18\x99\x03\x02\x02\x02\x1A\x9B\x03\x02\x02\x02\x1C" +
-		"\xA3\x03\x02\x02\x02\x1E\xAD\x03\x02\x02\x02 \xB5\x03\x02\x02\x02\"\xB7" +
-		"\x03\x02\x02\x02$\xBB\x03\x02\x02\x02&\xC0\x03\x02\x02\x02(\xC8\x03\x02" +
-		"\x02\x02*\xCA\x03\x02\x02\x02,\xCD\x03\x02\x02\x02.\xCF\x03\x02\x02\x02" +
-		"0\xD5\x03\x02\x02\x022\xF3\x03\x02\x02\x024\xF5\x03\x02\x02\x026\xF7\x03" +
-		"\x02\x02\x028\xFE\x03\x02\x02\x02:\u0100\x03\x02\x02\x02<\u010A\x03\x02" +
-		"\x02\x02>\u010C\x03\x02\x02\x02@\u0119\x03\x02\x02\x02B\u0127\x03\x02" +
-		"\x02\x02D\u012A\x03\x02\x02\x02F\u0144\x03\x02\x02\x02H\u014B\x03\x02" +
-		"\x02\x02J\u014D\x03\x02\x02\x02L\u014F\x03\x02\x02\x02N\u0159\x03\x02" +
-		"\x02\x02P\u015C\x03\x02\x02\x02R\u015F\x03\x02\x02\x02T\u0162\x03\x02" +
-		"\x02\x02V\u0165\x03\x02\x02\x02X\u0168\x03\x02\x02\x02Z\u016B\x03\x02" +
-		"\x02\x02\\\u0177\x03\x02\x02\x02^\u017D\x03\x02\x02\x02`\u017F\x03\x02" +
-		"\x02\x02bd\x05\x04\x03\x02cb\x03\x02\x02\x02dg\x03\x02\x02\x02ec\x03\x02" +
-		"\x02\x02ef\x03\x02\x02\x02f\x03\x03\x02\x02\x02ge\x03\x02\x02\x02hl\x05" +
-		"\x1A\x0E\x02il\x05D#\x02jl\x05L\'\x02kh\x03\x02\x02\x02ki\x03\x02\x02" +
-		"\x02kj\x03\x02\x02\x02l\x05\x03\x02\x02\x02mp\x05\n\x06\x02np\x05\b\x05" +
-		"\x02om\x03\x02\x02\x02on\x03\x02\x02\x02p\x07\x03\x02\x02\x02qu\x05\f" +
-		"\x07\x02ru\x05\x0E\b\x02su\x05\x10\t\x02tq\x03\x02\x02\x02tr\x03\x02\x02" +
-		"\x02ts\x03\x02\x02\x02u\t\x03\x02\x02\x02v|\x07\'\x02\x02wx\x07\'\x02" +
-		"\x02xy\x07\x17\x02\x02yz\x07\x17\x02\x02z|\x07\'\x02\x02{v\x03\x02\x02" +
-		"\x02{w\x03\x02\x02\x02|\v\x03\x02\x02\x02}~\x07(\x02\x02~\r\x03\x02\x02" +
-		"\x02\x7F\x80\t\x02\x02\x02\x80\x0F\x03\x02\x02\x02\x81\x82\t\x03\x02\x02" +
-		"\x82\x11\x03\x02\x02\x02\x83\x85\x05\x16\f\x02\x84\x83\x03\x02\x02\x02" +
-		"\x85\x88\x03\x02\x02\x02\x86\x84\x03\x02\x02\x02\x86\x87\x03\x02\x02\x02" +
-		"\x87\x89\x03\x02\x02\x02\x88\x86\x03\x02\x02\x02\x89\x8B\x05\n\x06\x02" +
-		"\x8A\x8C\x05\x14\v\x02\x8B\x8A\x03\x02\x02\x02\x8B\x8C\x03\x02\x02\x02" +
-		"\x8C\x8E\x03\x02\x02\x02\x8D\x8F\x05\x18\r\x02\x8E\x8D\x03\x02\x02\x02" +
-		"\x8E\x8F\x03\x02\x02\x02\x8F\x13\x03\x02\x02\x02\x90\x91\x07\x1C\x02\x02" +
-		"\x91\x92\x05\x12\n\x02\x92\x93\x07\x1D\x02\x02\x93\x15\x03\x02\x02\x02" +
-		"\x94\x98\x07\x03\x02\x02\x95\x98\x07\x04\x02\x02\x96\x98\x05T+\x02\x97" +
-		"\x94\x03\x02\x02\x02\x97\x95\x03\x02\x02\x02\x97\x96\x03\x02\x02\x02\x98" +
-		"\x17\x03\x02\x02\x02\x99\x9A\t\x04\x02\x02\x9A\x19\x03\x02\x02\x02\x9B" +
-		"\x9C\x05\x1C\x0F\x02\x9C\x9D\x07\x1A\x02\x02\x9D\x9E\x05$\x13\x02\x9E" +
-		"\xA0\x07\x1B\x02\x02\x9F\xA1\x07!\x02\x02\xA0\x9F\x03\x02\x02\x02\xA0" +
-		"\xA1\x03\x02\x02\x02\xA1\x1B\x03\x02\x02\x02\xA2\xA4\x05N(\x02\xA3\xA2" +
-		"\x03\x02\x02\x02\xA3\xA4\x03\x02\x02\x02\xA4\xA5\x03\x02\x02\x02\xA5\xA7" +
-		"\x07\x03\x02\x02\xA6\xA8\x07\x14\x02\x02\xA7\xA6\x03\x02\x02\x02\xA7\xA8" +
-		"\x03\x02\x02\x02\xA8\xA9\x03\x02\x02\x02\xA9\xAB\x05\n\x06\x02\xAA\xAC" +
-		"\x05\x1E\x10\x02\xAB\xAA\x03\x02\x02\x02\xAB\xAC\x03\x02\x02\x02\xAC\x1D" +
-		"\x03\x02\x02\x02\xAD\xAE\x07\x17\x02\x02\xAE\xAF\x05 \x11\x02\xAF\x1F" +
-		"\x03\x02\x02\x02\xB0\xB6\x05\"\x12\x02\xB1\xB2\x05\"\x12\x02\xB2\xB3\x07" +
-		"\x1E\x02\x02\xB3\xB4\x05 \x11\x02\xB4\xB6\x03\x02\x02\x02\xB5\xB0\x03" +
-		"\x02\x02\x02\xB5\xB1\x03\x02\x02\x02\xB6!\x03\x02\x02\x02\xB7\xB8\x05" +
-		",\x17\x02\xB8\xB9\x05\n\x06\x02\xB9#\x03\x02\x02\x02\xBA\xBC\x05X-\x02" +
-		"\xBB\xBA\x03\x02\x02\x02\xBB\xBC\x03\x02\x02\x02\xBC\xBE\x03\x02\x02\x02" +
-		"\xBD\xBF\x05&\x14\x02\xBE\xBD\x03\x02\x02\x02\xBE\xBF\x03\x02\x02\x02" +
-		"\xBF%\x03\x02\x02\x02\xC0\xC2\x05(\x15\x02\xC1\xC3\x05&\x14\x02\xC2\xC1" +
-		"\x03\x02\x02\x02\xC2\xC3\x03\x02\x02\x02\xC3\'\x03\x02\x02\x02\xC4\xC9" +
-		"\x05*\x16\x02\xC5\xC9\x050\x19\x02\xC6\xC9\x05.\x18\x02\xC7\xC9\x05@!" +
-		"\x02\xC8\xC4\x03\x02\x02\x02\xC8\xC5\x03\x02\x02\x02\xC8\xC6\x03\x02\x02" +
-		"\x02\xC8\xC7\x03\x02\x02\x02\xC9)\x03\x02\x02\x02\xCA\xCB\x05,\x17\x02" +
-		"\xCB\xCC\x07\x17\x02\x02\xCC+\x03\x02\x02\x02\xCD\xCE\t\x05\x02\x02\xCE" +
-		"-\x03\x02\x02\x02\xCF\xD0\x07\x07\x02\x02\xD0\xD1\x07\x03\x02\x02\xD1" +
-		"\xD2\x05\n\x06\x02\xD2\xD3\x07!\x02\x02\xD3/\x03\x02\x02\x02\xD4\xD6\x05" +
-		"R*\x02\xD5\xD4\x03\x02\x02\x02\xD5\xD6\x03\x02\x02\x02\xD6\xDA\x03\x02" +
-		"\x02\x02\xD7\xD9\x054\x1B\x02\xD8\xD7\x03\x02\x02\x02\xD9\xDC\x03\x02" +
-		"\x02\x02\xDA\xD8\x03\x02\x02\x02\xDA\xDB\x03\x02\x02\x02\xDB\xDE\x03\x02" +
-		"\x02\x02\xDC\xDA\x03\x02\x02\x02\xDD\xDF\x05\x12\n\x02\xDE\xDD\x03\x02" +
-		"\x02\x02\xDE\xDF\x03\x02\x02\x02\xDF\xE0\x03\x02\x02\x02\xE0\xE1\x05\n" +
-		"\x06\x02\xE1\xE3\x07\x18\x02\x02\xE2\xE4\x058\x1D\x02\xE3\xE2\x03\x02" +
-		"\x02\x02\xE3\xE4\x03\x02\x02\x02\xE4\xE5\x03\x02\x02\x02\xE5\xE9\x07\x19" +
-		"\x02\x02\xE6\xE8\x056\x1C\x02\xE7\xE6\x03\x02\x02\x02\xE8\xEB\x03\x02" +
-		"\x02\x02\xE9\xE7\x03\x02\x02\x02\xE9\xEA\x03\x02\x02\x02\xEA\xEC\x03\x02" +
-		"\x02\x02\xEB\xE9\x03\x02\x02\x02\xEC\xED\x052\x1A\x02\xED1\x03\x02\x02" +
-		"\x02\xEE\xF4\x07!\x02\x02\xEF\xF1\x05> \x02\xF0\xF2\x07!\x02\x02\xF1\xF0" +
-		"\x03\x02\x02\x02\xF1\xF2\x03\x02\x02\x02\xF2\xF4\x03\x02\x02\x02\xF3\xEE" +
-		"\x03\x02\x02\x02\xF3\xEF\x03\x02\x02\x02\xF43\x03\x02\x02\x02\xF5\xF6" +
-		"\t\x06\x02\x02\xF65\x03\x02\x02\x02\xF7\xF8\t\x07\x02\x02\xF87\x03\x02" +
-		"\x02\x02\xF9\xFF\x05<\x1F\x02\xFA\xFB\x05<\x1F\x02\xFB\xFC\x07\x1E\x02" +
-		"\x02\xFC\xFD\x058\x1D\x02\xFD\xFF\x03\x02\x02\x02\xFE\xF9\x03\x02\x02" +
-		"\x02\xFE\xFA\x03\x02\x02\x02\xFF9\x03\x02\x02\x02\u0100\u0101\x05\n\x06" +
-		"\x02\u0101;\x03\x02\x02\x02\u0102\u0103\x05\x12\n\x02\u0103\u0104\x05" +
-		":\x1E\x02\u0104\u010B\x03\x02\x02\x02\u0105\u0106\x05\x12\n\x02\u0106" +
-		"\u0107\x05:\x1E\x02\u0107\u0108\x07 \x02\x02\u0108\u0109\x05\x06\x04\x02" +
-		"\u0109\u010B\x03\x02\x02\x02\u010A\u0102\x03\x02\x02\x02\u010A\u0105\x03" +
-		"\x02\x02\x02\u010B=\x03\x02\x02\x02\u010C\u010E\x07\x1A\x02\x02\u010D" +
-		"\u010F\x05> \x02\u010E\u010D\x03\x02\x02\x02\u010E\u010F\x03\x02\x02\x02" +
-		"\u010F\u0113\x03\x02\x02\x02\u0110\u0112\n\b\x02\x02\u0111\u0110\x03\x02" +
-		"\x02\x02\u0112\u0115\x03\x02\x02\x02\u0113\u0111\x03\x02\x02\x02\u0113" +
-		"\u0114\x03\x02\x02\x02\u0114\u0116\x03\x02\x02\x02\u0115\u0113\x03\x02" +
-		"\x02\x02\u0116\u0117\x07\x1B\x02\x02\u0117?\x03\x02\x02\x02\u0118\u011A" +
-		"\x05V,\x02\u0119\u0118\x03\x02\x02\x02\u0119\u011A\x03\x02\x02\x02\u011A" +
-		"\u011C\x03\x02\x02\x02\u011B\u011D\x07\f\x02\x02\u011C\u011B\x03\x02\x02" +
-		"\x02\u011C\u011D\x03\x02\x02\x02\u011D\u011F\x03\x02\x02\x02\u011E\u0120" +
-		"\x05\x12\n\x02\u011F\u011E\x03\x02\x02\x02\u011F\u0120\x03\x02\x02\x02" +
-		"\u0120\u0121\x03\x02\x02\x02\u0121\u0123\x05\n\x06\x02\u0122\u0124\x05" +
-		"B\"\x02\u0123\u0122\x03\x02\x02\x02\u0123\u0124\x03\x02\x02\x02\u0124" +
-		"\u0125\x03\x02\x02\x02\u0125\u0126\x07!\x02\x02\u0126A\x03\x02\x02\x02" +
-		"\u0127\u0128\x07\x17\x02\x02\u0128\u0129\x05\b\x05\x02\u0129C\x03\x02" +
-		"\x02\x02\u012A\u012B\x05F$\x02\u012B\u012C\x07\x1A\x02\x02\u012C\u012D" +
-		"\x05H%\x02\u012D\u012F\x07\x1B\x02\x02\u012E\u0130\x07!\x02\x02\u012F" +
-		"\u012E\x03\x02\x02\x02\u012F\u0130\x03\x02\x02\x02\u0130E\x03\x02\x02" +
-		"\x02\u0131\u0133\x05P)\x02\u0132\u0131\x03\x02\x02\x02\u0132\u0133\x03" +
-		"\x02\x02\x02\u0133\u0134\x03\x02\x02\x02\u0134\u0136\x07\x05\x02\x02\u0135" +
-		"\u0137\x07\x03\x02\x02\u0136\u0135\x03\x02\x02\x02\u0136\u0137\x03\x02" +
-		"\x02\x02\u0137\u0138\x03\x02\x02\x02\u0138\u0145\x05\n\x06\x02\u0139\u013B" +
-		"\x05P)\x02\u013A\u0139\x03\x02\x02\x02\u013A\u013B\x03\x02\x02\x02\u013B" +
-		"\u013C\x03\x02\x02\x02\u013C\u013E\x07\x05\x02\x02\u013D\u013F\x07\x03" +
-		"\x02\x02\u013E\u013D\x03\x02\x02\x02\u013E\u013F\x03\x02\x02\x02\u013F" +
-		"\u0140\x03\x02\x02\x02\u0140\u0141\x05\n\x06\x02\u0141\u0142\x07\x17\x02" +
-		"\x02\u0142\u0143\x05\x12\n\x02\u0143\u0145\x03\x02\x02\x02\u0144\u0132" +
-		"\x03\x02\x02\x02\u0144\u013A\x03\x02\x02\x02\u0145G\x03\x02\x02\x02\u0146" +
-		"\u014C\x05J&\x02\u0147\u0148\x05J&\x02\u0148\u0149\x07\x1E\x02\x02\u0149" +
-		"\u014A\x05H%\x02\u014A\u014C\x03\x02\x02\x02\u014B\u0146\x03\x02\x02\x02" +
-		"\u014B\u0147\x03\x02\x02\x02\u014CI\x03\x02\x02\x02\u014D\u014E\x05\n" +
-		"\x06\x02\u014EK\x03\x02\x02\x02\u014F\u0150\x05\n\x06\x02\u0150\u0152" +
-		"\x07\x18\x02\x02\u0151\u0153\n\t\x02\x02\u0152\u0151\x03\x02\x02\x02\u0153" +
-		"\u0154\x03\x02\x02\x02\u0154\u0152\x03\x02\x02\x02\u0154\u0155\x03\x02" +
-		"\x02\x02\u0155\u0156\x03\x02\x02\x02\u0156\u0157\x07\x19\x02\x02\u0157" +
-		"\u0158\x07!\x02\x02\u0158M\x03\x02\x02\x02\u0159\u015A\x07\x0F\x02\x02" +
-		"\u015A\u015B\x05Z.\x02\u015BO\x03\x02\x02\x02\u015C\u015D\x07\x10\x02" +
-		"\x02\u015D\u015E\x05Z.\x02\u015EQ\x03\x02\x02\x02\u015F\u0160\x07\x11" +
-		"\x02\x02\u0160\u0161\x05Z.\x02\u0161S\x03\x02\x02\x02\u0162\u0163\x07" +
-		"\x12\x02\x02\u0163\u0164\x05Z.\x02\u0164U\x03\x02\x02\x02\u0165\u0166" +
-		"\x07\x13\x02\x02\u0166\u0167\x05Z.\x02\u0167W\x03\x02\x02\x02\u0168\u0169" +
-		"\x07\x15\x02\x02\u0169\u016A\x05Z.\x02\u016AY\x03\x02\x02\x02\u016B\u016D" +
-		"\x07\x18\x02\x02\u016C\u016E\x05\\/\x02\u016D\u016C\x03\x02\x02\x02\u016D" +
-		"\u016E\x03\x02\x02\x02\u016E\u016F\x03\x02\x02\x02\u016F\u0170\x07\x19" +
-		"\x02\x02\u0170[\x03\x02\x02\x02\u0171\u0178\x05^0\x02\u0172\u0173\x05" +
-		"^0\x02\u0173\u0175\x07\x1E\x02\x02\u0174\u0176\x05\\/\x02\u0175\u0174" +
-		"\x03\x02\x02\x02\u0175\u0176\x03\x02\x02\x02\u0176\u0178\x03\x02\x02\x02" +
-		"\u0177\u0171\x03\x02\x02\x02\u0177\u0172\x03\x02\x02\x02\u0178]\x03\x02" +
-		"\x02\x02\u0179\u017E\x05\n\x06\x02\u017A\u017E\x05\b\x05\x02\u017B\u017E" +
-		"\x05`1\x02\u017C\u017E\x05Z.\x02\u017D\u0179\x03\x02\x02\x02\u017D\u017A" +
-		"\x03\x02\x02\x02\u017D\u017B\x03\x02\x02\x02\u017D\u017C\x03\x02\x02\x02" +
-		"\u017E_\x03\x02\x02\x02\u017F\u0180\x05\n\x06\x02\u0180\u0181\x07 \x02" +
-		"\x02\u0181\u0182\x05^0\x02\u0182a\x03\x02\x02\x02/ekot{\x86\x8B\x8E\x97" +
-		"\xA0\xA3\xA7\xAB\xB5\xBB\xBE\xC2\xC8\xD5\xDA\xDE\xE3\xE9\xF1\xF3\xFE\u010A" +
-		"\u010E\u0113\u0119\u011C\u011F\u0123\u012F\u0132\u0136\u013A\u013E\u0144" +
-		"\u014B\u0154\u016D\u0175\u0177\u017D";
+		"\x1D\u0101\n\x1D\x03\x1E\x03\x1E\x03\x1F\x03\x1F\x03\x1F\x03\x1F\x03\x1F" +
+		"\x03\x1F\x03\x1F\x03\x1F\x05\x1F\u010D\n\x1F\x03 \x03 \x05 \u0111\n \x03" +
+		" \x07 \u0114\n \f \x0E \u0117\v \x03 \x03 \x03!\x05!\u011C\n!\x03!\x05" +
+		"!\u011F\n!\x03!\x05!\u0122\n!\x03!\x03!\x05!\u0126\n!\x03!\x03!\x03\"" +
+		"\x03\"\x03\"\x03#\x03#\x03#\x03#\x03#\x05#\u0132\n#\x03$\x05$\u0135\n" +
+		"$\x03$\x03$\x05$\u0139\n$\x03$\x03$\x05$\u013D\n$\x03$\x03$\x05$\u0141" +
+		"\n$\x03$\x03$\x03$\x03$\x05$\u0147\n$\x03%\x03%\x03%\x03%\x03%\x05%\u014E" +
+		"\n%\x03&\x03&\x05&\u0152\n&\x03\'\x03\'\x03\'\x06\'\u0157\n\'\r\'\x0E" +
+		"\'\u0158\x03\'\x03\'\x03\'\x03(\x03(\x03(\x03)\x03)\x03)\x03*\x03*\x03" +
+		"*\x03+\x03+\x03+\x03,\x03,\x03,\x03-\x03-\x03-\x03.\x03.\x03.\x03/\x03" +
+		"/\x05/\u0175\n/\x03/\x03/\x030\x030\x030\x030\x050\u017D\n0\x050\u017F" +
+		"\n0\x031\x031\x031\x031\x051\u0185\n1\x032\x032\x032\x032\x032\x02\x02" +
+		"\x023\x02\x02\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02" +
+		"\x14\x02\x16\x02\x18\x02\x1A\x02\x1C\x02\x1E\x02 \x02\"\x02$\x02&\x02" +
+		"(\x02*\x02,\x02.\x020\x022\x024\x026\x028\x02:\x02<\x02>\x02@\x02B\x02" +
+		"D\x02F\x02H\x02J\x02L\x02N\x02P\x02R\x02T\x02V\x02X\x02Z\x02\\\x02^\x02" +
+		"`\x02b\x02\x02\n\x03\x02*+\x04\x02\x06\x06\r\r\x03\x02#$\x03\x02\t\v\x06" +
+		"\x02\x04\x04\f\f\x0E\x0E\x17\x17\x04\x02\x04\x04\b\b\x03\x02\x1B\x1C\x03" +
+		"\x02\x1A\x1A\x02\u018E\x02g\x03\x02\x02\x02\x04m\x03\x02\x02\x02\x06q" +
+		"\x03\x02\x02\x02\bv\x03\x02\x02\x02\n}\x03\x02\x02\x02\f\x7F\x03\x02\x02" +
+		"\x02\x0E\x81\x03\x02\x02\x02\x10\x83\x03\x02\x02\x02\x12\x88\x03\x02\x02" +
+		"\x02\x14\x92\x03\x02\x02\x02\x16\x99\x03\x02\x02\x02\x18\x9B\x03\x02\x02" +
+		"\x02\x1A\x9D\x03\x02\x02\x02\x1C\xA5\x03\x02\x02\x02\x1E\xAF\x03\x02\x02" +
+		"\x02 \xB7\x03\x02\x02\x02\"\xB9\x03\x02\x02\x02$\xBD\x03\x02\x02\x02&" +
+		"\xC2\x03\x02\x02\x02(\xCA\x03\x02\x02\x02*\xCC\x03\x02\x02\x02,\xCF\x03" +
+		"\x02\x02\x02.\xD1\x03\x02\x02\x020\xD7\x03\x02\x02\x022\xF5\x03\x02\x02" +
+		"\x024\xF7\x03\x02\x02\x026\xF9\x03\x02\x02\x028\u0100\x03\x02\x02\x02" +
+		":\u0102\x03\x02\x02\x02<\u010C\x03\x02\x02\x02>\u010E\x03\x02\x02\x02" +
+		"@\u011B\x03\x02\x02\x02B\u0129\x03\x02\x02\x02D\u012C\x03\x02\x02\x02" +
+		"F\u0146\x03\x02\x02\x02H\u014D\x03\x02\x02\x02J\u014F\x03\x02\x02\x02" +
+		"L\u0153\x03\x02\x02\x02N\u015D\x03\x02\x02\x02P\u0160\x03\x02\x02\x02" +
+		"R\u0163\x03\x02\x02\x02T\u0166\x03\x02\x02\x02V\u0169\x03\x02\x02\x02" +
+		"X\u016C\x03\x02\x02\x02Z\u016F\x03\x02\x02\x02\\\u0172\x03\x02\x02\x02" +
+		"^\u017E\x03\x02\x02\x02`\u0184\x03\x02\x02\x02b\u0186\x03\x02\x02\x02" +
+		"df\x05\x04\x03\x02ed\x03\x02\x02\x02fi\x03\x02\x02\x02ge\x03\x02\x02\x02" +
+		"gh\x03\x02\x02\x02h\x03\x03\x02\x02\x02ig\x03\x02\x02\x02jn\x05\x1A\x0E" +
+		"\x02kn\x05D#\x02ln\x05L\'\x02mj\x03\x02\x02\x02mk\x03\x02\x02\x02ml\x03" +
+		"\x02\x02\x02n\x05\x03\x02\x02\x02or\x05\n\x06\x02pr\x05\b\x05\x02qo\x03" +
+		"\x02\x02\x02qp\x03\x02\x02\x02r\x07\x03\x02\x02\x02sw\x05\f\x07\x02tw" +
+		"\x05\x0E\b\x02uw\x05\x10\t\x02vs\x03\x02\x02\x02vt\x03\x02\x02\x02vu\x03" +
+		"\x02\x02\x02w\t\x03\x02\x02\x02x~\x07(\x02\x02yz\x07(\x02\x02z{\x07\x18" +
+		"\x02\x02{|\x07\x18\x02\x02|~\x07(\x02\x02}x\x03\x02\x02\x02}y\x03\x02" +
+		"\x02\x02~\v\x03\x02\x02\x02\x7F\x80\x07)\x02\x02\x80\r\x03\x02\x02\x02" +
+		"\x81\x82\t\x02\x02\x02\x82\x0F\x03\x02\x02\x02\x83\x84\t\x03\x02\x02\x84" +
+		"\x11\x03\x02\x02\x02\x85\x87\x05\x16\f\x02\x86\x85\x03\x02\x02\x02\x87" +
+		"\x8A\x03\x02\x02\x02\x88\x86\x03\x02\x02\x02\x88\x89\x03\x02\x02\x02\x89" +
+		"\x8B\x03\x02\x02\x02\x8A\x88\x03\x02\x02\x02\x8B\x8D\x05\n\x06\x02\x8C" +
+		"\x8E\x05\x14\v\x02\x8D\x8C\x03\x02\x02\x02\x8D\x8E\x03\x02\x02\x02\x8E" +
+		"\x90\x03\x02\x02\x02\x8F\x91\x05\x18\r\x02\x90\x8F\x03\x02\x02\x02\x90" +
+		"\x91\x03\x02\x02\x02\x91\x13\x03\x02\x02\x02\x92\x93\x07\x1D\x02\x02\x93" +
+		"\x94\x05\x12\n\x02\x94\x95\x07\x1E\x02\x02\x95\x15\x03\x02\x02\x02\x96" +
+		"\x9A\x07\x03\x02\x02\x97\x9A\x07\x04\x02\x02\x98\x9A\x05V,\x02\x99\x96" +
+		"\x03\x02\x02\x02\x99\x97\x03\x02\x02\x02\x99\x98\x03\x02\x02\x02\x9A\x17" +
+		"\x03\x02\x02\x02\x9B\x9C\t\x04\x02\x02\x9C\x19\x03\x02\x02\x02\x9D\x9E" +
+		"\x05\x1C\x0F\x02\x9E\x9F\x07\x1B\x02\x02\x9F\xA0\x05$\x13\x02\xA0\xA2" +
+		"\x07\x1C\x02\x02\xA1\xA3\x07\"\x02\x02\xA2\xA1\x03\x02\x02\x02\xA2\xA3" +
+		"\x03\x02\x02\x02\xA3\x1B\x03\x02\x02\x02\xA4\xA6\x05N(\x02\xA5\xA4\x03" +
+		"\x02\x02\x02\xA5\xA6\x03\x02\x02\x02\xA6\xA7\x03\x02\x02\x02\xA7\xA9\x07" +
+		"\x03\x02\x02\xA8\xAA\x07\x15\x02\x02\xA9\xA8\x03\x02\x02\x02\xA9\xAA\x03" +
+		"\x02\x02\x02\xAA\xAB\x03\x02\x02\x02\xAB\xAD\x05\n\x06\x02\xAC\xAE\x05" +
+		"\x1E\x10\x02\xAD\xAC\x03\x02\x02\x02\xAD\xAE\x03\x02\x02\x02\xAE\x1D\x03" +
+		"\x02\x02\x02\xAF\xB0\x07\x18\x02\x02\xB0\xB1\x05 \x11\x02\xB1\x1F\x03" +
+		"\x02\x02\x02\xB2\xB8\x05\"\x12\x02\xB3\xB4\x05\"\x12\x02\xB4\xB5\x07\x1F" +
+		"\x02\x02\xB5\xB6\x05 \x11\x02\xB6\xB8\x03\x02\x02\x02\xB7\xB2\x03\x02" +
+		"\x02\x02\xB7\xB3\x03\x02\x02\x02\xB8!\x03\x02\x02\x02\xB9\xBA\x05,\x17" +
+		"\x02\xBA\xBB\x05\n\x06\x02\xBB#\x03\x02\x02\x02\xBC\xBE\x05Z.\x02\xBD" +
+		"\xBC\x03\x02\x02\x02\xBD\xBE\x03\x02\x02\x02\xBE\xC0\x03\x02\x02\x02\xBF" +
+		"\xC1\x05&\x14\x02\xC0\xBF\x03\x02\x02\x02\xC0\xC1\x03\x02\x02\x02\xC1" +
+		"%\x03\x02\x02\x02\xC2\xC4\x05(\x15\x02\xC3\xC5\x05&\x14\x02\xC4\xC3\x03" +
+		"\x02\x02\x02\xC4\xC5\x03\x02\x02\x02\xC5\'\x03\x02\x02\x02\xC6\xCB\x05" +
+		"*\x16\x02\xC7\xCB\x050\x19\x02\xC8\xCB\x05.\x18\x02\xC9\xCB\x05@!\x02" +
+		"\xCA\xC6\x03\x02\x02\x02\xCA\xC7\x03\x02\x02\x02\xCA\xC8\x03\x02\x02\x02" +
+		"\xCA\xC9\x03\x02\x02\x02\xCB)\x03\x02\x02\x02\xCC\xCD\x05,\x17\x02\xCD" +
+		"\xCE\x07\x18\x02\x02\xCE+\x03\x02\x02\x02\xCF\xD0\t\x05\x02\x02\xD0-\x03" +
+		"\x02\x02\x02\xD1\xD2\x07\x07\x02\x02\xD2\xD3\x07\x03\x02\x02\xD3\xD4\x05" +
+		"\n\x06\x02\xD4\xD5\x07\"\x02\x02\xD5/\x03\x02\x02\x02\xD6\xD8\x05R*\x02" +
+		"\xD7\xD6\x03\x02\x02\x02\xD7\xD8\x03\x02\x02\x02\xD8\xDC\x03\x02\x02\x02" +
+		"\xD9\xDB\x054\x1B\x02\xDA\xD9\x03\x02\x02\x02\xDB\xDE\x03\x02\x02\x02" +
+		"\xDC\xDA\x03\x02\x02\x02\xDC\xDD\x03\x02\x02\x02\xDD\xE0\x03\x02\x02\x02" +
+		"\xDE\xDC\x03\x02\x02\x02\xDF\xE1\x05\x12\n\x02\xE0\xDF\x03\x02\x02\x02" +
+		"\xE0\xE1\x03\x02\x02\x02\xE1\xE2\x03\x02\x02\x02\xE2\xE3\x05\n\x06\x02" +
+		"\xE3\xE5\x07\x19\x02\x02\xE4\xE6\x058\x1D\x02\xE5\xE4\x03\x02\x02\x02" +
+		"\xE5\xE6\x03\x02\x02\x02\xE6\xE7\x03\x02\x02\x02\xE7\xEB\x07\x1A\x02\x02" +
+		"\xE8\xEA\x056\x1C\x02\xE9\xE8\x03\x02\x02\x02\xEA\xED\x03\x02\x02\x02" +
+		"\xEB\xE9\x03\x02\x02\x02\xEB\xEC\x03\x02\x02\x02\xEC\xEE\x03\x02\x02\x02" +
+		"\xED\xEB\x03\x02\x02\x02\xEE\xEF\x052\x1A\x02\xEF1\x03\x02\x02\x02\xF0" +
+		"\xF6\x07\"\x02\x02\xF1\xF3\x05> \x02\xF2\xF4\x07\"\x02\x02\xF3\xF2\x03" +
+		"\x02\x02\x02\xF3\xF4\x03\x02\x02\x02\xF4\xF6\x03\x02\x02\x02\xF5\xF0\x03" +
+		"\x02\x02\x02\xF5\xF1\x03\x02\x02\x02\xF63\x03\x02\x02\x02\xF7\xF8\t\x06" +
+		"\x02\x02\xF85\x03\x02\x02\x02\xF9\xFA\t\x07\x02\x02\xFA7\x03\x02\x02\x02" +
+		"\xFB\u0101\x05<\x1F\x02\xFC\xFD\x05<\x1F\x02\xFD\xFE\x07\x1F\x02\x02\xFE" +
+		"\xFF\x058\x1D\x02\xFF\u0101\x03\x02\x02\x02\u0100\xFB\x03\x02\x02\x02" +
+		"\u0100\xFC\x03\x02\x02\x02\u01019\x03\x02\x02\x02\u0102\u0103\x05\n\x06" +
+		"\x02\u0103;\x03\x02\x02\x02\u0104\u0105\x05\x12\n\x02\u0105\u0106\x05" +
+		":\x1E\x02\u0106\u010D\x03\x02\x02\x02\u0107\u0108\x05\x12\n\x02\u0108" +
+		"\u0109\x05:\x1E\x02\u0109\u010A\x07!\x02\x02\u010A\u010B\x05\x06\x04\x02" +
+		"\u010B\u010D\x03\x02\x02\x02\u010C\u0104\x03\x02\x02\x02\u010C\u0107\x03" +
+		"\x02\x02\x02\u010D=\x03\x02\x02\x02\u010E\u0110\x07\x1B\x02\x02\u010F" +
+		"\u0111\x05> \x02\u0110\u010F\x03\x02\x02\x02\u0110\u0111\x03\x02\x02\x02" +
+		"\u0111\u0115\x03\x02\x02\x02\u0112\u0114\n\b\x02\x02\u0113\u0112\x03\x02" +
+		"\x02\x02\u0114\u0117\x03\x02\x02\x02\u0115\u0113\x03\x02\x02\x02\u0115" +
+		"\u0116\x03\x02\x02\x02\u0116\u0118\x03\x02\x02\x02\u0117\u0115\x03\x02" +
+		"\x02\x02\u0118\u0119\x07\x1C\x02\x02\u0119?\x03\x02\x02\x02\u011A\u011C" +
+		"\x05X-\x02\u011B\u011A\x03\x02\x02\x02\u011B\u011C\x03\x02\x02\x02\u011C" +
+		"\u011E\x03\x02\x02\x02\u011D\u011F\x07\f\x02\x02\u011E\u011D\x03\x02\x02" +
+		"\x02\u011E\u011F\x03\x02\x02\x02\u011F\u0121\x03\x02\x02\x02\u0120\u0122" +
+		"\x05\x12\n\x02\u0121\u0120\x03\x02\x02\x02\u0121\u0122\x03\x02\x02\x02" +
+		"\u0122\u0123\x03\x02\x02\x02\u0123\u0125\x05\n\x06\x02\u0124\u0126\x05" +
+		"B\"\x02\u0125\u0124\x03\x02\x02\x02\u0125\u0126\x03\x02\x02\x02\u0126" +
+		"\u0127\x03\x02\x02\x02\u0127\u0128\x07\"\x02\x02\u0128A\x03\x02\x02\x02" +
+		"\u0129\u012A\x07\x18\x02\x02\u012A\u012B\x05\b\x05\x02\u012BC\x03\x02" +
+		"\x02\x02\u012C\u012D\x05F$\x02\u012D\u012E\x07\x1B\x02\x02\u012E\u012F" +
+		"\x05H%\x02\u012F\u0131\x07\x1C\x02\x02\u0130\u0132\x07\"\x02\x02\u0131" +
+		"\u0130\x03\x02\x02\x02\u0131\u0132\x03\x02\x02\x02\u0132E\x03\x02\x02" +
+		"\x02\u0133\u0135\x05P)\x02\u0134\u0133\x03\x02\x02\x02\u0134\u0135\x03" +
+		"\x02\x02\x02\u0135\u0136\x03\x02\x02\x02\u0136\u0138\x07\x05\x02\x02\u0137" +
+		"\u0139\x07\x03\x02\x02\u0138\u0137\x03\x02\x02\x02\u0138\u0139\x03\x02" +
+		"\x02\x02\u0139\u013A\x03\x02\x02\x02\u013A\u0147\x05\n\x06\x02\u013B\u013D" +
+		"\x05P)\x02\u013C\u013B\x03\x02\x02\x02\u013C\u013D\x03\x02\x02\x02\u013D" +
+		"\u013E\x03\x02\x02\x02\u013E\u0140\x07\x05\x02\x02\u013F\u0141\x07\x03" +
+		"\x02\x02\u0140\u013F\x03\x02\x02\x02\u0140\u0141\x03\x02\x02\x02\u0141" +
+		"\u0142\x03\x02\x02\x02\u0142\u0143\x05\n\x06\x02\u0143\u0144\x07\x18\x02" +
+		"\x02\u0144\u0145\x05\x12\n\x02\u0145\u0147\x03\x02\x02\x02\u0146\u0134" +
+		"\x03\x02\x02\x02\u0146\u013C\x03\x02\x02\x02\u0147G\x03\x02\x02\x02\u0148" +
+		"\u014E\x05J&\x02\u0149\u014A\x05J&\x02\u014A\u014B\x07\x1F\x02\x02\u014B" +
+		"\u014C\x05H%\x02\u014C\u014E\x03\x02\x02\x02\u014D\u0148\x03\x02\x02\x02" +
+		"\u014D\u0149\x03\x02\x02\x02\u014EI\x03\x02\x02\x02\u014F\u0151\x05\n" +
+		"\x06\x02\u0150\u0152\x05T+\x02\u0151\u0150\x03\x02\x02\x02\u0151\u0152" +
+		"\x03\x02\x02\x02\u0152K\x03\x02\x02\x02\u0153\u0154\x05\n\x06\x02\u0154" +
+		"\u0156\x07\x19\x02\x02\u0155\u0157\n\t\x02\x02\u0156\u0155\x03\x02\x02" +
+		"\x02\u0157\u0158\x03\x02\x02\x02\u0158\u0156\x03\x02\x02\x02\u0158\u0159" +
+		"\x03\x02\x02\x02\u0159\u015A\x03\x02\x02\x02\u015A\u015B\x07\x1A\x02\x02" +
+		"\u015B\u015C\x07\"\x02\x02\u015CM\x03\x02\x02\x02\u015D\u015E\x07\x0F" +
+		"\x02\x02\u015E\u015F\x05\\/\x02\u015FO\x03\x02\x02\x02\u0160\u0161\x07" +
+		"\x10\x02\x02\u0161\u0162\x05\\/\x02\u0162Q\x03\x02\x02\x02\u0163\u0164" +
+		"\x07\x11\x02\x02\u0164\u0165\x05\\/\x02\u0165S\x03\x02\x02\x02\u0166\u0167" +
+		"\x07\x12\x02\x02\u0167\u0168\x05\\/\x02\u0168U\x03\x02\x02\x02\u0169\u016A" +
+		"\x07\x13\x02\x02\u016A\u016B\x05\\/\x02\u016BW\x03\x02\x02\x02\u016C\u016D" +
+		"\x07\x14\x02\x02\u016D\u016E\x05\\/\x02\u016EY\x03\x02\x02\x02\u016F\u0170" +
+		"\x07\x16\x02\x02\u0170\u0171\x05\\/\x02\u0171[\x03\x02\x02\x02\u0172\u0174" +
+		"\x07\x19\x02\x02\u0173\u0175\x05^0\x02\u0174\u0173\x03\x02\x02\x02\u0174" +
+		"\u0175\x03\x02\x02\x02\u0175\u0176\x03\x02\x02\x02\u0176\u0177\x07\x1A" +
+		"\x02\x02\u0177]\x03\x02\x02\x02\u0178\u017F\x05`1\x02\u0179\u017A\x05" +
+		"`1\x02\u017A\u017C\x07\x1F\x02\x02\u017B\u017D\x05^0\x02\u017C\u017B\x03" +
+		"\x02\x02\x02\u017C\u017D\x03\x02\x02\x02\u017D\u017F\x03\x02\x02\x02\u017E" +
+		"\u0178\x03\x02\x02\x02\u017E\u0179\x03\x02\x02\x02\u017F_\x03\x02\x02" +
+		"\x02\u0180\u0185\x05\n\x06\x02\u0181\u0185\x05\b\x05\x02\u0182\u0185\x05" +
+		"b2\x02\u0183\u0185\x05\\/\x02\u0184\u0180\x03\x02\x02\x02\u0184\u0181" +
+		"\x03\x02\x02\x02\u0184\u0182\x03\x02\x02\x02\u0184\u0183\x03\x02\x02\x02" +
+		"\u0185a\x03\x02\x02\x02\u0186\u0187\x05\n\x06\x02\u0187\u0188\x07!\x02" +
+		"\x02\u0188\u0189\x05`1\x02\u0189c\x03\x02\x02\x020gmqv}\x88\x8D\x90\x99" +
+		"\xA2\xA5\xA9\xAD\xB7\xBD\xC0\xC4\xCA\xD7\xDC\xE0\xE5\xEB\xF3\xF5\u0100" +
+		"\u010C\u0110\u0115\u011B\u011E\u0121\u0125\u0131\u0134\u0138\u013C\u0140" +
+		"\u0146\u014D\u0151\u0158\u0174\u017C\u017E\u0184";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!SatisfactoryHeaderParserParser.__ATN) {
@@ -3423,6 +3466,9 @@ export class EnumEntryContext extends ParserRuleContext {
 	public identifier(): IdentifierContext {
 		return this.getRuleContext(0, IdentifierContext);
 	}
+	public umetaMacro(): UmetaMacroContext | undefined {
+		return this.tryGetRuleContext(0, UmetaMacroContext);
+	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -3548,6 +3594,31 @@ export class UfunctionMacroContext extends ParserRuleContext {
 	public exitRule(listener: SatisfactoryHeaderParserListener): void {
 		if (listener.exitUfunctionMacro) {
 			listener.exitUfunctionMacro(this);
+		}
+	}
+}
+
+
+export class UmetaMacroContext extends ParserRuleContext {
+	public UMETA(): TerminalNode { return this.getToken(SatisfactoryHeaderParserParser.UMETA, 0); }
+	public macroPropertyList(): MacroPropertyListContext {
+		return this.getRuleContext(0, MacroPropertyListContext);
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return SatisfactoryHeaderParserParser.RULE_umetaMacro; }
+	// @Override
+	public enterRule(listener: SatisfactoryHeaderParserListener): void {
+		if (listener.enterUmetaMacro) {
+			listener.enterUmetaMacro(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: SatisfactoryHeaderParserListener): void {
+		if (listener.exitUmetaMacro) {
+			listener.exitUmetaMacro(this);
 		}
 	}
 }

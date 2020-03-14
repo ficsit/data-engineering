@@ -7,7 +7,9 @@
   "license": "Apache-2.0",
   "scripts": {
     "dev": "onchange --initial ./grammar/CPP14.g4 -- yarn generate-grammar",
-    "generate-grammar": "antlr4ts ./grammar/CPP14.g4",
+    "generate-grammar": "yarn generate-lexer && yarn generate-parser",
+    "generate-lexer": "antlr4ts -o ./generated ./grammar/SatisfactoryHeaderLexer.g4",
+    "generate-parser": "antlr4ts -o ./generated -lib ./generated/grammar ./grammar/SatisfactoryHeaderParser.g4",
     "headers-to-interfaces": "../../node_modules/.bin/ts-node ./main"
   },
   "dependencies": {
