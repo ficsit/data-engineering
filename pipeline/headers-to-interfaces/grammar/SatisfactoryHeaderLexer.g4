@@ -11,7 +11,9 @@ CLASS: 'class';
 CONST: 'const';
 ENUM: 'enum';
 FALSE: 'false';
+FORCEINLINE: 'FORCEINLINE';
 FRIEND: 'friend';
+INLINE: 'inline';
 MUTABLE: 'mutable';
 OVERRIDE: 'override';
 PRIVATE: 'private';
@@ -33,29 +35,31 @@ UPARAM: 'UPARAM';
 UPROPERTY: 'UPROPERTY';
 USTRUCT: 'USTRUCT';
 UE_DEPRECATED: 'UE_DEPRECATED';
-FORCEINLINE: 'FORCEINLINE';
+
 SF_CLASS_TAG: 'FACTORYGAME_API';
 SF_GENERATED_BODY: 'GENERATED_' [A-Z_]* 'BODY';
 
 // Symbols
 
-COLON:       ':';
-OPEN_PAREN:  '(';
-CLOSE_PAREN: ')';
-OPEN_BRACE:  '{';
-CLOSE_BRACE: '}';
-OPEN_ANGLE:  '<';
+AMPERSAND:   '&';
+BACKSLASH:   '/';
+BANG:        '!';
 CLOSE_ANGLE: '>';
+CLOSE_BRACE: '}';
+CLOSE_PAREN: ')';
+COLON:       ':';
 COMMA:       ',';
-PERIOD:      '.';
 EQUALS:      '=';
+MINUS:       '-';
+OPEN_ANGLE:  '<';
+OPEN_BRACE:  '{';
+OPEN_PAREN:  '(';
+PERIOD:      '.';
+PIPE:        '|';
+PLUS:        '+';
+QUESTION:    '?';
 SEMICOLON:   ';';
 STAR:        '*';
-AMPERSAND:   '&';
-HYPHEN:      '-';
-PIPE:        '|';
-BANG:        '!';
-BACKSLASH:   '/';
 
 // Generic
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9_]+;

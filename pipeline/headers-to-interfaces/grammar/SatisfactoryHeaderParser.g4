@@ -12,6 +12,7 @@ element
   : classDeclaration
   | enumDeclaration
   | staticMethodCall
+  | staticFunctionDeclaration
   | typedef
   ;
 
@@ -65,6 +66,7 @@ templateTypeList
 typeModifier
   : CLASS
   | CONST
+  | ENUM
   | STRUCT
   | MUTABLE
   | uParamMacro
@@ -141,20 +143,13 @@ friendDeclaration
 // Class Methods
 
 classMethod
-  : uedeprecatedMacro? ufunctionMacro? classMethodModifier* typeDeclaration? identifier OPEN_PAREN classMethodParameterList? CLOSE_PAREN classMethodResultModifier* classMethodEnd
+  : uedeprecatedMacro? ufunctionMacro? functionModifier* typeDeclaration? identifier OPEN_PAREN classMethodParameterList? CLOSE_PAREN classMethodResultModifier* classMethodEnd
   ;
 
 classMethodEnd
   : SEMICOLON
-  | classMethodBody SEMICOLON?
-  | COLON classMethodCallList classMethodBody SEMICOLON?
-  ;
-
-classMethodModifier
-  : STATIC
-  | CONST
-  | VIRTUAL
-  | FORCEINLINE
+  | contentWithNestedBraces SEMICOLON?
+  | COLON classMethodCallList contentWithNestedBraces SEMICOLON?
   ;
 
 classMethodResultModifier
@@ -177,10 +172,6 @@ classMethodParameter
   | typeDeclaration classMethodParameterName EQUALS value
   ;
 
-classMethodBody
-  : OPEN_BRACE classMethodBody? ~(OPEN_BRACE | CLOSE_BRACE)* CLOSE_BRACE
-  ;
-
 classMethodCallList
   : classMethodCall
   | classMethodCall COMMA classMethodCallList
@@ -198,6 +189,7 @@ classProperty
 
 classPropertyDefaultValue
   : COLON literal
+  | EQUALS literal
   ;
 
 // Enums
@@ -224,14 +216,47 @@ enumValue
   : EQUALS literal
   ;
 
+// Static Functions
+
+staticFunctionDeclaration
+  : functionModifier* typeDeclaration? identifier contentWithNestedParens contentWithNestedBraces SEMICOLON?
+  ;
+
 // Miscellaneous
 
 staticMethodCall
-  : identifier OPEN_PAREN ~(CLOSE_PAREN)* CLOSE_PAREN SEMICOLON
+  : identifier contentWithNestedParens SEMICOLON
   ;
 
 typedef
   : TYPEDEF typeDeclaration identifier SEMICOLON
+  | CLASS identifier SEMICOLON
+  ;
+
+contentWithNestedParens
+  : OPEN_PAREN contentWithNestedParensInner* CLOSE_PAREN
+  ;
+
+contentWithNestedParensInner
+  : .
+  | contentWithNestedParens
+  ;
+
+contentWithNestedBraces
+  : OPEN_BRACE contentWithNestedBracesInner* CLOSE_BRACE
+  ;
+
+contentWithNestedBracesInner
+  : .
+  | contentWithNestedBraces
+  ;
+
+functionModifier
+  : STATIC
+  | CONST
+  | VIRTUAL
+  | FORCEINLINE
+  | INLINE
   ;
 
 // Macros
