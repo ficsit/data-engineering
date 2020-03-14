@@ -141,7 +141,7 @@ friendDeclaration
 // Class Methods
 
 classMethod
-  : ufunctionMacro? classMethodModifier* typeDeclaration? identifier OPEN_PAREN classMethodParameterList? CLOSE_PAREN classMethodResultModifier* classMethodEnd
+  : uedeprecatedMacro? ufunctionMacro? classMethodModifier* typeDeclaration? identifier OPEN_PAREN classMethodParameterList? CLOSE_PAREN classMethodResultModifier* classMethodEnd
   ;
 
 classMethodEnd
@@ -217,7 +217,11 @@ enumBody
   ;
 
 enumEntry
-  : identifier umetaMacro?
+  : identifier enumValue? umetaMacro?
+  ;
+
+enumValue
+  : EQUALS literal
   ;
 
 // Miscellaneous
@@ -262,6 +266,10 @@ upropertyMacro
 
 ustructMacro
   : USTRUCT macroPropertyList
+  ;
+
+uedeprecatedMacro
+  : UE_DEPRECATED macroPropertyList
   ;
 
 generatedBodyMacro

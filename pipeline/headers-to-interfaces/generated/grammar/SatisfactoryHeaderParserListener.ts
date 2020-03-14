@@ -45,6 +45,7 @@ import { EnumDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { EnumHeaderContext } from "./SatisfactoryHeaderParserParser";
 import { EnumBodyContext } from "./SatisfactoryHeaderParserParser";
 import { EnumEntryContext } from "./SatisfactoryHeaderParserParser";
+import { EnumValueContext } from "./SatisfactoryHeaderParserParser";
 import { StaticMethodCallContext } from "./SatisfactoryHeaderParserParser";
 import { TypedefContext } from "./SatisfactoryHeaderParserParser";
 import { UclassMacroContext } from "./SatisfactoryHeaderParserParser";
@@ -55,6 +56,7 @@ import { UmetaMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UParamMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UpropertyMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UstructMacroContext } from "./SatisfactoryHeaderParserParser";
+import { UedeprecatedMacroContext } from "./SatisfactoryHeaderParserParser";
 import { GeneratedBodyMacroContext } from "./SatisfactoryHeaderParserParser";
 import { MacroPropertyListContext } from "./SatisfactoryHeaderParserParser";
 import { MacroPropertyListEntriesContext } from "./SatisfactoryHeaderParserParser";
@@ -530,6 +532,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	exitEnumEntry?: (ctx: EnumEntryContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.enumValue`.
+	 * @param ctx the parse tree
+	 */
+	enterEnumValue?: (ctx: EnumValueContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.enumValue`.
+	 * @param ctx the parse tree
+	 */
+	exitEnumValue?: (ctx: EnumValueContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.staticMethodCall`.
 	 * @param ctx the parse tree
 	 */
@@ -638,6 +651,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitUstructMacro?: (ctx: UstructMacroContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.uedeprecatedMacro`.
+	 * @param ctx the parse tree
+	 */
+	enterUedeprecatedMacro?: (ctx: UedeprecatedMacroContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.uedeprecatedMacro`.
+	 * @param ctx the parse tree
+	 */
+	exitUedeprecatedMacro?: (ctx: UedeprecatedMacroContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.generatedBodyMacro`.
