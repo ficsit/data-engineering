@@ -2,7 +2,7 @@
 
 export interface ClassMetadata {
   name: string;
-  comment: string;
+  comment?: string;
   extends: string[];
   methods: ClassMethod[];
   properties: ClassProperty[];
@@ -10,13 +10,13 @@ export interface ClassMetadata {
 
 export interface ClassMethod {
   name: string;
-  comment: string;
+  comment?: string;
   returnType: string;
 }
 
 export interface ClassProperty {
   name: string;
-  comment: string;
+  comment?: string;
   type: string;
 }
 
@@ -24,11 +24,12 @@ export interface ClassProperty {
 
 export interface EnumMetadata {
   name: string;
-  comment: string;
+  comment?: string;
   entries: EnumEntry[];
 }
 
 export interface EnumEntry {
   name: string;
-  comment: string;
+  displayName?: string;
+  comment?: string;
 }

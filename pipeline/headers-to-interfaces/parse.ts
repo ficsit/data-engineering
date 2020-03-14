@@ -12,6 +12,9 @@ import {
   EnumDeclarationContext,
   EnumEntryContext,
   ClassExtensionContext,
+  MacroPropertyListContext,
+  MacroPropertyContext,
+  LiteralContext,
 } from './generated/grammar/SatisfactoryHeaderParserParser';
 import { ClassMetadata, EnumMetadata } from './interface';
 
@@ -98,8 +101,11 @@ class Listener implements SatisfactoryHeaderParserListener {
   }
 
   enterEnumEntry(context: EnumEntryContext) {
+    const meta = this._macroProperties(context.umetaMacro());
+
     this._currentEnum().entries.push({
       name: context.identifier().text,
+      displayName: meta['DisplayName'],
       comment: this._getComment(context),
     });
   }
@@ -140,10 +146,12 @@ class Listener implements SatisfactoryHeaderParserListener {
     }
     const linesAfter = this._tokens.getHiddenTokensToLeft(nextLine.tokenIndex);
 
-    return [...linesBefore, ...linesAfter]
+    const comment = [...linesBefore, ...linesAfter]
       .map(t => t.text)
       .map(t => t.replace(/[ \t]+$/, ''))
       .join('\n');
+
+    return comment === '' ? undefined : comment;
   }
 
   _currentClass(): ClassMetadata {
@@ -158,5 +166,46 @@ class Listener implements SatisfactoryHeaderParserListener {
       throw new Error(`Expected to be inside a class declaration`);
     }
     return this._currentEntry;
+  }
+
+  _macroProperties(context?: { text: string; macroPropertyList: () => MacroPropertyListContext }) {
+    if (!context) return {};
+    let properties = {} as Record<string, any>;
+
+    let entries = context.macroPropertyList().macroPropertyListEntries();
+    while (entries) {
+      const value = this._macroPropertyValue(entries.macroProperty());
+      properties = { ...properties, ...value };
+
+      entries = entries.macroPropertyListEntries();
+    }
+
+    return properties;
+  }
+
+  _macroPropertyValue(context: MacroPropertyContext) {
+    if (context.identifier()) {
+      return { [context.identifier().text]: true };
+    } else if (context.literal()) {
+      return this._literalValue(context.literal());
+    } else if (context.macroPropertyPair()) {
+      const pair = context.macroPropertyPair();
+      return { [pair.identifier().text]: this._macroPropertyValue(pair.macroProperty()) };
+    } else {
+      throw new Error(`Don't know how to handle macros like ${context.text} yet`);
+    }
+  }
+
+  _literalValue(context: LiteralContext) {
+    if (context.numericLiteral()) {
+      return parseFloat(context.numericLiteral().text);
+    } else if (context.stringLiteral()) {
+      const text = context.stringLiteral().text;
+      return text.substr(1, text.length - 2);
+    } else if (context.booleanLiteral()) {
+      return context.booleanLiteral().text === 'true';
+    } else {
+      throw new Error(`Don't know how to extract a literal value from ${context.text}`);
+    }
   }
 }
