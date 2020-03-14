@@ -10,6 +10,8 @@ file
 
 element
   : classDeclaration
+  | enumDeclaration
+  | staticMethodCall
   ;
 
 // Primitive
@@ -22,10 +24,12 @@ value
 literal
   : stringLiteral
   | numericLiteral
+  | booleanLiteral
   ;
 
 identifier
   : IDENTIFIER
+  | IDENTIFIER COLON COLON IDENTIFIER
   ;
 
 stringLiteral
@@ -35,6 +39,11 @@ stringLiteral
 numericLiteral
   : INTEGER_LITERAL
   | FLOAT_LITERAL
+  ;
+
+booleanLiteral
+  : TRUE
+  | FALSE
   ;
 
 // Types
@@ -49,6 +58,7 @@ templateType
 
 typeModifier
   : CLASS
+  | CONST
   | uParamMacro
   ;
 
@@ -60,7 +70,7 @@ typeReferenceType
 // Classes
 
 classDeclaration
-  : classHeader OPEN_BRACE classBody CLOSE_BRACE
+  : classHeader OPEN_BRACE classBody CLOSE_BRACE SEMICOLON?
   ;
 
 classHeader
@@ -68,7 +78,16 @@ classHeader
   ;
 
 classInheritance
-  : COLON PUBLIC identifier
+  : COLON classExtensionList
+  ;
+
+classExtensionList
+  : classExtension
+  | classExtension COMMA classExtensionList
+  ;
+
+classExtension
+  : classVisibilityModifier identifier
   ;
 
 classBody
@@ -103,12 +122,12 @@ friendClassDeclaration
 // Class Methods
 
 classMethod
-  : ufunctionMacro? classMethodModifier* typeDeclaration? identifier OPEN_PAREN classMethodParameterList? CLOSE_PAREN CONST? classMethodEnd
+  : ufunctionMacro? classMethodModifier* typeDeclaration? identifier OPEN_PAREN classMethodParameterList? CLOSE_PAREN classMethodResultModifier* classMethodEnd
   ;
 
 classMethodEnd
   : SEMICOLON
-  | classMethodBody
+  | classMethodBody SEMICOLON?
   ;
 
 classMethodModifier
@@ -116,6 +135,11 @@ classMethodModifier
   | CONST
   | VIRTUAL
   | FORCEINLINE
+  ;
+
+classMethodResultModifier
+  : CONST
+  | OVERRIDE
   ;
 
 classMethodParameterList
@@ -133,19 +157,53 @@ classMethodParameter
   ;
 
 classMethodBody
-  : OPEN_BRACE classMethodBody? ~OPEN_BRACE*? CLOSE_BRACE
+  : OPEN_BRACE classMethodBody? ~(OPEN_BRACE | CLOSE_BRACE)* CLOSE_BRACE
   ;
 
 // Class Properties
 
 classProperty
-  : upropertyMacro? typeDeclaration? identifier SEMICOLON
+  : upropertyMacro? STATIC? typeDeclaration? identifier classPropertyDefaultValue? SEMICOLON
+  ;
+
+classPropertyDefaultValue
+  : COLON literal
+  ;
+
+// Enums
+
+enumDeclaration
+  : enumHeader OPEN_BRACE enumBody CLOSE_BRACE SEMICOLON?
+  ;
+
+enumHeader
+  : uenumMacro? ENUM CLASS? identifier
+  | uenumMacro? ENUM CLASS? identifier COLON typeDeclaration
+  ;
+
+enumBody
+  : enumEntry
+  | enumEntry COMMA enumBody
+  ;
+
+enumEntry
+  : identifier
+  ;
+
+// Miscellaneous
+
+staticMethodCall
+  : identifier OPEN_PAREN ~(CLOSE_PAREN)+ CLOSE_PAREN SEMICOLON
   ;
 
 // Macros
 
 uclassMacro
   : UCLASS macroPropertyList
+  ;
+
+uenumMacro
+  : UENUM macroPropertyList
   ;
 
 ufunctionMacro
@@ -175,7 +233,7 @@ macroPropertyListEntries
 
 macroProperty
   : identifier
-  | stringLiteral
+  | literal
   | macroPropertyPair
   | macroPropertyList
   ;

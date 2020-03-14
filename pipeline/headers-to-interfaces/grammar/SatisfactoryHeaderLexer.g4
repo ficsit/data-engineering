@@ -9,15 +9,20 @@ fragment Newline: '\r'? '\n';
 
 CLASS: 'class';
 CONST: 'const';
+ENUM: 'enum';
+FALSE: 'false';
 FRIEND: 'friend';
+OVERRIDE: 'override';
 PRIVATE: 'private';
 PROTECTED: 'protected';
 PUBLIC: 'public';
 STATIC: 'static';
+TRUE: 'true';
 VIRTUAL: 'virtual';
 
 // Satisfactory Specifics
 UCLASS: 'UCLASS';
+UENUM: 'UENUM';
 UFUNCTION: 'UFUNCTION';
 UPARAM: 'UPARAM';
 UPROPERTY: 'UPROPERTY';
@@ -40,6 +45,9 @@ EQUALS:      '=';
 SEMICOLON:   ';';
 STAR:        '*';
 AMPERSAND:   '&';
+HYPHEN:      '-';
+PIPE:        '|';
+BANG:        '!';
 
 // Generic
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9_]+;
@@ -69,58 +77,3 @@ BLOCK_COMMENT_END: Space* '*/' -> skip, popMode;
 BLOCK_COMMENT_NEW_LINE: Newline Space* '*' ~'/' -> skip;
 BLOCK_COMMENT_TEXT: ~[*\r\n]+ -> channel(COMMENTS_CHANNEL);
 BLOCK_COMMENT_OTHER: . -> skip;
-
-
-
-
-// // Paired Tokens
-
-
-
-// // Channel Redirects
-
-// START_SINGLE_COMMENT: '//' -> skip, pushMode(SINGLE_COMMENT);
-// START_MULTI_COMMENT:  '/' '*'+ ' '? -> skip, pushMode(MULTI_COMMENT);
-
-// PREPROCESSOR:   '#' ~[\r\n]*  -> skip;
-
-// // MULTI_COMMENT:  '/*' .*? '*/' -> channel(COMMENTS_CHANNEL);
-// // SINGLE_COMMENT: '//' ~[\r\n]* -> channel(COMMENTS_CHANNEL);
-
-// mode SINGLE_COMMENT;
-
-// END_SINGLE_COMMENT: Newline -> skip, popMode;
-// SINGLE_COMMENT_TEXT: .+?    -> channel(COMMENTS_CHANNEL);
-
-// mode MULTI_COMMENT;
-
-// MULTI_COMMENT_LINE_WRAP_START: Newline {console.log('MULTI_COMMENT_LINE_WRAP_START')} -> channel(COMMENTS_CHANNEL), pushMode(MULTI_COMMENT_LINE_WRAP) ;
-// END_MULTI_COMMENT:  '*/' -> skip, popMode;
-// // MULTI_COMMENT_LINE_WRAP: '\n' ' '+ -> channel(COMMENTS_CHANNEL);
-
-// MULTI_COMMENT_TEXT: ~'*'+  -> channel(COMMENTS_CHANNEL);
-// MULTI_COMMENT_STAR: '*' -> channel(COMMENTS_CHANNEL);
-
-// mode MULTI_COMMENT_LINE_WRAP;
-
-// // MULTI_COMMENT_LINE_WRAP_SPACE: ' '*? '*' -> skip;
-// MULTI_COMMENT_LINE_WRAP_SPACE: [ \t]+ -> channel(COMMENTS_CHANNEL);
-// MULTI_COMMENT_LINE_WRAP_END: . -> channel(COMMENTS_CHANNEL), popMode;
-
-// // MULTI_COMMENT_LINE_WRAP_SPACE: ' ' -> channel(COMMENTS_CHANNEL);
-// // MULTI_COMMENT_LINE_WRAP_END: . -> channel(COMMENTS_CHANNEL), popMode;
-
-// // MULTI_COMMENT_LINE_WRAP_TEXT: .+?  -> channel(COMMENTS_CHANNEL), popMode;
-// // MULTI_COMMENT_LINE_WRAP_END: ~' ' -> channel(COMMENTS_CHANNEL), popMode;
-
-// mode DEFAULT_MODE;
-
-// fragment Whitespace: [ \t];
-// fragment Newline:    '\r'? '\n';
-
-// WHITESPACE: Whitespace+ -> skip;
-// NEWLINE:    Newline     -> channel(COMMENTS_CHANNEL);
-
-// WORD: [a-zA-Z]+;
-// NUMBER: [0-9]+;
-// SYMBOL: .+?;
