@@ -112,7 +112,7 @@ classExtension
   ;
 
 classBody
-  : generatedBodyMacro? classEntries?
+  : generatedBodyMacro? SEMICOLON? classEntries?
   ;
 
 classEntries
@@ -124,6 +124,7 @@ classEntry
   | classMethod
   | friendDeclaration
   | classProperty
+  | statDeclaration
   ;
 
 classVisibility
@@ -140,16 +141,20 @@ friendDeclaration
   : FRIEND CLASS? identifier SEMICOLON
   ;
 
+statDeclaration
+  : STAT contentWithNestedParens
+  ;
+
 // Class Methods
 
 classMethod
-  : uedeprecatedMacro? ufunctionMacro? functionModifier* typeDeclaration? identifier OPEN_PAREN classMethodParameterList? CLOSE_PAREN classMethodResultModifier* classMethodEnd
+  : uedeprecatedMacro? ufunctionMacro? functionModifier* typeDeclaration? functionName OPEN_PAREN classMethodParameterList? CLOSE_PAREN classMethodResultModifier* classMethodEnd
   ;
 
 classMethodEnd
   : SEMICOLON
   | contentWithNestedBraces SEMICOLON?
-  | COLON classMethodCallList contentWithNestedBraces SEMICOLON?
+  | COLON classInitializerList contentWithNestedBraces SEMICOLON?
   ;
 
 classMethodResultModifier
@@ -172,24 +177,33 @@ classMethodParameter
   | typeDeclaration classMethodParameterName EQUALS value
   ;
 
-classMethodCallList
-  : classMethodCall
-  | classMethodCall COMMA classMethodCallList
+classInitializerList
+  : classInitializer
+  | classInitializer COMMA classInitializerList
   ;
 
-classMethodCall
-  : identifier OPEN_PAREN ~(CLOSE_PAREN)* CLOSE_PAREN
+classInitializer
+  : identifier contentWithNestedParens
   ;
 
 // Class Properties
 
 classProperty
-  : upropertyMacro? STATIC? typeDeclaration? identifier classPropertyDefaultValue? SEMICOLON
+  : upropertyMacro? STATIC? typeDeclaration? identifier classPropertyArraySizeDeclaration? classPropertyDefaultValue? SEMICOLON
   ;
 
 classPropertyDefaultValue
   : COLON literal
   | EQUALS literal
+  ;
+
+classPropertyArraySizeDeclaration
+  : OPEN_SQUARE classPropertyArraySize CLOSE_SQUARE
+  ;
+
+classPropertyArraySize
+  : identifier
+  | numericLiteral
   ;
 
 // Enums
@@ -219,7 +233,7 @@ enumValue
 // Static Functions
 
 staticFunctionDeclaration
-  : functionModifier* typeDeclaration? identifier contentWithNestedParens contentWithNestedBraces SEMICOLON?
+  : functionModifier* typeDeclaration? functionName contentWithNestedParens CONST? contentWithNestedBraces SEMICOLON?
   ;
 
 // Miscellaneous
@@ -238,7 +252,7 @@ contentWithNestedParens
   ;
 
 contentWithNestedParensInner
-  : .
+  : ~(OPEN_PAREN | CLOSE_PAREN)+
   | contentWithNestedParens
   ;
 
@@ -247,9 +261,25 @@ contentWithNestedBraces
   ;
 
 contentWithNestedBracesInner
-  : .
+  : ~(OPEN_BRACE | CLOSE_BRACE)+
   | contentWithNestedBraces
   ;
+
+contentWithNestedAngles
+  : OPEN_ANGLE contentWithNestedAnglesInner* CLOSE_ANGLE
+  ;
+
+contentWithNestedAnglesInner
+  : ~(OPEN_ANGLE | CLOSE_ANGLE)+
+  | contentWithNestedAngles
+  ;
+
+functionName
+  : identifier
+  | OPERATOR EQUALS EQUALS
+  | OPERATOR OPEN_SQUARE CLOSE_SQUARE
+  ;
+
 
 functionModifier
   : STATIC
@@ -257,6 +287,7 @@ functionModifier
   | VIRTUAL
   | FORCEINLINE
   | INLINE
+  | TEMPLATE contentWithNestedAngles
   ;
 
 // Macros

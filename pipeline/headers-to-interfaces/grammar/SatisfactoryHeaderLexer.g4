@@ -15,12 +15,14 @@ FORCEINLINE: 'FORCEINLINE';
 FRIEND: 'friend';
 INLINE: 'inline';
 MUTABLE: 'mutable';
+OPERATOR: 'operator';
 OVERRIDE: 'override';
 PRIVATE: 'private';
 PROTECTED: 'protected';
 PUBLIC: 'public';
 STATIC: 'static';
 STRUCT: 'struct';
+TEMPLATE: 'template';
 TRUE: 'true';
 TYPEDEF: 'typedef';
 VIRTUAL: 'virtual';
@@ -35,31 +37,34 @@ UPARAM: 'UPARAM';
 UPROPERTY: 'UPROPERTY';
 USTRUCT: 'USTRUCT';
 UE_DEPRECATED: 'UE_DEPRECATED';
+STAT: 'STAT';
 
 SF_CLASS_TAG: 'FACTORYGAME_API';
 SF_GENERATED_BODY: 'GENERATED_' [A-Z_]* 'BODY';
 
 // Symbols
 
-AMPERSAND:   '&';
-BACKSLASH:   '/';
-BANG:        '!';
-CLOSE_ANGLE: '>';
-CLOSE_BRACE: '}';
-CLOSE_PAREN: ')';
-COLON:       ':';
-COMMA:       ',';
-EQUALS:      '=';
-MINUS:       '-';
-OPEN_ANGLE:  '<';
-OPEN_BRACE:  '{';
-OPEN_PAREN:  '(';
-PERIOD:      '.';
-PIPE:        '|';
-PLUS:        '+';
-QUESTION:    '?';
-SEMICOLON:   ';';
-STAR:        '*';
+AMPERSAND:    '&';
+BACKSLASH:    '/';
+BANG:         '!';
+CLOSE_ANGLE:  '>';
+CLOSE_BRACE:  '}';
+CLOSE_PAREN:  ')';
+CLOSE_SQUARE: ']';
+COLON:        ':';
+COMMA:        ',';
+EQUALS:       '=';
+MINUS:        '-';
+OPEN_ANGLE:   '<';
+OPEN_BRACE:   '{';
+OPEN_PAREN:   '(';
+OPEN_SQUARE:  '[';
+PERIOD:       '.';
+PIPE:         '|';
+PLUS:         '+';
+QUESTION:     '?';
+SEMICOLON:    ';';
+STAR:         '*';
 
 // Generic
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9_]*;

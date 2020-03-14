@@ -84,7 +84,7 @@ class Listener implements SatisfactoryHeaderParserListener {
 
   enterClassMethod(context: ClassMethodContext) {
     this._currentClass().methods.push({
-      name: context.identifier().text,
+      name: context.functionName().text,
       comment: this._getComment(context),
       returnType: context.typeDeclaration()?.text,
     });
