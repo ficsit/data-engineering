@@ -15,6 +15,7 @@ element
   | staticFunctionDeclaration
   | staticPropertyDeclaration
   | typedef
+  | SEMICOLON
   ;
 
 // Primitive
@@ -126,6 +127,8 @@ classEntry
   | friendDeclaration
   | classProperty
   | statDeclaration
+  | typedef
+  | SEMICOLON
   ;
 
 classVisibility
@@ -181,6 +184,8 @@ classProperty
 classPropertyDefaultValue
   : COLON literal
   | EQUALS literal
+  | EQUALS identifier
+  | EQUALS identifier contentWithNestedParens
   ;
 
 classPropertyArraySizeDeclaration
