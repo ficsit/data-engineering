@@ -25,7 +25,7 @@ import { ClassEntriesContext } from "./SatisfactoryHeaderParserParser";
 import { ClassEntryContext } from "./SatisfactoryHeaderParserParser";
 import { ClassVisibilityContext } from "./SatisfactoryHeaderParserParser";
 import { ClassVisibilityModifierContext } from "./SatisfactoryHeaderParserParser";
-import { FriendClassDeclarationContext } from "./SatisfactoryHeaderParserParser";
+import { FriendDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { ClassMethodContext } from "./SatisfactoryHeaderParserParser";
 import { ClassMethodEndContext } from "./SatisfactoryHeaderParserParser";
 import { ClassMethodModifierContext } from "./SatisfactoryHeaderParserParser";
@@ -303,15 +303,15 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	exitClassVisibilityModifier?: (ctx: ClassVisibilityModifierContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.friendClassDeclaration`.
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.friendDeclaration`.
 	 * @param ctx the parse tree
 	 */
-	enterFriendClassDeclaration?: (ctx: FriendClassDeclarationContext) => void;
+	enterFriendDeclaration?: (ctx: FriendDeclarationContext) => void;
 	/**
-	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.friendClassDeclaration`.
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.friendDeclaration`.
 	 * @param ctx the parse tree
 	 */
-	exitFriendClassDeclaration?: (ctx: FriendClassDeclarationContext) => void;
+	exitFriendDeclaration?: (ctx: FriendDeclarationContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classMethod`.

@@ -101,7 +101,7 @@ classEntries
 classEntry
   : classVisibility
   | classMethod
-  | friendClassDeclaration
+  | friendDeclaration
   | classProperty
   ;
 
@@ -115,8 +115,8 @@ classVisibilityModifier
   | PRIVATE
   ;
 
-friendClassDeclaration
-  : FRIEND CLASS identifier SEMICOLON
+friendDeclaration
+  : FRIEND CLASS? identifier SEMICOLON
   ;
 
 // Class Methods
