@@ -45,6 +45,7 @@ import { EnumBodyContext } from "./SatisfactoryHeaderParserParser";
 import { EnumEntryContext } from "./SatisfactoryHeaderParserParser";
 import { EnumValueContext } from "./SatisfactoryHeaderParserParser";
 import { StaticFunctionDeclarationContext } from "./SatisfactoryHeaderParserParser";
+import { StaticPropertyDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { StaticMethodCallContext } from "./SatisfactoryHeaderParserParser";
 import { TypedefContext } from "./SatisfactoryHeaderParserParser";
 import { ContentWithNestedParensContext } from "./SatisfactoryHeaderParserParser";
@@ -537,6 +538,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitStaticFunctionDeclaration?: (ctx: StaticFunctionDeclarationContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.staticPropertyDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	enterStaticPropertyDeclaration?: (ctx: StaticPropertyDeclarationContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.staticPropertyDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	exitStaticPropertyDeclaration?: (ctx: StaticPropertyDeclarationContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.staticMethodCall`.

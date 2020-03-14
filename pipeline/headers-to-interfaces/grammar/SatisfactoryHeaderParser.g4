@@ -13,6 +13,7 @@ element
   | enumDeclaration
   | staticMethodCall
   | staticFunctionDeclaration
+  | staticPropertyDeclaration
   | typedef
   ;
 
@@ -215,11 +216,14 @@ enumValue
   : EQUALS literal
   ;
 
-// Static Functions
+// Statics
 
 staticFunctionDeclaration
   : functionModifier* typeDeclaration? functionName contentWithNestedParens CONST? contentWithNestedBraces SEMICOLON?
   ;
+
+staticPropertyDeclaration
+  : STATIC typeDeclaration identifier EQUALS literal SEMICOLON;
 
 // Miscellaneous
 
@@ -264,8 +268,11 @@ functionName
   | OPERATOR EQUALS
   | OPERATOR EQUALS EQUALS
   | OPERATOR OPEN_SQUARE CLOSE_SQUARE
+  | OPERATOR OPEN_ANGLE
+  | OPERATOR OPEN_ANGLE OPEN_ANGLE
+  | OPERATOR CLOSE_ANGLE
+  | OPERATOR CLOSE_ANGLE CLOSE_ANGLE
   ;
-
 
 functionModifier
   : STATIC
