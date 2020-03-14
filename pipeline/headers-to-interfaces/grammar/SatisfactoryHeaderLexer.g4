@@ -62,7 +62,7 @@ SEMICOLON:   ';';
 STAR:        '*';
 
 // Generic
-IDENTIFIER: [a-zA-Z][a-zA-Z0-9_]+;
+IDENTIFIER: [a-zA-Z][a-zA-Z0-9_]*;
 STRING_LITERAL: '"' .*? '"';
 FLOAT_LITERAL: [0-9]+ '.' [0-9]* 'f'?;
 INTEGER_LITERAL: [0-9]+;

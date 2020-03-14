@@ -195,7 +195,7 @@ classPropertyDefaultValue
 // Enums
 
 enumDeclaration
-  : enumHeader OPEN_BRACE enumBody CLOSE_BRACE SEMICOLON?
+  : enumHeader OPEN_BRACE enumBody COMMA? CLOSE_BRACE SEMICOLON?
   ;
 
 enumHeader
