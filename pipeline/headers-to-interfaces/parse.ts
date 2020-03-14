@@ -142,7 +142,11 @@ class Listener implements SatisfactoryHeaderParserListener {
     // Also extract any comments at the end of the line of this token.
     let nextLine = stop;
     while (nextLine.line === stop.line) {
-      nextLine = this._tokens.get(nextLine.tokenIndex + 1);
+      try {
+        nextLine = this._tokens.get(nextLine.tokenIndex + 1);
+      } catch (error) {
+        break;
+      }
     }
     const linesAfter = this._tokens.getHiddenTokensToLeft(nextLine.tokenIndex);
 
