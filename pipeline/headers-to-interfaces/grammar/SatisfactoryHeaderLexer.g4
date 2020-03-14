@@ -12,6 +12,7 @@ CONST: 'const';
 ENUM: 'enum';
 FALSE: 'false';
 FRIEND: 'friend';
+MUTABLE: 'mutable';
 OVERRIDE: 'override';
 PRIVATE: 'private';
 PROTECTED: 'protected';
@@ -57,7 +58,7 @@ BANG:        '!';
 // Generic
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9_]+;
 STRING_LITERAL: '"' .*? '"';
-FLOAT_LITERAL: [0-9]+ '.' [0-9]+ 'f'?;
+FLOAT_LITERAL: [0-9]+ '.' [0-9]* 'f'?;
 INTEGER_LITERAL: [0-9]+;
 
 // Blocks

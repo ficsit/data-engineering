@@ -59,15 +59,16 @@ class Listener implements SatisfactoryHeaderParserListener {
     const header = context.classHeader();
     const macro = header.classMacro();
     let category;
-    if (macro.uclassMacro()) {
+    if (macro?.uclassMacro()) {
       category = 'UCLASS';
-    } else if (macro.uinterfaceMacro()) {
+    } else if (macro?.uinterfaceMacro()) {
       category = 'UINTERFACE';
-    } else if (macro.ustructMacro()) {
+    } else if (macro?.ustructMacro()) {
       category = 'USTRUCT';
     }
 
     this._currentEntry = {
+      kind: 'class',
       name: header.identifier().text,
       category,
       comment: this._getComment(context),
@@ -106,6 +107,7 @@ class Listener implements SatisfactoryHeaderParserListener {
 
   enterEnumDeclaration(context: EnumDeclarationContext) {
     this._currentEntry = {
+      kind: 'enum',
       name: context.enumHeader().identifier().text,
       comment: this._getComment(context),
       entries: [],
@@ -171,15 +173,15 @@ class Listener implements SatisfactoryHeaderParserListener {
   }
 
   _currentClass(): ClassMetadata {
-    if (!this._currentEntry || !('properties' in this._currentEntry)) {
+    if (this._currentEntry?.kind !== 'class') {
       throw new Error(`Expected to be inside a class declaration`);
     }
     return this._currentEntry;
   }
 
   _currentEnum(): EnumMetadata {
-    if (!this._currentEntry || !('entries' in this._currentEntry)) {
-      throw new Error(`Expected to be inside a class declaration`);
+    if (this._currentEntry?.kind !== 'enum') {
+      throw new Error(`Expected to be inside a enum declaration`);
     }
     return this._currentEntry;
   }

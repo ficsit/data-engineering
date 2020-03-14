@@ -65,6 +65,8 @@ templateTypeList
 typeModifier
   : CLASS
   | CONST
+  | STRUCT
+  | MUTABLE
   | uParamMacro
   ;
 

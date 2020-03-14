@@ -1,6 +1,7 @@
 // Classes
 
 export interface ClassMetadata {
+  kind: 'class';
   name: string;
   category?: 'UCLASS' | 'UINTERFACE' | 'USTRUCT';
   comment?: string;
@@ -24,6 +25,7 @@ export interface ClassProperty {
 // Enums
 
 export interface EnumMetadata {
+  kind: 'enum';
   name: string;
   comment?: string;
   entries: EnumEntry[];
