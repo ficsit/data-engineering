@@ -6,7 +6,7 @@
   "author": "FicsIt Employees",
   "license": "Apache-2.0",
   "scripts": {
-    "dev": "onchange --initial ./grammar/CPP14.g4 -- yarn generate-grammar",
+    "dev": "onchange --initial './grammar/*.g4' -- yarn generate-grammar",
     "generate-grammar": "yarn generate-lexer && yarn generate-parser",
     "generate-lexer": "antlr4ts -o ./generated ./grammar/SatisfactoryHeaderLexer.g4",
     "generate-parser": "antlr4ts -o ./generated -lib ./generated/grammar ./grammar/SatisfactoryHeaderParser.g4",

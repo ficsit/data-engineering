@@ -74,7 +74,7 @@ classDeclaration
   ;
 
 classHeader
-  : uclassMacro? CLASS SF_CLASS_TAG? identifier classInheritance?
+  : uclassMacro? uinterfaceMacro? CLASS SF_CLASS_TAG? identifier classInheritance?
   ;
 
 classInheritance
@@ -208,6 +208,10 @@ uenumMacro
 
 ufunctionMacro
   : UFUNCTION macroPropertyList
+  ;
+
+uinterfaceMacro
+  : UINTERFACE macroPropertyList
   ;
 
 umetaMacro

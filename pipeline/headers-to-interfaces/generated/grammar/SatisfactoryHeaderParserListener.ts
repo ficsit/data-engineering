@@ -44,6 +44,7 @@ import { StaticMethodCallContext } from "./SatisfactoryHeaderParserParser";
 import { UclassMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UenumMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UfunctionMacroContext } from "./SatisfactoryHeaderParserParser";
+import { UinterfaceMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UmetaMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UParamMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UpropertyMacroContext } from "./SatisfactoryHeaderParserParser";
@@ -509,6 +510,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitUfunctionMacro?: (ctx: UfunctionMacroContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.uinterfaceMacro`.
+	 * @param ctx the parse tree
+	 */
+	enterUinterfaceMacro?: (ctx: UinterfaceMacroContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.uinterfaceMacro`.
+	 * @param ctx the parse tree
+	 */
+	exitUinterfaceMacro?: (ctx: UinterfaceMacroContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.umetaMacro`.
