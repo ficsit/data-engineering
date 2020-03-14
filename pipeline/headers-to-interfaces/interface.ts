@@ -2,6 +2,7 @@
 
 export interface ClassMetadata {
   name: string;
+  category?: 'UCLASS' | 'UINTERFACE' | 'USTRUCT';
   comment?: string;
   extends: string[];
   methods: ClassMethod[];

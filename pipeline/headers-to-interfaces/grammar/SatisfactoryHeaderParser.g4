@@ -80,7 +80,18 @@ classDeclaration
   ;
 
 classHeader
-  : uclassMacro? uinterfaceMacro? CLASS SF_CLASS_TAG? identifier classInheritance?
+  : classMacro? classKeyword SF_CLASS_TAG? identifier classInheritance?
+  ;
+
+classMacro
+  : uclassMacro
+  | uinterfaceMacro
+  | ustructMacro
+  ;
+
+classKeyword
+  : CLASS
+  | STRUCT
   ;
 
 classInheritance
@@ -134,6 +145,7 @@ classMethod
 classMethodEnd
   : SEMICOLON
   | classMethodBody SEMICOLON?
+  | COLON classMethodCallList classMethodBody SEMICOLON?
   ;
 
 classMethodModifier
@@ -151,6 +163,7 @@ classMethodResultModifier
 classMethodParameterList
   : classMethodParameter
   | classMethodParameter COMMA classMethodParameterList
+  | identifier
   ;
 
 classMethodParameterName
@@ -164,6 +177,15 @@ classMethodParameter
 
 classMethodBody
   : OPEN_BRACE classMethodBody? ~(OPEN_BRACE | CLOSE_BRACE)* CLOSE_BRACE
+  ;
+
+classMethodCallList
+  : classMethodCall
+  | classMethodCall COMMA classMethodCallList
+  ;
+
+classMethodCall
+  : identifier OPEN_PAREN ~(CLOSE_PAREN)* CLOSE_PAREN
   ;
 
 // Class Properties
@@ -199,7 +221,7 @@ enumEntry
 // Miscellaneous
 
 staticMethodCall
-  : identifier OPEN_PAREN ~(CLOSE_PAREN)+ CLOSE_PAREN SEMICOLON
+  : identifier OPEN_PAREN ~(CLOSE_PAREN)* CLOSE_PAREN SEMICOLON
   ;
 
 typedef
@@ -234,6 +256,10 @@ uParamMacro
 
 upropertyMacro
   : UPROPERTY macroPropertyList
+  ;
+
+ustructMacro
+  : USTRUCT macroPropertyList
   ;
 
 generatedBodyMacro

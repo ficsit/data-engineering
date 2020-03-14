@@ -56,8 +56,20 @@ class Listener implements SatisfactoryHeaderParserListener {
   // Classes
 
   enterClassDeclaration(context: ClassDeclarationContext) {
+    const header = context.classHeader();
+    const macro = header.classMacro();
+    let category;
+    if (macro.uclassMacro()) {
+      category = 'UCLASS';
+    } else if (macro.uinterfaceMacro()) {
+      category = 'UINTERFACE';
+    } else if (macro.ustructMacro()) {
+      category = 'USTRUCT';
+    }
+
     this._currentEntry = {
-      name: context.classHeader().identifier().text,
+      name: header.identifier().text,
+      category,
       comment: this._getComment(context),
       extends: [],
       methods: [],

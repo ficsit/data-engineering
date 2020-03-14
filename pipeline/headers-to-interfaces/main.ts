@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import { parseHeader, printTokens } from './parse';
 
 function parse(header: string) {
+  process.stderr.write(`parsing: ${header}\n`);
   const contents = fs.readFileSync(header, 'utf-8');
 
   if (process.env.DEBUG === 'tokens') {

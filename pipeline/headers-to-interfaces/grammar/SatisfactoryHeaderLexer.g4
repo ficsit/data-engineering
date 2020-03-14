@@ -17,6 +17,7 @@ PRIVATE: 'private';
 PROTECTED: 'protected';
 PUBLIC: 'public';
 STATIC: 'static';
+STRUCT: 'struct';
 TRUE: 'true';
 TYPEDEF: 'typedef';
 VIRTUAL: 'virtual';
@@ -29,6 +30,7 @@ UINTERFACE: 'UINTERFACE';
 UMETA: 'UMETA';
 UPARAM: 'UPARAM';
 UPROPERTY: 'UPROPERTY';
+USTRUCT: 'USTRUCT';
 FORCEINLINE: 'FORCEINLINE';
 SF_CLASS_TAG: 'FACTORYGAME_API';
 SF_GENERATED_BODY: 'GENERATED_' [A-Z_]* 'BODY';
@@ -55,7 +57,7 @@ BANG:        '!';
 // Generic
 IDENTIFIER: [a-zA-Z][a-zA-Z0-9_]+;
 STRING_LITERAL: '"' .*? '"';
-FLOAT_LITERAL: [0-9]+ '.' [0-9]+;
+FLOAT_LITERAL: [0-9]+ '.' [0-9]+ 'f'?;
 INTEGER_LITERAL: [0-9]+;
 
 // Blocks

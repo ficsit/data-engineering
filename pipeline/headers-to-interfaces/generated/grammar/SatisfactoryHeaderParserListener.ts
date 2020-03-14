@@ -18,6 +18,8 @@ import { TypeModifierContext } from "./SatisfactoryHeaderParserParser";
 import { TypeReferenceTypeContext } from "./SatisfactoryHeaderParserParser";
 import { ClassDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { ClassHeaderContext } from "./SatisfactoryHeaderParserParser";
+import { ClassMacroContext } from "./SatisfactoryHeaderParserParser";
+import { ClassKeywordContext } from "./SatisfactoryHeaderParserParser";
 import { ClassInheritanceContext } from "./SatisfactoryHeaderParserParser";
 import { ClassExtensionListContext } from "./SatisfactoryHeaderParserParser";
 import { ClassExtensionContext } from "./SatisfactoryHeaderParserParser";
@@ -35,6 +37,8 @@ import { ClassMethodParameterListContext } from "./SatisfactoryHeaderParserParse
 import { ClassMethodParameterNameContext } from "./SatisfactoryHeaderParserParser";
 import { ClassMethodParameterContext } from "./SatisfactoryHeaderParserParser";
 import { ClassMethodBodyContext } from "./SatisfactoryHeaderParserParser";
+import { ClassMethodCallListContext } from "./SatisfactoryHeaderParserParser";
+import { ClassMethodCallContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyDefaultValueContext } from "./SatisfactoryHeaderParserParser";
 import { EnumDeclarationContext } from "./SatisfactoryHeaderParserParser";
@@ -50,6 +54,7 @@ import { UinterfaceMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UmetaMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UParamMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UpropertyMacroContext } from "./SatisfactoryHeaderParserParser";
+import { UstructMacroContext } from "./SatisfactoryHeaderParserParser";
 import { GeneratedBodyMacroContext } from "./SatisfactoryHeaderParserParser";
 import { MacroPropertyListContext } from "./SatisfactoryHeaderParserParser";
 import { MacroPropertyListEntriesContext } from "./SatisfactoryHeaderParserParser";
@@ -226,6 +231,28 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitClassHeader?: (ctx: ClassHeaderContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classMacro`.
+	 * @param ctx the parse tree
+	 */
+	enterClassMacro?: (ctx: ClassMacroContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.classMacro`.
+	 * @param ctx the parse tree
+	 */
+	exitClassMacro?: (ctx: ClassMacroContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classKeyword`.
+	 * @param ctx the parse tree
+	 */
+	enterClassKeyword?: (ctx: ClassKeywordContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.classKeyword`.
+	 * @param ctx the parse tree
+	 */
+	exitClassKeyword?: (ctx: ClassKeywordContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classInheritance`.
@@ -415,6 +442,28 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	exitClassMethodBody?: (ctx: ClassMethodBodyContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classMethodCallList`.
+	 * @param ctx the parse tree
+	 */
+	enterClassMethodCallList?: (ctx: ClassMethodCallListContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.classMethodCallList`.
+	 * @param ctx the parse tree
+	 */
+	exitClassMethodCallList?: (ctx: ClassMethodCallListContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classMethodCall`.
+	 * @param ctx the parse tree
+	 */
+	enterClassMethodCall?: (ctx: ClassMethodCallContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.classMethodCall`.
+	 * @param ctx the parse tree
+	 */
+	exitClassMethodCall?: (ctx: ClassMethodCallContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classProperty`.
 	 * @param ctx the parse tree
 	 */
@@ -578,6 +627,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitUpropertyMacro?: (ctx: UpropertyMacroContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.ustructMacro`.
+	 * @param ctx the parse tree
+	 */
+	enterUstructMacro?: (ctx: UstructMacroContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.ustructMacro`.
+	 * @param ctx the parse tree
+	 */
+	exitUstructMacro?: (ctx: UstructMacroContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.generatedBodyMacro`.
