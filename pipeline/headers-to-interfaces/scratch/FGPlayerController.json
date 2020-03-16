@@ -72,8 +72,13 @@
         "returnType": "classUFGRemoteCallObject*"
       },
       {
+        "name": "OnControlledCharacterDied",
+        "comment": "\n @param character - the character that died\n",
+        "returnType": "void"
+      },
+      {
         "name": "StartRespawn",
-        "comment": "\t//@todonow I do not think respawn works entirely correct for vehicles.\n\t/\n Begin respawning this controllers pawn, call Respawn when done playing any respawn effects.",
+        "comment": "@todonow I do not think respawn works entirely correct for vehicles.\nBegin respawning this controllers pawn, call Respawn when done playing any respawn effects.",
         "returnType": "void"
       },
       {
@@ -181,8 +186,13 @@
         "returnType": "classUFGMapAreaTexture*"
       },
       {
+        "name": "SetDisabledInputGate",
+        "comment": "When true, the input is DISABLED.\n",
+        "returnType": "void"
+      },
+      {
         "name": "GetDisabledInputGate",
-        "comment": "\t/\n Getter for current disabled input states",
+        "comment": "Getter for current disabled input states",
         "returnType": "FDisabledInputGate"
       },
       {

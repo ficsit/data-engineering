@@ -361,7 +361,6 @@
       },
       {
         "name": "ConditionallySetupComponents",
-        "comment": "Setup the decal component if needed\n@param needRegister - if true, then we need to register new components",
         "returnType": "void"
       },
       {

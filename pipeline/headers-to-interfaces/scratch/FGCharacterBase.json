@@ -240,6 +240,11 @@
         "returnType": "void"
       },
       {
+        "name": "PlayFootstepEffect",
+        "comment": "\n @param footDown - the index specified in UFGAnimNotify_FootDown\n",
+        "returnType": "void"
+      },
+      {
         "name": "TraceForGround",
         "comment": "\n @return true if we hit something",
         "returnType": "bool"
@@ -285,8 +290,13 @@
         "returnType": "void"
       },
       {
+        "name": "GetFootstepEvent",
+        "comment": "@param footDown - the foot index specified in the anim blueprint\n",
+        "returnType": "classUAkAudioEvent*"
+      },
+      {
         "name": "AdjustDamage",
-        "comment": "\t/\nBound function to our healthcomponent that cares about when we receive damage, passes it on to other AdjustDamage for BP",
+        "comment": "Bound function to our healthcomponent that cares about when we receive damage, passes it on to other AdjustDamage for BP",
         "returnType": "float"
       },
       {

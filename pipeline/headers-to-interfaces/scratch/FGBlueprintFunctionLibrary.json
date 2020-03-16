@@ -199,6 +199,16 @@
         "returnType": "void"
       },
       {
+        "name": "ImpactEffectIsRelevant",
+        "comment": "\n @return true if the impact effect is relevant\n",
+        "returnType": "bool"
+      },
+      {
+        "name": "ImpactEffectIsWithinDistance",
+        "comment": "\n @return true if the impact effect is relevant\n",
+        "returnType": "bool"
+      },
+      {
         "name": "IsLocallyHumanControlled",
         "comment": "\n @param pawn - the pawn we want to check if it's controlled by a human on the current computer\n@return false if pawn is null, else true if locally human controlled",
         "returnType": "bool"
@@ -259,8 +269,13 @@
         "returnType": "TArray<TSubclassOf<classUFGItemCategory>>"
       },
       {
+        "name": "IsLocationNearABase",
+        "comment": "\n @return if we consider the location as close to a factory\n",
+        "returnType": "bool"
+      },
+      {
         "name": "CreateSessionAndTravelToMap",
-        "comment": "\t/\n Helper function that takes care of creating a session and travel to the map",
+        "comment": "Helper function that takes care of creating a session and travel to the map",
         "returnType": "void"
       },
       {

@@ -190,8 +190,13 @@
         "returnType": "void"
       },
       {
+        "name": "PrepareLevelActors",
+        "comment": "@param prepareForLoad - prepare the actors for a load game\n",
+        "returnType": "void"
+      },
+      {
         "name": "OnActorDestroyed",
-        "comment": "\t/\n Called when a save actor placed in the level is destroyed",
+        "comment": "Called when a save actor placed in the level is destroyed",
         "returnType": "void"
       },
       {

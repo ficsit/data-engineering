@@ -25,8 +25,13 @@
         "returnType": "void"
       },
       {
+        "name": "OnReplicationDetailActorCreated",
+        "comment": "when the replication detail actor has been fully replicated.\n",
+        "returnType": "void"
+      },
+      {
         "name": "GetReplicationDetailActorClass",
-        "comment": "\t/\n Returns the relevant class type for the replication detail actor. Must inherit from AFGReplicationDetailActor.",
+        "comment": "Returns the relevant class type for the replication detail actor. Must inherit from AFGReplicationDetailActor.",
         "returnType": "UClass*"
       }
     ],

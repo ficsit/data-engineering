@@ -313,7 +313,7 @@
       },
       {
         "name": "OnPrimaryFirePressed",
-        "comment": "Only the server is allowed to build stuff so all the actions are executed on the server but may be simulated on the client.\nSimulations may be sounds and the brrrrrrrring progress bar when selling.",
+        "comment": "Simulations may be sounds and the brrrrrrrring progress bar when selling.\n",
         "returnType": "void"
       },
       {

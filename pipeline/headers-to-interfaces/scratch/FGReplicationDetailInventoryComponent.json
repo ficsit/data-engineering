@@ -1,1 +1,53 @@
-[]
+[
+  {
+    "kind": "class",
+    "name": "UFGReplicationDetailInventoryComponent",
+    "category": "UCLASS",
+    "comment": "swapped and managed by the ReplicationDetailActor system. If anything uses a pointed to a InventoryComponent that is\nswapped by the ReplicationDetail system then that InventoryComponent needs to be access via this object and the GetActiveInventoryComponent() function.",
+    "extends": [
+      "UActorComponent"
+    ],
+    "methods": [
+      {
+        "name": "UFGReplicationDetailInventoryComponent"
+      },
+      {
+        "name": "SetMainInventoryComponent",
+        "comment": "Only called on server to set the original InventoryComponent.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetReplicationInventoryComponent",
+        "comment": "Called when the InventoryComponent is being switched on server. Called on client when the initial InventoryComponent has been replicated.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetActiveInventoryComponent",
+        "comment": "Returns the active inventory component",
+        "returnType": "classUFGInventoryComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mActiveInventoryComponent",
+        "comment": "The active InventoryComponent returned",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mMainInventoryComponent",
+        "comment": "Original InventoryComponent",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mReplicationInventoryComponent",
+        "comment": "The dynamically replicated InventoryComponent that is created on demand",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mReplicationDetailActor",
+        "comment": "Replication Detail Actor owning the replication InventoryComponent",
+        "type": "classAFGReplicationDetailActor*"
+      }
+    ]
+  }
+]

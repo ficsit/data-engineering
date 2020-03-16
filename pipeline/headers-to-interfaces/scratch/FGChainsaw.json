@@ -207,8 +207,13 @@
         "type": "bool"
       },
       {
+        "name": "mEnergyStored",
+        "comment": "then this is the energy stored here)\n",
+        "type": "float"
+      },
+      {
         "name": "mSawingProgress",
-        "comment": "\t/\n How much progress we have done when sawing on a tree",
+        "comment": "How much progress we have done when sawing on a tree",
         "type": "float"
       },
       {

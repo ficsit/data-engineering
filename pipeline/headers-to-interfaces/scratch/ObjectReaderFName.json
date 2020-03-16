@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "kind": "class",
+    "name": "FObjectReaderFName",
+    "comment": "to transplant the loaded data into those objects\n",
+    "extends": [
+      "FObjectReader"
+    ],
+    "methods": [
+      {
+        "name": "FObjectReaderFName"
+      },
+      {
+        "name": "operator<<",
+        "returnType": "FObjectReaderFName&"
+      },
+      {
+        "name": "operator<<",
+        "returnType": "FArchive&"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mWorld",
+        "type": "classUWorld*"
+      }
+    ]
+  }
+]

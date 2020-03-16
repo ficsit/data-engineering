@@ -17,13 +17,28 @@
         "returnType": "void"
       },
       {
+        "name": "BeginCapture",
+        "comment": "Starts the rendering of the rendertarget scene\n",
+        "returnType": "void"
+      },
+      {
+        "name": "EndCapture",
+        "comment": "Stops the rendering of the rendertarget scene\n",
+        "returnType": "void"
+      },
+      {
         "name": "CaptureOnce",
-        "comment": "\t/\nCapture a picture once",
+        "comment": "Capture a picture once",
+        "returnType": "void"
+      },
+      {
+        "name": "SetRenderTargetFormat",
+        "comment": "@param pixelFormat - pixelformat of rendertarget (valid are PF_B8G8R8A8, PF_A16B16G16R16 if you want to be able to convert the to static textures)\n",
         "returnType": "void"
       },
       {
         "name": "GetStage",
-        "comment": "\t/\n Get the stage of this preview scene",
+        "comment": "Get the stage of this preview scene",
         "returnType": "classUSceneComponent*"
       },
       {
@@ -69,8 +84,13 @@
         "type": "classUSceneCaptureComponent2D*"
       },
       {
+        "name": "mStage",
+        "comment": "they get set\n",
+        "type": "classUSceneComponent*"
+      },
+      {
         "name": "mDynamicRenderTarget",
-        "comment": "\t/\n If true, then we create our own render target every time we want to play",
+        "comment": "If true, then we create our own render target every time we want to play",
         "type": "uint8"
       }
     ]

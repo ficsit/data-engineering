@@ -109,6 +109,11 @@
     "extends": [],
     "methods": [
       {
+        "name": "UpdateUseState",
+        "comment": "@param componentHit\tThe component that the trace hit when looking at the object\n",
+        "returnType": "void"
+      },
+      {
         "name": "OnUse",
         "comment": "\n @param byCharacter\tCharacter that uses the object.\n@param state\t\t\tThe state that describes how the object reacts to interaction",
         "returnType": "void"

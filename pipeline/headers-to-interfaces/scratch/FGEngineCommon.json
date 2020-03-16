@@ -150,6 +150,21 @@
         "returnType": "void"
       },
       {
+        "name": "StartCollection",
+        "comment": "@param guid\t\t- guid of the collection\n",
+        "returnType": "void"
+      },
+      {
+        "name": "StopCollection",
+        "comment": "@note called on StatsThread\n",
+        "returnType": "void"
+      },
+      {
+        "name": "CollectStats",
+        "comment": "@note called on StatsThread\n",
+        "returnType": "void"
+      },
+      {
         "name": "DumpChart",
         "comment": "Dumps stats collection charts to disc\n@note called on GameThread, called as a result of calling StopCollection",
         "returnType": "void"

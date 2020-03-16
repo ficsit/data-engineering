@@ -19,7 +19,7 @@
       },
       {
         "name": "SetRecipe",
-        "comment": "Set the recipe of the current shortcut, the recipe will be saved\n@param recipe - null is valid, then we won't have any shortcut show up",
+        "comment": "@param recipe - null is valid, then we won't have any shortcut show up\n",
         "returnType": "void"
       },
       {

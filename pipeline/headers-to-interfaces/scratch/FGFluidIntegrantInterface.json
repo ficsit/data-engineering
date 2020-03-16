@@ -11,6 +11,18 @@
         "returnType": "bool"
       },
       {
+        "name": "operator<<",
+        "returnType": "FArchive&"
+      },
+      {
+        "name": "operator==",
+        "returnType": "bool"
+      },
+      {
+        "name": "operator!=",
+        "returnType": "bool"
+      },
+      {
         "name": "GetCurrentAddedPressure",
         "comment": "** Call to get the current added pressure taking into account the pressure toggle. */",
         "returnType": "float"

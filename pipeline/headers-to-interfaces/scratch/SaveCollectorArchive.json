@@ -12,8 +12,12 @@
         "returnType": "FArchive&"
       },
       {
+        "name": "FSaveCollectorArchive",
+        "comment": "Sets up the array that we want to add objects to\n"
+      },
+      {
         "name": "GenerateSaveObjects",
-        "comment": "\n\t/\n Generates objects to the member that was passed in when class was setup",
+        "comment": "Generates objects to the member that was passed in when class was setup",
         "returnType": "void"
       }
     ],

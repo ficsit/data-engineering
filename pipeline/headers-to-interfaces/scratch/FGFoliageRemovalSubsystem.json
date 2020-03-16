@@ -42,6 +42,21 @@
         "returnType": "classAFGFoliageRemoval*"
       },
       {
+        "name": "GetLookAtFoliage",
+        "comment": "@return true if we looked at any foliage\n",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetClosestFoliage",
+        "comment": "@return true if there was any foliage close by\n",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetClosestFoliageForComponent",
+        "comment": "@return true if there was any foliage close by\n",
+        "returnType": "bool"
+      },
+      {
         "name": "GetClosestFoliageArrayForComponent",
         "comment": "@param isLocalSpace - set this to true if the locations is in local-space\n@param out_instanceArray - id's in component for all the foliage instances",
         "returnType": "void"
@@ -97,8 +112,13 @@
         "returnType": "bool"
       },
       {
+        "name": "SpawnFoliageRemovalActor",
+        "comment": "@return return a new foliage removal actor if one was created (client will always return nullptr)\n",
+        "returnType": "classAFGFoliageRemoval*"
+      },
+      {
         "name": "OnLevelAddedToWorld",
-        "comment": "\t/\n Called whenever a level is added to the world, used to gather more potential components to get foliage from",
+        "comment": "Called whenever a level is added to the world, used to gather more potential components to get foliage from",
         "returnType": "void"
       },
       {

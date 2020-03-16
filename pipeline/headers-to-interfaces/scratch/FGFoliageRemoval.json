@@ -83,9 +83,18 @@
   },
   {
     "kind": "class",
+    "name": "TStructOpsTypeTraits",
+    "comment": "Enables NetDeltaSerialize in FRemovedInstanceArray with template magic",
+    "extends": [
+      "TStructOpsTypeTraitsBase2"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
     "name": "AFGFoliageRemoval",
     "category": "UCLASS",
-    "comment": "\t};\n};",
     "extends": [
       "AActor",
       "IFGSaveInterface"

@@ -300,8 +300,13 @@
         "returnType": "EIgnore"
       },
       {
+        "name": "StartInitialAggroCollection",
+        "comment": "Also, hookups ourself on delegates when new aggrotargets is spawned\n",
+        "returnType": "void"
+      },
+      {
         "name": "UpdateAggroAndFindAndAssignTarget",
-        "comment": "\t/\n Updates our current aggro, and then makes sure we assign a new target",
+        "comment": "Updates our current aggro, and then makes sure we assign a new target",
         "returnType": "void"
       },
       {

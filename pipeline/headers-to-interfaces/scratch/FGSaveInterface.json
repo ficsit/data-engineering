@@ -17,6 +17,26 @@
     "extends": [],
     "methods": [
       {
+        "name": "PreSaveGame",
+        "comment": "@param gameVersion - the version of the game, is the CL of our internal Perforce server, will be a large number > 40k\n",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame",
+        "comment": "@param gameVersion - the version of the game, is the CL of our internal Perforce server, will be a large number > 40k\n",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame",
+        "comment": "@param gameVersion - the version of the game, is the CL of our internal Perforce server, will be a large number > 40k\n",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame",
+        "comment": "@param gameVersion - the version of the game, is the CL of our internal Perforce server, will be a large number > 40k\n",
+        "returnType": "void"
+      },
+      {
         "name": "GatherDependencies",
         "comment": "\n @param out_dependentObjects -\tpopulate this with the object you are dependent on, no need to care about outer/owner, they are automatically\n\t\t\t\t\t\t\t\thandled by calling code",
         "returnType": "void"

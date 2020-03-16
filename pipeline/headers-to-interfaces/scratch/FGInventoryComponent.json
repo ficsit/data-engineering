@@ -181,8 +181,17 @@
         "returnType": "void"
       },
       {
+        "name": "SortInventory",
+        "comment": "2) other\n",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_SortInventory",
+        "returnType": "void"
+      },
+      {
         "name": "HasAuthority",
-        "comment": "\t/\n Checks if our owner has authority, and assumes that if they have, then so do we",
+        "comment": "Checks if our owner has authority, and assumes that if they have, then so do we",
         "returnType": "bool"
       },
       {

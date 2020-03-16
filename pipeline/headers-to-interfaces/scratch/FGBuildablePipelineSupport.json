@@ -72,7 +72,7 @@
       },
       {
         "name": "mSnapOnly0",
-        "comment": "Connection component used\nMOST BE SET FROM CONSTRUCTION SCRIPT OR IT WILL BE NULL!",
+        "comment": "Connection component used\nOST BE SET FROM CONSTRUCTION SCRIPT OR IT WILL BE NULL!",
         "type": "UFGPipeConnectionComponentBase*"
       },
       {

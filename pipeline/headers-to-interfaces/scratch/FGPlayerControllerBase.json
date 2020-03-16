@@ -43,6 +43,16 @@
         "returnType": "void"
       },
       {
+        "name": "OnControlledCharacterDied",
+        "comment": "@param character - the character that died\n",
+        "returnType": "void"
+      },
+      {
+        "name": "OnControlledCharacterRevived",
+        "comment": "\n @param character - the character that was revived\n",
+        "returnType": "void"
+      },
+      {
         "name": "FlushPressedKeys",
         "comment": "Exposing flushPressedKeys to BP",
         "returnType": "void"
@@ -168,7 +178,7 @@
     "properties": [
       {
         "name": "OnInputChanged",
-        "comment": "\t/\n Called when we rebind any key",
+        "comment": "Called when we rebind any key",
         "type": "FOnInputChanged"
       },
       {

@@ -146,6 +146,11 @@
         "returnType": "void"
       },
       {
+        "name": "AdjustDamage",
+        "comment": "@return the new damage\n",
+        "returnType": "float"
+      },
+      {
         "name": "Died",
         "comment": "\n @param forceNotifies Forces our notifies to be sent anyway",
         "returnType": "void"

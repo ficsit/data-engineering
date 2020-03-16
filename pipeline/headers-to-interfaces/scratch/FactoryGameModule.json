@@ -7,8 +7,18 @@
     ],
     "methods": [
       {
+        "name": "StartupModule",
+        "comment": "Called when the module is loaded into memory\n",
+        "returnType": "void"
+      },
+      {
+        "name": "ShutdownModule",
+        "comment": "Called when the module is unloaded from memory\n",
+        "returnType": "void"
+      },
+      {
         "name": "IsGameModule",
-        "comment": "\t/\n We want this module to be hot reloaded",
+        "comment": "We want this module to be hot reloaded",
         "returnType": "bool"
       }
     ],

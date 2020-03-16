@@ -182,8 +182,13 @@
         "returnType": "void"
       },
       {
+        "name": "AdjustDamage",
+        "comment": "@return the adjusted damage\n",
+        "returnType": "float"
+      },
+      {
         "name": "GetEquipmentSlot",
-        "comment": "\t/\n Returns the enum for the equipment slot, ARMS, BACK etc.",
+        "comment": "Returns the enum for the equipment slot, ARMS, BACK etc.",
         "returnType": "EEquipmentSlot"
       },
       {
