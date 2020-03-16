@@ -1,0 +1,58 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGDecorationActor",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2019 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGInteractActor",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGDecorationActor"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Decide on what properties to replicate",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mDecorationDescriptor",
+        "comment": "The descriptor of this decoration",
+        "type": "TSubclassOf<classUFGDecorationDescriptor>"
+      }
+    ]
+  }
+]

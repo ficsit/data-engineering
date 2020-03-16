@@ -1,0 +1,240 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGGameUI",
+    "category": "UCLASS",
+    "comment": "Base class for all inventory widgets, contains a lot of helper functions to extract\ninteresting information buildings",
+    "extends": [
+      "UFGBaseUI"
+    ],
+    "methods": [
+      {
+        "name": "PopAllWidgets",
+        "comment": "Closes down all interact widgets",
+        "returnType": "void"
+      },
+      {
+        "name": "NativeTick",
+        "comment": "Tick tock",
+        "returnType": "void"
+      },
+      {
+        "name": "AddCheatWidget",
+        "comment": "Adds the cheat widget",
+        "returnType": "classUFGPopupWidget*"
+      },
+      {
+        "name": "HandleFocusLost",
+        "comment": "Event received when the focus has been lost to the viewport. Probably because a mouse button was pressed in \"nothing\"",
+        "returnType": "void"
+      },
+      {
+        "name": "GetInteractWidgetStack",
+        "comment": "Returnswidget stack",
+        "returnType": "TArray<UFGInteractWidget*>"
+      },
+      {
+        "name": "RemoveInteractWidget",
+        "comment": "Removes from the stack",
+        "returnType": "void"
+      },
+      {
+        "name": "AddInteractWidget",
+        "comment": "Adds to the stack",
+        "returnType": "void"
+      },
+      {
+        "name": "PushWidget",
+        "comment": "Pushes widget",
+        "returnType": "void"
+      },
+      {
+        "name": "PopWidget",
+        "comment": "Removes widget",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetPendingMessages",
+        "comment": "Returnswidget array with pending messages",
+        "returnType": "TArray<TSubclassOf<classUFGMessageBase>>"
+      },
+      {
+        "name": "AddPendingMessage",
+        "comment": "Adds a new message to the pending message array",
+        "returnType": "void"
+      },
+      {
+        "name": "ReceivedMessage",
+        "comment": "Handle message. Usually grabbed from the pending message list at appropriate time",
+        "returnType": "void"
+      },
+      {
+        "name": "HandlePendingMessages",
+        "comment": "Handle pending messages and push them at appropriate time",
+        "returnType": "void"
+      },
+      {
+        "name": "CanReceiveMessage",
+        "comment": " Is this a good time to get a message?",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetCurrentAudioMessage",
+        "comment": "Sets the current audio message being played",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCurrentAudioMessage",
+        "comment": "Gets the current audio message being played ( can be null )",
+        "returnType": "classUFGAudioMessage*"
+      },
+      {
+        "name": "CancelPressed",
+        "comment": "Called from ingame when the cancel key ( escape ) was pressed when no widget has focus",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveAudioMessage",
+        "comment": "Removes the audio message",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFGCharacter",
+        "comment": "Returns the owning fgpawn by looking at ower and vehicle driver",
+        "returnType": "classAFGCharacterPlayer*"
+      },
+      {
+        "name": "AddIntroTutorialInfo",
+        "comment": "Adds new tutorial info to be displayed",
+        "returnType": "void"
+      },
+      {
+        "name": "ClearHintOnTutorialStepCompleted",
+        "comment": "Called when we update our current objective but are waiting to show the next",
+        "returnType": "void"
+      },
+      {
+        "name": "SetShowInventory",
+        "comment": "Setter for show inventory",
+        "returnType": "void"
+      },
+      {
+        "name": "GetShowInventory",
+        "comment": "Getter for mShowInventory",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetWindowWantsInventoryAddon",
+        "comment": "Setter form WindowWantInventoryAddon",
+        "returnType": "void"
+      },
+      {
+        "name": "GetWindowWantsInventoryAddon",
+        "comment": "Getter for mWindowWantInventoryAddon",
+        "returnType": "bool"
+      },
+      {
+        "name": "AddPawnHUD",
+        "comment": "Allow the gameUI to add pawn specific HUD",
+        "returnType": "void"
+      },
+      {
+        "name": "RemovePawnHUD",
+        "comment": "Allow the gameUI to remove pawn specific HUD",
+        "returnType": "void"
+      },
+      {
+        "name": "ShowDirectionalSubtitle",
+        "comment": "Temp Solution to remove depenencies",
+        "returnType": "void"
+      },
+      {
+        "name": "StopSubtitle",
+        "comment": "Temp Solution to remove depenencies",
+        "returnType": "void"
+      },
+      {
+        "name": "OnReceiveRadiationStart",
+        "comment": "Called when we start receiving radiation.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnReceiveRadiationStop",
+        "comment": "Called when we stop receiving radiation.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRadiationIntensityUpdated",
+        "comment": "Called when we have updated radiation intensity.",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayAudioMessage",
+        "comment": "Play a audio message in the UI",
+        "returnType": "void"
+      },
+      {
+        "name": "FindWidgetByClass",
+        "comment": "Finds a widget in the interact widget stack, returns null if not found",
+        "returnType": "UFGInteractWidget*"
+      },
+      {
+        "name": "ResumeGame",
+        "comment": "Call this to setup the hud for resuming the game",
+        "returnType": "void"
+      },
+      {
+        "name": "OnResumeGame",
+        "comment": "Blueprint event called when resuming the game",
+        "returnType": "void"
+      },
+      {
+        "name": "NativeOnPreviewMouseButtonDown",
+        "comment": "Begin UUserwidget interface",
+        "returnType": "FReply"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mPendingMessages",
+        "comment": "Array with messages that the player has stocked up",
+        "type": "TArray<TSubclassOf<classUFGMessageBase>>"
+      },
+      {
+        "name": "mOnMouseButtonDown",
+        "comment": "Delegate for when mouse button is pressed. The event will not be handled\n\tso if you already are listening for mouse input you might get this and your own event",
+        "type": "FOnMouseButtonDown"
+      },
+      {
+        "name": "mShowInventory",
+        "comment": "Do we want the inventory to be shown?",
+        "type": "bool"
+      },
+      {
+        "name": "mWindowWantInventoryAddon",
+        "comment": "Do we want a player inventory to be created",
+        "type": "bool"
+      },
+      {
+        "name": "mInteractWidgetStack",
+        "comment": "A stack with widgets that are currently open",
+        "type": "TArray<UFGInteractWidget*>"
+      },
+      {
+        "name": "mCurrentAudioMessage",
+        "comment": "Message that is being played now ( can be null )",
+        "type": "classUFGAudioMessage*"
+      },
+      {
+        "name": "mMinTimeBetweenAudioMessage",
+        "comment": "How much time must pass between receiving audio messages at least?",
+        "type": "float"
+      },
+      {
+        "name": "mAudioMessageCooldown",
+        "comment": "Timer value used so that we don't push audio message direct after another",
+        "type": "float"
+      }
+    ]
+  }
+]

@@ -1,0 +1,398 @@
+[
+  {
+    "kind": "class",
+    "name": "FConnectionRepresentation",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FConnectionRepresentation"
+      },
+      {
+        "name": "FConnectionRepresentation"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mConnectionComponent",
+        "type": "classUFGConnectionComponent*"
+      },
+      {
+        "name": "mConnectionRepresentation",
+        "type": "classUStaticMeshComponent*"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FFactoryClearanceData",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FFactoryClearanceData"
+      },
+      {
+        "name": "FFactoryClearanceData"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Factory",
+        "type": "classAFGBuildableFactory*"
+      },
+      {
+        "name": "ClearanceComponent",
+        "type": "classUStaticMeshComponent*"
+      },
+      {
+        "name": "mConnectionComponents",
+        "type": "TArray<FConnectionRepresentation>"
+      },
+      {
+        "name": "ParticipatedInCleranceEncroachFrameCountDownLast",
+        "type": "uint8"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGBuildGunStateBuild",
+    "category": "UCLASS",
+    "comment": "Build guns build state.",
+    "extends": [
+      "UFGBuildGunState"
+    ],
+    "methods": [
+      {
+        "name": "UFGBuildGunStateBuild",
+        "comment": "Ctor"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication.",
+        "returnType": "void"
+      },
+      {
+        "name": "PreNetReceive",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginState_Implementation",
+        "comment": "Begin UFGBuildGunState",
+        "returnType": "void"
+      },
+      {
+        "name": "EndState_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "TickState_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PrimaryFire_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PrimaryFireRelease_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "SecondaryFire_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "ModeSelectPressed_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "ModeSelectRelease_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "ScrollDown_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "ScrollUp_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "ChangeScrollMode_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "ChangeNoSnapMode_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "ChangeGuideLinesSnapMode_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildSampleRelease_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "IsValidBuildingSample",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnRecipeSampled_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "SetActiveRecipe",
+        "comment": "Set the recipe to build.\nmust be called from the local player (client).",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDescriptor",
+        "comment": "Get the current descriptor, null if no descriptor is set.",
+        "returnType": "TSubclassOf<classUFGItemDescriptor>"
+      },
+      {
+        "name": "GetHologramCost",
+        "comment": "Returns the cost for building the hologram.",
+        "returnType": "TArray<FItemAmount>"
+      },
+      {
+        "name": "GetHologram",
+        "comment": "Returns the hologram; null if hologram not spawned.",
+        "returnType": "classAFGHologram*"
+      },
+      {
+        "name": "SpawnChildHologram",
+        "comment": "Spawns a child hologram",
+        "returnType": "AFGHologram*"
+      },
+      {
+        "name": "Server_ConstructHologram",
+        "comment": "RPC to construct from hologram data",
+        "returnType": "void"
+      },
+      {
+        "name": "InternalConstructHologram",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSupportedSplineModes",
+        "comment": "Get a list of the currently supported build modes for the current hologram.",
+        "returnType": "TArray<EHologramSplinePathMode>"
+      },
+      {
+        "name": "SetActiveSplineMode",
+        "comment": "Set the mode on the current hologram",
+        "returnType": "void"
+      },
+      {
+        "name": "ShowSplineModeSelectUI",
+        "comment": "Show the  mode selection UI",
+        "returnType": "void"
+      },
+      {
+        "name": "CloseSplineModeSelectUI",
+        "comment": "Close the  mode selection UI",
+        "returnType": "void"
+      },
+      {
+        "name": "HookUpUserSettings",
+        "returnType": "void"
+      },
+      {
+        "name": "InternalExecuteDuBuildStepInput",
+        "comment": "InternalExecuteDuBuildStepInput\nExecute the actual build step logic. Called from primary fire, and sometimes from primary fire release",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_Hologram",
+        "comment": "Called whenever the hologram is udpated",
+        "returnType": "void"
+      },
+      {
+        "name": "ResetHologram",
+        "comment": "Resets any changes made to the hologram.\n@note Must be called on the server.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnActiveDescriptorChanged",
+        "comment": "Let blueprint know when we get a new descriptor, the new descriptor may be null.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnMultiStepPlacement",
+        "comment": "Let blueprint know we performed a multi-step placement.\n@param isFinalStep - true if this was the last step, the thing is now built. Hologram is no longer guaranteed to exist on the the client.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnResetHologram",
+        "comment": "Let blueprint know we reset the multi-step placement.",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_OnResetHologram",
+        "comment": "Helper to notify the client.",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_OnBuildableConstructed",
+        "comment": "Helper to notify the client that something was built",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_OnBuildableFailedConstruction",
+        "returnType": "void"
+      },
+      {
+        "name": "SpawnHologram",
+        "comment": "Spawn a hologram.",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveHologram",
+        "comment": "Remove the current hologram.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupHologramClearanceDetection",
+        "comment": "Setup the clearance for our current hologram",
+        "returnType": "void"
+      },
+      {
+        "name": "CleanupHologramClearanceDetection",
+        "comment": "Remove the clearance from our current hologram",
+        "returnType": "void"
+      },
+      {
+        "name": "SaveHologramScrollValues",
+        "comment": "Save/clear/restore the scroll values for the hologram.",
+        "returnType": "void"
+      },
+      {
+        "name": "ClearHologramScrollValues",
+        "returnType": "void"
+      },
+      {
+        "name": "RestoreHologramScrollValues",
+        "returnType": "void"
+      },
+      {
+        "name": "InternalSpawnHologram",
+        "returnType": "AFGHologram*"
+      },
+      {
+        "name": "BeginClearanceOverlap",
+        "returnType": "void"
+      },
+      {
+        "name": "EndClearanceOverlap",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUserSettingsUpdated",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateClearanceData",
+        "comment": "Moves the clearance box collision to where we are aiming",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "OnSplineModeChangedDelegate",
+        "type": "FSplineModeChangedDelegate"
+      },
+      {
+        "name": "mScrollModeValues",
+        "comment": "Stored values between hologram builds on how the hologram was scrolled",
+        "type": "TArray<int32>"
+      },
+      {
+        "name": "mPrimaryFireHoldTime",
+        "comment": "stores a time we have held the primary fire button for. Used so we can detect if it's a hold or tap or similar",
+        "type": "float"
+      },
+      {
+        "name": "mSplineModeSelectHoldTime",
+        "comment": "stores a time we have held the mode select button for. Used so we can detect if it's a hold or tap, to show the menu or not\n@TODO:[DavalliusA:Thu/28-11-2019] consider using a game time stamp instead so we don't have to rely on tick to update this",
+        "type": "float"
+      },
+      {
+        "name": "mSplineModeSelectHoldDownDurationForUI",
+        "comment": "Time needed to hold down the key to show the selection UI",
+        "type": "float"
+      },
+      {
+        "name": "mIsWaitingForSelectionUI",
+        "comment": "True if we are waiting for the selection UI",
+        "type": "bool"
+      },
+      {
+        "name": "mNoSnapMode",
+        "comment": "Stored no snap flag between hologram builds.",
+        "type": "bool"
+      },
+      {
+        "name": "mIsUsingPressAndReleaseAsBuildSteps",
+        "comment": "user setting for if we are using the release and press mode or not for advancing build steps. Nett to be in sync on client and ser ver players preferences",
+        "type": "bool"
+      },
+      {
+        "name": "mAllowAutomaticClearanceSnapping",
+        "type": "bool"
+      },
+      {
+        "name": "mSnapToGuideLinesMode",
+        "comment": "Stored flag for whether hologram builds should snap to guide lines",
+        "type": "bool"
+      },
+      {
+        "name": "mPrimaryDownStarted",
+        "comment": "Stored flag for whether hologram builds should snap to guide lines\nstores if we have started a primary fire press, so we know to respond to release presses too, so we don't get the release from a previous state or something",
+        "type": "bool"
+      },
+      {
+        "name": "mPendingRecipe",
+        "comment": "Recipe to activate when state is entered.",
+        "type": "TSubclassOf<classUFGRecipe>"
+      },
+      {
+        "name": "mActiveRecipe",
+        "comment": "The currently active recipe, this decides which action will be used.\nNot replicated as the client sets it locally and then tells the server to set it.",
+        "type": "TSubclassOf<classUFGRecipe>"
+      },
+      {
+        "name": "mInternalClientHologram",
+        "comment": "The hologram that the client had before changing it's hologram due to replication, no UPROPERTY as it should only live from PreNetReceive to OnRep_Hologram",
+        "type": "classAFGHologram*"
+      },
+      {
+        "name": "mHologram",
+        "comment": "@TODO:[DavalliusA:Wed/20-11-2019] should these not be marked as transient?\nThe hologram to build.",
+        "type": "classAFGHologram*"
+      },
+      {
+        "name": "mUpgradedActor",
+        "comment": "@TODO:[DavalliusA:Wed/20-11-2019] should these not be marked as transient?\nThe actor to replace (dismantle) when upgrading.",
+        "type": "classAActor*"
+      },
+      {
+        "name": "mProximateClearances",
+        "comment": "@TODO:[DavalliusA:Wed/20-11-2019] should these not be marked as transient?\nContains all the proximate clearances volumes",
+        "type": "TArray<FFactoryClearanceData>"
+      },
+      {
+        "name": "mClearanceDetector",
+        "comment": "@todo G2 2019-04-10 An improvement here would be to make this a component that can keep track of detected\n                   overlaps so the state does not contain this easily self contained logic.",
+        "type": "classUBoxComponent*"
+      },
+      {
+        "name": "mConstructionLocationDuringFrame",
+        "comment": "All building locations spawned during this frame. Will be cleared at the start of every new frame to avoid spawning multiple buildings at the same location.",
+        "type": "TArray<FVector>"
+      }
+    ]
+  }
+]

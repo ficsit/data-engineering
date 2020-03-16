@@ -1,0 +1,162 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildablePipeBase",
+    "category": "UCLASS",
+    "comment": "Pipeline for transferring liquid and gases to factory buildings.",
+    "extends": [
+      "AFGBuildable",
+      "IFGSignificanceInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildablePipeBase"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin Actor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnConstruction",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDismantleRefundReturnsMultiplier",
+        "comment": "Begin Buildable interface",
+        "returnType": "int32"
+      },
+      {
+        "name": "GainedSignificance_Implementation",
+        "comment": "Begin IFGSignificance Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GainedSignificance_Native",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Native",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupForSignificance",
+        "returnType": "void"
+      },
+      {
+        "name": "GetIsSignificant",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetConnection0",
+        "comment": "@return The connections, safe to assume its always valid.",
+        "returnType": "UFGPipeConnectionComponentBase*"
+      },
+      {
+        "name": "GetConnection1",
+        "returnType": "UFGPipeConnectionComponentBase*"
+      },
+      {
+        "name": "GetSplineMesh",
+        "comment": "Get the mesh used for this conveyor.",
+        "returnType": "UStaticMesh*"
+      },
+      {
+        "name": "GetSplineComponent",
+        "comment": "Returns the spline component",
+        "returnType": "classUSplineComponent*"
+      },
+      {
+        "name": "GetSplineComponent",
+        "returnType": "classUSplineComponent*"
+      },
+      {
+        "name": "GetLength",
+        "comment": "Get the length of the spline in world space",
+        "returnType": "float"
+      },
+      {
+        "name": "FindOffsetClosestToLocation",
+        "comment": "Helpers for finding locations on the pathing spline",
+        "returnType": "float"
+      },
+      {
+        "name": "GetLocationAndDirectionAtOffset",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConnectionType",
+        "comment": "@return The UClass for the connection type for this pipe. All pipe types should have their own function here, or their connection can snap to the wrong type of pipes.\n[DavalliusA:Tue/22-10-2019] this is med with a function, so we don't have to store a variable in all the instances of this class",
+        "returnType": "TSubclassOf<UFGPipeConnectionComponentBase>"
+      }
+    ],
+    "properties": [
+      {
+        "name": "DEFAULT_PIPE_HEIGHT",
+        "comment": "Default height above ground level for pipes",
+        "type": "staticconstexprfloat"
+      },
+      {
+        "name": "PIPE_COST_LENGTH_MULTIPLIER",
+        "type": "conststaticfloat"
+      },
+      {
+        "name": "mMesh",
+        "comment": "Mesh to use for his conveyor.",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mMeshLength",
+        "comment": "Length of the mesh to use for this conveyor.",
+        "type": "float"
+      },
+      {
+        "name": "mLength",
+        "comment": "Length of the pipe in centimeters.",
+        "type": "float"
+      },
+      {
+        "name": "mConnection0",
+        "comment": "First connection on the pipe (can be an input and an output, because, again, pipes)\nMUST BE SET FROM CONSTRUCTION SCRIPT OR IT WILL BE NULL!",
+        "type": "UFGPipeConnectionComponentBase*"
+      },
+      {
+        "name": "mConnection1",
+        "comment": "Second connection on the pipe (can be an input and an output, because, again, pipes)\nMUST BE SET FROM CONSTRUCTION SCRIPT OR IT WILL BE NULL!",
+        "type": "UFGPipeConnectionComponentBase*"
+      },
+      {
+        "name": "mSplineData",
+        "comment": "Compact representation of mSplineComponent, used for replication and save game",
+        "type": "TArray<FSplinePointData>"
+      },
+      {
+        "name": "mSplineComponent",
+        "comment": "The spline component for this splined factory.",
+        "type": "classUSplineComponent*"
+      },
+      {
+        "name": "mInstancedSplineComponent",
+        "comment": "The spline meshes for this train track.",
+        "type": "classUFGInstancedSplineMeshComponent*"
+      },
+      {
+        "name": "mIsSignificant",
+        "comment": "Is this buildable significant, i.e. is within significance range",
+        "type": "bool"
+      }
+    ]
+  }
+]

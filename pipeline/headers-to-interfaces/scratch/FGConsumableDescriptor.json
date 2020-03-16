@@ -1,0 +1,63 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGConsumableDescriptor",
+    "category": "UCLASS",
+    "comment": "Item descriptor for consumable items.",
+    "extends": [
+      "UFGEquipmentDescriptor"
+    ],
+    "methods": [
+      {
+        "name": "UFGConsumableDescriptor"
+      },
+      {
+        "name": "ConsumedBy",
+        "comment": "\n @param player - the player consuming the consumeable",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFPOverrideMesh",
+        "comment": "The skeletal mesh we want for representing the resource when they are in the production line.\n@return The items mesh; a default mesh if the item has no mesh specified, nullptr if inClass is nullptr.",
+        "returnType": "classUSkeletalMesh*"
+      },
+      {
+        "name": "GetTPOverrideMesh",
+        "comment": "The static mesh we want for representing the item when viewed as thir person.\n@return The items mesh; a default mesh if the item has no mesh specified, nullptr if inClass is nullptr.",
+        "returnType": "classUStaticMesh*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mConsumeEvent",
+        "comment": "Sound played when consuming",
+        "type": "classUAkAudioEvent*"
+      },
+      {
+        "name": "mCustomHandsMeshScale",
+        "comment": "Custom scale of mesh in hands",
+        "type": "float"
+      },
+      {
+        "name": "mCustomRotation",
+        "comment": "Custom local rotaion of mesh in hands",
+        "type": "FRotator"
+      },
+      {
+        "name": "mCustomLocation",
+        "comment": "Custom local location of mesh in hands",
+        "type": "FVector"
+      },
+      {
+        "name": "mFPOverrideMesh",
+        "comment": "The skeletal  mesh we want for representing the resource when it is in first person.",
+        "type": "classUSkeletalMesh*"
+      },
+      {
+        "name": "mTPOverrideMesh",
+        "comment": "The static mesh we want for representing the resource when it is in third person.",
+        "type": "classUStaticMesh*"
+      }
+    ]
+  }
+]

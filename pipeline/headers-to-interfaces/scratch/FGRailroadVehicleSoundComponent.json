@@ -1,0 +1,143 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGRailroadVehicleSoundComponent",
+    "category": "UCLASS",
+    "comment": "Fill out your copyright notice in the Description page of Project Settings.",
+    "extends": [
+      "USceneComponent"
+    ],
+    "methods": [
+      {
+        "name": "UFGRailroadVehicleSoundComponent"
+      },
+      {
+        "name": "OnRegister",
+        "comment": "Begin UActorComponent interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUnregister",
+        "returnType": "void"
+      },
+      {
+        "name": "TickComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "StopAllSounds",
+        "comment": "Stops all sounds playing on this component",
+        "returnType": "void"
+      },
+      {
+        "name": "RestartSounds",
+        "comment": "Restart sounds after gaining significance",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateRTPCs",
+        "comment": "Let blueprint update the RTPC values.",
+        "returnType": "void"
+      },
+      {
+        "name": "StartIdleSounds",
+        "comment": "Starts playing idle sounds",
+        "returnType": "void"
+      },
+      {
+        "name": "OnStartedMoving",
+        "comment": "Train started moving.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnStoppedMoving",
+        "comment": "Train stopped moving.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnAirBrakesApplied",
+        "comment": "Air brakes are applied.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnAirBrakesReleased",
+        "comment": "Air brakes are released.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnDynamicBrakesApplied",
+        "comment": "Dynamic brakes are applied.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnDynamicBrakesReleased",
+        "comment": "Dynamic brakes are released.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnThrottleApplied",
+        "comment": "Throttle was applied.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnThrottleReleased",
+        "comment": "Throttle was released.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCachedMovementComponent",
+        "comment": "Gets the railroadvehicles movementcomponent",
+        "returnType": "classUFGRailroadVehicleMovementComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mVehicleMovementComponent",
+        "comment": "Movement component of the first vehicle in the train.",
+        "type": "classUFGRailroadVehicleMovementComponent*"
+      },
+      {
+        "name": "mLocomotiveMovementComponent",
+        "comment": "Movement component of the first locomotive in the train, may be none.",
+        "type": "classUFGLocomotiveMovementComponent*"
+      },
+      {
+        "name": "mTrainOwner",
+        "comment": "train that owns this component",
+        "type": "classAFGTrain*"
+      },
+      {
+        "name": "mWheelsetsAkComponent",
+        "comment": "Component to play events on the wheelsets. Location is the bogie bone.",
+        "type": "classUAkComponent*"
+      },
+      {
+        "name": "mEnginesAkComponent",
+        "comment": "Component to play events on the locomotives. Location is the center of the actor bounds (colliding).",
+        "type": "classUAkComponent*"
+      },
+      {
+        "name": "mAllVehicleCentersAkComponent",
+        "comment": "Component to play events on all the locomotives and wagons. Location is the center of the actor bounds (colliding).",
+        "type": "classUAkComponent*"
+      },
+      {
+        "name": "mIsMoving",
+        "comment": "Some flags to keep track of which blueprint events to trigger.",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsAirBrakesApplied",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsDynamicBrakesApplied",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsThrottleApplied",
+        "type": "uint8"
+      }
+    ]
+  }
+]

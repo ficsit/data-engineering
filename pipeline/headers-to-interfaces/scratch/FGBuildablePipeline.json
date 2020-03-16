@@ -1,0 +1,320 @@
+[
+  {
+    "kind": "class",
+    "name": "FQuantizedPipelineIndicatorData",
+    "category": "USTRUCT",
+    "comment": "Struct containing quantized fluid content for a more optimized replication.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "SetFlowPct",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFlowPct",
+        "returnType": "float"
+      },
+      {
+        "name": "SetContentPct",
+        "returnType": "void"
+      },
+      {
+        "name": "GetContentPct",
+        "returnType": "float"
+      }
+    ],
+    "properties": [
+      {
+        "name": "PackedFlow",
+        "comment": "See setters for how this data is packed.",
+        "type": "int8"
+      },
+      {
+        "name": "PackedContent",
+        "type": "uint8"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FStringPair",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FStringPair"
+      }
+    ],
+    "properties": [
+      {
+        "name": "WwiseSafeName",
+        "type": "FString"
+      },
+      {
+        "name": "ActualName",
+        "type": "FString"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildablePipeline",
+    "category": "UCLASS",
+    "comment": "Pipeline for transferring liquid and gases to factory buildings.",
+    "extends": [
+      "AFGBuildablePipeBase",
+      "IFGFluidIntegrantInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildablePipeline"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin Actor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_Tick",
+        "comment": "Begin AFGBuildable interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GainedSignificance_Implementation",
+        "comment": "Begin Significance",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConnectionType_Implementation",
+        "comment": "Begin AFGBuildablePipeBase Interface",
+        "returnType": "TSubclassOf<UFGPipeConnectionComponentBase>"
+      },
+      {
+        "name": "GetFluidBox",
+        "comment": "Begin FluidIntegrant Interface",
+        "returnType": "FFluidBox*"
+      },
+      {
+        "name": "GetPipeConnections",
+        "returnType": "TArray<classUFGPipeConnectionComponent*>"
+      },
+      {
+        "name": "OnFluidDescriptorSet",
+        "returnType": "void"
+      },
+      {
+        "name": "Split",
+        "comment": "@param connectNewPipelines - Should the new pipelines be connected to each other after the split\n@return The second part of the splitted pipeline; nullptr on failure to split.",
+        "returnType": "TArray<AFGBuildablePipeline*>"
+      },
+      {
+        "name": "Merge",
+        "comment": "Copied from conveyor splitting, some modifications\n@return The merged pipeline; nullptr on failure to merge.",
+        "returnType": "AFGBuildablePipeline*"
+      },
+      {
+        "name": "GetPipeConnection0",
+        "comment": "Get this pipes first connection, can be assumed to not be null.",
+        "returnType": "classUFGPipeConnectionComponent*"
+      },
+      {
+        "name": "GetPipeConnection1",
+        "comment": "Get this pipes first connection, can be assumed to not be null.",
+        "returnType": "classUFGPipeConnectionComponent*"
+      },
+      {
+        "name": "GetIndicatorContentPct",
+        "comment": "Get the replicated content of the pipe in the range [0, 1] and then 1+ if the pipe is over-pressurized.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetIndicatorFlowPct",
+        "comment": "Get the replicated flow of the pipe in the range [-1, 1]",
+        "returnType": "float"
+      },
+      {
+        "name": "GetIndicatorContent",
+        "comment": "Get the replicated content [m^3] of the pipe in the range [0, MAX].",
+        "returnType": "float"
+      },
+      {
+        "name": "GetMaxContent",
+        "comment": "Get the maximum content [m^3].",
+        "returnType": "float"
+      },
+      {
+        "name": "GetIndicatorFlow",
+        "comment": "Get the replicated flow [m^3/s] of the pipe in the range [-LIMIT, LIMIT].",
+        "returnType": "float"
+      },
+      {
+        "name": "GetFlowLimit",
+        "comment": "Get the maximum flow of the pipe [m^3/s].",
+        "returnType": "float"
+      },
+      {
+        "name": "GetFluidDescriptor",
+        "comment": "Get fluid descriptor for this pipe.",
+        "returnType": "TSubclassOf<UFGItemDescriptor>"
+      },
+      {
+        "name": "FlushPipeNetwork",
+        "comment": "@todoPipes DEPRICATED - Invoke server call on Remote Call Object instead.\nCall this to flush the network.",
+        "returnType": "void"
+      },
+      {
+        "name": "AddIgnoredActorForIndicator",
+        "comment": "Adds an actor to ignore when determining indicator placement in begin play. This needs to be called BEFORE begin play to have any effect",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateSounds",
+        "comment": "Updates sounds depending on liquid in pipe",
+        "returnType": "void"
+      },
+      {
+        "name": "FindBestInidicatorPlacement",
+        "comment": "@param out_transform Transform of the suitable location to place the indicator\n@return True if a suitable location was found. False otherwise.",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mRadius",
+        "comment": "Inner Radius of this pipe. Used for flow calculations. [cm]",
+        "type": "float"
+      },
+      {
+        "name": "mFlowLimit",
+        "comment": "Maximum flow through this pipe in cubic meters. [m^3/s]",
+        "type": "float"
+      },
+      {
+        "name": "mFlowIndicatorClass",
+        "comment": "Type of indicator to spawn on this pipe.",
+        "type": "TSubclassOf<classUFGPipelineFlowIndicatorComponent>"
+      },
+      {
+        "name": "mFlowIndicatorMinimumPipeLength",
+        "comment": "Smaller pipes than this will not get a flow indicator. [cm]",
+        "type": "float"
+      },
+      {
+        "name": "mFlowIndicator",
+        "comment": "The indicator spawned for this pipe, this is optional and can be null.",
+        "type": "TWeakObjectPtr<UFGPipelineFlowIndicatorComponent>"
+      },
+      {
+        "name": "mConnectionName0",
+        "comment": "The reason they are added in BP and not natively is some support for HyperTubes and Pipelines ( Gafgar would have a better idea why so I won't attempt to remember here )\nThey are used for detecting reversal when merging two pipelines to check if the components were hooked in reverse order (Tex. the pump was flipped )",
+        "type": "staticFName"
+      },
+      {
+        "name": "mConnectionName1",
+        "type": "staticFName"
+      },
+      {
+        "name": "mSoundSplineComponent",
+        "type": "classUFGSoundSplineComponent*"
+      },
+      {
+        "name": "mSplineAudioEvent",
+        "comment": "The ak event to post for the sound spline",
+        "type": "classUAkAudioEvent*"
+      },
+      {
+        "name": "mPipeConnections",
+        "comment": "Cached array of pipe connections.",
+        "type": "TArray<classUFGPipeConnectionComponent*>"
+      },
+      {
+        "name": "mFluidBox",
+        "comment": "Simulation data.",
+        "type": "FFluidBox"
+      },
+      {
+        "name": "mIndicatorData",
+        "comment": "Quantized data used by the indicators.",
+        "type": "FQuantizedPipelineIndicatorData"
+      },
+      {
+        "name": "mIndicatorFlowPct",
+        "comment": "Smoothed values used by the indicators/UI.",
+        "type": "float"
+      },
+      {
+        "name": "mIndicatorContentPct",
+        "type": "float"
+      },
+      {
+        "name": "mMaxIndicatorTurnAngle",
+        "type": "float"
+      },
+      {
+        "name": "mCachedFluidDescriptor",
+        "type": "TSubclassOf<UFGItemDescriptor>"
+      },
+      {
+        "name": "mIgnoreActorsForIndicator",
+        "comment": "Array of objects to ignore when performing the collision check in the indicator placement. This is needed during merge / split creation of new pipelines",
+        "type": "TArray<TWeakObjectPtr<constAActor>>"
+      },
+      {
+        "name": "mFluidNames",
+        "comment": "struct with both wwise safe names and their item names",
+        "type": "TArray<FStringPair>"
+      },
+      {
+        "name": "mCurrentFluid",
+        "comment": "current fluid that is in the pipe",
+        "type": "FString"
+      },
+      {
+        "name": "mQuantiziedContent",
+        "comment": "how filled is the pipe",
+        "type": "float"
+      },
+      {
+        "name": "mQuantiziedFlow",
+        "comment": "flow rate in the pipe",
+        "type": "float"
+      },
+      {
+        "name": "mRattleLimit",
+        "comment": "at what flow should we play rattle",
+        "type": "float"
+      },
+      {
+        "name": "mIsRattling",
+        "comment": "are we playing rattling sound?",
+        "type": "bool"
+      },
+      {
+        "name": "mStartRattleSoundEvent",
+        "comment": "Start rattle sound",
+        "type": "classUAkAudioEvent*"
+      },
+      {
+        "name": "mStopRattleSoundEvent",
+        "comment": "Stop rattle sound",
+        "type": "classUAkAudioEvent*"
+      }
+    ]
+  }
+]

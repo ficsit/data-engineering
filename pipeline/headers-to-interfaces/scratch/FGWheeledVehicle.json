@@ -1,0 +1,906 @@
+[
+  {
+    "kind": "class",
+    "name": "FTireData",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "SurfaceMaterial",
+        "comment": "bool IsInAir;",
+        "type": "UPhysicalMaterial*"
+      },
+      {
+        "name": "WheelLocation",
+        "type": "FVector"
+      },
+      {
+        "name": "WheelRadius",
+        "type": "float"
+      },
+      {
+        "name": "WheelWidth",
+        "type": "float"
+      },
+      {
+        "name": "WheelIndex",
+        "type": "int32"
+      },
+      {
+        "name": "IsInAir",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FTireTrackDecalDetails",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "SurfacePhysicsMaterial",
+        "comment": "Surface material to override for",
+        "type": "UPhysicalMaterial*"
+      },
+      {
+        "name": "DecalMaterialOverride",
+        "comment": "Material to use as an override",
+        "type": "classUMaterial*"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FSurfaceParticlePair",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "EmitterTemplate",
+        "type": "UParticleSystem*"
+      },
+      {
+        "name": "Surface",
+        "type": "TEnumAsByte<EPhysicalSurface>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FParticleTemplatePair",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FParticleTemplatePair"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Template",
+        "type": "UParticleSystem*"
+      },
+      {
+        "name": "Particle",
+        "type": "UParticleSystemComponent*"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FTireParticleCollection",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "Collection",
+        "type": "TArray<FParticleTemplatePair>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "DSOLDynGearboxData",
+    "comment": "DSOL (Don't shift on (wheel) load) dynamic gearbox data",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "mWasShiftingUp",
+        "type": "bool"
+      },
+      {
+        "name": "mWasShiftingDown",
+        "type": "bool"
+      },
+      {
+        "name": "mTargetGear",
+        "type": "int32"
+      },
+      {
+        "name": "mGearSwitchTime",
+        "type": "float"
+      },
+      {
+        "name": "mSlopeShiftRatio",
+        "comment": "Multiplier to affect shifting gears up and down on a slope",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "DSOLSetupData",
+    "comment": "DSOL (Don't shift on (wheel) load) dynamic gearbox data",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "mNumberOfGears",
+        "type": "int"
+      },
+      {
+        "name": "mDownShiftLatency",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FReplicatedAddedVelocitiesState",
+    "category": "USTRUCT",
+    "comment": "because this is the only shared place\nbetween the 4W & 6W movement components",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "IsDrifting",
+        "comment": "input replication: steering",
+        "type": "bool"
+      },
+      {
+        "name": "AddedAngularVelocityInputPitch",
+        "comment": "input replication: angular velocity pitch",
+        "type": "float"
+      },
+      {
+        "name": "AddedAngularVelocityInputYaw",
+        "comment": "input replication: angular velocity yaw",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGWheeledVehicle",
+    "category": "UCLASS",
+    "comment": "This is our implementation of a wheeled vehicle, we want a base class FGVehicle that can be shared by wheeled vehicles, trains etc.\n@see AWheeledVehicle",
+    "extends": [
+      "AFGVehicle"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGWheeledVehicle"
+      },
+      {
+        "name": "PostInitializeComponents",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "DisplayDebug",
+        "returnType": "void"
+      },
+      {
+        "name": "GainedSignificance_Implementation",
+        "comment": "Begin IFGSignificanceInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "CanDock_Implementation",
+        "comment": "~ Begin IFGDockableInterface",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDockInventory_Implementation",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetDockFuelInventory_Implementation",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "WasDocked_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "WasUndocked_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnBeginLoadVehicle_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnBeginUnloadVehicle_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnTransferComplete_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetVehicleMovementComponent",
+        "comment": "Returns VehicleMovement subobject",
+        "returnType": "classUWheeledVehicleMovementComponent*"
+      },
+      {
+        "name": "SetMovementComponent",
+        "comment": "Sets the movement component to the given component. Used to initialise 4W, 6W, NW movement components.",
+        "returnType": "void"
+      },
+      {
+        "name": "HasFuel",
+        "comment": "Do we have fuel?",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetTireData",
+        "comment": "Gets information about tires ( such as IsInAir etc )",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSurfaceParticleSystem",
+        "comment": "Gets the particle system that corresponds to physmat",
+        "returnType": "UParticleSystem*"
+      },
+      {
+        "name": "GetIsInAir",
+        "comment": "Gets air status",
+        "returnType": "bool"
+      },
+      {
+        "name": "NumWheelsOnGround",
+        "comment": "Is any wheel on the ground",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetFuelInventory",
+        "comment": "Get the fuel inventory.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetStorageInventory",
+        "comment": "Get the storage inventory.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetForwardSpeed",
+        "comment": "Use this function instead of the one in movement component because we have multiple components that move the vehicle",
+        "returnType": "float"
+      },
+      {
+        "name": "IsValidFuel",
+        "comment": "@param resource - Resource class to check.\n@return - true if resource valid as fuel; false if not valid or if generator does not run on fuel.",
+        "returnType": "bool"
+      },
+      {
+        "name": "HandleDestroyStaticMesh",
+        "comment": "@param actor - collided actor\n@param forceOfCollision - the force of the collision, or 0.0f if an overlap",
+        "returnType": "void"
+      },
+      {
+        "name": "HandleDestroyFoliage",
+        "comment": "If an object can be destroyed by a vehicle running over it (eg. foliage) this function destroys it IF the required force is met.",
+        "returnType": "void"
+      },
+      {
+        "name": "FilterFuelClasses",
+        "comment": "Filter out what we consider as fuel for our fuel inventory.\n@see IsValidFuel",
+        "returnType": "bool"
+      },
+      {
+        "name": "SimulateDSOLGearBox",
+        "comment": "Simulates an automatic gearbox that does not shift up when there is load on the tires (useful when driving uphill)",
+        "returnType": "void"
+      },
+      {
+        "name": "IsSimulated",
+        "comment": "Is the movement being simulated?",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetSimulationComponent",
+        "comment": "Returns the simulation component",
+        "returnType": "UFloatingPawnMovement*"
+      },
+      {
+        "name": "SetSimulation",
+        "comment": "Toggles what movement mode we are using",
+        "returnType": "void"
+      },
+      {
+        "name": "WantsToMove",
+        "comment": "Indicates if the vehicle is gasing or wants to move in simulated state",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetFuelBurnRatio",
+        "comment": "returns the ratio ( 0 to 1.0 ) for how much fuel we want to burn. Ussually a reflection of throttle value except during simulation",
+        "returnType": "float"
+      },
+      {
+        "name": "GetTargetNodeLinkedList",
+        "comment": "Returns the simulation component",
+        "returnType": "classUFGTargetPointLinkedList*"
+      },
+      {
+        "name": "RemoveTargetPoint",
+        "comment": "Removes the desired target from the linked list",
+        "returnType": "void"
+      },
+      {
+        "name": "SetPathFromArray",
+        "comment": "Fills the linked list with target nodes with data from an array",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPathVisibility",
+        "comment": "Getter for path visibility",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetPathVisibility",
+        "comment": "Getter for path visibility",
+        "returnType": "void"
+      },
+      {
+        "name": "Multicast_PlayFoliageDestroyedEffect",
+        "comment": "Multicast from server when foliage was destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_PlayFoliageDestroyedEffect",
+        "comment": "Blueprint client accessor for when foliage was destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnOverlapBegin",
+        "returnType": "void"
+      },
+      {
+        "name": "OnOverlapEnd",
+        "returnType": "void"
+      },
+      {
+        "name": "SetIsDrifting",
+        "returnType": "void"
+      },
+      {
+        "name": "GetIsDrifting",
+        "returnType": "bool"
+      },
+      {
+        "name": "ManageFakeForces",
+        "comment": "Called from Movement Component's TickVehicle\n eg. to manage/clamp/add custom fake forces vehicle for handling purposes",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDriftForceOffset",
+        "comment": "retrieves the world location of where the drift force should be applied. eg. use a blueprint to position it",
+        "returnType": "FVector"
+      },
+      {
+        "name": "CloseVehicleTrunk",
+        "returnType": "void"
+      },
+      {
+        "name": "OpenVehicleTrunk",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCachedSurfaceMaterial",
+        "comment": "Returns the cached surface material",
+        "returnType": "UPhysicalMaterial*"
+      },
+      {
+        "name": "Died",
+        "comment": "Begin AFGVehicle interface",
+        "returnType": "void"
+      },
+      {
+        "name": "CreateInventoryItemDrops",
+        "comment": "Create item drops for our inventory ( used when vehicle has killed/destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "SetAddedAngularVelocityPitch",
+        "comment": "sets mAddedAngularVelocityInputPitch and lerps it using mAddedAngularVelocityInputSmoothingSpeed",
+        "returnType": "void"
+      },
+      {
+        "name": "SetAddedAngularVelocityYaw",
+        "comment": "sets mAddedAngularVelocityInputYaw and lerps it using mAddedAngularVelocityInputSmoothingSpeed",
+        "returnType": "void"
+      },
+      {
+        "name": "GetIsGrounded",
+        "comment": "@todo Deprecated REMOVE ME",
+        "returnType": "bool"
+      },
+      {
+        "name": "ResetAddedAngularVelocityValues",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateAssistedVelocitiesState",
+        "comment": "Read current state for simulation",
+        "returnType": "void"
+      },
+      {
+        "name": "ServerUpdateAssistedVelocitiesState",
+        "comment": "Pass current state to server",
+        "returnType": "void"
+      },
+      {
+        "name": "UseReplicatedState",
+        "comment": "Update the clients state from the replicated state",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateSimulationState",
+        "comment": "Tick helpers",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateAirStatus",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateTireEffects",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateTireParticle",
+        "returnType": "void"
+      },
+      {
+        "name": "BurnFuel",
+        "returnType": "void"
+      },
+      {
+        "name": "ApplyAddedAngularVelocityModifiers",
+        "comment": "Applies added angular velocity to the vehicle to assist sliding and air control",
+        "returnType": "void"
+      },
+      {
+        "name": "SwitchParticle",
+        "comment": "Activates/deactivates tire particles so that it's only the one matching the template that is active",
+        "returnType": "void"
+      },
+      {
+        "name": "DrawTireTrack",
+        "comment": "Draws a tire track decal if necessary",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSimulationChanged",
+        "comment": "Updates the vehicles settings depending on if it should be simulated or \"real\"",
+        "returnType": "void"
+      },
+      {
+        "name": "ClampVelocities",
+        "comment": "Clamp angular and linear velocities",
+        "returnType": "void"
+      },
+      {
+        "name": "AddedLinearThrottleVelocity",
+        "comment": "handles added linear velocity on throttle",
+        "returnType": "void"
+      },
+      {
+        "name": "ApplyRollStabilisation",
+        "comment": "logic for stabilising roll angular velocity in the air",
+        "returnType": "void"
+      },
+      {
+        "name": "ApplyAssistedVelocities",
+        "comment": "applies assisted acceleration and drifting velocities",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_IsSimulated",
+        "comment": "Rep notifies",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_TransferStatusChanged",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "VehicleMovementComponentName",
+        "comment": "Name of the VehicleMovement. Use this name if you want to use a different class (with ObjectInitializer.SetDefaultSubobjectClass).",
+        "type": "staticFName"
+      },
+      {
+        "name": "mWorkBench",
+        "comment": "Workbench component",
+        "type": "classUFGWorkBench*"
+      },
+      {
+        "name": "mUpdateMovementHandle",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mForceSimulationMode",
+        "comment": "Forces vehicle to be in simulation mode",
+        "type": "bool"
+      },
+      {
+        "name": "mForceRealMode",
+        "comment": "Forces vehicle to be in real mode",
+        "type": "bool"
+      },
+      {
+        "name": "TranferStatusChangedDelegate",
+        "comment": "Broadcast when transfer status is updated",
+        "type": "FTranferStatusChanged"
+      },
+      {
+        "name": "mReplicatedState",
+        "comment": "replicated state of vehicle",
+        "type": "FReplicatedAddedVelocitiesState"
+      },
+      {
+        "name": "mFuelConsumption",
+        "comment": "This vehicles fuel consumption in MW/s",
+        "type": "float"
+      },
+      {
+        "name": "mCurrentFuelAmount",
+        "comment": "Amount left of the currently burned piece of fuel. In megawatt seconds (MWs).",
+        "type": "float"
+      },
+      {
+        "name": "mIsLoadingVehicle",
+        "comment": "Are we currently in the process of loading inventory",
+        "type": "bool"
+      },
+      {
+        "name": "mIsUnloadingVehicle",
+        "comment": "Are we currently in the process of unloading inventory",
+        "type": "bool"
+      },
+      {
+        "name": "mCurrentFuelClass",
+        "comment": "Type of the currently burned piece of fuel.",
+        "type": "TSubclassOf<classUFGItemDescriptor>"
+      },
+      {
+        "name": "mIsInAir",
+        "comment": "Is vehicle in air",
+        "type": "bool"
+      },
+      {
+        "name": "mNumWheelsOnGround",
+        "comment": "Is there at least 1 wheel on the ground",
+        "type": "int32"
+      },
+      {
+        "name": "mVehicleMovement",
+        "comment": "vehicle simulation component",
+        "type": "classUWheeledVehicleMovementComponent*"
+      },
+      {
+        "name": "mDistBetweenDecals",
+        "comment": "Distance between tire track decals",
+        "type": "float"
+      },
+      {
+        "name": "mDecalLifespan",
+        "comment": "Time, in seconds, for the tire track decal to live",
+        "type": "float"
+      },
+      {
+        "name": "mDefaultTireTrackDecal",
+        "comment": "default tire track decal. Can be empty for no default.",
+        "type": "classUMaterial*"
+      },
+      {
+        "name": "mTireTrackDecals",
+        "comment": "tire track decal  settings",
+        "type": "TArray<FTireTrackDecalDetails>"
+      },
+      {
+        "name": "mDecalSize",
+        "comment": "The scale for the decal. This will probably need to be uniquely set for every vehicle.",
+        "type": "FVector"
+      },
+      {
+        "name": "mFoliageDestroyRadius",
+        "comment": "When foliage is run over by this vehicle, this is the radius of foliage that should be cleared",
+        "type": "float"
+      },
+      {
+        "name": "mAddedGroundAngularVelocityStrengthYaw",
+        "comment": "Strength of the angular velocity yaw modifier when on the ground and holding \"drift\"",
+        "type": "float"
+      },
+      {
+        "name": "mAddedGroundAngularVelocityStrengthPitch",
+        "comment": "Strength of the angular velocity pitch modifier when on the ground and holding \"drift\"",
+        "type": "float"
+      },
+      {
+        "name": "mAddedAirControlAngularVelocityStrengthYaw",
+        "comment": "Strength of the added air control angular yaw velocity",
+        "type": "float"
+      },
+      {
+        "name": "mAddedAirControlAngularVelocityStrengthPitch",
+        "comment": "Strength of the added air control angular pitch velocity",
+        "type": "float"
+      },
+      {
+        "name": "mNaturalAngularVelocityStrengthYaw",
+        "comment": "Strength of the natural added angular yaw velocity when turning.\nUsed to generate natural sliding when not in the air and turning without handbrake.",
+        "type": "float"
+      },
+      {
+        "name": "mNaturalAngularVelocityStrengthPitch",
+        "comment": "Strength of the natural added angular pitch velocity when turning.\nUsed to generate natural sliding when not in the air and turning without handbrake.",
+        "type": "float"
+      },
+      {
+        "name": "mNaturalAirAngularVelocityStrengthYaw",
+        "comment": "Strength of the natural added angular yaw velocity during air control.\nUsed to generate natural sliding when not in the air and turning without handbrake.",
+        "type": "float"
+      },
+      {
+        "name": "mNaturalAirAngularVelocityStrengthPitch",
+        "comment": "Strength of the natural added angular pitch velocity during air control.\nUsed to generate natural sliding when not in the air and turning without handbrake.",
+        "type": "float"
+      },
+      {
+        "name": "mAddedAngularVelocityInputSmoothingSpeed",
+        "comment": "Speed at which the added angular velocity input smooths from previous input to the next\nShould be between 0.1 to 1.0",
+        "type": "float"
+      },
+      {
+        "name": "mFoliageCollideBox",
+        "comment": "Collision box for detecting overlaps with foliage only. Shape modified in BP",
+        "type": "UBoxComponent*"
+      },
+      {
+        "name": "mIsSimulated",
+        "comment": "Is the movement being simulated?",
+        "type": "bool"
+      },
+      {
+        "name": "mSimulationDistance",
+        "comment": "Distance from player at which simulation begins",
+        "type": "float"
+      },
+      {
+        "name": "mSimulationMovementComponent",
+        "comment": "Our component used for simulated movement",
+        "type": "classUFloatingPawnMovement*"
+      },
+      {
+        "name": "mFuelInventory",
+        "comment": "Inventory for fuel",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mStorageInventory",
+        "comment": "Inventory for storage",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mInventorySize",
+        "type": "int32"
+      },
+      {
+        "name": "mTireParticleCollection",
+        "type": "TArray<FTireParticleCollection>"
+      },
+      {
+        "name": "mVehicleParticeMap",
+        "comment": "Map that lists which templates corresponds to what surface type",
+        "type": "TArray<FSurfaceParticlePair>"
+      },
+      {
+        "name": "mActiveParticleAndTemplate",
+        "comment": "Contains references to all current active partice systems on the tires",
+        "type": "TArray<FParticleTemplatePair>"
+      },
+      {
+        "name": "mTireEffectSocketName",
+        "comment": "Base name of socket use for tire particles",
+        "type": "FString"
+      },
+      {
+        "name": "mTargetNodeLinkedList",
+        "comment": "Linked list with target nodes that make up our path to travel",
+        "type": "classUFGTargetPointLinkedList*"
+      },
+      {
+        "name": "mIsPathVisible",
+        "comment": "Should targets nodes be visible",
+        "type": "bool"
+      },
+      {
+        "name": "mLastDecalLocations",
+        "comment": "location of the last placed decals for each wheel",
+        "type": "TArray<FVector>"
+      },
+      {
+        "name": "mOverlappedHISMComponents",
+        "comment": "If we have overlapped foliage go nuts and destroy them",
+        "type": "TArray<classUHierarchicalInstancedStaticMeshComponent*>"
+      },
+      {
+        "name": "mAddedAngularVelocityInputPitch",
+        "comment": "input for added angular Pitch velocity modifier. Between -1.0 and 1.0.\nThis is to be updated via blueprint.",
+        "type": "float"
+      },
+      {
+        "name": "mAddedAngularVelocityInputYaw",
+        "comment": "input for added angular yaw velocity modifier. Between -1.0 and 1.0.\nThis is to be updated via blueprint.",
+        "type": "float"
+      },
+      {
+        "name": "mIsDrifting",
+        "comment": "Set from blueprint. True if drift button is down.",
+        "type": "bool"
+      },
+      {
+        "name": "mReverseAddedAngularVelocityYawMultiplier",
+        "comment": "it may be a good idea to make the added velocity stronger when reversing.\neg. with the explorer, it will make it easier to drift 180 when reversing.",
+        "type": "float"
+      },
+      {
+        "name": "mHasAirControl",
+        "comment": "if true, can control vehicle in air",
+        "type": "bool"
+      },
+      {
+        "name": "mGroundTraceLength",
+        "comment": "length to trace to check for ground",
+        "type": "float"
+      },
+      {
+        "name": "mDeltaLinearVelocity",
+        "comment": "change in linear velocity since last frame",
+        "type": "float"
+      },
+      {
+        "name": "mMaxDeltaLinearVelocity",
+        "comment": "max change in linear velocity since last frame",
+        "type": "float"
+      },
+      {
+        "name": "mDeltaAngularVelocity",
+        "comment": "change in angular velocity since last frame",
+        "type": "float"
+      },
+      {
+        "name": "mMaxDeltaAngularVelocity",
+        "comment": "max change in angular velocity since last frame",
+        "type": "float"
+      },
+      {
+        "name": "mRollStabilisationStrength",
+        "comment": "Amount of damping to add to roll",
+        "type": "float"
+      },
+      {
+        "name": "mMaxRollAngleForUpsideDown",
+        "comment": "The min roll angle to consider the vehicle upside down - only as far as roll goes. Other factors are also taken into account.",
+        "type": "float"
+      },
+      {
+        "name": "mMaxFlatOnGroundRollAngleLimit",
+        "comment": "The max roll angle to consider the vehicle flat on ground - only as far as roll goes. Other factors are also taken into account.",
+        "type": "float"
+      },
+      {
+        "name": "mMaxRollForActivationOfAssistedVelocities",
+        "comment": "If roll angle is over this value then assisted velocities will not be applied.",
+        "type": "float"
+      },
+      {
+        "name": "mMaxSpeedForAddedAcceleration",
+        "comment": "There can be added acceleration when at low speeds. This max speed is when no more acceleration is added.\nAdded acceleration is interpolated between mMaxAssistedAcceleration -> Zero",
+        "type": "int32"
+      },
+      {
+        "name": "mMaxAssistedAcceleration",
+        "comment": "Maximum amount of force that can be added to assist acceleration",
+        "type": "float"
+      },
+      {
+        "name": "mHasAssistedVelocities",
+        "comment": "If true, Assisted Acceleration & drifting is be in effect",
+        "type": "bool"
+      },
+      {
+        "name": "mHasRollStabilisation",
+        "comment": "If true, roll stabilisation is be in effect",
+        "type": "bool"
+      },
+      {
+        "name": "mDriftingLateralForce",
+        "comment": "the lateral force we add for drifting",
+        "type": "float"
+      },
+      {
+        "name": "mDriftingUpwardForce",
+        "comment": "the upward force we add for drifting (this is to reduce friction & encourage oversteer)",
+        "type": "float"
+      },
+      {
+        "name": "mDriftForwardForceStrengthCurve",
+        "comment": "Should be 0 at slight angles to prevent basic speed up when holding drift\nshould peak at 90 degrees or so.",
+        "type": "UCurveFloat*"
+      },
+      {
+        "name": "mDriftForceBones",
+        "comment": "List of bones to apply drift force to when drifting",
+        "type": "TArray<FName>"
+      },
+      {
+        "name": "mMinAngleForDrift",
+        "comment": "min angle for drift (degrees)",
+        "type": "float"
+      },
+      {
+        "name": "mWantsToLand",
+        "comment": "Indicates that we have found ground from previously being airborn",
+        "type": "bool"
+      },
+      {
+        "name": "mLandVelocityZ",
+        "comment": "Saved velocity while no wheels are touching the ground",
+        "type": "float"
+      },
+      {
+        "name": "mCachedSurfaceMaterial",
+        "comment": "Cached surface material under the first tire",
+        "type": "UPhysicalMaterial*"
+      },
+      {
+        "name": "mNeedsFuelToDrive",
+        "comment": "Do we need fuel to drive",
+        "type": "bool"
+      }
+    ]
+  }
+]

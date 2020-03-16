@@ -1,0 +1,197 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGDriveablePawn",
+    "category": "UCLASS",
+    "comment": "Base class for pawns that can be driven by a player character, this includes vehicles, remote drones and passenger seats.",
+    "extends": [
+      "APawn",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGDriveablePawn"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Decide on what properties to replicate.",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "PossessedBy",
+        "comment": "Begin APawn interface",
+        "returnType": "void"
+      },
+      {
+        "name": "UnPossessed",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDriver",
+        "comment": "Gets the driving pawn.",
+        "returnType": "classAFGCharacterPlayer*"
+      },
+      {
+        "name": "CanDriverEnter",
+        "comment": "Can we drive this. (server and locally controlled client)",
+        "returnType": "bool"
+      },
+      {
+        "name": "DriverEnter",
+        "comment": "Make player the new driver of this vehicle.\n@note Call this on server only.",
+        "returnType": "bool"
+      },
+      {
+        "name": "DriverLeave",
+        "comment": "\n @param keepDriving    True if we want to leave the without setting IsDriving to false (turn off the vehicle).",
+        "returnType": "bool"
+      },
+      {
+        "name": "AttachDriver",
+        "comment": "Use this to attach the driver to the seat and setup animations, collision on pawn etc.\nCalled from AFGCharacter on server and client.",
+        "returnType": "void"
+      },
+      {
+        "name": "ShouldAttachDriver",
+        "comment": "@return true if the driver should be attached.",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsDriverVisible",
+        "comment": "@return true if the driver should be visible.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDriverSeatSocket",
+        "comment": "@return socket to attach the driver to; none if no socket set.",
+        "returnType": "FName"
+      },
+      {
+        "name": "GetDriverSeatAnimation",
+        "comment": "@return animation to set on the driver; null if no animation set.",
+        "returnType": "classUAnimSequence*"
+      },
+      {
+        "name": "GetDriverExitOffset",
+        "comment": "@return exit offset to try to place the driver at (local space).",
+        "returnType": "FVector"
+      },
+      {
+        "name": "IsDriving",
+        "comment": "@return true if this vehicle is being driven.",
+        "returnType": "bool"
+      },
+      {
+        "name": "HasPendingDriver",
+        "comment": "@return true if another driver is about to enter.",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnDrivingStatusChanged",
+        "comment": "When driving status changed for this vehicle.",
+        "returnType": "void"
+      },
+      {
+        "name": "ReceiveOnDriverEnter",
+        "comment": "Called when the driver has entered (human or ai)",
+        "returnType": "void"
+      },
+      {
+        "name": "ReceiveOnDriverLeave",
+        "comment": "Called when the driver is about to leave (human or ai)",
+        "returnType": "void"
+      },
+      {
+        "name": "PlaceExitingDriver",
+        "comment": "Places the driver at a valid location when they leave the vehicle.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetDriving",
+        "comment": "Helpers",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSafeExitLocation",
+        "comment": "Helpers",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnRep_IsDriving",
+        "comment": "Rep notifies",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mShouldAttachDriver",
+        "comment": "True if the driver should be attached, false if this is a \"remote controlled\" pawn.",
+        "type": "bool"
+      },
+      {
+        "name": "mIsDriverVisible",
+        "comment": "True if the driver should be visible, set from FVehicleSeat",
+        "type": "bool"
+      },
+      {
+        "name": "mDriverSeatSocket",
+        "comment": "Socket to attach the driver to, if mShouldAttachDriver is true, set from FVehicleSeat",
+        "type": "FName"
+      },
+      {
+        "name": "mDriverSeatAnimation",
+        "comment": "Animation to play on the character player when in the driver seat, set from FVehicleSeat",
+        "type": "classUAnimSequence*"
+      },
+      {
+        "name": "mDriverExitOffset",
+        "comment": "Where to place the driver upon exiting (local space), set from FVehicleSeat",
+        "type": "FVector"
+      },
+      {
+        "name": "mHasPendingDriver",
+        "comment": "If another driver is about to enter this vehicle. Used to not shutdown/startup the",
+        "type": "bool"
+      },
+      {
+        "name": "mDriver",
+        "comment": "@todo Verify if vehicle should be occupied when client leaves or not.\nThe driver, not saved, pawns remember their last driven vehicle and enters it in begin play.",
+        "type": "classAFGCharacterPlayer*"
+      },
+      {
+        "name": "mIsDriving",
+        "comment": "Is this vehicle being driven.",
+        "type": "bool"
+      }
+    ]
+  }
+]

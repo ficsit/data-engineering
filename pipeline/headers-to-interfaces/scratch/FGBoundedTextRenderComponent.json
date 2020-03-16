@@ -1,0 +1,29 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGBoundedTextRenderComponent",
+    "category": "UCLASS",
+    "comment": "Clips Rendered Text defined by a bounding box.\n@todo: Only top alignment is supported for vertical clipping. Implement appropriate alignment clipping.",
+    "extends": [
+      "UTextRenderComponent"
+    ],
+    "methods": [
+      {
+        "name": "CreateSceneProxy",
+        "comment": "~ Begin UPrimitiveComponent Interface.",
+        "returnType": "FPrimitiveSceneProxy*"
+      },
+      {
+        "name": "AssignBoundingBox",
+        "comment": "Assigns the box to use as bounds for this text",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mBoundingBox",
+        "type": "UBoxComponent*"
+      }
+    ]
+  }
+]

@@ -1,0 +1,188 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGPowerInfoComponent",
+    "category": "UCLASS",
+    "comment": "Default implementation for a powered building.",
+    "extends": [
+      "UActorComponent",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication",
+        "returnType": "void"
+      },
+      {
+        "name": "PreReplication",
+        "returnType": "void"
+      },
+      {
+        "name": "SetReplicateDetails",
+        "comment": "If we should replicate detailed information, use this to optimize replication of inventories not actively used by client.",
+        "returnType": "void"
+      },
+      {
+        "name": "UFGPowerInfoComponent",
+        "comment": "Ctor"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetPowerCircuit",
+        "comment": "@return The power circuit this is connected to; nullptr if not connected.\n@note This can be changed/removed at any time so do not save copies to it.",
+        "returnType": "classUFGPowerCircuit*"
+      },
+      {
+        "name": "IsConnected",
+        "comment": "@return true if the connected to a circuit.",
+        "returnType": "bool"
+      },
+      {
+        "name": "HasPower",
+        "comment": "@return true if we have power; false if we do not have power.\n@note This is updated once per frame so if setting target consumption the result is available next frame.",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsFuseTriggered",
+        "comment": "@return true if the grid is overloaded and the fuse has been triggered; false otherwise.",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetTargetConsumption",
+        "comment": "This is only a request, use GetActualConsumption to see what is actually consumed.\n@note This call is asynchronous and the result is available next frame.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetTargetConsumption",
+        "comment": "Get the target power consumption.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetActualConsumption",
+        "comment": "@note This is updated once per frame when the power subsystem is ticked.\n@return The actual power consumed.",
+        "returnType": "float"
+      },
+      {
+        "name": "SetBaseProduction",
+        "comment": "Set the power we always provide to the circuit. This can not be regulated.\nE.g. A wind turbine always generate power when there's wind.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBaseProduction",
+        "comment": "Get the base power production.",
+        "returnType": "float"
+      },
+      {
+        "name": "SetDynamicProductionCapacity",
+        "comment": "Use GetRegulatedDynamicProduction to see the actual production needed.\n@note Asynchronous.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDynamicProductionCapacity",
+        "comment": "Get the maximum dynamic power production.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetDynamicProductionDemandFactor",
+        "comment": "This is in the range [0,1+] and if >1 the demand is greater than the available production, i.e. the circuit is overloaded.\n@return Dynamic demand factor.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetRegulatedDynamicProduction",
+        "comment": "Get the dynamic power production we provide to the circuit.",
+        "returnType": "float"
+      },
+      {
+        "name": "SetCircuitID",
+        "comment": "@note Do not call this unless you know what you're doing.\n@param circuitID The new circuit id, INDEX_NONE if disconnected.",
+        "returnType": "void"
+      },
+      {
+        "name": "DisplayDebug",
+        "comment": "Debug",
+        "returnType": "void"
+      },
+      {
+        "name": "IsReplicatingDetails",
+        "comment": "If we should replicate detailed information.",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mReplicateDetails",
+        "comment": "If we should replicate detailed information, use this to optimize replication of power info not actively used by client.",
+        "type": "bool"
+      },
+      {
+        "name": "mCircuitID",
+        "comment": "The circuit we're connected to.\n@note - This ID may change at any time when changes occurs in the circuitry. Do not save copies of it!",
+        "type": "int32"
+      },
+      {
+        "name": "mTargetConsumption",
+        "comment": "Power to draw from the circuit.",
+        "type": "float"
+      },
+      {
+        "name": "mActualConsumption",
+        "comment": "The actual power we got from the circuit (updated each frame).",
+        "type": "float"
+      },
+      {
+        "name": "mBaseProduction",
+        "comment": "Power to always provide to the circuit.",
+        "type": "float"
+      },
+      {
+        "name": "mDynamicProductionCapacity",
+        "comment": "Power to optionally provide to the circuit.",
+        "type": "float"
+      },
+      {
+        "name": "mDynamicProductionDemandFactor",
+        "comment": "The demand for dynamic power (updated each frame).",
+        "type": "float"
+      },
+      {
+        "name": "mHasPower",
+        "comment": "Do we have enough of the requested power.",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsFuseTriggered",
+        "comment": "true if the circuit is overloaded and the fuse has been triggered.",
+        "type": "uint8"
+      }
+    ]
+  }
+]

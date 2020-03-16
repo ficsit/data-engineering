@@ -1,0 +1,49 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGMapCompassSettings",
+    "category": "UCLASS",
+    "extends": [
+      "UDeveloperSettings"
+    ],
+    "methods": [],
+    "properties": [
+      {
+        "name": "mCompassViewDistances",
+        "type": "TMap<ECompassViewDistance,float>"
+      },
+      {
+        "name": "mLowestWorldLocation",
+        "type": "float"
+      },
+      {
+        "name": "mHighestWorldLocation",
+        "type": "float"
+      },
+      {
+        "name": "mFogOfWarUpperRangeMin",
+        "type": "float"
+      },
+      {
+        "name": "mFogOfWarUpperRangeMax",
+        "type": "float"
+      },
+      {
+        "name": "mFogOfWarGradientExpandValue",
+        "type": "float"
+      },
+      {
+        "name": "mEnableFogOfWarRevealCalculations",
+        "type": "bool"
+      },
+      {
+        "name": "mEnableFogOfWarTextureUpdates",
+        "type": "bool"
+      },
+      {
+        "name": "mForceSingleThreadedCalculations",
+        "type": "bool"
+      }
+    ]
+  }
+]

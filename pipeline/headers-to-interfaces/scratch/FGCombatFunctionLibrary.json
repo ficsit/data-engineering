@@ -1,0 +1,33 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGCombatFunctionLibrary",
+    "category": "UCLASS",
+    "extends": [
+      "UBlueprintFunctionLibrary"
+    ],
+    "methods": [
+      {
+        "name": "TryGetCharacterFromDamageCauser",
+        "comment": "Try get a pawn from a damage causer in take damage",
+        "returnType": "classAFGCharacterBase*"
+      },
+      {
+        "name": "IsWithinAttackRange",
+        "comment": "@param attackClass - the attack that we want to check if we are within attack range for\n@return true if they can be attacked and hit from our pawns location",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsWithinRange",
+        "comment": "@param range - the range that we want to check if we are within\n@return true if they can be reached from this range",
+        "returnType": "bool"
+      },
+      {
+        "name": "DoRadialDamageWithinCollision",
+        "comment": "@param damage - how much damage\n@param radius - radial reach of the damage",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

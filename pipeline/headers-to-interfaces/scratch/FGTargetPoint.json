@@ -1,0 +1,139 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGTargetPoint",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AActor",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGTargetPoint",
+        "comment": "Sets default values for this actor's properties"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Decide on what properties to replicate.",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetOwningVehicle",
+        "comment": "Set which vehicle this belongs to",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOwningVehicle",
+        "comment": "Gets owning vehicle",
+        "returnType": "classAFGWheeledVehicle*"
+      },
+      {
+        "name": "SetVisibility",
+        "comment": "Sets visibility for this point",
+        "returnType": "void"
+      },
+      {
+        "name": "GetWaitTime",
+        "comment": "Returns current wait time",
+        "returnType": "float"
+      },
+      {
+        "name": "IncreaseWaitTime",
+        "comment": "Increase wait time\n@param addedWaitTime - if not specified we add the default wait time",
+        "returnType": "void"
+      },
+      {
+        "name": "SetWaitTime",
+        "comment": "Sets the wait time\n@param newWaitTime - time to wait ( seconds )",
+        "returnType": "void"
+      },
+      {
+        "name": "GetTargetSpeed",
+        "comment": "Getter for target speed",
+        "returnType": "int32"
+      },
+      {
+        "name": "IsTargetSpeedStill",
+        "comment": "Is target speed low enough to count as still",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetTargetSpeed",
+        "comment": "Sets new target speed",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Called when the game starts or when spawned",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_Visibility",
+        "comment": "Onrep for visibility",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mNext",
+        "comment": "Reference to the next target point ( used in linked list )",
+        "type": "AFGTargetPoint*"
+      },
+      {
+        "name": "mOwningVehicle",
+        "comment": "Vehicle that created this node",
+        "type": "classAFGWheeledVehicle*"
+      },
+      {
+        "name": "mIsVisible",
+        "comment": "Update visibility",
+        "type": "bool"
+      },
+      {
+        "name": "mWaitTime",
+        "comment": "Accumulated wait time for this node",
+        "type": "float"
+      },
+      {
+        "name": "mDefaultWaitTime",
+        "comment": "Default wait time if this target point has no target speed",
+        "type": "float"
+      },
+      {
+        "name": "mTargetSpeed",
+        "comment": "Target speed at this node",
+        "type": "int32"
+      }
+    ]
+  }
+]

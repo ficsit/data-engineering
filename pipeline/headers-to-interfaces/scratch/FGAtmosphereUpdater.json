@@ -1,0 +1,50 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGAtmosphereUpdater",
+    "category": "UCLASS",
+    "comment": "Exists both in EditorEngine and GameEngine, encapsulates the interpolation ExponentialHeightFog",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "Tick",
+        "comment": "Update the value of the height fog in each world",
+        "returnType": "void"
+      },
+      {
+        "name": "ApplyFogSettings",
+        "comment": "Apply the fog settings to the current world",
+        "returnType": "void"
+      },
+      {
+        "name": "InterpolateFogSettings",
+        "comment": "Interpolate in src settings into destination, when alpha is 1, then take entire src",
+        "returnType": "void"
+      },
+      {
+        "name": "InterpolateSkySphereSettings",
+        "comment": "Interpolate in src settings into destination, when alpha is 1, then take entire src",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateWorld",
+        "comment": "Update a single world",
+        "returnType": "void"
+      },
+      {
+        "name": "ShouldUpdateWorld",
+        "comment": "returns true if we should update the given world",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mActiveWorlds",
+        "comment": "The worlds we want to affect",
+        "type": "TArray<classUWorld*>"
+      }
+    ]
+  }
+]

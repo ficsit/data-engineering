@@ -1,0 +1,35 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGMessageSender",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "GetSenderDefaultObject",
+        "comment": "Gets the default object so we can access stuff like the texture etc",
+        "returnType": "UObject*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSenderName",
+        "comment": "Name of the sender",
+        "type": "FText"
+      },
+      {
+        "name": "mSenderMail",
+        "comment": "Mail adress of the sender",
+        "type": "FText"
+      },
+      {
+        "name": "mTexture",
+        "comment": "Image of the sender",
+        "type": "classUTexture2D*"
+      }
+    ]
+  }
+]

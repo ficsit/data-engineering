@@ -1,0 +1,62 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGVehicleDescriptor",
+    "category": "UCLASS",
+    "comment": "Build descriptor for vehicles.",
+    "extends": [
+      "UFGBuildDescriptor"
+    ],
+    "methods": [
+      {
+        "name": "UFGVehicleDescriptor"
+      },
+      {
+        "name": "PostLoad",
+        "comment": "~ Begin UObject Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetVehicleClass",
+        "comment": "Get the vehicle class for this descriptor.",
+        "returnType": "TSubclassOf<classAFGVehicle>"
+      },
+      {
+        "name": "GetItemNameInternal",
+        "returnType": "FText"
+      },
+      {
+        "name": "GetItemDescriptionInternal",
+        "returnType": "FText"
+      },
+      {
+        "name": "GetHologramClassInternal",
+        "returnType": "TSubclassOf<classAFGHologram>"
+      },
+      {
+        "name": "GetBuildClassInternal",
+        "returnType": "TSubclassOf<AActor>"
+      },
+      {
+        "name": "SetupStage",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCenterOfCollision",
+        "returnType": "FVector"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOverrideDisplayNameAndDescription",
+        "comment": "Value to display instead of display name and description.",
+        "type": "staticFText"
+      },
+      {
+        "name": "mVehicleClass",
+        "comment": "The vehicle this descriptor describes.",
+        "type": "TSubclassOf<classAFGVehicle>"
+      }
+    ]
+  }
+]

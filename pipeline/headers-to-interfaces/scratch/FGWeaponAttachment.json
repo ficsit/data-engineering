@@ -1,0 +1,49 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGWeaponAttachment",
+    "category": "UCLASS",
+    "extends": [
+      "AFGEquipmentAttachment"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication.",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayFireEffect",
+        "comment": "Handles playing of effects on remote clients",
+        "returnType": "void"
+      },
+      {
+        "name": "Multicast_SetFlashLocation",
+        "comment": "Called on all relevant attachments",
+        "returnType": "void"
+      },
+      {
+        "name": "Multicast_PlayReloadEffectMulticast",
+        "comment": "Called on all relevant attachments",
+        "returnType": "void"
+      },
+      {
+        "name": "ClientPlayReloadEffect",
+        "comment": "For client only",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayerFired",
+        "comment": "Called on remote clients when the player fires the weapon. Needed a function so I could overload in FGWeaponAttachmentProjectile",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mFlashLocation",
+        "comment": "Location that was hit ( or sometimes shoot direction )",
+        "type": "FVector"
+      }
+    ]
+  }
+]

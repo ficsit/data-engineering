@@ -1,0 +1,135 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGSignInteractWidget",
+    "category": "UCLASS",
+    "comment": "General purpose Sign Designer Interact Widget. Intended to be used across all customizable signs",
+    "extends": [
+      "UFGInteractWidget"
+    ],
+    "methods": [
+      {
+        "name": "NativeConstruct",
+        "comment": "Widget Construct",
+        "returnType": "void"
+      },
+      {
+        "name": "NativeInitSignData",
+        "comment": "Called after the interact widget is assigned to pull data and establish interface",
+        "returnType": "void"
+      },
+      {
+        "name": "NativePostInit",
+        "comment": "Called one frame after init to build all sign elements",
+        "returnType": "void"
+      },
+      {
+        "name": "AddNewSignElement",
+        "returnType": "void"
+      },
+      {
+        "name": "ApplySignData",
+        "returnType": "void"
+      },
+      {
+        "name": "GetViewportScaledVector",
+        "comment": "Returns a scalar to scale all UI elements by (to set absolute positions correctly)",
+        "returnType": "FVector2D"
+      },
+      {
+        "name": "GetWorldScaledVector",
+        "comment": "Returns a scalar to scale UI elements back to world space",
+        "returnType": "FVector2D"
+      },
+      {
+        "name": "GetWorldSignSize",
+        "comment": "Get the dimensions of the world sign",
+        "returnType": "FVector2D"
+      },
+      {
+        "name": "NotifyElementSelected",
+        "comment": "Called by either the canvas or the layout list to inform that a new element was selected",
+        "returnType": "void"
+      },
+      {
+        "name": "AddNewTextElement",
+        "comment": "Begin Add Element Bindings",
+        "returnType": "void"
+      },
+      {
+        "name": "AddNewIconElement",
+        "returnType": "void"
+      },
+      {
+        "name": "NativeCanCallInit",
+        "returnType": "bool"
+      },
+      {
+        "name": "CalculateDPIMatrix",
+        "comment": "Initialize the viewport DPI matrix for furture vector transforms",
+        "returnType": "void"
+      },
+      {
+        "name": "CalculateScaledCanvasDimensions",
+        "comment": "Calculates the maximum size possible for our canvas object while maintaining aspect of world sign",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mElementListWidget",
+        "comment": "\t/\nWidget reference that holds a list of all active elements and allows for creation / deletion of sign elements",
+        "type": "classUFGSignElementListWidget*"
+      },
+      {
+        "name": "mElementSettingsContainer",
+        "comment": "Container (Canvas Panel) to add the appropriate settings widget to when an element is selected",
+        "type": "classUOverlay*"
+      },
+      {
+        "name": "mCanvasSizeBox",
+        "comment": "Size box from where we determine the drawing canvases maximum size constraints",
+        "type": "classUSizeBox*"
+      },
+      {
+        "name": "mCanvasContainer",
+        "comment": "Panel to hold the FGSignCanvas ( dimensions will never be skewed )",
+        "type": "classUCanvasPanel*"
+      },
+      {
+        "name": "mSignCanvasWidget",
+        "comment": "Custom widget that holds the panel for which actual sign elements are added",
+        "type": "classUFGSignCanvasWidget*"
+      },
+      {
+        "name": "mElementSettingsWidget",
+        "comment": "Created at runtime, can be null if no element is selected",
+        "type": "classUFGSignElementSettingsWidget*"
+      },
+      {
+        "name": "mSignInterface",
+        "comment": "Pointer to the interact objects sign interface",
+        "type": "IFGSignInterface*"
+      },
+      {
+        "name": "mSignData",
+        "type": "FSignData"
+      },
+      {
+        "name": "mDPIScaleMatrix",
+        "comment": "Matrix of DPI scale to apply to get absolute screen position",
+        "type": "FMatrix2x2"
+      },
+      {
+        "name": "mInverseDPIScaleMatrix",
+        "comment": "Matrix to reverse DPI scale when going from screen to world",
+        "type": "FMatrix2x2"
+      },
+      {
+        "name": "mCanvasToComponentScale",
+        "comment": "Scale from World Size of sign to our Canvas UI Element",
+        "type": "float"
+      }
+    ]
+  }
+]

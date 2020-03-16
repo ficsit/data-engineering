@@ -1,0 +1,54 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGFactoryBuildingHologram",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGBuildableHologram"
+    ],
+    "methods": [
+      {
+        "name": "AFGFactoryBuildingHologram"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckValidFloor",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckClearance",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckClearanceForBuildingMesh",
+        "comment": "Helper",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetFloorEdgeDirection",
+        "comment": "\n @return Edge direction facing testLoc and facing away from floorLoc.",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetFloorEdgeOffset",
+        "comment": "\n @return Offset from the center of the floors width.",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetWallEdgeDirection",
+        "comment": "\n @return Direction of the side facing testLoc.",
+        "returnType": "FVector"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mBuildingMesh",
+        "type": "UStaticMeshComponent*"
+      }
+    ]
+  }
+]

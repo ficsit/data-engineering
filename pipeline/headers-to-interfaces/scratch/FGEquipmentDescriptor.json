@@ -1,0 +1,25 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGEquipmentDescriptor",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UFGItemDescriptor"
+    ],
+    "methods": [
+      {
+        "name": "GetEquipmentClass",
+        "comment": "Get the equipment that is linked to this descriptor.",
+        "returnType": "TSubclassOf<classAFGEquipment>"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mEquipmentClass",
+        "comment": "The equipment that is linked to this descriptor.",
+        "type": "TSubclassOf<classAFGEquipment>"
+      }
+    ]
+  }
+]

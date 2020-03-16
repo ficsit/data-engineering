@@ -1,0 +1,262 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGWeapon",
+    "category": "UCLASS",
+    "comment": "Base class for a weapon in the game, this provides basic firing logic only and does not specify if it's a instant hit or projectile weapon.",
+    "extends": [
+      "AFGEquipment"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication.",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGWeapon",
+        "comment": "Ctor"
+      },
+      {
+        "name": "ShouldSaveState",
+        "comment": "Begin AFGEquipment interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "UnEquip",
+        "comment": "Put the weapon away.",
+        "returnType": "void"
+      },
+      {
+        "name": "Equip",
+        "comment": "bring up weapon and assign hud if local player",
+        "returnType": "void"
+      },
+      {
+        "name": "AssignHud",
+        "comment": "to be called when equipping a weapon on a local player. Enabling weapons to affect the hud.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPrimaryFirePressed",
+        "comment": "Called on the owner, client or server but not both.",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_StartPrimaryFire",
+        "comment": "Called by client to start fire on server.",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPrimaryFire",
+        "comment": "Called on both client and server when firing.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPrimaryFireReleased",
+        "comment": "Called on the owner, client or server but not both.",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_EndPrimaryFire",
+        "comment": "Called by client to start fire on server.",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPrimaryFire",
+        "comment": "Called on both client and server when firing.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnReloadPressed",
+        "comment": "Called when reload button is pressed",
+        "returnType": "void"
+      },
+      {
+        "name": "Reload",
+        "comment": "Actual reload implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "CanReload",
+        "comment": "Return true if we currently can reload with the weapon",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetReloadTimeLeft",
+        "comment": "Returns -1 if not reloading, else, returns the time left on our reload",
+        "returnType": "float"
+      },
+      {
+        "name": "HasAmmunition",
+        "comment": "Returns true if we have ammunition loaded",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetSpareAmmunition",
+        "comment": "How much ammunition do our owner have in their inventory",
+        "returnType": "int32"
+      },
+      {
+        "name": "FireAmmunition",
+        "comment": "Checks what type of fire modes and call corresponding fire function",
+        "returnType": "void"
+      },
+      {
+        "name": "FireAmmunition_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetIsReloading",
+        "comment": "Returns whether we are reloading or not",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetCurrentAmmo",
+        "comment": "Returns how much ammo we have in current clip",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetIsFiring",
+        "comment": "Returns mIsFiring",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetMagSize",
+        "comment": "Returns mMagSize",
+        "returnType": "int32"
+      },
+      {
+        "name": "PlayFailedToFireEffects",
+        "comment": "Called when you tried to fire and CanFire returned false. You will have to check the reason yourself and play effects accordingly",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayFireReleasedEffects",
+        "comment": "Called when the player releases the primary fire so that special animations can be triggered from this. The neccesity is rare, use PlayFireEffect() in most cases",
+        "returnType": "void"
+      },
+      {
+        "name": "AddEquipmentActionBindings",
+        "comment": "Begin AFGEquipment interface",
+        "returnType": "void"
+      },
+      {
+        "name": "RefireCheckTimer",
+        "comment": "Try to refire",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayFireEffect",
+        "comment": "Handles playing of effects both on server and on client.",
+        "returnType": "void"
+      },
+      {
+        "name": "ConsumeAmmunition",
+        "comment": "Consumes our current ammo",
+        "returnType": "void"
+      },
+      {
+        "name": "CanFire",
+        "comment": "Return true if we can fire",
+        "returnType": "bool"
+      },
+      {
+        "name": "ActualReload",
+        "comment": "When we \"actually\" has reloaded (reload logic goes here), need to be UFUNCTION as it used as a delegate",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayReloadEffects",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_Reload",
+        "comment": "Client tells server to reload",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOwnersInventoryComponent",
+        "comment": "Ability for different classes to get ammo from different places",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetAssosiatedHud",
+        "comment": "Returns the assosiated hud object if there is one assigned",
+        "returnType": "AFGHUD*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mAssosiatedHud",
+        "comment": "[DavalliusA:Wed/20-03-2019] the base hud object will never get invalid during use, so we can use anormal pointer here to access it.",
+        "type": "AFGHUD*"
+      },
+      {
+        "name": "mRefireCheckHandle",
+        "comment": "Refire timer",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mReloadHandle",
+        "comment": "Reload timer",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mMagSize",
+        "comment": "How much ammo does a magazine cover",
+        "type": "int32"
+      },
+      {
+        "name": "mCurrentAmmo",
+        "comment": "How much ammo is loaded into the weapon",
+        "type": "int32"
+      },
+      {
+        "name": "mAmmunitionClass",
+        "comment": "The item we shoot",
+        "type": "TSubclassOf<classUFGItemDescriptor>"
+      },
+      {
+        "name": "mDamageTypeClass",
+        "comment": "Damage type to use when hitting others",
+        "type": "TSubclassOf<classUFGDamageType>"
+      },
+      {
+        "name": "mReloadTime",
+        "comment": "In seconds, how long time does it take to reload the weapon",
+        "type": "float"
+      },
+      {
+        "name": "mFireRate",
+        "comment": "How many seconds between between shots",
+        "type": "float"
+      },
+      {
+        "name": "mIsFiring",
+        "comment": "Are we firing?",
+        "type": "bool"
+      },
+      {
+        "name": "mIsPendingFire",
+        "comment": "The player wants to shoot",
+        "type": "bool"
+      },
+      {
+        "name": "mIsReloading",
+        "comment": "True if we are currently reloading",
+        "type": "bool"
+      },
+      {
+        "name": "mReloadSound",
+        "comment": "Sound played when reloading",
+        "type": "UAkAudioEvent*"
+      },
+      {
+        "name": "mChildWeapon",
+        "comment": "A cast reference to the spawned child equipment, if it exists",
+        "type": "classAFGWeaponChild*"
+      }
+    ]
+  }
+]

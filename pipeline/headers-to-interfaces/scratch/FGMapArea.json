@@ -1,0 +1,45 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGMapArea",
+    "category": "UCLASS",
+    "comment": "Copyright 2017 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "GetAreaDisplayName",
+        "comment": "Get area display name",
+        "returnType": "FText"
+      },
+      {
+        "name": "GetUserSetAreaDisplayName",
+        "comment": "Get area display name",
+        "returnType": "FText"
+      },
+      {
+        "name": "GetZoneType",
+        "comment": "Get the CDO of the zone type",
+        "returnType": "TSubclassOf<classUFGMapAreaZoneDescriptor>"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mDisplayName",
+        "comment": "This is the name we at CSS gave this area",
+        "type": "FText"
+      },
+      {
+        "name": "mZoneType",
+        "comment": "What kind of zone this is",
+        "type": "TSubclassOf<classUFGMapAreaZoneDescriptor>"
+      },
+      {
+        "name": "mUserSetDisplayName",
+        "comment": "This is the name the player has given this area",
+        "type": "FText"
+      }
+    ]
+  }
+]

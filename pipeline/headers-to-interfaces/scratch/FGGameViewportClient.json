@@ -1,0 +1,28 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGGameViewportClient",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UGameViewportClient"
+    ],
+    "methods": [
+      {
+        "name": "Tick",
+        "comment": "Begin UEngine interface",
+        "returnType": "void"
+      },
+      {
+        "name": "LostFocus",
+        "comment": "~ Begin FViewportClient Interface.",
+        "returnType": "void"
+      },
+      {
+        "name": "ReceivedFocus",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

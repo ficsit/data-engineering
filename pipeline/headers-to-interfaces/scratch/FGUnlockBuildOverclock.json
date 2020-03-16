@@ -1,0 +1,19 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGUnlockBuildOverclock",
+    "category": "UCLASS",
+    "comment": "Unlock the ability to overclock buildings",
+    "extends": [
+      "UFGUnlock"
+    ],
+    "methods": [
+      {
+        "name": "Apply",
+        "comment": "Begin FGUnlock interface",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

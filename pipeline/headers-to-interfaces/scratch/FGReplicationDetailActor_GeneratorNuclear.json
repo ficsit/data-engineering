@@ -1,0 +1,42 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGReplicationDetailActor_GeneratorNuclear",
+    "category": "UCLASS",
+    "comment": "Copyright 2020 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGReplicationDetailActor_GeneratorFuel"
+    ],
+    "methods": [
+      {
+        "name": "AFGReplicationDetailActor_GeneratorNuclear"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "InitReplicationDetailActor",
+        "returnType": "void"
+      },
+      {
+        "name": "FlushReplicationActorStateToOwner",
+        "returnType": "void"
+      },
+      {
+        "name": "HasCompletedInitialReplication",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetWasteInventory",
+        "returnType": "UFGInventoryComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mWasteInventory",
+        "type": "classUFGInventoryComponent*"
+      }
+    ]
+  }
+]

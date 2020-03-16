@@ -1,0 +1,30 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGListViewSlot",
+    "category": "UCLASS",
+    "comment": "The Slot for the UFGListView, contains the widget that is laid out in the list.",
+    "extends": [
+      "UPanelSlot"
+    ],
+    "methods": [
+      {
+        "name": "ReleaseSlateResources",
+        "comment": "UVisual interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildSlot",
+        "comment": "Builds the underlying FSlot for the Slate layout panel.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSlot",
+        "comment": "A raw pointer to the slot to allow us to adjust the size, padding...etc at runtime.",
+        "type": "SVerticalBox::FSlot*"
+      }
+    ]
+  }
+]

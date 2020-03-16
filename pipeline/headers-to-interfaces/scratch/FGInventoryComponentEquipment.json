@@ -1,0 +1,110 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGInventoryComponentEquipment",
+    "category": "UCLASS",
+    "extends": [
+      "UFGInventoryComponent"
+    ],
+    "methods": [
+      {
+        "name": "UFGInventoryComponentEquipment",
+        "comment": "Constructor"
+      },
+      {
+        "name": "GetEquipmentInInventory",
+        "comment": "Returns the equipment in this slot",
+        "returnType": "classAFGEquipment*"
+      },
+      {
+        "name": "GetEquipmentSlotEnum",
+        "comment": "Returns the EEquipmentSlost for this inventory",
+        "returnType": "EEquipmentSlot"
+      },
+      {
+        "name": "SetEquipmentSlotEnum",
+        "comment": "Sets the slot enum",
+        "returnType": "void"
+      },
+      {
+        "name": "SetOverrideEquipment",
+        "comment": "This is to be called on both server and client (simulated).\n@param equipment\t\tEquipment to override with, nullptr to unequip any overridden equipment.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetEquipmentInSlot",
+        "returnType": "AFGEquipment*"
+      },
+      {
+        "name": "GetActiveIndex",
+        "comment": "Returns the EEquipmentSlost for this inventory",
+        "returnType": "int32"
+      },
+      {
+        "name": "CycleEquipment",
+        "comment": "Loop de loop",
+        "returnType": "void"
+      },
+      {
+        "name": "ContainsItemTypeAndHasEnoughSpaceForItem",
+        "comment": "Checks whether this contains any items of item type and whether they have room for inventory item",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Decide on what properties to replicate",
+        "returnType": "void"
+      },
+      {
+        "name": "OnItemsAdded",
+        "comment": "Begin UFGInventoryComponent interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnItemsRemoved",
+        "returnType": "void"
+      },
+      {
+        "name": "ActivateEquipment",
+        "comment": "End UFGInventoryComponent interface",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveEquipment",
+        "returnType": "void"
+      },
+      {
+        "name": "FilterEquipmentClasses",
+        "comment": "@copydoc UFGInventoryComponent::FilterEquipmentClasses",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetOwningCharacter",
+        "comment": "Finds and returns the cached character",
+        "returnType": "classAFGCharacterPlayer*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOverrideEquipmentInSlot",
+        "comment": "No need to save this, the kinds of equipments that are placed here are not good candidates for saving (e.g. build gun)\nNo need to replicate, this is simulated locally on the client.",
+        "type": "AFGEquipment*"
+      },
+      {
+        "name": "mEquipmentInSlot",
+        "comment": "This is the actual equipment in the slot",
+        "type": "AFGEquipment*"
+      },
+      {
+        "name": "mEquipmentInventorySlot",
+        "comment": "This inventory will only accept equipments that are supposed to be on this slot",
+        "type": "EEquipmentSlot"
+      },
+      {
+        "name": "mActiveEquipmentIndex",
+        "comment": "Index of the active equipment",
+        "type": "int32"
+      }
+    ]
+  }
+]

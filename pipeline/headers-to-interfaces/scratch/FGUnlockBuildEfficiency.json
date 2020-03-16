@@ -1,0 +1,19 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGUnlockBuildEfficiency",
+    "category": "UCLASS",
+    "comment": "Unlock the ability to see build efficiency in buildings",
+    "extends": [
+      "UFGUnlock"
+    ],
+    "methods": [
+      {
+        "name": "Apply",
+        "comment": "Begin FGUnlock interface",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

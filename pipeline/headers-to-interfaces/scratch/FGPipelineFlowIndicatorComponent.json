@@ -1,0 +1,35 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGPipelineFlowIndicatorComponent",
+    "category": "UCLASS",
+    "comment": "Indicator used for the pipelines to show content and flow etc.",
+    "extends": [
+      "UStaticMeshComponent"
+    ],
+    "methods": [
+      {
+        "name": "BeginPlay",
+        "comment": "Begin ActorComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "OnFluidDescriptorSet",
+        "comment": "Called from the owning pipe when the pipes fluid descriptor is set",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPipeline",
+        "comment": "Get the pipeline this is indicating status for.",
+        "returnType": "classAFGBuildablePipeline*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mPipeline",
+        "comment": "Pipeline we indicate status for.",
+        "type": "classAFGBuildablePipeline*"
+      }
+    ]
+  }
+]

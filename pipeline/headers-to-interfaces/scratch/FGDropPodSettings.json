@@ -1,0 +1,63 @@
+[
+  {
+    "kind": "class",
+    "name": "FDropPackage",
+    "category": "USTRUCT",
+    "comment": "Describes a package of items you can get in a drop.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FDropPackage"
+      }
+    ],
+    "properties": [
+      {
+        "name": "NullDropPackage",
+        "type": "staticFDropPackage"
+      },
+      {
+        "name": "DropDisplayText",
+        "comment": "Text showing up when finding the drop.",
+        "type": "FText"
+      },
+      {
+        "name": "DropChance",
+        "comment": "Chance in roulette selection to get the package.",
+        "type": "float"
+      },
+      {
+        "name": "Items",
+        "comment": "Item contained in the package",
+        "type": "TArray<FItemDrop>"
+      },
+      {
+        "name": "RequiredSchematic",
+        "comment": "We can not find this package if we haven't purchased this schematic.",
+        "type": "TSubclassOf<classUFGSchematic>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGDropPodSettings",
+    "category": "UCLASS",
+    "comment": "Settings for the drop pods.",
+    "extends": [
+      "UFGSettings"
+    ],
+    "methods": [
+      {
+        "name": "GetRandomDropPackage",
+        "comment": "Get a random drop package",
+        "returnType": "FDropPackage"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mDropTable",
+        "comment": "List of all available drop packages",
+        "type": "TArray<FDropPackage>"
+      }
+    ]
+  }
+]

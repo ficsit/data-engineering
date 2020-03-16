@@ -1,0 +1,315 @@
+[
+  {
+    "kind": "enum",
+    "name": "EMultipleUnitControl",
+    "comment": "Master: This unit controls all slave units in the train, this is where the driver sits (or AI).\nSlave: Cannot be controlled, even if occupied by a player, gets input from the master.",
+    "entries": [
+      {
+        "name": "MUC_Disabled",
+        "displayName": "Disabled"
+      },
+      {
+        "name": "MUC_Master",
+        "displayName": "Master"
+      },
+      {
+        "name": "MUC_Slave",
+        "displayName": "Slave"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FReplicatedRailroadVehicleState",
+    "category": "USTRUCT",
+    "comment": "Some replicated state for this movement component.",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "ReverserInput",
+        "comment": "input replication: steering",
+        "type": "int32"
+      },
+      {
+        "name": "SteeringInput",
+        "comment": "input replication: steering",
+        "type": "float"
+      },
+      {
+        "name": "ThrottleInput",
+        "comment": "input replication: throttle",
+        "type": "float"
+      },
+      {
+        "name": "DynamicBrakeInput",
+        "comment": "input replication: dynamic brakes",
+        "type": "float"
+      },
+      {
+        "name": "AirBrakeInput",
+        "comment": "input replication: air brakes",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FRailroadVehicleInputRate",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FRailroadVehicleInputRate"
+      },
+      {
+        "name": "InterpInputValue",
+        "comment": "Change an output value using max rise and fall rates",
+        "returnType": "float"
+      }
+    ],
+    "properties": [
+      {
+        "name": "RiseRate",
+        "comment": "Rate at which the input value rises",
+        "type": "float"
+      },
+      {
+        "name": "FallRate",
+        "comment": "Rate at which the input value falls",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGLocomotiveMovementComponent",
+    "category": "UCLASS",
+    "comment": "Movement component for locomotives.\nThis is where input and controlling of the train is happening.",
+    "extends": [
+      "UFGRailroadVehicleMovementComponent"
+    ],
+    "methods": [
+      {
+        "name": "TickComponent",
+        "comment": "Begin UActorComponent Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "ComputeConstants",
+        "comment": "~ Begin UFGRailroadVehicleMovementComponent interface",
+        "returnType": "void"
+      },
+      {
+        "name": "TickSlaveInput",
+        "returnType": "void"
+      },
+      {
+        "name": "TickTractionAndFriction",
+        "returnType": "void"
+      },
+      {
+        "name": "TickMasterInput",
+        "comment": "~ End UFGRailroadVehicleMovementComponent interface",
+        "returnType": "void"
+      },
+      {
+        "name": "SetReverserInput",
+        "comment": "-1: Reverse, locomotive goes backwards.\n 0: Neutral, locomotive goes nowhere!",
+        "returnType": "void"
+      },
+      {
+        "name": "SetThrottleInput",
+        "comment": "Set the user input for the vehicle throttle. Range [-1, 1].\nIf negative and the vehicle is moving forward this applies dynamic braking (not same as handbrake).",
+        "returnType": "void"
+      },
+      {
+        "name": "SetSteeringInput",
+        "comment": "Positive: Flip turnout ahead to the left.\nZero: Do nothing and go with the flow.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetAirBrakeInput",
+        "comment": "Set the user input for air brakes (handbrake).",
+        "returnType": "void"
+      },
+      {
+        "name": "SetEmergencyBrake",
+        "comment": "Sets all brakes to max and the throttle to zero.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetReverser",
+        "comment": "Returns the value of the reverser control. @see SetReverserInput",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetThrottle",
+        "comment": "Get the throttle value in range [0,1]. This is not the same as the raw data passed to SetThrottleInput",
+        "returnType": "float"
+      },
+      {
+        "name": "GetAirBrake",
+        "comment": "Get the amount of pressure applied to the air brakes in range [0,1]. This is the trains version of hand brake.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetDynamicBrake",
+        "comment": "Get the amount of dynamic braking in range [0,1]. This is the trains version of a cars engine brake.\nIt is applied when moving forward and applying reverse throttle.",
+        "returnType": "float"
+      },
+      {
+        "name": "CalcDynamicBrakingEffort",
+        "comment": "Get dynamic braking force at the given speed. [N] [kg cm/s^2]",
+        "returnType": "float"
+      },
+      {
+        "name": "CalcTractiveEffort",
+        "comment": "Get the tractive force at the given speed. [N] [kg cm/s^2]",
+        "returnType": "float"
+      },
+      {
+        "name": "CalcSteeringInput",
+        "comment": "Compute steering input",
+        "returnType": "float"
+      },
+      {
+        "name": "CalcDynamicBrakeInput",
+        "comment": "Compute dynamic brake input",
+        "returnType": "float"
+      },
+      {
+        "name": "CalcAirBrakeInput",
+        "comment": "Compute air brake input",
+        "returnType": "float"
+      },
+      {
+        "name": "CalcThrottleInput",
+        "comment": "Compute throttle input",
+        "returnType": "float"
+      },
+      {
+        "name": "ClearInput",
+        "comment": "Clear all interpolated inputs to default values",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateState",
+        "comment": "Read current state for simulation",
+        "returnType": "void"
+      },
+      {
+        "name": "ServerUpdateState",
+        "comment": "Pass current state to server",
+        "returnType": "void"
+      },
+      {
+        "name": "UseReplicatedState",
+        "comment": "Update the clients state from the replicated state",
+        "returnType": "void"
+      },
+      {
+        "name": "UseMultipleUnitMasterState",
+        "comment": "Used to get the MU master state as our input.\n@note Only call this on the server.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mReplicatedState",
+        "comment": "replicated state of vehicle",
+        "type": "FReplicatedRailroadVehicleState"
+      },
+      {
+        "name": "mRawReverserInput",
+        "comment": "What the player has the reverser set to. Values -1, 0, 1",
+        "type": "int32"
+      },
+      {
+        "name": "mRawSteeringInput",
+        "comment": "What the player has the steering set to. Range -1...1",
+        "type": "float"
+      },
+      {
+        "name": "mRawThrottleInput",
+        "comment": "What the player has the accelerator set to. Range -1...1",
+        "type": "float"
+      },
+      {
+        "name": "mRawDynamicBrakeInput",
+        "comment": "What the dynamic brake input is set to.",
+        "type": "float"
+      },
+      {
+        "name": "mRawAirBrakeInput",
+        "comment": "What the air brake input is set to.",
+        "type": "float"
+      },
+      {
+        "name": "mThrottleInputRate",
+        "comment": "Rate at which input throttle can rise and fall.",
+        "type": "FRailroadVehicleInputRate"
+      },
+      {
+        "name": "mDynamicBrakeInputRate",
+        "comment": "Rate at which input dynamic brake can rise and fall.",
+        "type": "FRailroadVehicleInputRate"
+      },
+      {
+        "name": "mDynamicBrakeVelocityThreshold",
+        "comment": "Velocity at which the dynamic brake can be engaged.",
+        "type": "float"
+      },
+      {
+        "name": "mAirBrakeInputRate",
+        "comment": "Rate at which input air brake can rise and fall.",
+        "type": "FRailroadVehicleInputRate"
+      },
+      {
+        "name": "mReverserInput",
+        "comment": "Reversing control output to physics system. -1, 0, 1",
+        "type": "int32"
+      },
+      {
+        "name": "mSteeringInput",
+        "comment": "Steering output to physics system. Range -1...1",
+        "type": "float"
+      },
+      {
+        "name": "mThrottleInput",
+        "comment": "Accelerator output to physics system. Range 0...1",
+        "type": "float"
+      },
+      {
+        "name": "mAirBrakeInput",
+        "comment": "Air brake output to physics system. Range 0...1",
+        "type": "float"
+      },
+      {
+        "name": "mDynamicBrakeInput",
+        "comment": "Dynamic brake output to physics system. Range 0...1",
+        "type": "float"
+      },
+      {
+        "name": "mTractiveEffortCurve",
+        "comment": "The maximum tractive force [kN] [kg m/s^2\n 1000] that can be delivered at a given speed [km/h].",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mTargetTractiveEffort",
+        "comment": "The traction we want, may not get it due to power restrictions.",
+        "type": "float"
+      },
+      {
+        "name": "mDynamicBrakingEffortCurve",
+        "comment": "The maximum dynamic braking force [kN] [kg m/s^2\n 1000] that can be delivered at a given speed [km/h].",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mPowerFactor",
+        "comment": "How much power do we get [0,1]",
+        "type": "float"
+      }
+    ]
+  }
+]

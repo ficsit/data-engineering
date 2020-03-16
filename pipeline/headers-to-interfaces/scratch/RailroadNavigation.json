@@ -1,0 +1,221 @@
+[
+  {
+    "kind": "enum",
+    "name": "ERailroadPathFindingResult",
+    "comment": "Pathfinding result.",
+    "entries": [
+      {
+        "name": "RNQR_Error",
+        "displayName": "Error"
+      },
+      {
+        "name": "RNQR_Unreachable",
+        "displayName": "Unreachable"
+      },
+      {
+        "name": "RNQR_Success",
+        "displayName": "Success"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FRailroadPathPoint",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FRailroadPathPoint"
+      }
+    ],
+    "properties": [
+      {
+        "name": "TrackConnection",
+        "comment": "The track connection to pass through or stop at if this is a station, switch, signal etc.",
+        "type": "TWeakObjectPtr<UFGRailroadTrackConnectionComponent>"
+      },
+      {
+        "name": "Distance",
+        "comment": "The distance this object is from the end. 0 for the last point.",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FRailroadPath",
+    "comment": "A navigation path used by the trains to get to a destination.",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "PathPoints",
+        "comment": "Path points to follow to the destination.",
+        "type": "TArray<FRailroadPathPoint>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FRailroadPathFindingResult",
+    "comment": "A navigation result.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FRailroadPathFindingResult"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Locomotive",
+        "type": "TWeakObjectPtr<AFGLocomotive>"
+      },
+      {
+        "name": "Goal",
+        "type": "TWeakObjectPtr<UFGRailroadTrackConnectionComponent>"
+      },
+      {
+        "name": "Path",
+        "comment": "Shared pointer to the path.",
+        "type": "FRailroadPathSharedPtr"
+      },
+      {
+        "name": "Result",
+        "comment": "Is the path valid, partial or invalid.",
+        "type": "ERailroadPathFindingResult"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FRailroadGraphAStarPathPoint",
+    "comment": "A path point along a trains route.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FRailroadGraphAStarPathPoint",
+        "comment": "Default constructor, epic passes INDEX_NONE when creating a \"null\" point."
+      },
+      {
+        "name": "FRailroadGraphAStarPathPoint"
+      },
+      {
+        "name": "FRailroadGraphAStarPathPoint"
+      },
+      {
+        "name": "FRailroadGraphAStarPathPoint"
+      },
+      {
+        "name": "operator==",
+        "comment": "Compare two nodes.",
+        "returnType": "bool"
+      },
+      {
+        "name": "operator!=",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetTypeHash",
+        "comment": "Provide hashing for this type so it can be used as a key in TMap.",
+        "returnType": "uint32"
+      }
+    ],
+    "properties": [
+      {
+        "name": "TrackConnection",
+        "comment": "When navigating though a rail network, we only need to know the next connection to go to.",
+        "type": "UFGRailroadTrackConnectionComponent*"
+      },
+      {
+        "name": "IgnoredStart",
+        "comment": "This will ensure that this start does not match the end.",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FRailroadGraphAStarHelper",
+    "comment": "@see FGraphAStar",
+    "extends": [],
+    "methods": [
+      {
+        "name": "GetNeighbourCount",
+        "comment": "@return number of neighbours that the graph node identified with nodeRef has.",
+        "returnType": "int32"
+      },
+      {
+        "name": "IsValidRef",
+        "comment": "@return whether given node identification is correct.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetNeighbour",
+        "comment": "@return neighbour ref.",
+        "returnType": "FRailroadGraphAStarPathPoint"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "FRailroadGraphAStarFilter",
+    "comment": "Evaluation filter for the pathfinding algorithm.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FRailroadGraphAStarFilter"
+      },
+      {
+        "name": "GetHeuristicScale",
+        "comment": "Used as GetHeuristicCost's multiplier.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetHeuristicCost",
+        "comment": "Estimate of cost from startNodeRef to endNodeRef.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetTraversalCost",
+        "comment": "Real cost of traveling from startNodeRef directly to endNodeRef",
+        "returnType": "float"
+      },
+      {
+        "name": "IsTraversalAllowed",
+        "comment": "Whether traversing given edge is allowed.",
+        "returnType": "bool"
+      },
+      {
+        "name": "WantsPartialSolution",
+        "comment": "Whether to accept solutions that do not reach the goal.",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "AcceptsPartialSolution",
+        "comment": "true if a partial solution is valid; false if we only want a path if the goal is reachable.",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FRailroadNavigation",
+    "comment": "Collection of navigation functions",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FindPathSync",
+        "comment": "\n @return Result of the pathfinding; Status code indicate if a path was found or not or if an error occured, e.g. bad params.",
+        "returnType": "FRailroadPathFindingResult"
+      },
+      {
+        "name": "FindPathSyncInternal",
+        "comment": "\n @return Result of the pathfinding. I.e. if a path was found, goal is unreachable or if an error occurred, e.g. bad params.",
+        "returnType": "EGraphAStarResult"
+      }
+    ],
+    "properties": []
+  }
+]

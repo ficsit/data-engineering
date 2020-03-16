@@ -1,0 +1,60 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGAmbientSoundSpline",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AActor",
+      "IFGSignificanceInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGAmbientSoundSpline"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GainedSignificance_Implementation",
+        "comment": "IFGSignificanceInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSignificanceRange",
+        "returnType": "float"
+      },
+      {
+        "name": "GetSplineComponent",
+        "comment": "Gets the spline component",
+        "returnType": "classUSplineComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSpline",
+        "comment": "Spline to put multiple positions along.",
+        "type": "classUSplineComponent*"
+      },
+      {
+        "name": "mSoundSpline",
+        "comment": "AkComponent that plays the sound on the spline.",
+        "type": "classUFGSoundSplineComponent*"
+      },
+      {
+        "name": "mSignificanceRange",
+        "comment": "Range that this volume should be significant within",
+        "type": "float"
+      }
+    ]
+  }
+]

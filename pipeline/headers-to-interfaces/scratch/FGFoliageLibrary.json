@@ -1,0 +1,34 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGFoliageLibrary",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "HasPlayerInventorySpaceFor",
+        "comment": "@oaram meshComponent - MeshComponent for the foliage to be added to the inventory\n@return true of player has space in inventory for foliage pickup",
+        "returnType": "bool"
+      },
+      {
+        "name": "CheckInventorySpaceAndGetStacks",
+        "comment": "@param out_validStacks - The stacks that can be added to the inventory\n@return true of player has space in inventory for foliage pickup",
+        "returnType": "bool"
+      },
+      {
+        "name": "TryAddToPlayerInventory",
+        "comment": "@oaram meshComponent - MeshComponent for the foliage to be added to the inventory\n@return true of player had space in inventory for foliage pickup and it was added to it",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetValidInventoryStacks",
+        "comment": "Returns an array of stacks that can be added to the player inventory.",
+        "returnType": "TArray<FInventoryStack>"
+      }
+    ],
+    "properties": []
+  }
+]

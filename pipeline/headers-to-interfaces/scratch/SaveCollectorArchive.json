@@ -1,0 +1,28 @@
+[
+  {
+    "kind": "class",
+    "name": "FSaveCollectorArchive",
+    "extends": [
+      "FArchive"
+    ],
+    "methods": [
+      {
+        "name": "operator<<",
+        "comment": "Handles serialization of UObject references",
+        "returnType": "FArchive&"
+      },
+      {
+        "name": "GenerateSaveObjects",
+        "comment": "\n\t/\n Generates objects to the member that was passed in when class was setup",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mObjectsToSave",
+        "comment": "The set of objects encountered when traversing the object graph",
+        "type": "TArray<classUObject*>&"
+      }
+    ]
+  }
+]

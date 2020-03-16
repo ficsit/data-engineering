@@ -1,0 +1,93 @@
+[
+  {
+    "kind": "enum",
+    "name": "EOverrideSetting",
+    "entries": [
+      {
+        "name": "OS_Additive",
+        "displayName": "Additive"
+      },
+      {
+        "name": "OS_Override",
+        "displayName": "Override"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "EPlayOnDamageEvent",
+    "entries": [
+      {
+        "name": "PODE_OnTakeAnyDamage",
+        "displayName": "OnTakeAnyDamage"
+      },
+      {
+        "name": "PODE_OnTakePointDamage",
+        "displayName": "OnTakePointDamage"
+      },
+      {
+        "name": "PODE_OnTakeRadialDamage",
+        "displayName": "OnTakeRadialDamage"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGDamageType",
+    "category": "UCLASS",
+    "extends": [
+      "UDamageType"
+    ],
+    "methods": [
+      {
+        "name": "UFGDamageType",
+        "comment": "ctor"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mImpactAudioEvent",
+        "comment": "When pawn take damage from a source, they play this take damage event",
+        "type": "classUAkAudioEvent*"
+      },
+      {
+        "name": "mPlayImpactAudioOn",
+        "type": "TEnumAsByte<EPlayOnDamageEvent>"
+      },
+      {
+        "name": "mImpactAudioSetting",
+        "comment": "Specify if the audio from this damage type should overrride the damage sound in hit pawn, or add to it",
+        "type": "TEnumAsByte<EOverrideSetting>"
+      },
+      {
+        "name": "mImpactParticle",
+        "comment": "When pawn take damage from a source, they play this take damage event",
+        "type": "classUParticleSystem*"
+      },
+      {
+        "name": "mPlayImpactParticleOn",
+        "type": "TEnumAsByte<EPlayOnDamageEvent>"
+      },
+      {
+        "name": "mImpactParticleSetting",
+        "comment": "Specify if the audio from this damage type should overrride the damage effect in hit pawn, or add to it",
+        "type": "TEnumAsByte<EOverrideSetting>"
+      },
+      {
+        "name": "mShouldDamageDestructible",
+        "comment": "Should this damage type hurt destrucrible actors?",
+        "type": "bool"
+      },
+      {
+        "name": "mDamageImpulseZ",
+        "comment": "How much extra impulse should be added in Z direction for this damage type",
+        "type": "float"
+      },
+      {
+        "name": "mShouldShockEnemy",
+        "comment": "Should this damage type shock and scare the enemy, like the stun spear?",
+        "type": "bool"
+      }
+    ]
+  }
+]

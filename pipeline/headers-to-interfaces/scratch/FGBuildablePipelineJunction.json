@@ -1,0 +1,13 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildablePipelineJunction",
+    "category": "UCLASS",
+    "comment": "Junction class for creating splits in a pipeline network.\n @todoPipes - This class turned out to be super not needed. At least not at the moment with just the one pipe junction type. So consider for removal",
+    "extends": [
+      "AFGBuildablePipelineAttachment"
+    ],
+    "methods": [],
+    "properties": []
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "kind": "class",
+    "name": "FGComponentHelpers",
+    "extends": [],
+    "methods": [
+      {
+        "name": "DuplicateComponents",
+        "comment": "@param defaultRoot - when duplicating the native components, what should we attach the to\n@param duplicator - the delegate to call for each component that can filter and create new components",
+        "returnType": "void"
+      },
+      {
+        "name": "Internal_SetupBlueprintComponent",
+        "comment": "Helper function to DuplicateComponents, will parse out blueprint components and call duplicator on them",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

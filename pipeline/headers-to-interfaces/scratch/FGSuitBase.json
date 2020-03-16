@@ -1,0 +1,79 @@
+[
+  {
+    "kind": "class",
+    "name": "FMaterialAndSlotName",
+    "category": "USTRUCT",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "SlotName",
+        "comment": "This is the slot name on the character",
+        "type": "FName"
+      },
+      {
+        "name": "Material",
+        "comment": "The material to put on that slot name",
+        "type": "UMaterialInterface*"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGSuitBase",
+    "category": "UCLASS",
+    "comment": "Base class for \"suit\"-like equipment. Updates visuals on equip/unequip etc.",
+    "extends": [
+      "AFGEquipment"
+    ],
+    "methods": [
+      {
+        "name": "AFGSuitBase",
+        "comment": "Ctor"
+      },
+      {
+        "name": "WasEquipped_Implementation",
+        "comment": "equipment equipped.",
+        "returnType": "void"
+      },
+      {
+        "name": "WasUnEquipped_Implementation",
+        "comment": "equipment put away.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSuit1PMeshMaterials",
+        "type": "TArray<FMaterialAndSlotName>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGSuitBaseAttachment",
+    "category": "UCLASS",
+    "extends": [
+      "AFGEquipmentAttachment"
+    ],
+    "methods": [
+      {
+        "name": "OnAttach_Implementation",
+        "comment": "equipment attached.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnDetach_Implementation",
+        "comment": "equipment detached.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSuit3PMeshMaterials",
+        "type": "TArray<FMaterialAndSlotName>"
+      }
+    ]
+  }
+]

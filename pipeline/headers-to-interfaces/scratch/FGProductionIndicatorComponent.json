@@ -1,0 +1,60 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGProductionIndicatorComponent",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UActorComponent"
+    ],
+    "methods": [
+      {
+        "name": "UFGProductionIndicatorComponent"
+      },
+      {
+        "name": "OnUnregister",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRegister",
+        "returnType": "void"
+      },
+      {
+        "name": "TickComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "ResetIndicatorStatus",
+        "comment": "This sets the cacehd status to IS_NONE so that an update is forced next frame",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOuterFactory",
+        "comment": "The outer factory we should display the state for.",
+        "type": "classAFGBuildableFactory*"
+      },
+      {
+        "name": "mCachedIndicatorStatus",
+        "comment": "Save the state of the factory so that we don't change material excessively.",
+        "type": "EProductionStatus"
+      },
+      {
+        "name": "mCachedHasPower",
+        "comment": "Save the power state of the factory",
+        "type": "bool"
+      },
+      {
+        "name": "mIndicatorMaterial",
+        "comment": "Dynamic instance of the material",
+        "type": "classUMaterialInstanceDynamic*"
+      },
+      {
+        "name": "mCachedMainMeshes",
+        "comment": "Not UPROPERTY as this will never live longer than it's outer, cached version of it's main meshes",
+        "type": "TArray<UMeshComponent*>"
+      }
+    ]
+  }
+]

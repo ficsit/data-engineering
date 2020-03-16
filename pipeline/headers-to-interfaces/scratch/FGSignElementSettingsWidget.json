@@ -1,0 +1,36 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGSignElementSettingsWidget",
+    "category": "UCLASS",
+    "comment": "Base Widget for modifying a sign canvas element",
+    "extends": [
+      "UUserWidget"
+    ],
+    "methods": [
+      {
+        "name": "NativeInit",
+        "comment": "Called when a element is selected to initialize",
+        "returnType": "void"
+      },
+      {
+        "name": "Init",
+        "returnType": "void"
+      },
+      {
+        "name": "OnColorIndexSelected",
+        "returnType": "void"
+      },
+      {
+        "name": "OnElementDataChanged",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mElementWidget",
+        "type": "classUFGSignElementWidget*"
+      }
+    ]
+  }
+]

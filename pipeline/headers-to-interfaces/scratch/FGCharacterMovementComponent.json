@@ -1,0 +1,795 @@
+[
+  {
+    "kind": "class",
+    "name": "FPlayerPipeHyperData",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "mTravelingPipeHyper",
+        "comment": "The pipe we are currently traveling in",
+        "type": "AActor*"
+      },
+      {
+        "name": "mTravelingPipeHyperLast",
+        "type": "AActor*"
+      },
+      {
+        "name": "mTravelingPipeHyperLastLength",
+        "comment": "used for faster position calc if needed. If negative, it means we moved ot through it's start",
+        "type": "float"
+      },
+      {
+        "name": "mLastTransitTime",
+        "type": "float"
+      },
+      {
+        "name": "mPipeProgressReal",
+        "comment": "The spline progress in the pipe we are currently in",
+        "type": "float"
+      },
+      {
+        "name": "mPipeVelocityReal",
+        "comment": "The velocity we are currently traveling in along the spline of the pipe",
+        "type": "float"
+      },
+      {
+        "name": "mPipeCurrentLength",
+        "type": "float"
+      },
+      {
+        "name": "mPipeProgressLast",
+        "comment": "The spline progress in the pipe we are currently in",
+        "type": "float"
+      },
+      {
+        "name": "mPipeVelocityLast",
+        "comment": "The velocity we are currently traveling in along the spline of the pipe",
+        "type": "float"
+      },
+      {
+        "name": "mTimeInterpreter",
+        "type": "float"
+      },
+      {
+        "name": "mPipeProgress",
+        "comment": "The spline progress in the pipe we are currently in",
+        "type": "float"
+      },
+      {
+        "name": "mPipeVelocity",
+        "comment": "The velocity we are currently traveling in along the spline of the pipe",
+        "type": "float"
+      },
+      {
+        "name": "mMinPipeSpeed",
+        "type": "float"
+      },
+      {
+        "name": "mPipeGravityStrength",
+        "type": "float"
+      },
+      {
+        "name": "mPipeFriction",
+        "type": "float"
+      },
+      {
+        "name": "mPipeConstantAcceleration",
+        "type": "float"
+      },
+      {
+        "name": "mPipeCurveDamping",
+        "type": "float"
+      },
+      {
+        "name": "mPipeDirectionLast",
+        "comment": "World space direction of pipe last frame.",
+        "type": "FVector"
+      },
+      {
+        "name": "mPipeDirection",
+        "comment": "World space direction of pipe in current location.",
+        "type": "FVector"
+      },
+      {
+        "name": "mDistanceToEndOfPipe",
+        "comment": "Distance to the end of the whole pipe chain, but maximum of 2000 (To save time on calculating it on update)",
+        "type": "float"
+      },
+      {
+        "name": "mCombinedLengthTillEndOfPipesINcludingCurrent",
+        "comment": "maximum of 2000 (To save time on calculating it on update)",
+        "type": "float"
+      },
+      {
+        "name": "mMaxCurveDiffThisFrame",
+        "type": "float"
+      },
+      {
+        "name": "mMaxCurveDiffSmooth",
+        "type": "float"
+      },
+      {
+        "name": "mPipeTempMinSpeed",
+        "comment": "used so we can reduce even further due to curves, but not have the pipes too slow in upwards slopes",
+        "type": "float"
+      },
+      {
+        "name": "mFulPipeEndPoint",
+        "comment": "World space position of the end of the pipe chain.. Only guaranteed to be accurate if the end is within 2000 units.",
+        "type": "FVector"
+      },
+      {
+        "name": "mFulPipeEndDir",
+        "comment": "World space direction of the end of the pipe chain.. Only guaranteed to be accurate if the end is within 2000 units.",
+        "type": "FVector"
+      },
+      {
+        "name": "mSoftVelocity",
+        "type": "FVector"
+      },
+      {
+        "name": "mCameraPush",
+        "type": "FVector"
+      },
+      {
+        "name": "mCamFovMod",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "EDeferredCollisionChange",
+    "comment": "Used for deferred collision state changes. Needed to make sure overlap updates don't happen mid logic steps and can cause recursive triggering of event calls.\n //[DavalliusA:Thu/27-02-2020] added when working on hyper tube bugs, as leaving one hyper tube and turning on collision in the movement mode change function could cause over movement mode changed functions to trigger.",
+    "entries": [
+      {
+        "name": "DCC_None",
+        "displayName": "Do nothing"
+      },
+      {
+        "name": "DCC_TURN_ON",
+        "displayName": "Turn On Collision"
+      },
+      {
+        "name": "DCC_TURN_OFF",
+        "displayName": "Turn Off Collision"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "ECustomMovementMode",
+    "comment": "Custom states we can be in",
+    "entries": [
+      {
+        "name": "CMM_None",
+        "displayName": "None"
+      },
+      {
+        "name": "CMM_Ladder",
+        "displayName": "Ladder"
+      },
+      {
+        "name": "CMM_PipeHyper",
+        "displayName": "Hyper Pipe"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGCharacterMovementComponent",
+    "category": "UCLASS",
+    "extends": [
+      "UCharacterMovementComponent"
+    ],
+    "methods": [
+      {
+        "name": "UFGCharacterMovementComponent"
+      },
+      {
+        "name": "TickComponent",
+        "comment": "Begin UActorComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPredictionData_Client",
+        "comment": "Begin UCharacterMovementComponent",
+        "returnType": "classFNetworkPredictionData_Client*"
+      },
+      {
+        "name": "DoJump",
+        "returnType": "bool"
+      },
+      {
+        "name": "CalcVelocity",
+        "returnType": "void"
+      },
+      {
+        "name": "GetMaxSpeed",
+        "returnType": "float"
+      },
+      {
+        "name": "StartNewPhysics",
+        "returnType": "void"
+      },
+      {
+        "name": "SetDefaultMovementMode",
+        "returnType": "void"
+      },
+      {
+        "name": "GetMaxJumpZVelocity",
+        "returnType": "float"
+      },
+      {
+        "name": "ServerSetHookLocation",
+        "comment": "End UCharacterMovementComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "SetHookLocation",
+        "comment": "Sets the location of the current hook",
+        "returnType": "void"
+      },
+      {
+        "name": "GetHookLocation",
+        "comment": "Get hook location",
+        "returnType": "FVector&"
+      },
+      {
+        "name": "GetIsSprinting",
+        "comment": "Get mIsSprinting",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetWantsToSprint",
+        "comment": "Get mGetWantsToSprint",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetBaseVelocity",
+        "comment": "Get mBaseVelocity",
+        "returnType": "FVector"
+      },
+      {
+        "name": "SetWantsToSprint",
+        "comment": "Set if the player wants to sprint or not",
+        "returnType": "void"
+      },
+      {
+        "name": "IsSliding",
+        "comment": "Get mIsSliding",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetPendingImpulseToApply",
+        "comment": "Gets the accumulated impulse we want to apply",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetLastSlideTime",
+        "comment": "Gets last slide time",
+        "returnType": "float"
+      },
+      {
+        "name": "GetBoostJumpTimeWindow",
+        "comment": "Gets last slide time",
+        "returnType": "float"
+      },
+      {
+        "name": "SetCachedParachute",
+        "comment": "Setter for the chute",
+        "returnType": "void"
+      },
+      {
+        "name": "SetCachedJumpingStilts",
+        "comment": "Setter for the chute",
+        "returnType": "void"
+      },
+      {
+        "name": "CanGrabLadder",
+        "comment": "////////////////Ladder functions//////////////////",
+        "returnType": "bool"
+      },
+      {
+        "name": "StartClimbLadder",
+        "returnType": "void"
+      },
+      {
+        "name": "StopClimbLadder",
+        "returnType": "void"
+      },
+      {
+        "name": "IsClimbingOnLadder",
+        "returnType": "bool"
+      },
+      {
+        "name": "JumpOffLadder",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOnLadder",
+        "comment": "@return The ladder we're climbing on; nullptr if not climbing.",
+        "returnType": "classUFGLadderComponent*"
+      },
+      {
+        "name": "IsInHyperPipe",
+        "comment": "IsInHyperPipe\n@return\tbool - returns true if we are currently moving in a hyper tube",
+        "returnType": "bool"
+      },
+      {
+        "name": "EnterPipeHyper",
+        "comment": "@param\tpipe - the pipe start we want to enter\n@return\tbool - returns true if we could enter.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetPipeTravelDirectionWorld",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetPipeCharacterTransform",
+        "returnType": "FRotator"
+      },
+      {
+        "name": "PipeHyperForceExit",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateWantsToSlide",
+        "comment": "updates if the player wants to slide",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBoostJumpVelocityMultiplier",
+        "comment": "Get mBoostJumpVelocityMultiplier",
+        "returnType": "float"
+      },
+      {
+        "name": "UpdateSlideStatus",
+        "comment": "Checks if we still can slide",
+        "returnType": "void"
+      },
+      {
+        "name": "SetPipeTempMinSpeed",
+        "returnType": "void"
+      },
+      {
+        "name": "SetTravelingPipeHyperActor",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetPipeProgress",
+        "returnType": "void"
+      },
+      {
+        "name": "SetPipeVelocity",
+        "returnType": "void"
+      },
+      {
+        "name": "SetGeneralVelocity",
+        "returnType": "void"
+      },
+      {
+        "name": "SetPipeDirectionLast",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPipeVelocity",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPipeMinSpeed",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPipeTempMinSpeed",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPipeProgress",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPipeConstantAcceleration",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPipeGravityStrength",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPipeCurveDamping",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPipeFriction",
+        "returnType": "float"
+      },
+      {
+        "name": "GetVelocity",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetPipeDirectionLast",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetTravelingPipeHyperActor",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "GetPipeHyperDataRef",
+        "returnType": "FPlayerPipeHyperData&"
+      },
+      {
+        "name": "OnNewTravelPipeSection",
+        "returnType": "void"
+      },
+      {
+        "name": "GetUpdateComponent",
+        "returnType": "USceneComponent*"
+      },
+      {
+        "name": "UpdateFromCompressedFlags",
+        "comment": "Begin UCharacterMovementComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "OnMovementUpdated",
+        "returnType": "void"
+      },
+      {
+        "name": "OnMovementModeChanged",
+        "returnType": "void"
+      },
+      {
+        "name": "PhysCustom",
+        "returnType": "void"
+      },
+      {
+        "name": "ExecuteDeferredCollisionChange",
+        "returnType": "void"
+      },
+      {
+        "name": "SetOnLadder",
+        "comment": "End UCharacterMovementComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "PhysFlying",
+        "returnType": "void"
+      },
+      {
+        "name": "PhysLadder",
+        "comment": "Apply ladder climb physics",
+        "returnType": "void"
+      },
+      {
+        "name": "PhysPipe",
+        "comment": "Apply Hyper Tube physics",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateJetPack",
+        "comment": "Updates everything that has to do with JetPack",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateHookshot",
+        "comment": "Updates everything that has to do with Hookshot",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateSprintStatus",
+        "comment": "Checks if we still can sprint",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateParachute",
+        "comment": "Updates everything that has to do with Parachute",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateJumpingStilts",
+        "comment": "Updates everything that has to do with the jumping stilts",
+        "returnType": "void"
+      },
+      {
+        "name": "CanSprint",
+        "comment": "Returns true if the player is allowed to sprint",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanSlide",
+        "comment": "Returns true if the player can slide with current values",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanStartSlide",
+        "comment": "Returns true if the player is allowed to start a slide",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetCachedJetPack",
+        "comment": "Returns or finds the jet pack",
+        "returnType": "classAFGJetPack*"
+      },
+      {
+        "name": "GetCachedHookshot",
+        "comment": "Returns or finds the cached hookshot",
+        "returnType": "classAFGHookshot*"
+      },
+      {
+        "name": "GetCachedParachute",
+        "comment": "Returns or finds the parachute",
+        "returnType": "classAFGParachute*"
+      },
+      {
+        "name": "GetCachedJumpingStilts",
+        "comment": "Returns or finds the parachute",
+        "returnType": "classAFGJumpingStilts*"
+      },
+      {
+        "name": "TickSlide",
+        "comment": "Ticks the slide timer so we know for how long the slide has been ongoing",
+        "returnType": "void"
+      },
+      {
+        "name": "ZeroOutFallVelocity",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mLastJumpTimeStamp",
+        "comment": "Timestamp of last time we jumped",
+        "type": "float"
+      },
+      {
+        "name": "mIsParachuting",
+        "comment": "If true, try to parachuting on next update. If false, try to stop parachuting on next update.",
+        "type": "uint32"
+      },
+      {
+        "name": "mClimbSpeed",
+        "comment": "The speed at which a character climbs ladders",
+        "type": "float"
+      },
+      {
+        "name": "mMaxSprintSpeed",
+        "comment": "The speed at witch a character sprints",
+        "type": "float"
+      },
+      {
+        "name": "mWantsToSprint",
+        "comment": "True if the player wants to sprint",
+        "type": "bool"
+      },
+      {
+        "name": "mIsSprinting",
+        "comment": "Keeps is the player sprinting this update or not?",
+        "type": "bool"
+      },
+      {
+        "name": "mWantsToSlide",
+        "comment": "True if the player wants to sprint",
+        "type": "bool"
+      },
+      {
+        "name": "mIsSliding",
+        "comment": "Keeps is the player sprinting this update or not?",
+        "type": "bool"
+      },
+      {
+        "name": "mLastIsSliding",
+        "comment": "Keep track of what status was for mIsSliding",
+        "type": "bool"
+      },
+      {
+        "name": "mSprintMinDotResult",
+        "comment": "The minimum dot value between velocity and character forward to allow sprint.",
+        "type": "float"
+      },
+      {
+        "name": "mJumpOffLadderVelocity",
+        "comment": "Force to apply when jumping off a ladder.",
+        "type": "float"
+      },
+      {
+        "name": "mCachedJetPack",
+        "comment": "A cached instance of the equipment that issued jet pack thrust",
+        "type": "classAFGJetPack*"
+      },
+      {
+        "name": "mCachedParachute",
+        "comment": "A cached instance of the equipment that issued parachuting",
+        "type": "classAFGParachute*"
+      },
+      {
+        "name": "mCachedHookshot",
+        "comment": "A cached instance of the equipment that set our hookshot location",
+        "type": "classAFGHookshot*"
+      },
+      {
+        "name": "mCachedJumpingStilts",
+        "comment": "A cached instance of the equipment that set our jumping stilts",
+        "type": "classAFGJumpingStilts*"
+      },
+      {
+        "name": "mHookLocation",
+        "comment": "The location that our hook sits at",
+        "type": "FVector"
+      },
+      {
+        "name": "mOnLadder",
+        "comment": "The ladder we're climbing; null if not climbing.",
+        "type": "UFGLadderComponent*"
+      },
+      {
+        "name": "mPipeData",
+        "type": "FPlayerPipeHyperData"
+      },
+      {
+        "name": "mSlideCurve",
+        "comment": "Get velocity from curve when sliding",
+        "type": "UCurveFloat*"
+      },
+      {
+        "name": "mSlopeCurve",
+        "comment": "Gets the multiplier for slope velocity",
+        "type": "UCurveFloat*"
+      },
+      {
+        "name": "mSlideTime",
+        "comment": "How long have we been sliding",
+        "type": "float"
+      },
+      {
+        "name": "mMaxSlideAngle",
+        "comment": "Max angle ( in radians ) for allowing to slide",
+        "type": "float"
+      },
+      {
+        "name": "mAddedVelocity",
+        "comment": "Velocity added from conveyor belts or other sources",
+        "type": "FVector"
+      },
+      {
+        "name": "mBaseVelocity",
+        "comment": "Velocity for the actor without external influence like conveyor belts",
+        "type": "FVector"
+      },
+      {
+        "name": "mBoostJumpZMultiplier",
+        "comment": "Multiplier for boost jump for Z velocity",
+        "type": "float"
+      },
+      {
+        "name": "mBoostJumpVelocityMultiplier",
+        "comment": "Multiplier for velocity in 2D when boost jumping",
+        "type": "float"
+      },
+      {
+        "name": "mLastSlideTime",
+        "comment": "Timestamp for when we ended the last slide",
+        "type": "float"
+      },
+      {
+        "name": "mBoostJumpTimeWindow",
+        "comment": "How long time after a slide a jump can be input and be counted as a boost jump",
+        "type": "float"
+      },
+      {
+        "name": "mDeferredCollisionAction",
+        "type": "EDeferredCollisionChange"
+      },
+      {
+        "name": "mCheatIsPressingJump",
+        "type": "bool"
+      },
+      {
+        "name": "mCheatIsPressingCrouch",
+        "type": "bool"
+      },
+      {
+        "name": "mCheatGhost",
+        "type": "bool"
+      },
+      {
+        "name": "CheatFlySpeedVertical",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FSavedMove_FGMovement",
+    "extends": [
+      "FSavedMove_Character"
+    ],
+    "methods": [
+      {
+        "name": "Clear",
+        "comment": "/@brief Resets all saved variables.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCompressedFlags",
+        "comment": "/@brief Store input commands in the compressed flags.",
+        "returnType": "uint8"
+      },
+      {
+        "name": "CanCombineWith",
+        "comment": "/@brief This is used to check whether or not two moves can be combined into one.\n/Basically you just check to make sure that the saved variables are the same.",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetMoveFor",
+        "comment": "/@brief Sets up the move before sending it to the server.",
+        "returnType": "void"
+      },
+      {
+        "name": "PrepMoveFor",
+        "comment": "/@brief Sets variables on character movement component before making a predictive correction.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSavedIsThrusting",
+        "type": "uint8"
+      },
+      {
+        "name": "mSavedIsSprinting",
+        "type": "uint8"
+      },
+      {
+        "name": "mSavedIsParachuting",
+        "type": "uint8"
+      },
+      {
+        "name": "mSavedIsSliding",
+        "type": "uint8"
+      },
+      {
+        "name": "mSavedHookLocation",
+        "type": "FVector"
+      },
+      {
+        "name": "mPipeMoveProgress",
+        "type": "float"
+      },
+      {
+        "name": "mPipeMoveVel",
+        "type": "float"
+      },
+      {
+        "name": "mPipeMoveTime",
+        "type": "float"
+      },
+      {
+        "name": "mPipeMovePipe",
+        "type": "AActor*"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FNetworkPredictionData_Client_FGMovement",
+    "extends": [
+      "FNetworkPredictionData_Client_Character"
+    ],
+    "methods": [
+      {
+        "name": "FNetworkPredictionData_Client_FGMovement"
+      },
+      {
+        "name": "AllocateNewMove",
+        "comment": "/@brief Allocates a new copy of our custom saved move",
+        "returnType": "FSavedMovePtr"
+      }
+    ],
+    "properties": []
+  }
+]

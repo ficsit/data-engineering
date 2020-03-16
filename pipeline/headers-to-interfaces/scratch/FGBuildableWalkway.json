@@ -1,0 +1,33 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableWalkway",
+    "category": "UCLASS",
+    "comment": "Base class for walkways.",
+    "extends": [
+      "AFGBuildableFactoryBuilding"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableWalkway"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSize",
+        "comment": "Size of the walkway (size of one side of the square part).",
+        "type": "float"
+      },
+      {
+        "name": "mElevation",
+        "comment": "Elevation of this walkway if ramp, assumes the ramp to go up towards a positive X.",
+        "type": "float"
+      },
+      {
+        "name": "mDisableSnapOn",
+        "comment": "Disable snapping on specific sides.",
+        "type": "FFoundationSideSelectionFlags"
+      }
+    ]
+  }
+]

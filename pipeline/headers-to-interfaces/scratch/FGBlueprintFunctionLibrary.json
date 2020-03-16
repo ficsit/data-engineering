@@ -1,0 +1,304 @@
+[
+  {
+    "kind": "enum",
+    "name": "EOutlineColor",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "entries": [
+      {
+        "name": "OC_NONE",
+        "displayName": "None"
+      },
+      {
+        "name": "OC_USABLE",
+        "displayName": "Usable"
+      },
+      {
+        "name": "OC_HOLOGRAM",
+        "displayName": "Hologram"
+      },
+      {
+        "name": "OC_RED",
+        "displayName": "Disabled"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGBlueprintFunctionLibrary",
+    "category": "UCLASS",
+    "extends": [
+      "UBlueprintFunctionLibrary"
+    ],
+    "methods": [
+      {
+        "name": "GetOuterActor",
+        "comment": "Helper function to try to fetch the owning actor of a object",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "ShowOutline",
+        "comment": "Show a outline for the following primitive component",
+        "returnType": "void"
+      },
+      {
+        "name": "OccludeOutlineByComponent",
+        "comment": "Let a component occlude the outline",
+        "returnType": "void"
+      },
+      {
+        "name": "OccludeOutlineByActor",
+        "comment": "Let a actor occlude the outline",
+        "returnType": "void"
+      },
+      {
+        "name": "HideOutline",
+        "comment": "hide the outline for the following primitive component",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateUseState",
+        "returnType": "void"
+      },
+      {
+        "name": "Cheat_GetAllDescriptors",
+        "comment": "Get all the item descriptors in the game",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAllDescriptorsSorted",
+        "comment": "Does what Cheat_GetAllDescriptors does, but tries to do in in a more reliable way,\nand not only hoping for the descriptor to be loaded in memory. This is probably slow!",
+        "returnType": "void"
+      },
+      {
+        "name": "ChangeLanguage",
+        "comment": "Change Localization at Runtime.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLanguage",
+        "comment": "Return current language code",
+        "returnType": "FString"
+      },
+      {
+        "name": "IsEditorWorld",
+        "comment": "Determine if the world is a editor world, will return false if the worldContext isn't in any world",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsGameWorld",
+        "comment": "Determine if the world is a game world, will return false if the worldContext isn't in any world",
+        "returnType": "bool"
+      },
+      {
+        "name": "LogX",
+        "comment": "I wanted to use non natural logarithm in blueprints.",
+        "returnType": "float"
+      },
+      {
+        "name": "RoundFloatWithPrecision",
+        "comment": "Returns a rounded float with a maximum of fractional digits",
+        "returnType": "float"
+      },
+      {
+        "name": "GetComponentFlagSoftLanding",
+        "returnType": "FName"
+      },
+      {
+        "name": "CmS2KmH",
+        "comment": "Returns km/h value based on the input cm/s.",
+        "returnType": "float"
+      },
+      {
+        "name": "IsInAlwaysLoadedLevel",
+        "comment": "Returns true if the actor resides in a level that is always loaded, returns false if actor is null",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetSignificanceManager",
+        "comment": "Gets the Significance manager",
+        "returnType": "classUFGSignificanceManager*"
+      },
+      {
+        "name": "AddGenericTickObjectToSignificanceManager",
+        "comment": "Adds a generic tickable object to be handled by significance manager",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveGenericTickObjectFromSignificanceManager",
+        "comment": "removes a generic tickable object to be handled by significance manager",
+        "returnType": "void"
+      },
+      {
+        "name": "AddFactoryObjectToSignificanceManager",
+        "comment": "Adds a factory object to be handled by significance manager",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveFactoryObjectFromSignificanceManager",
+        "comment": "removes a factory object to be handled by significance manager",
+        "returnType": "void"
+      },
+      {
+        "name": "AddConveyorBeltToSignificanceManager",
+        "comment": "Adds conveyor belt be handled by significance manager",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveConveyorBeltFromSignificanceManager",
+        "comment": "Removes conveyor belt be handled by significance manager",
+        "returnType": "void"
+      },
+      {
+        "name": "AddPipelineToSignificanceManager",
+        "comment": "Adds pipeline to be handled by significance manager",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveFromSignificanceManagerGeneric",
+        "comment": "Generic removal function for objects in significance manager. Use this if you don't need to do any special operations when removing from significance manager",
+        "returnType": "void"
+      },
+      {
+        "name": "AddGainSignificanceObjectToSignificanceManager",
+        "comment": "Adds an object that should gain/lose significance on distance",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveGainSignificanceObjectFromSignificanceManager",
+        "comment": "Removes an object that should gain/lose significance on distance",
+        "returnType": "void"
+      },
+      {
+        "name": "AddAudioVolumeToSignificanceManager",
+        "comment": "Adds an audio volume that should gain/lose significance on distance",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveAudioVolumeFromSignificanceManager",
+        "comment": "Removes an audio volume that should gain/lose significance on distance",
+        "returnType": "void"
+      },
+      {
+        "name": "AddAmbientSoundSplineToSignificanceManager",
+        "comment": "Adds an AmbientSoundSpline that should gain/lose significance on distance",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveAmbientSoundSplineFromSignificanceManager",
+        "comment": "Removes an AmbientSoundSpline that should gain/lose significance on distance",
+        "returnType": "void"
+      },
+      {
+        "name": "AddTrainToSignificanceManager",
+        "comment": "Adds a train to be handled by significance manager",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveTrainFromSignificanceManager",
+        "comment": "removes a train from being handled by significance manager",
+        "returnType": "void"
+      },
+      {
+        "name": "IsLocallyHumanControlled",
+        "comment": "\n @param pawn - the pawn we want to check if it's controlled by a human on the current computer\n@return false if pawn is null, else true if locally human controlled",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetVersionString",
+        "comment": "Get a version string to show to the user",
+        "returnType": "FString"
+      },
+      {
+        "name": "IsAlphaBuild",
+        "comment": "Returns true if this build is alpha. If Shipping, then Alpha. :)",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanBeOnConveyor",
+        "comment": "Returns true if the passed descriptor can be on a conveyor belt.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetAllBuildCategories",
+        "comment": "Gives you all categories that can be unlocked in this game",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAvailableRecipesInCategory",
+        "comment": "Returns all recipes with product of a certain category",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAvailableRecipesInSubCategory",
+        "comment": "Returns all recipes with product of a certain sub category of a certain build category",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAvailableSubCategoriesForCategory",
+        "comment": "Returns all sub categories with product of a certain category",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSubCategoriesForSchematicCategory",
+        "comment": "Returns all sub categories for a schematic category",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAllWidgetsOfClassInHierarchy",
+        "comment": "Finds a widget of a certain class in the hierarchy of the passed widget. Does a breadth-first search of the tree.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAllItemsInCategory",
+        "comment": "Returns all items in a item category",
+        "returnType": "TArray<TSubclassOf<classUFGItemDescriptor>>"
+      },
+      {
+        "name": "GetCategoriesWithAffordableRecipes",
+        "comment": "Returns all categories that have available recipes in them",
+        "returnType": "TArray<TSubclassOf<classUFGItemCategory>>"
+      },
+      {
+        "name": "CreateSessionAndTravelToMap",
+        "comment": "\t/\n Helper function that takes care of creating a session and travel to the map",
+        "returnType": "void"
+      },
+      {
+        "name": "TravelToMainMenu",
+        "comment": "Travel gracefully to main menu, kicking clients if host, and tearing down the game session",
+        "returnType": "void"
+      },
+      {
+        "name": "SendLocalPlayerToMainMenu",
+        "comment": "Send the local player to main menu",
+        "returnType": "void"
+      },
+      {
+        "name": "LinearColorToHex",
+        "comment": "Get a FLinearColor and returns a hex string like \"FF00AA88\".",
+        "returnType": "FString"
+      },
+      {
+        "name": "AddPopup",
+        "comment": "Adds a popup to the queue",
+        "returnType": "void"
+      },
+      {
+        "name": "AddPopupWithCloseDelegate",
+        "comment": "Adds a popup to the queue",
+        "returnType": "void"
+      },
+      {
+        "name": "ClosePopup",
+        "comment": "Close the popup that is currently showing. If no popup is showing, don't do anything",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLocalPlayerController",
+        "comment": "Find and return a local player",
+        "returnType": "classAFGPlayerController*"
+      }
+    ],
+    "properties": []
+  }
+]

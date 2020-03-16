@@ -1,0 +1,184 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGPortableMiner",
+    "category": "UCLASS",
+    "extends": [
+      "AActor",
+      "IFGUseableInterface",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Decide on what properties to replicate",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGPortableMiner",
+        "comment": "Ctor"
+      },
+      {
+        "name": "Tick",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "TickProducing",
+        "comment": "@optimize Are the portable miners optimized and turned of at a distance?\nCalled when we produce something.",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "UpdateUseState_Implementation",
+        "comment": "~ Begin IFGUseableInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUse_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUseStop_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "IsUseable_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "StartIsLookedAt_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLookAtDecription_Implementation",
+        "returnType": "FText"
+      },
+      {
+        "name": "StopIsLookedAt_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterInteractingPlayer_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterInteractingPlayer_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "IsProducing",
+        "comment": "\n @return - true if producing; otherwise false.",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanProduce",
+        "comment": "\n @return - true if we can start production; otherwise false.",
+        "returnType": "bool"
+      },
+      {
+        "name": "StartProducing",
+        "comment": "Start the production, client get this call replicated after the server",
+        "returnType": "void"
+      },
+      {
+        "name": "StopProducing",
+        "comment": "Stops the production, client get this call replicated after the server",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOutputInventory",
+        "comment": "@return The miners output inventory",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetDismantleInventoryReturns",
+        "comment": "What do we get back when dismantling this",
+        "returnType": "TArray<FInventoryStack>"
+      },
+      {
+        "name": "GetExtractionProgress",
+        "comment": "@return Get the progress for the current bit of ore.",
+        "returnType": "float"
+      },
+      {
+        "name": "OnRep_IsProducing",
+        "comment": "Calls Start/Stop Producing on client",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mExtractCycleTime",
+        "comment": "How fast we mine expressed as 1.0f / ( mExtractCycleTime\n resourceSpeedMultiplier )\n dt.",
+        "type": "float"
+      },
+      {
+        "name": "mExtractResourceNode",
+        "comment": "The resource node we want to extract from",
+        "type": "classAFGResourceNode*"
+      },
+      {
+        "name": "mOutputInventory",
+        "comment": "The inventory of the factory node",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mCurrentExtractProgress",
+        "comment": "Current extract progress in the range [0, 1]",
+        "type": "float"
+      },
+      {
+        "name": "mInteractWidgetClass",
+        "comment": "The widget that will present our UI.",
+        "type": "TSubclassOf<classUFGInteractWidget>"
+      },
+      {
+        "name": "mInventorySize",
+        "comment": "How many slots is the inventory",
+        "type": "int32"
+      },
+      {
+        "name": "mIsProducing",
+        "comment": "Are we producing?",
+        "type": "bool"
+      }
+    ]
+  }
+]

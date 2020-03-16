@@ -1,0 +1,44 @@
+[
+  {
+    "kind": "enum",
+    "name": "EHologramSplinePathMode",
+    "comment": "Enum for the different types of spline placement",
+    "entries": [
+      {
+        "name": "HSPM_AUTO",
+        "displayName": "Auto"
+      },
+      {
+        "name": "HSPM_STRAIGHT_HORZ",
+        "displayName": "Straight Horizontal"
+      },
+      {
+        "name": "HSPM_STRAIGHT_VERT",
+        "displayName": "Straight Vertical"
+      },
+      {
+        "name": "HSPM_HORZ_TO_VERT",
+        "displayName": "Horizontal to Vertical"
+      },
+      {
+        "name": "HSPM_VERT_TO_HORZ",
+        "displayName": "Vertical to Horizontal"
+      },
+      {
+        "name": "HSPM_PATH_FIND",
+        "displayName": "Path Find"
+      },
+      {
+        "name": "HSPM_AUTO_2D",
+        "displayName": "Auto 2D/Conveyor Mode"
+      },
+      {
+        "name": "HSPM_NOODLE",
+        "displayName": "Noodle"
+      },
+      {
+        "name": "HSPM_MAX"
+      }
+    ]
+  }
+]

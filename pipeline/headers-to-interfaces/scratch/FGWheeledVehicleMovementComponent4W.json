@@ -1,0 +1,103 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGWheeledVehicleMovementComponent4W",
+    "category": "UCLASS",
+    "extends": [
+      "UWheeledVehicleMovementComponent4W"
+    ],
+    "methods": [
+      {
+        "name": "UFGWheeledVehicleMovementComponent4W"
+      },
+      {
+        "name": "GetHandbreakInput",
+        "comment": "Returns true if we have pulled the handbreak of the vehicle",
+        "returnType": "bool"
+      },
+      {
+        "name": "UpdateSimulation",
+        "comment": "Overrided update simulation to trigger DSOL gearbox if necessary",
+        "returnType": "void"
+      },
+      {
+        "name": "GenerateTireForces",
+        "comment": "Overridden so we can take advantage of camber",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupWheelMassProperties_AssumesLocked",
+        "comment": "Overridden so we can take advantage of camber",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupWheels",
+        "returnType": "void"
+      },
+      {
+        "name": "PreTick",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupVehicleShapes",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLargestTireLoadValue",
+        "comment": "returns the current largest tire load of the vehicle",
+        "returnType": "float"
+      },
+      {
+        "name": "GetLargestLateralSlip",
+        "comment": "returns the current largest lat slip of the vehicle",
+        "returnType": "float"
+      },
+      {
+        "name": "GetLargestLongitudinalSlip",
+        "comment": "returns the current largest long slip of the vehicle",
+        "returnType": "float"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mUseDSOLGearbox",
+        "comment": "Use Jace's super awesome custom gearbox or not",
+        "type": "bool"
+      },
+      {
+        "name": "mDSOLMaxSlopeAngleLimit",
+        "comment": "Max slope Angle Limit (in degrees) in order to use all of SlopeShiftRatio",
+        "type": "float"
+      },
+      {
+        "name": "mSlopeShiftRatio",
+        "comment": "Amount of ADDITIONAL required gear ratio in order to shift up or down, given a slope. The result is that on steep slopes, the vehicle will shift up at a higher ratio and shift down at a higher ratio.",
+        "type": "float"
+      },
+      {
+        "name": "mDownShiftLatency",
+        "type": "float"
+      },
+      {
+        "name": "mDSOLDynGearboxData",
+        "comment": "Gearbox data that is tracked during simulation",
+        "type": "DSOLDynGearboxData"
+      },
+      {
+        "name": "mDSOLSetupData",
+        "comment": "Gearbox setup data",
+        "type": "DSOLSetupData"
+      },
+      {
+        "name": "mPhysxUserData",
+        "comment": "Array of PhysX User defineable data that are passed to the shader",
+        "type": "TArray<FPhysxUserData>"
+      },
+      {
+        "name": "mPhysxWheelUserData",
+        "comment": "Array of PhysXWheel User defineable data that are passed to the shader",
+        "type": "TArray<FPhysxWheelUserData>"
+      }
+    ]
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "kind": "class",
+    "name": "FTimeTableStop",
+    "category": "USTRUCT",
+    "comment": "A stop entry in the time table.",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "Station",
+        "comment": "Where to stop.",
+        "type": "classAFGTrainStationIdentifier*"
+      },
+      {
+        "name": "Duration",
+        "comment": "Time to stay.",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGRailroadTimeTable",
+    "category": "UCLASS",
+    "comment": "Object containing a trains time table and where it is right now.",
+    "extends": [
+      "AInfo",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGRailroadTimeTable"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "AddStop",
+        "comment": "Add a stop to the time table.",
+        "returnType": "bool"
+      },
+      {
+        "name": "RemoveStop",
+        "comment": "Remove a stop from the time table.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetNumStops",
+        "comment": "Get the number of stops.",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetMaxNumStops",
+        "comment": "Get the number of stops.",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetStops",
+        "comment": "Get all stops in the time table.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetStops",
+        "comment": "Set all stops in the time table.",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsValidStop",
+        "comment": "Is the index a valid stop.\nChecks if the index is valid and the 'Stop' actor is valid.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetStop",
+        "comment": "Get the given stop.\n@return The stop at index, valid or invalid. If the index is invalid it returns an empty stop.",
+        "returnType": "FTimeTableStop"
+      },
+      {
+        "name": "GetCurrentStop",
+        "comment": "@return Current stop the train is at or heading to.",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetCurrentStop",
+        "comment": "@param index Set the stop the train is heading to.",
+        "returnType": "void"
+      },
+      {
+        "name": "IncrementCurrentStop",
+        "comment": "Increment the current stop to the next one in order.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "MAX_STOPS",
+        "type": "constint32"
+      },
+      {
+        "name": "mStops",
+        "comment": "Array of destinations this train will visit.",
+        "type": "TArray<FTimeTableStop>"
+      },
+      {
+        "name": "mCurrentStop",
+        "comment": "Current stop the train is at or heading to.",
+        "type": "int32"
+      }
+    ]
+  }
+]

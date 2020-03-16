@@ -1,0 +1,124 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGWidgetSwitcher",
+    "category": "UCLASS",
+    "extends": [
+      "UWidgetSwitcher"
+    ],
+    "methods": [
+      {
+        "name": "UFGWidgetSwitcher"
+      },
+      {
+        "name": "ReleaseSlateResources",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveFromParent",
+        "comment": "Make sure to call menu exit on our widgets",
+        "returnType": "void"
+      },
+      {
+        "name": "SetActiveWidgetIndex",
+        "comment": "Activates the widget and makes it the active index.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetActiveWidget",
+        "comment": "Adding special case for null widget (ie, hide)",
+        "returnType": "void"
+      },
+      {
+        "name": "WidgetMenuEnterDone",
+        "comment": "Called after menu enter animations has completed by our menu base child",
+        "returnType": "void"
+      },
+      {
+        "name": "WidgetMenuExitDone",
+        "comment": "Called after menu exit animations has completed by our menu base child",
+        "returnType": "void"
+      },
+      {
+        "name": "Internal_SetActiveWidgetIndex",
+        "comment": "Activates the widget and makes it the active index.",
+        "returnType": "void"
+      },
+      {
+        "name": "Internal_SetActiveWidget",
+        "comment": "Set a active widget and clear all delegates",
+        "returnType": "void"
+      },
+      {
+        "name": "IsDoingWidgetAnimation",
+        "comment": "Return true if we are currently animating in/out",
+        "returnType": "bool"
+      },
+      {
+        "name": "EnterAnimationTookToLong",
+        "comment": "Called if a childs Enter animation took too long. So we just skip it",
+        "returnType": "void"
+      },
+      {
+        "name": "ExitAnimationTookToLong",
+        "comment": "Called if a childs Exit animation took too long. So we just skip it",
+        "returnType": "void"
+      },
+      {
+        "name": "FadeOut",
+        "returnType": "void"
+      },
+      {
+        "name": "GetTimerManager",
+        "returnType": "classFTimerManager*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mFadeOutTime",
+        "type": "float"
+      },
+      {
+        "name": "mFadeOutStartTime",
+        "comment": "Time we started fading out",
+        "type": "float"
+      },
+      {
+        "name": "mOnWidgetSet",
+        "type": "FOnActiveWidgetSet"
+      },
+      {
+        "name": "mOnFadoutDone",
+        "type": "FOnMenuAnimDone"
+      },
+      {
+        "name": "mEnterAnimationTimeout",
+        "comment": "Called whenever",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mExitAnimationTimeout",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mFadeOutTimer",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mPendingNewWidget",
+        "comment": "Pending widget that will be set when the animations is done",
+        "type": "UWidget*"
+      },
+      {
+        "name": "mEnteringWidget",
+        "comment": "Widget currently running it's entering animation",
+        "type": "UFGMenuBase*"
+      },
+      {
+        "name": "mExitingWidget",
+        "comment": "Widget currently running it's exiting animation",
+        "type": "UFGMenuBase*"
+      }
+    ]
+  }
+]

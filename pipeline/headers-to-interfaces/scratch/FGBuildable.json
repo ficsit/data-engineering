@@ -1,0 +1,804 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildable",
+    "category": "UCLASS",
+    "comment": "PrimaryActorTick is disabled when the buildable is to far away to to not waste cycles on animations and other effects.\nFactoryTick is always enabled (as long as bCanEverTick is true) so that the factory part of buildings always can simulate.",
+    "extends": [
+      "AActor",
+      "IFGDismantleInterface",
+      "IFGSaveInterface",
+      "IFGColorInterface",
+      "IFGUseableInterface"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Decide on what properties to replicate",
+        "returnType": "void"
+      },
+      {
+        "name": "PreReplication",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGBuildable"
+      },
+      {
+        "name": "CheckForErrors",
+        "returnType": "void"
+      },
+      {
+        "name": "Serialize",
+        "comment": "Begin UObject interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnConstruction",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetColorSlot_Implementation",
+        "comment": "~ Begin IFGColorInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetColorSlot_Implementation",
+        "returnType": "uint8"
+      },
+      {
+        "name": "SetColorSlot_PreBeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPrimaryColor_Implementation",
+        "returnType": "FLinearColor"
+      },
+      {
+        "name": "GetSecondaryColor_Implementation",
+        "returnType": "FLinearColor"
+      },
+      {
+        "name": "GetCanBeColored_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "StartIsAimedAtForColor_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "StopIsAimedAtForColor_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateUseState_Implementation",
+        "comment": "~ Begin IFGUseableInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUse_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUseStop_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "IsUseable_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "StartIsLookedAt_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLookAtDecription_Implementation",
+        "returnType": "FText"
+      },
+      {
+        "name": "StopIsLookedAt_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterInteractingPlayer_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterInteractingPlayer_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "ShouldSkipBuildEffect",
+        "comment": "Should we skip playing the build effect",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDefaultComponents",
+        "comment": "Get default components from this class.",
+        "returnType": "void"
+      },
+      {
+        "name": "EnablePrimaryTickFunctions",
+        "comment": "Enable/disable our primary actor tick, but don't touch our factory tick",
+        "returnType": "void"
+      },
+      {
+        "name": "TickFactory",
+        "comment": "Root of factory ticking hierarchy",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_Tick",
+        "comment": "Always ticking tick, this is where factory logic resides, other tick will be disabled pretty frequent",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_ReceiveTick",
+        "comment": "Blueprint version of Factory_Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "CanDismantle_Implementation",
+        "comment": "~ Begin IFGDismantleInterface",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDismantleRefund_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRefundSpawnLocationAndArea_Implementation",
+        "returnType": "FVector"
+      },
+      {
+        "name": "PreUpgrade_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "Upgrade_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "Dismantle_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "StartIsLookedAtForDismantle_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "StopIsLookedAtForDismantle_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "StartIsLookedAtForConnection",
+        "comment": "~ End IFGDismantleInferface",
+        "returnType": "void"
+      },
+      {
+        "name": "StopIsLookedAtForConnection",
+        "returnType": "void"
+      },
+      {
+        "name": "SetBuiltWithRecipe",
+        "comment": "Called in ConfigureActor from the hologram.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBuiltWithRecipe",
+        "comment": "Getters for the built with recipe.",
+        "returnType": "TSubclassOf<classUFGRecipe>"
+      },
+      {
+        "name": "GetBuiltWithDescriptor",
+        "returnType": "TSubclassOf<classUFGItemDescriptor>"
+      },
+      {
+        "name": "GetBuiltWithDescriptor",
+        "returnType": "TSubclassOf<C>"
+      },
+      {
+        "name": "TurnOffAndDestroy",
+        "comment": "Shutdown this building.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetMainMeshes",
+        "comment": "Finds, caches and returns the MainMesh of this buildable",
+        "returnType": "TArray<classUMeshComponent*>&"
+      },
+      {
+        "name": "GetBuildingID",
+        "comment": "Get the building this buildable belong to.",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetBuildingID",
+        "comment": "Set the building ID for this buildable, be careful when calling this so the relation to the surrounding buildings is not broken.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBuildTime",
+        "comment": "Returns the timestamp for when this building was built",
+        "returnType": "float"
+      },
+      {
+        "name": "SetBuildTime",
+        "comment": "Sets the timestamp for when this building was built",
+        "returnType": "void"
+      },
+      {
+        "name": "DisplayDebug",
+        "comment": "Debug",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFactoryStatID",
+        "comment": "Returns the factory stat ID of the object used for the profiling tool.",
+        "returnType": "TStatId"
+      },
+      {
+        "name": "SetNetConstructionID",
+        "comment": "Getter and setter for the construction ID issued by server used to identify buildables when constructed on client",
+        "returnType": "void"
+      },
+      {
+        "name": "GetNetConstructionID",
+        "returnType": "FNetConstructionID"
+      },
+      {
+        "name": "Stat_Cost",
+        "comment": "Begin FFactoryStatHelpers Functions",
+        "returnType": "void"
+      },
+      {
+        "name": "Stat_StockInventory",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayBuildEffects",
+        "comment": "Build/Dismantle Effects\n@param instigator Actor who triggered the effect (i.e. where to throw the resources from).",
+        "returnType": "void"
+      },
+      {
+        "name": "ExecutePlayBuildEffects",
+        "returnType": "void"
+      },
+      {
+        "name": "OnBuildEffectFinished",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayDismantleEffects",
+        "returnType": "void"
+      },
+      {
+        "name": "OnDismantleEffectFinished",
+        "returnType": "void"
+      },
+      {
+        "name": "CanBeSampled",
+        "comment": "Returns true if this buildable can be sampled",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsPlayingBuildEffect",
+        "comment": "Returns whether or not the build effect is currently running",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShowHighlightEffect",
+        "comment": "Display the highlight effect",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveHighlightEffect",
+        "comment": "Removes the highlight effect",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCachedBounds",
+        "comment": "Returns the cached bounds",
+        "returnType": "FBox"
+      },
+      {
+        "name": "GetInteractingPlayers",
+        "comment": "Returns list of players currently interacting with building.",
+        "returnType": "TArray<classAFGCharacterPlayer*>"
+      },
+      {
+        "name": "SetHiddenIngameAndHideInstancedMeshes",
+        "comment": "Only used for cheats. Hides/Unhides the actor, and makes sure the instanced meshes hide as well",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBuildableClassFromRecipe",
+        "comment": "Helper function for getting buildable classes from recipes\n@note Useful when generating child holograms based off their recipe",
+        "returnType": "TSubclassOf<AFGBuildable>"
+      },
+      {
+        "name": "GetClearanceComponent",
+        "returnType": "UShapeComponent*"
+      },
+      {
+        "name": "GetParticipatedInCleranceEncroachFrameCountDown",
+        "comment": "Function to get info about participation in clearance overlap feedback for the local machines hologram placement",
+        "returnType": "uint8"
+      },
+      {
+        "name": "SetParticipatedInCleranceEncroachFrameCountDown",
+        "returnType": "void"
+      },
+      {
+        "name": "AllowCleranceSeparationEvenIfStackedOn",
+        "comment": "Used to let fonudations allow for clerance sepration when stakced on, which most others don't.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetNumPowerConnections",
+        "comment": "[DavalliusA:Mon/17-02-2020] moved these to not be private as I don't understand why they should be\nGet the number of power connections",
+        "returnType": "uint8"
+      },
+      {
+        "name": "GetNumFactoryConnections",
+        "comment": "Get the number of factory connections",
+        "returnType": "uint8"
+      },
+      {
+        "name": "GetNumFactoryOuputConnections",
+        "comment": "Get the number of factory output connections",
+        "returnType": "uint8"
+      },
+      {
+        "name": "ShouldBeConsideredForBase",
+        "comment": "Should this buildable be relevant when considering if a location is near a base/factory area",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldBeConsideredForBase_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetBuildableDisplayName",
+        "comment": "Sets the display name for this buildable. Only for editor use",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayConstructSound",
+        "comment": "Plays construction sound, override this event to play a custom sound.",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayDismantleSound",
+        "comment": "Plays dismantle sound, override this event to play a custom sound.",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterInteractingPlayerWithCircuit",
+        "comment": "Ugly haxx to remove replication of graph unless any player is looking at it",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterInteractingPlayerWithCircuit",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCameraDistanceSq",
+        "comment": "Get the distance to the closest camera",
+        "returnType": "float"
+      },
+      {
+        "name": "OnReplicatingDetailsChanged",
+        "comment": "Called whenever mIsReplicatingDetails has changed, used to enable disable replication of subobjects.",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_PeekOutput",
+        "comment": "For custom connections, if we want a custom implementation for\nCalled if mForwardPeekAndGrabToProxy is set in the connection.",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_GrabOutput",
+        "comment": "For custom connections, if we want a custom implementation for peek\nCalled if mForwardPeekAndGrabToProxy is set in the connection.",
+        "returnType": "bool"
+      },
+      {
+        "name": "MaxNumGrab",
+        "comment": "\n @ param out_availableSpace - the amount of space until next item.",
+        "returnType": "uint8"
+      },
+      {
+        "name": "EstimatedMaxNumGrab_Threadsafe",
+        "comment": "\n\t@ param estimatedDeltaTime - the amount of time we use to estimate how many items we can grab after that time have passed",
+        "returnType": "uint8"
+      },
+      {
+        "name": "VerifyDefaults",
+        "comment": "@param out_message - Designer friendly message to be displayed.\n@return - true if the defaults are valid; false if the defaults are configured wrong.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetCostMultiplierForLength",
+        "comment": "Helper to get the cost multiplier for a buildable given its length and how long each cost segment is.",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetDismantleRefundReturns",
+        "comment": "Get the refundable cost for this building, not including any connected buildings. Not consolidated.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDismantleRefundReturnsMultiplier",
+        "comment": "Get the multiplier for the refundable cost, e.g. for buildings that cost per length unit.",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetDismantleInventoryReturns",
+        "comment": "Get all items to be returned from the buildings inventory on dismantle. Not consolidated.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDismantleBlueprintReturns",
+        "comment": "If blueprint has anything to return when this buildable is dismantled. Not consolidated.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetInteractWidgetClass",
+        "comment": "Get the widget used to interact with this buildable.",
+        "returnType": "classTSubclassOf<classUFGInteractWidget>"
+      },
+      {
+        "name": "IsReplicatingDetails",
+        "comment": "@return true if this building is replicating detailed information about it; false otherwise.",
+        "returnType": "bool"
+      },
+      {
+        "name": "TogglePendingDismantleMaterial",
+        "comment": "Toggles the pending dismantle material on buildable",
+        "returnType": "void"
+      },
+      {
+        "name": "ReapplyColorSlot",
+        "comment": "Update the color from the current color slot",
+        "returnType": "void"
+      },
+      {
+        "name": "HasMaterialInstanceManagerForMaterialName",
+        "comment": "@todoFactoryMaterialInstance:\tIs this still needed? It was used before to ensure we didn't attempt to instance a component multiple times, but this should be done in AddBuildable in the subsystem now\n\t\t\t\t\t\t\t\tNot, as it was before, in the OnRep_ColorSlot(). We should only be applying materials once... right? [Thoughts from Dylan as he writes the new system]",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetMaterialInstanceManagerForMaterialName",
+        "comment": "Returns the Material Manager for a given component, or null if there is not one",
+        "returnType": "classUFGFactoryMaterialInstanceManager*"
+      },
+      {
+        "name": "AddMaterialInstanceManagerForMaterialName",
+        "comment": "Adds an entry for a given component mapping to its respective Material Instance Manager. Returns false if it could not add an entry (eg. It already exists or failed to create)",
+        "returnType": "bool"
+      },
+      {
+        "name": "CreateFactoryStatID",
+        "comment": "Create a stat for the buildable",
+        "returnType": "void"
+      },
+      {
+        "name": "SetReplicateDetails",
+        "comment": "Set if we should replicate details.\nThis is private because this is handled by the buildables use implementation.",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckFactoryConnectionComponents",
+        "comment": "Helper to verify the connection naming.",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnRep_ColorSlot",
+        "comment": "Let the client set colors.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_DidFirstTimeUse",
+        "comment": "Let client see the highlight",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "OnBuildableReplicationDetailActorStateChange",
+        "comment": "Event on when buildable's replication detail actor changes state",
+        "type": "staticFOnReplicationDetailActorStateChange"
+      },
+      {
+        "name": "mHologramClass",
+        "comment": "@todoGC Move to the descriptor maybe?\nThe hologram class to use for constructing this object.",
+        "type": "TSubclassOf<classAFGHologram>"
+      },
+      {
+        "name": "mDisplayName",
+        "comment": "The human readable display name of this object.",
+        "type": "FText"
+      },
+      {
+        "name": "mDescription",
+        "comment": "The human readable description of this object.",
+        "type": "FText"
+      },
+      {
+        "name": "OnRegisterPlayerChange",
+        "comment": "Delegate will trigger whenever the actor's use state has changed (Start, End)",
+        "type": "staticFOnRegisteredPlayerChanged"
+      },
+      {
+        "name": "MaxRenderDistance",
+        "comment": "Max draw distance, inactive when < 0",
+        "type": "float"
+      },
+      {
+        "name": "mHighlightVector",
+        "comment": "@todoGC look at the other todo for highlights.\nVector used to determine highlight effects location",
+        "type": "FVector"
+      },
+      {
+        "name": "mFactoryTickFunction",
+        "comment": "@todorefactor With meta = ( ShowOnlyInnerProperties ) it does not show and PrimaryActorTick seems to be all custom properties, so I moved to another category but could not expand.\nControls if we should receive Factory_Tick and how frequent.",
+        "type": "FFactoryTickFunction"
+      },
+      {
+        "name": "mMaterialNameToInstanceManager",
+        "comment": "@todoGC Good candidate for maybe moving to the buildable subsystem to get it out of all buildings. FName instead of FString?\nMap of colorable mesh materials to their respective colored factory material instance manager",
+        "type": "TMap<FString,classUFGFactoryMaterialInstanceManager*>"
+      },
+      {
+        "name": "mPrimaryColor",
+        "comment": "The primary color of this buildable",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "mSecondaryColor",
+        "comment": "The primary color of this buildable",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "mColorSlot",
+        "comment": "The color slot of this buildable",
+        "type": "uint8"
+      },
+      {
+        "name": "mInteractionRegisterPlayerWithCircuit",
+        "comment": "HAXX FLAG! Buildings set this to start replicating power graph if they are interacted with",
+        "type": "bool"
+      },
+      {
+        "name": "mBuildEffectTemplate",
+        "comment": "@todoGC This is a good candidate for cleaning up, do we need to keep track of the build effect on a building.\nWhat build effect to use when building this building",
+        "type": "TSubclassOf<classUFGMaterialEffect_Build>"
+      },
+      {
+        "name": "mDismantleEffectTemplate",
+        "comment": "What build effect to use when dismantling this building",
+        "type": "TSubclassOf<classUFGMaterialEffect_Build>"
+      },
+      {
+        "name": "mActiveBuildEffect",
+        "comment": "Store the active effect so we can cancel an old one if we need to start a new.",
+        "type": "UFGMaterialEffect_Build*"
+      },
+      {
+        "name": "mBuildEffectInstignator",
+        "comment": "Used to sync and start build effect on buildings when created, but not after creation. Set's to true when creating a building, turns off in the construction effect finish play.\n[DavalliusA:Mon/01-04-2019] this is sett to null in default. If it's non null, we expect the build effects need to play.",
+        "type": "AActor*"
+      },
+      {
+        "name": "mDismantleEffectClassName",
+        "comment": "Name read from config",
+        "type": "FSoftClassPath"
+      },
+      {
+        "name": "mBuildEffectClassName",
+        "comment": "Name read from config",
+        "type": "FSoftClassPath"
+      },
+      {
+        "name": "mSkipBuildEffect",
+        "comment": "Skip the build effect.",
+        "type": "bool"
+      },
+      {
+        "name": "mBuildEffectSpeed",
+        "comment": "Build effect speed, a constant speed (distance over time) that the build effect should have, so bigger buildings take longer",
+        "type": "float"
+      },
+      {
+        "name": "mForceNetUpdateOnRegisterPlayer",
+        "comment": "Whether or not this building should use ForceNetUpdate() when a player registers/unregisters from it.",
+        "type": "bool"
+      },
+      {
+        "name": "mBuildEffectIsPlaying",
+        "comment": "Flag for whether the build effect is active",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsDismantled",
+        "comment": "Flag for whether this buildable is being dismantled",
+        "type": "uint8"
+      },
+      {
+        "name": "mPendingDismantleHighlighted",
+        "comment": "Flag to indicate whether the dismantle material should be active. Used to being able to activate the material when other effects end (like the build effect)",
+        "type": "uint8"
+      },
+      {
+        "name": "mHighlightParticleClassName",
+        "comment": "@todoGC mHighlight*** only needs to be in the space elevator and hub.\nName read from config",
+        "type": "FStringClassReference"
+      },
+      {
+        "name": "mHighlightParticleSystemTemplate",
+        "comment": "Particle system component",
+        "type": "classUParticleSystem*"
+      },
+      {
+        "name": "mHighlightParticleSystemComponent",
+        "comment": "Particle system component",
+        "type": "classUParticleSystemComponent*"
+      },
+      {
+        "name": "mDidFirstTimeUse",
+        "comment": "If this building should show highlight before first use, save when it has been shown",
+        "type": "bool"
+      },
+      {
+        "name": "mShouldShowHighlight",
+        "comment": "Should we show highlight when building this building",
+        "type": "bool"
+      },
+      {
+        "name": "mAllowCleranceSeparationEvenIfStackedOn",
+        "type": "bool"
+      },
+      {
+        "name": "mCachedBounds",
+        "comment": "Caching the extent for use later",
+        "type": "FBox"
+      },
+      {
+        "name": "mCameraDistanceSq",
+        "comment": "Squared distance to closest camera",
+        "type": "float"
+      },
+      {
+        "name": "mBuildingID",
+        "comment": "The building ID this belongs to.",
+        "type": "int32"
+      },
+      {
+        "name": "mCachedMainMeshes",
+        "comment": "The cached main mesh of this buildable\n@todoGC Do we still use this? Probably not, check with Ben.",
+        "type": "TArray<UMeshComponent*>"
+      },
+      {
+        "name": "mInteractWidgetClass",
+        "comment": "The widget that will present our UI.",
+        "type": "TSubclassOf<classUFGInteractWidget>"
+      },
+      {
+        "name": "mNumFactoryConnections",
+        "comment": "Caches the number of factory components for sanity checking",
+        "type": "uint8"
+      },
+      {
+        "name": "mNumPowerConnections",
+        "comment": "Caches the number of power components for sanity checking",
+        "type": "uint8"
+      },
+      {
+        "name": "mInteractingPlayers",
+        "comment": "Players interacting with this building",
+        "type": "TArray<classAFGCharacterPlayer*>"
+      },
+      {
+        "name": "mParticipatedInCleranceEncroachFrameCountDown",
+        "comment": "used to indicate a recent clearance overlap for feedback. Only handled and accessed by the build gun on the local machine",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsUseable",
+        "comment": "If you can interact with this buildable.",
+        "type": "uint8"
+      },
+      {
+        "name": "mReplicateDetails",
+        "comment": "If this buildable is replicating details, i.e. for the UI.",
+        "type": "uint8"
+      },
+      {
+        "name": "mHasBlueprintFactoryTick",
+        "comment": "if true, then blueprint has implemented Factory_ReceiveTick",
+        "type": "uint8"
+      },
+      {
+        "name": "mHasFactory_PeekOutput",
+        "comment": "if true, then blueprint has implemented Factory_PeekOutput",
+        "type": "uint8"
+      },
+      {
+        "name": "mHasFactory_GrabOutput",
+        "comment": "if true, then blueprint has implemented Factory_GrabOutput",
+        "type": "uint8"
+      },
+      {
+        "name": "mHasColorableComponents",
+        "type": "uint8"
+      },
+      {
+        "name": "mHasColorableComponentsDirty",
+        "comment": "make us update the value the first time",
+        "type": "uint8"
+      },
+      {
+        "name": "mNetConstructionID",
+        "comment": "ID given from server when constructed. Has not been assigned a value by server if 0.",
+        "type": "FNetConstructionID"
+      },
+      {
+        "name": "mBuiltWithRecipe",
+        "comment": "@todoGC Weak pointer here but need to go fishing in old saves.\nRecipe this building was built with, e.g. used for refunds and stats.",
+        "type": "TSubclassOf<classUFGRecipe>"
+      },
+      {
+        "name": "mBuildTimeStamp",
+        "comment": "Time when this building was built",
+        "type": "float"
+      },
+      {
+        "name": "mCachedShapeComponent",
+        "comment": "Caching the shape component once we have gotten it",
+        "type": "UShapeComponent*"
+      }
+    ]
+  }
+]

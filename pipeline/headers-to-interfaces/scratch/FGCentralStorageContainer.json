@@ -1,0 +1,31 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGCentralStorageContainer",
+    "category": "UCLASS",
+    "comment": "Storage container connected to the central storage interface.",
+    "extends": [
+      "AFGBuildableStorage"
+    ],
+    "methods": [
+      {
+        "name": "AFGCentralStorageContainer"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "AddToCentralStorageSubsystem",
+        "comment": "Recalled if the storage subsystem isn't created",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

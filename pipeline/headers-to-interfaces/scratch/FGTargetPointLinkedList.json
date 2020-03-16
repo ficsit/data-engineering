@@ -1,0 +1,119 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGTargetPointLinkedList",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UObject",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "UFGTargetPointLinkedList",
+        "comment": "Ctor"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "InsertItem",
+        "comment": "Add a new item in the end of the linked list",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveItem",
+        "comment": "Removes the desired element from the linked list",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCurrentTarget",
+        "comment": "Get the current target",
+        "returnType": "classAFGTargetPoint*"
+      },
+      {
+        "name": "SetCurrentTarget",
+        "comment": "Set the current target",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFirstTarget",
+        "comment": "Get the first target in linked list",
+        "returnType": "classAFGTargetPoint*"
+      },
+      {
+        "name": "GetLastTarget",
+        "comment": "Get the first target in linked list",
+        "returnType": "classAFGTargetPoint*"
+      },
+      {
+        "name": "SetPathVisibility",
+        "comment": "Sets visibility ( and collision ) status of all the targets in the linked list",
+        "returnType": "void"
+      },
+      {
+        "name": "SetNextTarget",
+        "comment": "Sets target in the linked list to the next available. Will loop",
+        "returnType": "void"
+      },
+      {
+        "name": "SetClosestPointAsTarget",
+        "comment": "Will go through the linked list and set the target node that is closest to the vehicles position as current target",
+        "returnType": "void"
+      },
+      {
+        "name": "ClearRecording",
+        "comment": "Clears the linked list and destroyes the targets",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mFirst",
+        "comment": "First node in linked list",
+        "type": "classAFGTargetPoint*"
+      },
+      {
+        "name": "mLast",
+        "comment": "Last node in linked list",
+        "type": "classAFGTargetPoint*"
+      },
+      {
+        "name": "mCurrentTarget",
+        "comment": "Current node",
+        "type": "classAFGTargetPoint*"
+      },
+      {
+        "name": "mMaxLength",
+        "comment": "Max length that the linked list can be",
+        "type": "int32"
+      }
+    ]
+  }
+]

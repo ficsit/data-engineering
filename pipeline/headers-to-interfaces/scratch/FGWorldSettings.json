@@ -1,0 +1,224 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGWorldSettings",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AWorldSettings",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGWorldSettings",
+        "comment": "Ctor"
+      },
+      {
+        "name": "GetBuildableSubsystem",
+        "comment": "Getter for buildablesubsystem",
+        "returnType": "classAFGBuildableSubsystem*"
+      },
+      {
+        "name": "GetFoundationSubsystem",
+        "comment": "Get the foundation subsystem.",
+        "returnType": "classAFGFoundationSubsystem*"
+      },
+      {
+        "name": "GetFoliageRemovalSubsystem",
+        "returnType": "classAFGFoliageRemovalSubsystem*"
+      },
+      {
+        "name": "BeginDestroy",
+        "comment": "Begin UObject interface",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckForErrors",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostEditChangeProperty",
+        "returnType": "void"
+      },
+      {
+        "name": "PostActorCreated",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoad",
+        "returnType": "void"
+      },
+      {
+        "name": "PreInitializeComponents",
+        "returnType": "void"
+      },
+      {
+        "name": "NotifyBeginPlay",
+        "comment": "Begin AWorldSettings interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetExponentialHeightFog",
+        "comment": "Get the exponential height fog for this map",
+        "returnType": "classAExponentialHeightFog*"
+      },
+      {
+        "name": "GetSkySphere",
+        "comment": "Get the sky sphere for this map",
+        "returnType": "classAFGSkySphere*"
+      },
+      {
+        "name": "GetLevelStartedAkEvent",
+        "comment": "Get the event to post when we start the level",
+        "returnType": "classUAkAudioEvent*"
+      },
+      {
+        "name": "GetDefaultSave",
+        "comment": "Save we will load by default when entering the map",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetStartingTimeOfDay",
+        "comment": "Get the default start time of the current time of day in hours",
+        "returnType": "float"
+      },
+      {
+        "name": "GetMinimapCaptureActor",
+        "comment": "Get the default start time of the current time of day in hours",
+        "returnType": "classAFGMinimapCaptureActor*"
+      },
+      {
+        "name": "UpdateWorldBounds",
+        "comment": "Update the world bounds",
+        "returnType": "void"
+      },
+      {
+        "name": "OnActorSpawned",
+        "comment": "Called whenever a actor is spawned in editor",
+        "returnType": "void"
+      },
+      {
+        "name": "HandleMapChanged",
+        "returnType": "void"
+      },
+      {
+        "name": "SpawnSubsystem",
+        "comment": "Helper to spawn subsystems.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mFogVolumes",
+        "comment": "@todo: Verify that this really is ALL volumes, if we stream one volume in, is it really added to the same array\nAll the fog volumes currently streamed in, sorted in ascending order of priority.",
+        "type": "TArray<classAFGAtmosphereVolume*>"
+      },
+      {
+        "name": "mAmbientVolumes",
+        "comment": "@todo: Verify that this really is ALL volumes, if we stream one volume in, is it really added to the same array\nAll the ambient volumes currently streamed in",
+        "type": "TArray<classAFGAmbientVolume*>"
+      },
+      {
+        "name": "mWaterVolumes",
+        "comment": "@todo: Verify that this really is ALL volumes, if we stream one volume in, is it really added to the same array\nAll the water volumes currently streamed in",
+        "type": "TArray<classAFGWaterVolume*>"
+      },
+      {
+        "name": "mDefaultHeightFogSettings",
+        "comment": "The default settings of the exponential height fog to apply",
+        "type": "FExponentialFogSettings"
+      },
+      {
+        "name": "mExponentialHeightFog",
+        "comment": "Set the height fog that's placed in the world here",
+        "type": "classAExponentialHeightFog*"
+      },
+      {
+        "name": "mSkySphere",
+        "comment": "Set the sky sphere that's placed in the world here",
+        "type": "classAFGSkySphere*"
+      },
+      {
+        "name": "mMinimapCaptureActor",
+        "comment": "The minimap capture actor of this level, might be null",
+        "type": "classAFGMinimapCaptureActor*"
+      },
+      {
+        "name": "mLevelStartedEvent",
+        "comment": "Different events for different levels, so they can start different playlists",
+        "type": "classUAkAudioEvent*"
+      },
+      {
+        "name": "mDefaultLoadSave",
+        "comment": "Save game that we should load by default when entering the map",
+        "type": "FString"
+      },
+      {
+        "name": "mStartTimeOfDay",
+        "comment": "Time of day to start the day (in hours)",
+        "type": "float"
+      },
+      {
+        "name": "mBuildableSubsystem",
+        "type": "classAFGBuildableSubsystem*"
+      },
+      {
+        "name": "mFoundationSubsystem",
+        "type": "classAFGFoundationSubsystem*"
+      },
+      {
+        "name": "mAudioVolumeSubsystem",
+        "type": "classAFGAudioVolumeSubsystem*"
+      },
+      {
+        "name": "mFoliageRemovalSubsystem",
+        "type": "classAFGFoliageRemovalSubsystem*"
+      },
+      {
+        "name": "mPreviewHour",
+        "comment": "Set the hour you want to preview here, 16.25 means 16h 15min",
+        "type": "float"
+      },
+      {
+        "name": "mActorSpawnedDelegateHandle",
+        "comment": "Used to get callbacks whenever a actor is spawned, so we can populate mExponentialHeightFog",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mOnMapChangedDelegateHandle",
+        "comment": "For updateing time of day when map changes in editor",
+        "type": "FDelegateHandle"
+      }
+    ]
+  }
+]

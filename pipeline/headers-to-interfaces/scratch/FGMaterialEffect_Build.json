@@ -1,0 +1,61 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGMaterialEffect_Build",
+    "category": "UCLASS",
+    "comment": "Material effect for building.",
+    "extends": [
+      "UFGMaterialEffectComponent"
+    ],
+    "methods": [
+      {
+        "name": "UFGMaterialEffect_Build"
+      },
+      {
+        "name": "SetInstigator",
+        "comment": "Call these before RegisterComponent. If component is registered these have no effect.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetCost",
+        "returnType": "void"
+      },
+      {
+        "name": "SetSpeed",
+        "returnType": "void"
+      },
+      {
+        "name": "GetInstigator",
+        "comment": "Who build the thing.",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "GetCost",
+        "comment": "How much did the thing cost.",
+        "returnType": "TArray<FItemAmount>"
+      },
+      {
+        "name": "GetSpeed",
+        "comment": "How fast is the thing built. [cm/s]",
+        "returnType": "float"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mInstigator",
+        "comment": "Who built this",
+        "type": "classAActor*"
+      },
+      {
+        "name": "mCost",
+        "comment": "How much did this cost",
+        "type": "TArray<FItemAmount>"
+      },
+      {
+        "name": "mSpeed",
+        "comment": "The speed of this effect.",
+        "type": "float"
+      }
+    ]
+  }
+]

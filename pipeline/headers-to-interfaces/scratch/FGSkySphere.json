@@ -1,0 +1,264 @@
+[
+  {
+    "kind": "class",
+    "name": "FSkySphereSettings",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "HorizonColor",
+        "comment": "Color of the horizon after blending the skysphere curve with all volumes curves",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "ZenithColor",
+        "comment": "Color of the zenith after blending the skysphere curve with all volumes curves",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "CloudColor",
+        "comment": "Color of the clouds after blending the skysphere curve with all volumes curves",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "SunLightColor",
+        "comment": "Color of the clouds after blending the skysphere curve with all volumes curves",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "SunIntensity",
+        "comment": "Color of the clouds after blending the skysphere curve with all volumes curves",
+        "type": "float"
+      },
+      {
+        "name": "MoonLightColor",
+        "comment": "Color of the clouds after blending the skysphere curve with all volumes curves",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "MoonIntensity",
+        "comment": "Color of the clouds after blending the skysphere curve with all volumes curves",
+        "type": "float"
+      },
+      {
+        "name": "CloudOpacity",
+        "comment": "opacity of the clouds after blending the skysphere curve with all volumes curves",
+        "type": "float"
+      },
+      {
+        "name": "OverrideHorizonColor",
+        "type": "bool"
+      },
+      {
+        "name": "OverrideZenithColor",
+        "type": "bool"
+      },
+      {
+        "name": "OverrideCloudColor",
+        "type": "bool"
+      },
+      {
+        "name": "OverrideCloudOpacity",
+        "type": "bool"
+      },
+      {
+        "name": "OverrideSunLightColor",
+        "type": "bool"
+      },
+      {
+        "name": "OverrideSunIntensity",
+        "type": "bool"
+      },
+      {
+        "name": "OverrideMoonLightColor",
+        "type": "bool"
+      },
+      {
+        "name": "OverrideMoonIntensity",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGSkySphere",
+    "category": "UCLASS",
+    "extends": [
+      "AActor",
+      "ICurvePanningInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGSkySphere",
+        "comment": "ctor"
+      },
+      {
+        "name": "PostActorCreated",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoad",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginDestroy",
+        "returnType": "void"
+      },
+      {
+        "name": "PostEditChangeChainProperty",
+        "returnType": "void"
+      },
+      {
+        "name": "GetViewMinInput",
+        "comment": "Begin ICurvePanningInterface",
+        "returnType": "float"
+      },
+      {
+        "name": "GetViewMaxInput",
+        "returnType": "float"
+      },
+      {
+        "name": "SetViewRange",
+        "returnType": "void"
+      },
+      {
+        "name": "ApplySkySphereSettings",
+        "comment": "End ICurvePanningInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdatePreview",
+        "comment": "Update the preview of the skyesphere in the editor",
+        "returnType": "void"
+      },
+      {
+        "name": "GetColorCurveValue",
+        "comment": "Expose getting a value from a FRuntimeCurveLinearColor to bp",
+        "returnType": "FLinearColor"
+      },
+      {
+        "name": "GetFloatCurveValue",
+        "comment": "Expose getting a value from a FRuntimeFloatCurve to bp",
+        "returnType": "float"
+      },
+      {
+        "name": "GetSkySphereSettings",
+        "comment": "Get the settings for the sky sphere",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupPreviewDelegate",
+        "comment": "Setup so that we get calls to UpdatePreview whenever time of day is updated in the editor",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSunLightColorCurve",
+        "comment": "How the sunlight changes during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mSunIntensity",
+        "comment": "How does the suns intensity change during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mSunRotationPitch",
+        "comment": "Unlogical property, basically tells how the suns location in it's curve should change during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mSunLightShaftOcclusionCurve",
+        "comment": "Changes how the lightshafts changes during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mMoonLightColorCurve",
+        "comment": "How the moonlight changes during the NIGHT",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mMoonIntensity",
+        "comment": "How does the moons intensity change during the NIGHT",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mMoonRotationPitch",
+        "comment": "Unlogical property, basically tells how the moons location in it's curve should change during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mMoonLightShaftOcclusionCurve",
+        "comment": "Changes how the lightshafts changes during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mSkyLightIntensity",
+        "comment": "How does the sky light intensity change during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mOcclusionTintColor",
+        "comment": "How does the occlusion tint intensity change during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mHorizonColorCurve",
+        "comment": "How the color of the horizon changes during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mZenithColorCurve",
+        "comment": "How the color of the zenith changes during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mCloudColorCurve",
+        "comment": "How the color of clouds zenith changes during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mCloudOpacity",
+        "comment": "How the opakeness of the clouds change during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mStarBrightness",
+        "comment": "How does the stars brightness change during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mSkyLightColor",
+        "comment": "How does the ambient light color change during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mSunFogMultiplier",
+        "comment": "How does the sun multiplier change during the day in the atmospheric fog",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mPreviewTime",
+        "comment": "How the sunlight changes during the day",
+        "type": "float"
+      },
+      {
+        "name": "mTimeOfDayUpdated",
+        "comment": "In editor, receive updates for whenever the time of day is updated",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mViewMinInput",
+        "comment": "For ICurvePanningInterface",
+        "type": "float"
+      },
+      {
+        "name": "mViewMaxInput",
+        "type": "float"
+      }
+    ]
+  }
+]

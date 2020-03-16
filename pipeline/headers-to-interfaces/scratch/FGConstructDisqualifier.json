@@ -1,0 +1,546 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGConstructDisqualifier",
+    "category": "UCLASS",
+    "comment": "This specifies the reason why the player could not build.",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "UFGConstructDisqualifier"
+      },
+      {
+        "name": "GetDisqualifyingText",
+        "comment": "Getter for mDisfualifyingText",
+        "returnType": "FText"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mDisqfualifyingText",
+        "comment": "Text displayed to the player when they couldn't build",
+        "type": "FText"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDInitializing",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDInitializing"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDInvalidAimLocation",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDInvalidAimLocation"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDUnaffordable",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDUnaffordable"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDInvalidPlacement",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDInvalidPlacement"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDEncroachingClearance",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDEncroachingClearance"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDEncroachingPlayer",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDEncroachingPlayer"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDInvalidFloor",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDInvalidFloor"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDUniqueBuilding",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDUniqueBuilding"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDMustSnap",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDMustSnap"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDShouldntSnap",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDShouldntSnap"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDNeedsResourceNode",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDNeedsResourceNode"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDResourceNodeIsOccuped",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDResourceNodeIsOccuped"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDResourceIsTooShallow",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDResourceIsTooShallow"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDNeedsWaterVolume",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDNeedsWaterVolume"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDResourceDeposit",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDResourceDeposit"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDWireSnap",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDWireSnap"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDWireTooLong",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDWireTooLong"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDWireTooManyConnections",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDWireTooManyConnections"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDBeltMustSnap",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDBeltMustSnap"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDConveyorTooLong",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDConveyorTooLong"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDConveyorTooShort",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDConveyorTooShort"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDConveyorTooSteep",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDConveyorTooSteep"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDConveyorInvalidShape",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDConveyorInvalidShape"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDConveyorAttachmentTooSharpTurn",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDConveyorAttachmentTooSharpTurn"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDMustHaveRailRoadTrack",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDMustHaveRailRoadTrack"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDMustAttachToTrainPlatform",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDMustAttachToTrainPlatform"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDTrackTooLong",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDTrackTooLong"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDTrackTooShort",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDTrackTooShort"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDTrackTooSteep",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDTrackTooSteep"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDTrackTrunToSharp",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDTrackTrunToSharp"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDPipeTooShort",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDPipeTooShort"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDPipeTooLong",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDPipeTooLong"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDPipeAttachmentTooSharpTurn",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDPipeAttachmentTooSharpTurn"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDPipeMustSnap",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDPipeMustSnap"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDPipeFluidTypeMismatch",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDPipeFluidTypeMismatch"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDPipeInvalidShape",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDPipeInvalidShape"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGCDPipeNoPathFound",
+    "category": "UCLASS",
+    "extends": [
+      "UFGConstructDisqualifier"
+    ],
+    "methods": [
+      {
+        "name": "UFGCDPipeNoPathFound"
+      }
+    ],
+    "properties": []
+  }
+]

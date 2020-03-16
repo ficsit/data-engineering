@@ -1,0 +1,40 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGPowerConnectionComponent",
+    "category": "UCLASS",
+    "comment": "Special type of circuit connection that provides a connection to the power grid.",
+    "extends": [
+      "UFGCircuitConnectionComponent"
+    ],
+    "methods": [
+      {
+        "name": "SetPowerInfo",
+        "comment": "Set the power info for this connection.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPowerInfo",
+        "comment": "Get the power info from which to get the consumption/production.",
+        "returnType": "classUFGPowerInfoComponent*"
+      },
+      {
+        "name": "GetPowerCircuit",
+        "comment": "@return The circuit this is connected to; nullptr if not connected.\n@note This can be changed/removed at any time so do not save copies to it.",
+        "returnType": "classUFGPowerCircuit*"
+      },
+      {
+        "name": "OnCircuitIDChanged",
+        "comment": "Begin UFGCircuitConnectionComponent interface",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mPowerInfo",
+        "comment": "The power info for this connection.\nShould be unique for each connection or a race condition can occur for setting the circuit ID on the power info.",
+        "type": "classUFGPowerInfoComponent*"
+      }
+    ]
+  }
+]

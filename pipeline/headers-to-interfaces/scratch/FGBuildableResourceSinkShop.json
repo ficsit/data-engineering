@@ -1,0 +1,57 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableResourceSinkShop",
+    "category": "UCLASS",
+    "comment": "Building where you can buy schematics with coupons",
+    "extends": [
+      "AFGBuildableFactory"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableResourceSinkShop"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetShopInventory",
+        "comment": "Get the inventory that holds the purchases we made in the resource sink shop",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "CanInventoryFitPlannedPurchase",
+        "comment": "Can the inventory fit the items that are received when purchasing the given schematics",
+        "returnType": "bool"
+      },
+      {
+        "name": "PurchaseResourceSinkSchematics",
+        "comment": "Purchase the given schematics. If any of the schematics give items they are placed in the shop inventory\nreturn true if we could afford all given schematics and non of them are already purchased",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mShopInventory",
+        "comment": "The inventory that holds the purchases we made in the resource sink shop",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mShopInventoryDefaultSize",
+        "comment": "The size of the inventory that holds the purchases we made in the resource sink shop",
+        "type": "int32"
+      },
+      {
+        "name": "mResourceSinkSubsystem",
+        "comment": "Cached resource sink subsystem",
+        "type": "classAFGResourceSinkSubsystem*"
+      }
+    ]
+  }
+]

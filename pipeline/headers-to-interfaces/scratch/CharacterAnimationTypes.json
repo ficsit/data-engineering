@@ -1,0 +1,71 @@
+[
+  {
+    "kind": "enum",
+    "name": "EArmEquipment",
+    "entries": [
+      {
+        "name": "AE_None"
+      },
+      {
+        "name": "AE_ChainSaw"
+      },
+      {
+        "name": "AE_RebarGun"
+      },
+      {
+        "name": "AE_BuildGun"
+      },
+      {
+        "name": "AE_Nobelisk"
+      },
+      {
+        "name": "AE_ResourceScanner"
+      },
+      {
+        "name": "AE_Rifle"
+      },
+      {
+        "name": "AE_ColorGun"
+      },
+      {
+        "name": "AE_OneHandEquipment"
+      },
+      {
+        "name": "AE_Consumables"
+      },
+      {
+        "name": "AE_ObjectScanner"
+      },
+      {
+        "name": "AE_PortableMiner"
+      },
+      {
+        "name": "AE_StunSpear"
+      },
+      {
+        "name": "AE_ShockShank"
+      },
+      {
+        "name": "AE_ResourceCollector"
+      },
+      {
+        "name": "AE_Generic1Hand"
+      },
+      {
+        "name": "AE_Generic2Hand"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "EBackEquipment",
+    "entries": [
+      {
+        "name": "BE_None"
+      },
+      {
+        "name": "BE_Jetpack"
+      }
+    ]
+  }
+]

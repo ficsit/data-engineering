@@ -1,0 +1,74 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableCheatFluidSink",
+    "category": "UCLASS",
+    "comment": "Base for cheat building that sinks an infinite amount of fluid.",
+    "extends": [
+      "AFGBuildableFactory",
+      "IFGFluidIntegrantInterface"
+    ],
+    "methods": [
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFluidBox",
+        "comment": "Begin FluidIntegrant Interface",
+        "returnType": "FFluidBox*"
+      },
+      {
+        "name": "GetPipeConnections",
+        "returnType": "TArray<classUFGPipeConnectionComponent*>"
+      },
+      {
+        "name": "GetMaxContent",
+        "comment": "Get the maximum fluid content this building can hold. [m3]",
+        "returnType": "float"
+      },
+      {
+        "name": "Factory_CollectInput_Implementation",
+        "comment": "Begin AFGBuildableFactory interface",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSinkRate",
+        "comment": "Sink rate of the fluid, 0 means sink everything. [m3/s]",
+        "type": "float"
+      },
+      {
+        "name": "mMeasuredSinkRate",
+        "comment": "Actual sink rate of the fluid. [m3/s]",
+        "type": "float"
+      },
+      {
+        "name": "mMinimumContent",
+        "comment": "Sink only if the content is above this threshold.",
+        "type": "float"
+      },
+      {
+        "name": "mMinimumPressure",
+        "comment": "Sink only if the pressure is above this threshold.",
+        "type": "float"
+      },
+      {
+        "name": "mInputConnection",
+        "comment": "Cached input component from blueprint.",
+        "type": "classUFGPipeConnectionComponent*"
+      },
+      {
+        "name": "mFluidBox",
+        "comment": "Simulation data for this fluid integrant.",
+        "type": "FFluidBox"
+      }
+    ]
+  }
+]

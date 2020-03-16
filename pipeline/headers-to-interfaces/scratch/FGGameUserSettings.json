@@ -1,0 +1,557 @@
+[
+  {
+    "kind": "class",
+    "name": "FAudioVolumeMap",
+    "category": "USTRUCT",
+    "comment": "Name and value combination for the options with audio",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "Name",
+        "comment": "Name of the RTPC that this maps to",
+        "type": "FString"
+      },
+      {
+        "name": "Value",
+        "comment": "The stored value of the RTPC",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FOptionUpdateDelegateData",
+    "category": "USTRUCT",
+    "comment": "Holds delegates to be called when a specific option is changed",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "OptionUpdatedDelegates",
+        "type": "TArray<FOptionUpdated>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGGameUserSettings",
+    "category": "UCLASS",
+    "extends": [
+      "UGameUserSettings"
+    ],
+    "methods": [
+      {
+        "name": "ApplyNonResolutionSettings",
+        "comment": "~Begin GameUserSettings interface",
+        "returnType": "void"
+      },
+      {
+        "name": "SetToDefaults",
+        "comment": "Only video settings",
+        "returnType": "void"
+      },
+      {
+        "name": "ResetToCurrentSettings",
+        "comment": "Only video settings",
+        "returnType": "void"
+      },
+      {
+        "name": "ValidateSettings",
+        "returnType": "void"
+      },
+      {
+        "name": "LoadSettings",
+        "returnType": "void"
+      },
+      {
+        "name": "SetAudioToDefaults",
+        "comment": "Reset audio settings to default settings",
+        "returnType": "void"
+      },
+      {
+        "name": "ResetAudioToCurrentSettings",
+        "comment": "Reset audio settings to current settings",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFGGameUserSettings",
+        "comment": "Returns the game local machine settings (resolution, windowing mode, scalability settings, etc...)",
+        "returnType": "UFGGameUserSettings*"
+      },
+      {
+        "name": "SetAudioVolume",
+        "comment": "Set the audio volume for a specified channel",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAudioVolume",
+        "comment": "Gets the audio volumes for all channels",
+        "returnType": "float"
+      },
+      {
+        "name": "SetArachnophobiaMode",
+        "comment": "Set Arachnophobia Mode",
+        "returnType": "void"
+      },
+      {
+        "name": "GetArachnophobiaMode",
+        "comment": "Get Arachnophobia Mode",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetInvertedLook",
+        "comment": "Set Inverty Y mode",
+        "returnType": "void"
+      },
+      {
+        "name": "GetInvertedLook",
+        "comment": "Get Inverty Y mode",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetHoldToSprint",
+        "comment": "Set HoldToSprint",
+        "returnType": "void"
+      },
+      {
+        "name": "GetHoldToSprint",
+        "comment": "Get HoldToSprint",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetAutoSortInventory",
+        "comment": "Set AutoSortInventory",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAutoSortInventory",
+        "comment": "Get whether inventory should auto sort",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetFOV",
+        "comment": "Set FOV",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFOV",
+        "comment": "Get FOV",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetMotionBlurEnabled",
+        "comment": "Sets the user setting for motion blur",
+        "returnType": "void"
+      },
+      {
+        "name": "IsMotionBlurEnabled",
+        "comment": "Returns the user setting for motion blur",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsMotionBlurDirty",
+        "comment": "Checks if the motion blur user setting is different from current system setting",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetHZBOEnabled",
+        "returnType": "void"
+      },
+      {
+        "name": "IsHZBOEnabled",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsHZBODirty",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDefaultQualitySetting",
+        "comment": "Returns the default quality setting value",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetNeworkQuality",
+        "comment": "Sets the user setting for network quality",
+        "returnType": "void"
+      },
+      {
+        "name": "GetNeworkQuality",
+        "comment": "Returns the user setting for network quality",
+        "returnType": "int32"
+      },
+      {
+        "name": "RefreshNetworkQualityValues",
+        "comment": "Update network values in config files",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateIsRestartRequired",
+        "comment": "Update if a restart is required for setttings to take full effect",
+        "returnType": "void"
+      },
+      {
+        "name": "IsUsingCustomQualitySetting",
+        "comment": "Is the provided setting using a custom quality setting",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsPostProcessUsingCustomSettings",
+        "comment": "Is post process using a custom setting",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetPostProcessingQuality",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdatePostProcessSettings",
+        "comment": "Update the custom post process settings like motion blur etc.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetKeyMappings",
+        "comment": "Get custom bindings",
+        "returnType": "TArray<structFFGKeyMapping>"
+      },
+      {
+        "name": "AddCustomActionMapping",
+        "comment": "Add a new custom mapping",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveAllCustomActionMappings",
+        "comment": "Clears array of custom mappings",
+        "returnType": "void"
+      },
+      {
+        "name": "GetHeadBobScale",
+        "comment": "Get mHeadBobScale",
+        "returnType": "float"
+      },
+      {
+        "name": "SetHeadBobScale",
+        "comment": "Set mHeadBobScale",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAnalyticsDisabled",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetAnalyticsDisabled",
+        "comment": "Updates the GameUserSettings for analytics and updates the analytics to respond to this change.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRequireRestart",
+        "comment": "Get if we require restart for the setting to apply",
+        "returnType": "bool"
+      },
+      {
+        "name": "ClearRequireRestart",
+        "comment": "Clear that we require restart for setting to apply",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAutosaveInterval",
+        "comment": "Gets the autosave interval",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetAutosaveInterval",
+        "comment": "Updates the autosave interval",
+        "returnType": "void"
+      },
+      {
+        "name": "ApplyAutosaveInterval",
+        "returnType": "void"
+      },
+      {
+        "name": "GetShowBreakNotification",
+        "comment": "Gets if we should show the take break notification",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetShowBreakNotification",
+        "comment": "Sets if we should show the take break notification",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBoolOptionValue",
+        "comment": "Get the option value for a bool",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetBoolOptionValue",
+        "comment": "Set the option value for a bool",
+        "returnType": "void"
+      },
+      {
+        "name": "GetIntOptionValue",
+        "comment": "Get the option value for a integer",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetIntOptionValue",
+        "comment": "Set the option value for a integer",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFloatOptionValue",
+        "comment": "Get the option value for a float",
+        "returnType": "float"
+      },
+      {
+        "name": "SetFloatOptionValue",
+        "comment": "Set the option value for a float",
+        "returnType": "void"
+      },
+      {
+        "name": "SetCvarValue",
+        "comment": "Update the console variable with a new int value",
+        "returnType": "void"
+      },
+      {
+        "name": "SetCvarValue",
+        "comment": "Update the console variable with a new float value",
+        "returnType": "void"
+      },
+      {
+        "name": "SetDefaultIntOptionValue",
+        "comment": "Setup the default value for an int option, registers a cvar if it doesn't already exists",
+        "returnType": "void"
+      },
+      {
+        "name": "SetDefaultFloatOptionValue",
+        "comment": "Setup the default value for an float option, registers a cvar if it doesn't already exists",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupDefaultOptionsValues",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterConsoleVariable",
+        "comment": "Register an int console variable",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterConsoleVariable",
+        "comment": "Register a float console variable",
+        "returnType": "void"
+      },
+      {
+        "name": "ApplyPendingChanges",
+        "comment": "Apply settings that have been changed and are pending",
+        "returnType": "void"
+      },
+      {
+        "name": "ApplyRestartRequiredChanges",
+        "comment": "Apply changes that require a restart, only do this when exiting the game",
+        "returnType": "void"
+      },
+      {
+        "name": "CVarSinkHandler",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateCvars",
+        "comment": "CVar sink. Update the internal values so they are the same as the console variables",
+        "returnType": "void"
+      },
+      {
+        "name": "SubscribeToDynamicOptionUpdate",
+        "comment": "Subscribe to changes for this option. The given delegate will be called when cvar is updated",
+        "returnType": "void"
+      },
+      {
+        "name": "UnsubscribeToDynamicOptionUpdate",
+        "comment": "Unsubscribe to changes for this option",
+        "returnType": "void"
+      },
+      {
+        "name": "UnsubscribeToAllDynamicOptionUpdate",
+        "comment": "Unsubscribe to all changes for options this object have subscribed to",
+        "returnType": "void"
+      },
+      {
+        "name": "DumpDynamicOptionsSettings",
+        "comment": "Debug",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateFoliageQualityChanges",
+        "returnType": "void"
+      },
+      {
+        "name": "ValidateCVar",
+        "comment": "Can we use this cvar? trims and checks for empty string",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetOptionValue",
+        "returnType": "void"
+      },
+      {
+        "name": "SetOptionValue",
+        "returnType": "void"
+      },
+      {
+        "name": "BroadcastDynamicOptionUpdate",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "OnArachnophobiaModeChangedDelegate",
+        "comment": "Called when arachnophobia mode is changed",
+        "type": "FArachnophobiaModeChangedDelegate"
+      },
+      {
+        "name": "mAudioVolumes",
+        "comment": "Audio volumes for the options",
+        "type": "TArray<FAudioVolumeMap>"
+      },
+      {
+        "name": "mFOV",
+        "comment": "Sets Field of View",
+        "type": "int32"
+      },
+      {
+        "name": "mMotionBlurQuality",
+        "comment": "Motion blur quality. 0 = off",
+        "type": "int32"
+      },
+      {
+        "name": "mHZBOEnabled",
+        "comment": "Is HZBO enabled",
+        "type": "bool"
+      },
+      {
+        "name": "mCustomKeyMappings",
+        "comment": "List of remapped key Mappings",
+        "type": "TArray<FFGKeyMapping>"
+      },
+      {
+        "name": "mNetworkQuality",
+        "comment": "The current network quality setting",
+        "type": "int32"
+      },
+      {
+        "name": "mLastValidatedNetworkQuality",
+        "comment": "Used to detect if network quality is dirty",
+        "type": "int32"
+      },
+      {
+        "name": "mHeadBobScale",
+        "comment": "Scale of headbobbing",
+        "type": "float"
+      },
+      {
+        "name": "mIsArachnophobiaMode",
+        "comment": "When true, arachnid-like creatures are replaced with cats.",
+        "type": "uint8"
+      },
+      {
+        "name": "mInvertY",
+        "comment": "Sets the Look-axis to inverted",
+        "type": "uint8"
+      },
+      {
+        "name": "mHoldToSprint",
+        "comment": "True means old-school hold down key to sprint, false = toggle sprint by pressing",
+        "type": "uint8"
+      },
+      {
+        "name": "mAutoSortInventory",
+        "type": "uint8"
+      },
+      {
+        "name": "mAnalyticsDisabled",
+        "comment": "Whether the user has opted out of analytics or not",
+        "type": "uint8"
+      },
+      {
+        "name": "mRestartRequired",
+        "comment": "If true, then we require a restart to properly apply the settings",
+        "type": "uint8"
+      },
+      {
+        "name": "mAutosaveInterval",
+        "comment": "How often in seconds to autosave",
+        "type": "int32"
+      },
+      {
+        "name": "mShowBreakNotification",
+        "comment": "Whether or not we should show the take break notification",
+        "type": "bool"
+      },
+      {
+        "name": "OptionUpdatedDelegate",
+        "comment": "Delegate used for broadcasting updates to subscribed options",
+        "type": "FOptionUpdated"
+      },
+      {
+        "name": "mIntValues",
+        "comment": "The changed values that we want to save to file",
+        "type": "TMap<FString,int32>"
+      },
+      {
+        "name": "mFloatValues",
+        "type": "TMap<FString,float>"
+      },
+      {
+        "name": "mPendingIntValueChanges",
+        "comment": "What we should apply when we save",
+        "type": "TMap<FString,int32>"
+      },
+      {
+        "name": "mPendingFloatValueChanges",
+        "type": "TMap<FString,float>"
+      },
+      {
+        "name": "mRestartRequiredIntValueChanges",
+        "comment": "What we should apply when we exit the game. These options requires a restart to be changed",
+        "type": "TMap<FString,int32>"
+      },
+      {
+        "name": "mRestartRequiredFloatValueChanges",
+        "type": "TMap<FString,float>"
+      },
+      {
+        "name": "mDefaultIntValues",
+        "comment": "The default option values for reset",
+        "type": "TMap<FString,int32>"
+      },
+      {
+        "name": "mDefaultFloatValues",
+        "type": "TMap<FString,float>"
+      },
+      {
+        "name": "SubscribedOptions",
+        "comment": "All options that have been subscribed to and the delegates that will be called when the relevant option updates",
+        "type": "TMap<FString,FOptionUpdateDelegateData>"
+      },
+      {
+        "name": "mCVarSink",
+        "comment": "CVar sink that let use listen for changes in CVars and update or internal values accordingly",
+        "type": "staticFAutoConsoleVariableSink"
+      },
+      {
+        "name": "MOTION_BLUR_QUALITY",
+        "comment": "const variables",
+        "type": "staticconstFString"
+      },
+      {
+        "name": "HZBO_SETTING",
+        "type": "staticconstFString"
+      },
+      {
+        "name": "NETWORK_QUALITY_CONFIG_MAPPINGS",
+        "type": "staticconstTMap<FString,int32>"
+      }
+    ]
+  }
+]

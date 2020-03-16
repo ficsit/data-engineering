@@ -1,0 +1,39 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableDecor",
+    "category": "UCLASS",
+    "comment": "Base for static non-interactable decor.",
+    "extends": [
+      "AFGBuildable"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication.",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGBuildableDecor",
+        "comment": "Ctor"
+      },
+      {
+        "name": "GetDecorMesh",
+        "comment": "Get the mesh of the decor",
+        "returnType": "classUStaticMesh*"
+      },
+      {
+        "name": "SetDecorMesh",
+        "comment": "Set the mesh for this decor, should not be called after it has been properly replicated",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mDecorMesh",
+        "comment": "The mesh we want to have for the decor",
+        "type": "classUStaticMesh*"
+      }
+    ]
+  }
+]

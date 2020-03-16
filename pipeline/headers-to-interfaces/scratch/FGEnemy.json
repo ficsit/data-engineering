@@ -1,0 +1,67 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGEnemy",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGCreature"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGEnemy",
+        "comment": "ctor"
+      },
+      {
+        "name": "GetAttackLocation",
+        "comment": "Returns the location we want to originate an attack from",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetCurrentAttackTask",
+        "comment": "Returns the current attack task ( can be nullptr )",
+        "returnType": "classUFGGameplayTask_Attack*"
+      },
+      {
+        "name": "PerformCustomRadialAttack",
+        "comment": "Hook for us to be able to go to blueprrint in order to do the custom radial attack",
+        "returnType": "void"
+      },
+      {
+        "name": "SetCurrentAggroTarget",
+        "comment": "Sets aggro target",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCurrentAggroTarget",
+        "comment": "Get aggrotarget",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "OnCurrentAggroTargetReplicated",
+        "comment": "Called on both server and client when aggro target has changed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_CurrentAggroTarget",
+        "comment": "Replicating mCurrentAggroTarget",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mCurrentAttack",
+        "comment": "The current attack that the pawn is issuing @todoai: Verify if clients need this replicated or if the task get a activate on clients too",
+        "type": "classUFGGameplayTask_Attack*"
+      },
+      {
+        "name": "mCurrentAggroTarget",
+        "type": "AActor*"
+      }
+    ]
+  }
+]

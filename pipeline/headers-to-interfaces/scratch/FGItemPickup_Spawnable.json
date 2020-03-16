@@ -1,0 +1,109 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGItemPickup_Spawnable",
+    "category": "UCLASS",
+    "extends": [
+      "AFGItemPickup"
+    ],
+    "methods": [
+      {
+        "name": "AFGItemPickup_Spawnable"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "~ Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "comment": "~ Begin IFGSaveInterface",
+        "returnType": "bool"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "UpdateUseState_Implementation",
+        "comment": "~ Begin IFGUseableInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "StopIsLookedAt_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "CreateItemDrop",
+        "comment": "@copydoc AFGItemPickup_Spawnable::CreateItemDrop",
+        "returnType": "classAFGItemPickup_Spawnable*"
+      },
+      {
+        "name": "AddItemToWorldStackAtLocation",
+        "comment": "ill drop item at location if there are no stack fonud on location that have enough space available",
+        "returnType": "classAFGItemPickup_Spawnable*"
+      },
+      {
+        "name": "AddItemToWorldStackAtLocation",
+        "returnType": "classAFGItemPickup_Spawnable*"
+      },
+      {
+        "name": "CreateItemDropsInCylinder",
+        "comment": "@copydoc AFGItemPickup_Spawnable::CreateItemDropsInCylinder",
+        "returnType": "void"
+      },
+      {
+        "name": "SpawnInventoryCrate",
+        "comment": "@param spawnLocation - the location where we want to spawn the item drop in\n@param crateClass - crate class to use, if null then we take the default one in FactorySettings.",
+        "returnType": "void"
+      },
+      {
+        "name": "CreateItemDrop",
+        "comment": "\n @return a valid item drop if everything went well",
+        "returnType": "classAFGItemPickup_Spawnable*"
+      },
+      {
+        "name": "CreateItemDropsInCylinder",
+        "comment": "\n @return a valid item drop if everything went well",
+        "returnType": "void"
+      },
+      {
+        "name": "FindGroundLocationAndRotation",
+        "comment": "@copydoc AFGItemPickup_Spawnable::FindGroundLocationAndRotation",
+        "returnType": "void"
+      },
+      {
+        "name": "FindGroundLocationAndRotation",
+        "comment": "\n @return a valid item drop if everything went well",
+        "returnType": "void"
+      },
+      {
+        "name": "FindGroundLocationInfrontOfActor",
+        "comment": "\n @return a valid item drop if everything went well",
+        "returnType": "void"
+      },
+      {
+        "name": "PlaySpawnEffect",
+        "comment": "Place to play spawn effect",
+        "returnType": "void"
+      },
+      {
+        "name": "GenerateSpheresInCapsule",
+        "comment": "Generates spheres in a capsule around the radius",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mMeshComponent",
+        "comment": "The mesh to represent the item",
+        "type": "classUStaticMeshComponent*"
+      },
+      {
+        "name": "mPlaySpawnEffect",
+        "comment": "Should we play a spawn effect?",
+        "type": "bool"
+      }
+    ]
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGUnlockSchematic",
+    "category": "UCLASS",
+    "comment": "Unlocks/Purchases the specified schematics",
+    "extends": [
+      "UFGUnlock"
+    ],
+    "methods": [
+      {
+        "name": "Apply",
+        "comment": "Begin FGUnlock interface",
+        "returnType": "void"
+      },
+      {
+        "name": "AddSchematics",
+        "comment": "Add schematics to the array of schematics that this unlock gives the player",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSchematicsToUnlock",
+        "comment": "Returns the schematic that this schematic unlocks",
+        "returnType": "TArray<TSubclassOf<classUFGSchematic>>"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSchematics",
+        "comment": "The schematics you get from this unlock",
+        "type": "TArray<TSubclassOf<classUFGSchematic>>"
+      }
+    ]
+  }
+]

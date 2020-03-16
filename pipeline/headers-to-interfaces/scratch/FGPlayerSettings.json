@@ -1,0 +1,25 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGPlayerSettings",
+    "category": "UCLASS",
+    "extends": [
+      "UDeveloperSettings"
+    ],
+    "methods": [],
+    "properties": [
+      {
+        "name": "mPlayerColors",
+        "type": "TArray<FSlotData>"
+      },
+      {
+        "name": "mDefaultPlayerInventorySlots",
+        "type": "int32"
+      },
+      {
+        "name": "mDefaultArmEquipmentSlots",
+        "type": "int32"
+      }
+    ]
+  }
+]

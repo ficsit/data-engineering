@@ -1,0 +1,260 @@
+[
+  {
+    "kind": "class",
+    "name": "FRemovedInstance",
+    "category": "USTRUCT",
+    "comment": "Data about removed instances\nWe can't send the id of the instance to clients, as that requires us to maintain a commandbuffer with all done commands to be able to get the same id's a server/client",
+    "extends": [
+      "FFastArraySerializerItem"
+    ],
+    "methods": [
+      {
+        "name": "FRemovedInstance"
+      },
+      {
+        "name": "FRemovedInstance"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Location",
+        "comment": "Stored in localspace. Compressed location to get the id of the item, @todo: Toy around with different FVector_NetQuantize and see what works best",
+        "type": "FVector_NetQuantize10"
+      },
+      {
+        "name": "Transform",
+        "comment": "Stored in localspace",
+        "type": "FTransform"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FRemovedInstanceArray",
+    "category": "USTRUCT",
+    "comment": "Wrapper around the Items struct to enable custom delta serialization (we send a part of the data to the client every frame instead of sending it all in one frame)",
+    "extends": [
+      "FFastArraySerializer"
+    ],
+    "methods": [
+      {
+        "name": "Num",
+        "comment": "Begin TArray emulation",
+        "returnType": "int32"
+      },
+      {
+        "name": "operator[]",
+        "returnType": "FRemovedInstance&"
+      },
+      {
+        "name": "operator[]",
+        "returnType": "FRemovedInstance&"
+      },
+      {
+        "name": "RemoveAt",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveAtSwap",
+        "returnType": "void"
+      },
+      {
+        "name": "Empty",
+        "returnType": "void"
+      },
+      {
+        "name": "NetDeltaSerialize",
+        "comment": "This does the delta sending of data",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "FoliageRemover",
+        "comment": "Used to invoke the callback directly on the foliage removal instead of on FRemovedInstance\n@todogc: Investigate if we can move this into a TWeakObjectPointer to reduce strain on gc",
+        "type": "classAFGFoliageRemoval*"
+      },
+      {
+        "name": "Items",
+        "comment": "All the items that has been removed from the AFGFoliageRemoval",
+        "type": "TArray<FRemovedInstance>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGFoliageRemoval",
+    "category": "UCLASS",
+    "comment": "\t};\n};",
+    "extends": [
+      "AActor",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin built in networking functions",
+        "returnType": "void"
+      },
+      {
+        "name": "IsNetRelevantFor",
+        "returnType": "bool"
+      },
+      {
+        "name": "AFGFoliageRemoval",
+        "comment": "Ctor"
+      },
+      {
+        "name": "PostActorCreated",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "Apply",
+        "comment": "Remove all foliage that this foliage removal has removed",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveInstance",
+        "comment": "@param localSpace - if true, then the foliageTransform is sent in localspace\n@param instanceId - optional, if this is set (not -1), then we can faster lookup the instance, sadly, it's not stable, so we won't be able to rely only on these",
+        "returnType": "bool"
+      },
+      {
+        "name": "RemoveInstances",
+        "comment": "removes multiple foliage instances at once",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetMeshComponent",
+        "comment": "Accessor to get mesh component",
+        "returnType": "classUHierarchicalInstancedStaticMeshComponent*"
+      },
+      {
+        "name": "RemovedInstances_ItemAdded",
+        "comment": "Begin callbacks from FRemovedInstanceArray when items are replicated",
+        "returnType": "void"
+      },
+      {
+        "name": "RemovedInstances_ItemRemoved",
+        "returnType": "void"
+      },
+      {
+        "name": "RemovedInstances_ItemChanged",
+        "returnType": "void"
+      },
+      {
+        "name": "RemovedInstances_ReplicationFrameDone",
+        "returnType": "void"
+      },
+      {
+        "name": "GetInstanceClosestTo",
+        "comment": "\n @param out_adjustedLocation - this will be the location the closest foliage was located at, only changed if we find a instance (ie, return != INDEX_NONE)",
+        "returnType": "int32"
+      },
+      {
+        "name": "BuildRemovalList",
+        "comment": "Builds a nice indice list that can be used with InstanceStaticMesh::RemoveInstances from a less packed TArray<FRemovedInstance> list.",
+        "returnType": "void"
+      },
+      {
+        "name": "LevelStreamedIn",
+        "comment": "\n @param meshComponent - the new mesh that's associated with this foliage remover (must be valid)",
+        "returnType": "void"
+      },
+      {
+        "name": "MakeSureDataIsValid",
+        "comment": "Discard old invalid data from our mRemovedInstance, use sparingly as it iterates through all our data and verifies that it's correct, also dirties all items",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterWithSubsystem",
+        "comment": "Register with the foliage removal subsystem, retries if no one is created yet",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveFromSubsystem",
+        "comment": "Unregister ourself from the foliage removal subsystem",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mRemovedInstances",
+        "comment": "Instances to remove, has custom \"ReplicatedUsing\", so we get a notify for each instance replicated",
+        "type": "FRemovedInstanceArray"
+      },
+      {
+        "name": "mClientInstancesToRemove",
+        "comment": "CLIENT: The instances that should be removed this frame on client (populated every frame with the id's of the instances that has been replicated)",
+        "type": "TArray<FRemovedInstance>"
+      },
+      {
+        "name": "mMeshComponent",
+        "comment": "This needs to be a UPROPERTY as it will become null:ed when the level this actor is associated with is streamed out",
+        "type": "classUHierarchicalInstancedStaticMeshComponent*"
+      },
+      {
+        "name": "mLevelName",
+        "comment": "The name of the level that this actor removes foliage from, so that the foliage system can find it",
+        "type": "FName"
+      },
+      {
+        "name": "mFoliageTypeName",
+        "comment": "The name of mesh component to use the level",
+        "type": "FName"
+      },
+      {
+        "name": "mLevelBounds",
+        "comment": "ServerOnly: The bounds of the level we have foliage in (@todo: Can we remove this savegame tag?)",
+        "type": "FBox"
+      },
+      {
+        "name": "mIsLoaded",
+        "comment": "Set to true when loaded so that we know that we need to go through and verify data in mRemovedInstances",
+        "type": "uint8"
+      },
+      {
+        "name": "mMarkedByFoliageSubSystem",
+        "comment": "Flag to indicate whether this removal actor is allowed to run apply. Needs to be setup by FoliageSubSystem first.",
+        "type": "uint8"
+      }
+    ]
+  }
+]

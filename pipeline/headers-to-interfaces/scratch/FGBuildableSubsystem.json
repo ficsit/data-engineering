@@ -1,0 +1,599 @@
+[
+  {
+    "kind": "class",
+    "name": "FNetConstructionID",
+    "category": "USTRUCT",
+    "comment": "Used to track constructed (spawned) buildables matched with their holograms between client and server",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FNetConstructionID"
+      },
+      {
+        "name": "ToString",
+        "returnType": "FString"
+      },
+      {
+        "name": "HasCompleteACK",
+        "comment": "Check whether this net construction ID has has a complete ACK by travel from client -> server -> client",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "NetPlayerID",
+        "type": "int8"
+      },
+      {
+        "name": "Server_ID",
+        "type": "uint16"
+      },
+      {
+        "name": "Client_ID",
+        "type": "uint16"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FDistanceBasedTickRate",
+    "category": "USTRUCT",
+    "comment": "Distances where we switch tick rate",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "Distance",
+        "type": "float"
+      },
+      {
+        "name": "TickRate",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FBuildableBucket",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "BuildableClass",
+        "type": "TSubclassOf<classAFGBuildable>"
+      },
+      {
+        "name": "Buildables",
+        "type": "TArray<classAFGBuildable*>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FConveyorBucket",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FConveyorBucket"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Conveyors",
+        "type": "TArray<classAFGBuildableConveyorBase*>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FBuildableGroupTimeData",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FBuildableGroupTimeData"
+      },
+      {
+        "name": "GetTimeAsDouble",
+        "comment": "Returns the combined time data as a double",
+        "returnType": "double"
+      }
+    ],
+    "properties": [
+      {
+        "name": "RealSeconds",
+        "type": "int32"
+      },
+      {
+        "name": "RealPartialSeconds",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildableSubsystem",
+    "category": "UCLASS",
+    "comment": "Subsystem responsible for spawning and maintaining buildables.\nThis enables and disables ticks on the buildable.",
+    "extends": [
+      "AFGSubsystem",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableSubsystem"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "TickFactory",
+        "comment": "Calls Factory_Tick on all factory buildings",
+        "returnType": "void"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the buildable subsystem in the current world, can be nullptr, e.g. on game ending (destroy) or game startup.",
+        "returnType": "AFGBuildableSubsystem*"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the buildable subsystem in the current world, can be nullptr, e.g. on game ending (destroy) or game startup.",
+        "returnType": "AFGBuildableSubsystem*"
+      },
+      {
+        "name": "BeginSpawnBuildable",
+        "comment": "\n @param inClass - The class we want to spawn (need to be valid).\n@param inTransform - where we want to spawn the buildable.",
+        "returnType": "classAFGBuildable*"
+      },
+      {
+        "name": "AddBuildable",
+        "comment": "Adds a buildable to the buildable array.",
+        "returnType": "void"
+      },
+      {
+        "name": "AddConveyor",
+        "comment": "Adds a conveyor to the conveyor buckets",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConnectedConveyorBelt",
+        "comment": "Get the connected conveyor belt from the given connection.\nCan return a nullptr if we have no belt connected or if the connected belt have bucket index assigned to -1",
+        "returnType": "classAFGBuildableConveyorBase*"
+      },
+      {
+        "name": "RemoveBuildable",
+        "comment": "Remove the buildable from the subsystem, this is called by the buildable when destroyed.",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveConveyor",
+        "comment": "Remove the conveyor from the subsystem",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveConveyorFromBucket",
+        "comment": "Remove a conveyor from the bucket it's assigned to\nIf it's the only conveyor in the bucket the bucket will be removed",
+        "returnType": "void"
+      },
+      {
+        "name": "RearrangeConveyorBuckets",
+        "comment": "Rearrange the conveyor buckets after we emptied a bucket",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveAndSplitConveyorBucket",
+        "comment": "Splits up a conveyor bucket into two buckets\nEmpties the current bucket and adds all conveyors again into two buckets",
+        "returnType": "void"
+      },
+      {
+        "name": "IsServerSubSystem",
+        "comment": "Returns true if this subsystem has been created on a server instance",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetTypedBuildable",
+        "comment": "Get all buildables of the supplied type.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetTypedBuildable",
+        "comment": "Get all buildables of the supplied type.",
+        "returnType": "void"
+      },
+      {
+        "name": "ReplayBuildingEffects",
+        "comment": "Starts replaying of build effects in the build order of the buildings.",
+        "returnType": "void"
+      },
+      {
+        "name": "HasMaterialInstanceManagerForMaterialInterface",
+        "comment": "Check if a mesh component has a material instance manager matching its material",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetMaterialInstanceManagerForMaterialInterface",
+        "comment": "Attempts to get the correct colored material for a supplied factory building material.\nIf the material does not exist in the material map, a new dynamic instance is created, filled, and returned.",
+        "returnType": "classUFGFactoryMaterialInstanceManager*"
+      },
+      {
+        "name": "SetColorSlotPrimary",
+        "returnType": "void"
+      },
+      {
+        "name": "SetColorSlotSecondary",
+        "returnType": "void"
+      },
+      {
+        "name": "GetColorSlotPrimary",
+        "returnType": "FColor"
+      },
+      {
+        "name": "GetColorSlotSecondary",
+        "returnType": "FColor"
+      },
+      {
+        "name": "GetColorSlotPrimaryLinear",
+        "returnType": "FLinearColor"
+      },
+      {
+        "name": "GetColorSlotSecondaryLinear",
+        "returnType": "FLinearColor"
+      },
+      {
+        "name": "GetNbColorSlotsExposedToPlayers",
+        "returnType": "uint8"
+      },
+      {
+        "name": "DisplayDebug",
+        "comment": "Debug",
+        "returnType": "void"
+      },
+      {
+        "name": "DebugEnableInstancing",
+        "returnType": "void"
+      },
+      {
+        "name": "DebugGetFactoryActors",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFactoryStatID",
+        "comment": "Returns the factory stat ID of the object used for the profiling tool.",
+        "returnType": "TStatId"
+      },
+      {
+        "name": "GetFactoryDefaultMaterial",
+        "returnType": "UMaterial*"
+      },
+      {
+        "name": "GetNewNetConstructionID",
+        "comment": "Generates a new NetConstructionID for buildables. Can be used from client to identify buildings that were constructed from server.",
+        "returnType": "FNetConstructionID"
+      },
+      {
+        "name": "GetNewNetConstructionID",
+        "comment": "Populates a given client construction ID with server side ACKs",
+        "returnType": "void"
+      },
+      {
+        "name": "SpawnPendingConstructionHologram",
+        "returnType": "void"
+      },
+      {
+        "name": "AddPendingConstructionHologram",
+        "returnType": "void"
+      },
+      {
+        "name": "RemovePendingConstructionHologram",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLocalPlayerController",
+        "comment": "Find and return a local player",
+        "returnType": "classAFGPlayerController*"
+      },
+      {
+        "name": "GetDistanceSqToBoundingBox",
+        "comment": "Distance from a location to closest point of buildables AABB",
+        "returnType": "float"
+      },
+      {
+        "name": "RegisterFactoryTickFunction",
+        "comment": "Register/unregister our factory tick function",
+        "returnType": "void"
+      },
+      {
+        "name": "CreateFactoryStatID",
+        "comment": "Create a stat for the buildable",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateReplayEffects",
+        "returnType": "void"
+      },
+      {
+        "name": "AddBuildableMeshInstances",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateBuildableMaterialInstances",
+        "comment": "Called on a buildable when it is added to the subsystem to update its materials to utilize pooled DynamicMaterialInstances if they exist for the present factory materials\nIf no FactoryMaterialInstanceManager can be matched with the present colorable factory materials on the mesh components on the buildable, a new manager object is created and applied",
+        "returnType": "void"
+      },
+      {
+        "name": "TickFactoryActors",
+        "comment": "Tick all factory buildings, conveyors and conveyor attachments",
+        "returnType": "void"
+      },
+      {
+        "name": "DumpFixedFactoryTickValues",
+        "comment": "Print all fixed factory tick information",
+        "returnType": "void"
+      },
+      {
+        "name": "GetColoredInstanceManager",
+        "comment": "Used by UFGColoredInstanceMeshProxy to get an instance if it's not already been assigned",
+        "returnType": "classUFGColoredInstanceManager*"
+      },
+      {
+        "name": "IsBasedOn",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mDistanceConsideredClose",
+        "comment": "Distance used when calculating if a location is near a base",
+        "type": "float"
+      },
+      {
+        "name": "mNumFactoriesNeededForCloseCheck",
+        "comment": "How many factories need to be within the close range for it to count as if a given location is near a base",
+        "type": "int32"
+      },
+      {
+        "name": "BuildableConstructedGlobalDelegate",
+        "comment": "Broadcast when a buildable or decor has been constructed. Regardless of who built it",
+        "type": "FOnBuildableConstructedGlobal"
+      },
+      {
+        "name": "mLastServerNetConstructionID",
+        "comment": "last used net construction ID. Used to identify pending constructions over network. Will increase ID every constructed building.",
+        "type": "FNetConstructionID"
+      },
+      {
+        "name": "mBuildables",
+        "comment": "List of all buildables.",
+        "type": "TArray<classAFGBuildable*>"
+      },
+      {
+        "name": "mFactoryBuildings",
+        "comment": "Begin variables for parallelization\nThis contains all factory tickable buildings except conveyors and splitter/mergers",
+        "type": "TArray<classAFGBuildable*>"
+      },
+      {
+        "name": "mFactoryBuildingGroups",
+        "comment": "Groupings of factory buildings for reduced thread count parallelization",
+        "type": "TArray<TArray<classAFGBuildable*>>"
+      },
+      {
+        "name": "mFactoryBuildingGroupsDirty",
+        "comment": "Track if we need to rebuild the factory buildings groupings",
+        "type": "bool"
+      },
+      {
+        "name": "mConveyorBuckets",
+        "comment": "A bucket can contain a single conveyor belt, a section or a looped section\nAn exception exists for belts that connect to buildables with 2 outputs, those are added to a separate buckets",
+        "type": "TArray<FConveyorBucket*>"
+      },
+      {
+        "name": "mSerialConveyorGroup",
+        "comment": "All conveyors that are not safe to execute in parallel\nAt the time of writing this is used only for conveyors connecting to buildings with multiple outputs",
+        "type": "TArray<AFGBuildableConveyorBase*>"
+      },
+      {
+        "name": "mConveyorBucketGroups",
+        "comment": "Groupings of conveyor buckets",
+        "type": "TArray<TArray<FConveyorBucket*>>"
+      },
+      {
+        "name": "mConveyorBucketGroupsDirty",
+        "comment": "Track whether or not we need to repopulate our conveyor groups",
+        "type": "bool"
+      },
+      {
+        "name": "mConveyorAttachments",
+        "comment": "All conveyor attachments",
+        "type": "TArray<classAFGBuildableConveyorAttachment*>"
+      },
+      {
+        "name": "mConveyorAttachmentGroups",
+        "comment": "Grouping of conveyor attachments for reduced thread count parallelization",
+        "type": "TArray<TArray<classAFGBuildableConveyorAttachment*>>"
+      },
+      {
+        "name": "mConveyorAttachmentGroupsDirty",
+        "comment": "Track if we need to rebuild the attachments groupings",
+        "type": "bool"
+      },
+      {
+        "name": "mBuildableInstancesActor",
+        "comment": "Hierarchical instances for the factory buildings.",
+        "type": "AActor*"
+      },
+      {
+        "name": "mBuildableMeshInstances",
+        "type": "TMap<classUStaticMesh*,classUProxyHierarchicalInstancedStaticMeshComponent*>"
+      },
+      {
+        "name": "mColoredInstances",
+        "comment": "\t/",
+        "type": "TMap<classUStaticMesh*,classUFGColoredInstanceManager*>"
+      },
+      {
+        "name": "mColorSlotsAreDirty",
+        "type": "bool"
+      },
+      {
+        "name": "mColorSlotsPrimary",
+        "type": "FColor"
+      },
+      {
+        "name": "mColorSlotsSecondary",
+        "type": "FColor"
+      },
+      {
+        "name": "mColorSlotDirty",
+        "type": "uint8"
+      },
+      {
+        "name": "mNbPlayerExposedSlots",
+        "type": "uint8"
+      },
+      {
+        "name": "mFactoryColoredMaterialMap",
+        "comment": "Map of all Factory materials that are referenced by Factory buildings. Maps the materials name (and all dynamic instance mat names) to a manager class holding corresponding colored instances\nThis is also used for non-colored materials, for example, the conveyor belt materials so that the same instance can be applied to many different belts",
+        "type": "TMap<FString,classUFGFactoryMaterialInstanceManager*>"
+      },
+      {
+        "name": "mUseFixedFactoryTick",
+        "comment": "Begin Fixed Factory Tick Config Parameters",
+        "type": "bool"
+      },
+      {
+        "name": "mMinFactoryTickRate",
+        "type": "float"
+      },
+      {
+        "name": "mMaxFactoryTickRate",
+        "type": "float"
+      },
+      {
+        "name": "mMaxTickSubsteps",
+        "type": "int"
+      },
+      {
+        "name": "mMinFactoryTick",
+        "comment": "Minimum factory tick refers to the maximum amount of time that is allowed to pass per factory tick. So minimum here is actually a larger number than max\nA little confusing, but this way it can match its respective tickRate var by name: mMinFactoryTickRate, which appears in the config.",
+        "type": "float"
+      },
+      {
+        "name": "mMaxFactoryTick",
+        "comment": "Maximum factory tick refers to the minimum amount of time that is allowed to pass to execute a factory tick. Maximum here is actually a smaller number than min\nAgain, a little confusing, but this way it can match its respective tickRate var by name: mMaxFactoryTickRate, which appears in the config.",
+        "type": "float"
+      },
+      {
+        "name": "mFixedTickDebt",
+        "comment": "How much time did we not utilize the previous Factory update?",
+        "type": "float"
+      },
+      {
+        "name": "mMaxConsideredBuildables",
+        "comment": "Maximum number of buildables that we consider their optimization level during the same frame",
+        "type": "int32"
+      },
+      {
+        "name": "mLastConsideredBuildableIdx",
+        "comment": "Last buildable that was considered",
+        "type": "int32"
+      },
+      {
+        "name": "mDisabledBuildableTickDistance",
+        "comment": "Distance we disable buildables ticking on",
+        "type": "float"
+      },
+      {
+        "name": "mDistanceBasedTickRate",
+        "comment": "Information about what distances we change the tick rate on",
+        "type": "TArray<FDistanceBasedTickRate>"
+      },
+      {
+        "name": "mFactoryOptimizationEnabled",
+        "comment": "Is factory optimization ( tick control ) active",
+        "type": "bool"
+      },
+      {
+        "name": "mReplayEffecTimeDilation",
+        "comment": "How much time can differ between each build effect",
+        "type": "float"
+      },
+      {
+        "name": "mReplayEffectTimerDefault",
+        "comment": "How much time between each build effect when replaying the whole factory",
+        "type": "float"
+      },
+      {
+        "name": "mReplayEffectTimer",
+        "comment": "Timer used for the replay effect",
+        "type": "float"
+      },
+      {
+        "name": "mReplayEffectArray",
+        "comment": "Array with all the buildings that should replay their effect",
+        "type": "TArray<AFGBuildable*>"
+      },
+      {
+        "name": "mDefaultFactoryMaterial",
+        "comment": "used for comparing and finding materials of factory meshes",
+        "type": "UMaterial*"
+      },
+      {
+        "name": "mFactoryTickFunction",
+        "comment": "@todorefactor With meta = ( ShowOnlyInnerProperties ) it does not show and PrimaryActorTick seems to be all custom properties, so I moved to another category but could not expand.\nControls if we should receive Factory_Tick and how frequent.",
+        "type": "FFactoryTickFunction"
+      },
+      {
+        "name": "mLastParallelTickGroupSize",
+        "comment": "Tracking variable to see if our parallel tick group size has changed",
+        "type": "int32"
+      },
+      {
+        "name": "mPendingConstructionHolograms",
+        "comment": "Holograms simulated on client to indicate any pending constructions from server",
+        "type": "TMap<int16,classAFGHologram*>"
+      }
+    ]
+  }
+]

@@ -1,0 +1,105 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildablePipePart",
+    "category": "UCLASS",
+    "comment": "Base class for variable length pipe supports",
+    "extends": [
+      "AFGBuildableFactory"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildablePipePart"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "SetSupportLength",
+        "comment": "Set the pole's height.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupConnectionComponent",
+        "comment": "Sets the connection component to be at correct height and registers",
+        "returnType": "void"
+      },
+      {
+        "name": "OnConstruction",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "SupportMeshName",
+        "type": "staticconstFName"
+      },
+      {
+        "name": "mLength",
+        "comment": "This supports length.",
+        "type": "float"
+      },
+      {
+        "name": "mCanStack",
+        "comment": "Can this support stack.",
+        "type": "bool"
+      },
+      {
+        "name": "mStackHeight",
+        "comment": "Height between two stacked supports excluding the poles height.",
+        "type": "float"
+      },
+      {
+        "name": "mSupportComponentDefaultMesh",
+        "comment": "The component we want to use with the support",
+        "type": "classUFGColoredInstanceMeshProxy*"
+      },
+      {
+        "name": "mConnection0",
+        "comment": "Connection component used\nMOST BE SET FROM CONSTRUCTION SCRIPT OR IT WILL BE NULL!",
+        "type": "UFGPipeConnectionComponentBase*"
+      },
+      {
+        "name": "mSupportMesh",
+        "comment": "Static mesh to use when rendering",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mUseStaticHeight",
+        "comment": "Should the stack height only be calculated using the mStackHeight?",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildablePipeHyperPart",
+    "category": "UCLASS",
+    "extends": [
+      "AFGBuildablePipePart",
+      "IFGPipeHyperInterface"
+    ],
+    "methods": [
+      {
+        "name": "GetPipeProgressOfConnection_Implementation",
+        "comment": "Begin FGHyperTube Interface",
+        "returnType": "float"
+      },
+      {
+        "name": "OnPipeMove_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPipeEnter_Implementation",
+        "returnType": "bool"
+      }
+    ],
+    "properties": []
+  }
+]

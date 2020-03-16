@@ -1,0 +1,480 @@
+[
+  {
+    "kind": "class",
+    "name": "FHologramHelpers",
+    "comment": "Shared magic between holograms",
+    "extends": [],
+    "methods": [
+      {
+        "name": "CreateClearanceComponent",
+        "comment": "\n @param attachTo\t\t\tRoot that we want to attach the created component to\n@param fromBox\t\t\tBox used for setting size of clearance component",
+        "returnType": "classUStaticMeshComponent*"
+      },
+      {
+        "name": "CreateConnectionRepresentation",
+        "comment": "Creates the connection mesh for a connection component",
+        "returnType": "classUStaticMeshComponent*"
+      },
+      {
+        "name": "CalcPoleHeight",
+        "comment": "Calculate a poles height given a hit result and the poles location.",
+        "returnType": "float"
+      },
+      {
+        "name": "CalcPoleHeightAndHorisontalOffset",
+        "comment": "Calculate a poles height given a hit result and the poles location while also calculating the poles horizontal offset angle from the rays forward direction",
+        "returnType": "float"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "FSplineUtils",
+    "extends": [],
+    "methods": [
+      {
+        "name": "CalcArcTangentMagnitude",
+        "comment": "@param radius\tRadius of the circle the arc is part of.\n@return\t\t\tThe magnitude of the tangents of the two points making up the arc.",
+        "returnType": "float"
+      },
+      {
+        "name": "CalcAutoCurveSpline",
+        "comment": "\n @param startPoint\t\tStart point in the arc.\n@param endPoint\t\t\tEnd point in the arc.",
+        "returnType": "void"
+      },
+      {
+        "name": "CalcTangentRatioAtSplit",
+        "comment": "Calculate how much of the tangent to keep in from of the split [0,1] and how much to keep at the end (1 - front) to preserve the spline.",
+        "returnType": "float"
+      },
+      {
+        "name": "BuildStraightSpline2D",
+        "comment": "Check if the point between to spline points are straight enough.",
+        "returnType": "bool"
+      },
+      {
+        "name": "BuildStraightSpline3D",
+        "comment": "Check if the point between to spline points are straight enough.",
+        "returnType": "bool"
+      },
+      {
+        "name": "BuildTangentBasedSpline3D",
+        "comment": "Check if the point between to spline points are straight enough.",
+        "returnType": "bool"
+      },
+      {
+        "name": "BuildBendStraightBendSpline3D",
+        "comment": "@param endPos\t\tWhere to end the spline.\n@param endForward\tWhere the end tangent is facing.",
+        "returnType": "bool"
+      },
+      {
+        "name": "BuildBendStraightBendSpline2D",
+        "returnType": "bool"
+      },
+      {
+        "name": "BuildBendHorizontalBendVerticalBendDefinedSpline",
+        "comment": "@param endForward\t\t\tThe forward at the final point\n@param horizontalFirst\tSpecify if the curve from the start point moves horizontally first or vertically first",
+        "returnType": "bool"
+      },
+      {
+        "name": "BuildPathDataDefinedSpline",
+        "comment": "\n @param  pathNodes - Array of all path nodes returned from pathing AStar",
+        "returnType": "bool"
+      },
+      {
+        "name": "BuildCurveSpline",
+        "comment": "\n @return false if the radius requirement could not be satisfied.",
+        "returnType": "bool"
+      },
+      {
+        "name": "CalcBendDirections3D",
+        "comment": "Internal helpers for building routing the splines.",
+        "returnType": "void"
+      },
+      {
+        "name": "CalcBendDirections2D",
+        "returnType": "void"
+      },
+      {
+        "name": "CalcBendAngles3D",
+        "returnType": "void"
+      },
+      {
+        "name": "CalcBendAngles2D",
+        "returnType": "void"
+      },
+      {
+        "name": "CalcStraightTangentMagnitude",
+        "returnType": "float"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "FSplineBuilder",
+    "comment": "Small util for building splines.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FSplineBuilder"
+      },
+      {
+        "name": "Start",
+        "comment": "Begin with calling Start, this clears the points array and sets up the first point.",
+        "returnType": "void"
+      },
+      {
+        "name": "AddSegment",
+        "comment": "Append a segment to the spline.",
+        "returnType": "void"
+      },
+      {
+        "name": "InsertSegmentAfterIndex",
+        "comment": "Append a segment to the spline at the given index",
+        "returnType": "void"
+      },
+      {
+        "name": "ModifySegment",
+        "comment": "Modify the last placed segment.",
+        "returnType": "void"
+      },
+      {
+        "name": "ModifySegment",
+        "comment": "Modify the placed segment with the given index (needs at  lest a start and a segment added before)",
+        "returnType": "void"
+      },
+      {
+        "name": "IsValidIndex",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetSegmentRef",
+        "returnType": "FSplinePointData&"
+      },
+      {
+        "name": "RemoveSegment",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "SplineData",
+        "type": "TArray<FSplinePointData>&"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FHologramPathingPoint",
+    "comment": "Struct for holding Grid Cell data. Each points location and all of its connections\nEach AStar node will have one of these to define it",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FHologramPathingPoint"
+      },
+      {
+        "name": "FHologramPathingPoint"
+      }
+    ],
+    "properties": [
+      {
+        "name": "WorldLocation",
+        "comment": "This point in world space",
+        "type": "FVector"
+      },
+      {
+        "name": "IntWorldLocation",
+        "comment": "WorldLocation used for comparisons to avoid floating point errors\nThis may not be needed, but Id rather be cautionary than try to solve why path finding is returning borked results because of floats",
+        "type": "FIntVector"
+      },
+      {
+        "name": "IsColliding",
+        "comment": "Does this point overlap (its bounds) with any obstructing object? This is used to mark a point as traversal disallowed",
+        "type": "bool"
+      },
+      {
+        "name": "GridIndex",
+        "comment": "This points grid index",
+        "type": "FVector"
+      },
+      {
+        "name": "Grid",
+        "comment": "Reference to the grid this point resides in",
+        "type": "structFHologramPathingGrid*"
+      },
+      {
+        "name": "Connections",
+        "comment": "Array of connecting Grid Indexes",
+        "type": "TArray<FHologramPathingPoint*>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FHologramPathingGrid",
+    "comment": "@todo - There are unused / unnecessary variables in here that come from changing the way the pathing system works so it could use a clean up pass",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FHologramPathingGrid",
+        "comment": "Default Constructor"
+      },
+      {
+        "name": "FHologramPathingGrid",
+        "comment": "@param endLocation - Dragging Conveyor to location\n@param gridCellSize - size in world space of one grid cell"
+      },
+      {
+        "name": "InitializeGridPoints",
+        "comment": "Creates all Grid Node points",
+        "returnType": "void"
+      },
+      {
+        "name": "GetHologramPath",
+        "comment": "Perform actual path find from start point to end point",
+        "returnType": "EHologramGraphAStarResult"
+      },
+      {
+        "name": "CalculateGridNodeCollision",
+        "comment": "Run a collision check for all grid spaces to see if they are valid or if they overlap with collision",
+        "returnType": "void"
+      },
+      {
+        "name": "GetWorldSpaceOfGridIndex",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetPathPointForWorldLocation",
+        "returnType": "FHologramPathingPoint&"
+      },
+      {
+        "name": "IsValidGridIndex",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanConstructGridFrom",
+        "comment": "Static helper for determining if two points in world space and their forward vectors\ncan be used to generate a path finding grid. The normals dot products must be 0,1, or -1 ( perpendicular or parallel )",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "PATH_GRID_CELL_SIZE",
+        "comment": "Grid size for path finding. Uses the same size as the snap grid but putting it here for clarity as well",
+        "type": "staticconstint32"
+      },
+      {
+        "name": "HALF_PATH_GRID_CELL_SIZE",
+        "comment": "Helper constexpr to get half cell size",
+        "type": "staticconstexprfloat"
+      },
+      {
+        "name": "MAX_LOCATION_VARIANCE",
+        "comment": "Tolerance to allow differing location component values between start and end points to be acceptable for grid construction",
+        "type": "staticconstint32"
+      },
+      {
+        "name": "GridTransform",
+        "comment": "Transform for the grid layout",
+        "type": "FTransform"
+      },
+      {
+        "name": "HologramOwner",
+        "comment": "Hologram reference owning this grid",
+        "type": "AFGHologram*"
+      },
+      {
+        "name": "WorldRef",
+        "comment": "World reference ( used for collision queries and debug drawing )",
+        "type": "UWorld*"
+      },
+      {
+        "name": "GridCenterLocation",
+        "comment": "World Location of the Grid Center",
+        "type": "FVector"
+      },
+      {
+        "name": "GridOriginIndex",
+        "comment": "\t\t\t\t|_/_________>\n\t\t\tO[0,0,0]\t\t  X[N,0,0]",
+        "type": "FVector"
+      },
+      {
+        "name": "GridBoundsExtent",
+        "comment": "Grid bounds extent",
+        "type": "FVector"
+      },
+      {
+        "name": "GridDimensions",
+        "comment": "Dimensions of the grid",
+        "type": "FVector"
+      },
+      {
+        "name": "GridCellSize",
+        "comment": "World space size of each individual cube making up the AStar grid space\n@todo - This is redundant, because of the fixed nature of this system this is a constant PATH_GRID_CELL_SIZE. Remove all instances of this and replace",
+        "type": "int32"
+      },
+      {
+        "name": "AllowDiagonalHorizontal",
+        "comment": "Allow Diagonal horizontal traversal through nodes?",
+        "type": "bool"
+      },
+      {
+        "name": "StartPointNormal",
+        "comment": "Start attach point normal in world space",
+        "type": "FVector"
+      },
+      {
+        "name": "EndPointNormal",
+        "comment": "End attach point normal in world space",
+        "type": "FVector"
+      },
+      {
+        "name": "StartIndex",
+        "comment": "Grid Index of start node",
+        "type": "FVector"
+      },
+      {
+        "name": "EndIndex",
+        "comment": "Grid Index of end node",
+        "type": "FVector"
+      },
+      {
+        "name": "GridNodes",
+        "comment": "3D array or all points comprising this grid",
+        "type": "TArray<TArray<TArray<structFHologramPathingPoint>>>"
+      },
+      {
+        "name": "DebugActor",
+        "comment": "Used for drawing debug visuals",
+        "type": "AActor*"
+      },
+      {
+        "name": "GridTranslationOffset",
+        "comment": "Grid Origin offset ( Translation from Center to grid location (0,0,0)",
+        "type": "FVector"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FHologramAStarNode",
+    "comment": "Nodes comprising the 3D grid used for the A\n pathfinding",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FHologramAStarNode"
+      },
+      {
+        "name": "FHologramAStarNode",
+        "comment": "Default Constructor"
+      },
+      {
+        "name": "FHologramAStarNode",
+        "comment": "Constructor with grid point\n@param pathingPoint - The pathing point this astar node represents"
+      },
+      {
+        "name": "FHologramAStarNode",
+        "comment": "Constructor with A\n node - Utilized and needed for copy construction called from GraphAStar\n@param pathingNode - A\n pathing node to copy"
+      },
+      {
+        "name": "operator==",
+        "comment": "Node Comparisons",
+        "returnType": "bool"
+      },
+      {
+        "name": "operator!=",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetTypeHash",
+        "comment": "Provide hashing for this type so it can be used as a key in TMap.",
+        "returnType": "uint32"
+      }
+    ],
+    "properties": [
+      {
+        "name": "HologramPathingPoint",
+        "comment": "Reference to the pathing point that resides in a Hologram pathing grid",
+        "type": "FHologramPathingPoint*"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FHolgramAStarHelper",
+    "comment": "Implemented as specified in Epic's GraphAStar.h\nHence the spelling of \"Neighbour\". What did an English guy write all your code epic?",
+    "extends": [],
+    "methods": [
+      {
+        "name": "GetNeighbourCount",
+        "comment": "@return number of neighbours the NodeRef has",
+        "returnType": "int32"
+      },
+      {
+        "name": "IsValidRef",
+        "comment": "@return is this a valid node reference?",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetNeighbour",
+        "comment": "@return neighbour reference",
+        "returnType": "FHologramAStarNode"
+      },
+      {
+        "name": "GetDirectionNormal",
+        "comment": "@return the normal of the direction between the two nodeRefs",
+        "returnType": "FVector"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "FHologramAStarFilter",
+    "comment": "@todo - Heuristic and core graph code need another implementation and fairly large clean up pass. But now that I know its MOSTLY working\n\tIt should definitely be done since this seems to be a good way to go for some situations.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FHologramAStarFilter"
+      },
+      {
+        "name": "GetHeuristicScale",
+        "comment": "Used as GetHeuristicCost's multiplier.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetHeuristicCost",
+        "comment": "Estimate of cost from startNodeRef to endNodeRef.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetDirectionChangeCost",
+        "comment": "\n\t@todo - This should be moved out of its own function call along with refactoring the AStarGraph which atm is mostly just copied from\n\t\tEpics implementation. Instead the HologramAStarGraph should treat this as part of the heuristic with out special case calling",
+        "returnType": "float"
+      },
+      {
+        "name": "GetTraversalCost",
+        "comment": "Real cost of traveling from startNodeRef directly to endNodeRef",
+        "returnType": "float"
+      },
+      {
+        "name": "IsTraversalAllowed",
+        "comment": "Whether traversing given edge is allowed.",
+        "returnType": "bool"
+      },
+      {
+        "name": "WantsPartialSolution",
+        "comment": "Whether to accept solutions that do not reach the goal.",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "AcceptsPartialSolution",
+        "comment": "true if a partial solution is valid; false if we only want a path if the goal is reachable.",
+        "type": "bool"
+      }
+    ]
+  }
+]

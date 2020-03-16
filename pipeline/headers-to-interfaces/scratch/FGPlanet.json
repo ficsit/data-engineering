@@ -1,0 +1,51 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGPlanet",
+    "category": "UCLASS",
+    "extends": [
+      "AActor"
+    ],
+    "methods": [
+      {
+        "name": "PostActorCreated",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoad",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginDestroy",
+        "returnType": "void"
+      },
+      {
+        "name": "PostEditChangeChainProperty",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdatePreview",
+        "comment": "Update the preview of the planet in the editor",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupPreviewDelegate",
+        "comment": "Setup so that we get calls to UpdatePreview whenever time of day is updated in the editor",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mPreviewTime",
+        "comment": "How the sunlight changes during the day",
+        "type": "float"
+      },
+      {
+        "name": "mTimeOfDayUpdated",
+        "comment": "In editor, receive updates for whenever the time of day is updated",
+        "type": "FDelegateHandle"
+      }
+    ]
+  }
+]

@@ -1,0 +1,31 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGStingerWidgetRewardData",
+    "category": "UCLASS",
+    "comment": "Base class for holding reward data for stinger reward widgets",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "GetIconText",
+        "returnType": "FText"
+      },
+      {
+        "name": "GetIconTexture",
+        "returnType": "UTexture2D*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mIconText",
+        "type": "FText"
+      },
+      {
+        "name": "mIconTexture",
+        "type": "UTexture2D*"
+      }
+    ]
+  }
+]

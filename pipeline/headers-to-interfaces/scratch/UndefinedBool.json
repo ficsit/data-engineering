@@ -1,0 +1,18 @@
+[
+  {
+    "kind": "enum",
+    "name": "EUndefinedBool",
+    "comment": "A bool that can be undefined",
+    "entries": [
+      {
+        "name": "UB_Undefined"
+      },
+      {
+        "name": "UB_False"
+      },
+      {
+        "name": "UB_True"
+      }
+    ]
+  }
+]

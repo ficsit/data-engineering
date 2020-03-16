@@ -1,0 +1,469 @@
+[
+  {
+    "kind": "class",
+    "name": "FSlotData",
+    "category": "USTRUCT",
+    "comment": "Collected data for a slot that is specified",
+    "extends": [],
+    "methods": [
+      {
+        "name": "operator==",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "PingColor",
+        "comment": "The color of the players ping",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "NametagColor",
+        "comment": "The color of the players nametag above their head, and in the UI",
+        "type": "FLinearColor"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FMessageData",
+    "category": "USTRUCT",
+    "comment": "Data associated with a message",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FMessageData"
+      }
+    ],
+    "properties": [
+      {
+        "name": "WasRead",
+        "comment": "Has message been read",
+        "type": "bool"
+      },
+      {
+        "name": "MessageClass",
+        "comment": "What class is the message",
+        "type": "TSubclassOf<classUFGMessageBase>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGPlayerState",
+    "category": "UCLASS",
+    "extends": [
+      "APlayerState",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGPlayerState"
+      },
+      {
+        "name": "Serialize",
+        "comment": "Begin UObject interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "ReplicateSubobjects",
+        "returnType": "bool"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "CopyProperties",
+        "comment": "Begin APlayerState interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetOwnedPawn",
+        "comment": "Set the pawn we controls (it should be the character, not a vehicle)",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOwnedPawn",
+        "comment": "Get the character we control (not a vehicle)",
+        "returnType": "classAPawn*"
+      },
+      {
+        "name": "HasReceiveInitialItems",
+        "comment": "Return true if we have received our initial items",
+        "returnType": "bool"
+      },
+      {
+        "name": "MarkAsReceivedInitialItems",
+        "comment": "Mark this character as it has received its initial items",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSlotNum",
+        "comment": "Get the slot the player has claimed",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetSlotNum",
+        "comment": "Set the slot number of this player",
+        "returnType": "void"
+      },
+      {
+        "name": "SetSlotData",
+        "comment": "Set the color data for this player",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSlotData",
+        "comment": "get the color data for this player",
+        "returnType": "FSlotData"
+      },
+      {
+        "name": "GetUserName",
+        "comment": "Get the unique ID of the user from the online subsystem",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetUserID",
+        "comment": "Get the unique ID of the user from the online subsystem",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetUniqeNetId",
+        "comment": "Get the unique ID of the user from the online subsystem",
+        "returnType": "FUniqueNetIdRepl"
+      },
+      {
+        "name": "GetSteamID",
+        "comment": "@returns string representation of users SteamID",
+        "returnType": "FString"
+      },
+      {
+        "name": "CreateTutorialSubsystem",
+        "comment": "Creates the tutorial system.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetTutorialSubsystem",
+        "comment": "Gets the subsystem for BP usage",
+        "returnType": "classUFGTutorialSubsystem*"
+      },
+      {
+        "name": "GetAllMessages",
+        "comment": "Gets all messages we have received",
+        "returnType": "TArray<TSubclassOf<classUFGMessageBase>>"
+      },
+      {
+        "name": "GetAllMessageData",
+        "comment": "Gets all messagedata from messages we have received",
+        "returnType": "TArray<FMessageData>"
+      },
+      {
+        "name": "ReadMessage",
+        "comment": "Change read status of a message",
+        "returnType": "void"
+      },
+      {
+        "name": "AddMessage",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveMessage",
+        "comment": "Used primarily to reset tutorial flow, verifies it exists before attempting removal",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupDefaultShortcuts",
+        "comment": "Setup our default shortcuts",
+        "returnType": "void"
+      },
+      {
+        "name": "CreateShortcut",
+        "comment": "Create a shortcut of a specified class, only valid on server",
+        "returnType": "classUFGHotbarShortcut*"
+      },
+      {
+        "name": "CreateTypedShortcut",
+        "comment": "Create a shortcut of a specified class and casts it to the specified class",
+        "returnType": "T*"
+      },
+      {
+        "name": "GetShortcuts",
+        "comment": "Get all shortcuts as a read only array",
+        "returnType": "TArray<classUFGHotbarShortcut*>&"
+      },
+      {
+        "name": "GetShortcuts",
+        "comment": "Get editable shortcuts",
+        "returnType": "TArray<classUFGHotbarShortcut*>&"
+      },
+      {
+        "name": "GetAndSetFirstTimeEquipped",
+        "comment": "Get the current value of first time equipped and then sets the value to false.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetOwningController",
+        "comment": "Get the controller owning this player state",
+        "returnType": "classAFGPlayerController*"
+      },
+      {
+        "name": "AddNewRecipe",
+        "comment": "Adds a new recipe to the list of new recipes. This is only for UI feedback and doesn't give the player the actual ability to use the recipe",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveRecipe",
+        "comment": "Removes a recipe from the list of new recipes. This is only for UI feedback and doesn't remove the players ability to use the recipe",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_RemoveRecipe",
+        "comment": "Lets the server remove a recipe from the list of new recipes",
+        "returnType": "void"
+      },
+      {
+        "name": "GetNumArmSlots",
+        "comment": "Gets number of slots for arm equipment",
+        "returnType": "int32"
+      },
+      {
+        "name": "AddArmSlots",
+        "comment": "Adds more arm slots ( can also be a negative number to decrease number of slots )",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOnlyShowAffordableRecipes",
+        "comment": "Get if we only should show affordable recipes in manufacturing widgets",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetOnlyShowAffordableRecipes",
+        "comment": "Set if we only should show affordable recipes in manufacturing widgets",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_SetOnlyShowAffordableRecipes",
+        "comment": "Let server set if we only should show affordable recipes in manufacturing widgets",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCollapsedItemCategories",
+        "comment": "Get the item categories that the user have collapsed in manufacturing widgets",
+        "returnType": "TArray<TSubclassOf<classUFGItemCategory>>"
+      },
+      {
+        "name": "SetItemCategoryCollapsed",
+        "comment": "Set if an item category is collapsed in manufacturing widgets",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_SetItemCategoryCollapsed",
+        "comment": "Let server set if an item category is collapsed in manufacturing widgets",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFilteredOutMapTypes",
+        "comment": "Gets the filter for map representations",
+        "returnType": "TArray<ERepresentationType>"
+      },
+      {
+        "name": "GetFilteredOutCompassTypes",
+        "comment": "Gets the filter for compass representations",
+        "returnType": "TArray<ERepresentationType>"
+      },
+      {
+        "name": "SetMapFilter",
+        "comment": "Sets the map filter visibility for the given representation",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_SetMapFilter",
+        "comment": "Let server set the map filter visibility for the given representation",
+        "returnType": "void"
+      },
+      {
+        "name": "SetCompassFilter",
+        "comment": "Sets the compass filter visibility for the given representation",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_SetCompassFilter",
+        "comment": "Let server set the compass filter visibility for the given representation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPingColor",
+        "returnType": "FLinearColor"
+      },
+      {
+        "name": "GetNametagColor",
+        "returnType": "FLinearColor"
+      },
+      {
+        "name": "UpdateOwningPawnActorRepresentation",
+        "returnType": "void"
+      },
+      {
+        "name": "SetIsServerAdmin",
+        "returnType": "void"
+      },
+      {
+        "name": "IsServerAdmin",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetLastSelectedResourceSinkShopCategory",
+        "returnType": "TSubclassOf<UFGSchematicCategory>"
+      },
+      {
+        "name": "SetLastSelectedResourceSinkShopCategory",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_HotbarShortcuts",
+        "comment": "Client get notified that the hotbar has changed",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "BuildableConstructedDelegate",
+        "comment": "Broadcast when a buildable or decor has been constructed.",
+        "type": "FOnBuildableConstructedNew"
+      },
+      {
+        "name": "mOnHotbarReplicated",
+        "comment": "Broadcast if hotbar has been replicated",
+        "type": "FOnHotbarReplicated"
+      },
+      {
+        "name": "mHotbarShortcuts",
+        "comment": "All hotbar actions assigned",
+        "type": "TArray<classUFGHotbarShortcut*>"
+      },
+      {
+        "name": "mDefaultRecipeShortcuts",
+        "comment": "Default recipes to have shortcuts to",
+        "type": "TArray<TSubclassOf<classUFGRecipe>>"
+      },
+      {
+        "name": "mNewRecipes",
+        "comment": "Recipes that are new to the player. This is only for UI feedback and doesn't affect the players ability to use the recipe",
+        "type": "TArray<TSubclassOf<classUFGRecipe>>"
+      },
+      {
+        "name": "mSlotNum",
+        "comment": "The slot num of this player state",
+        "type": "int32"
+      },
+      {
+        "name": "mSlotData",
+        "comment": "This players color container",
+        "type": "FSlotData"
+      },
+      {
+        "name": "mOwnedPawn",
+        "comment": "Pawn we should take control of when rejoining game/loading game",
+        "type": "classAPawn*"
+      },
+      {
+        "name": "mHasReceivedInitialItems",
+        "comment": "Set to true after we have received our initial items",
+        "type": "uint8"
+      },
+      {
+        "name": "mHasSetupDefaultShortcuts",
+        "comment": "Set to true after we have setup our initial shortcuts",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsServerAdmin",
+        "comment": "If true, then we are server admin",
+        "type": "uint8"
+      },
+      {
+        "name": "mTutorialSubsystem",
+        "comment": "Each local player has their own tutorial subsystem",
+        "type": "classUFGTutorialSubsystem*"
+      },
+      {
+        "name": "mTutorialSubsystemClass",
+        "comment": "Class of tutorial subsystem to spawn",
+        "type": "TSubclassOf<classUFGTutorialSubsystem>"
+      },
+      {
+        "name": "mMessageData",
+        "comment": "Data about all messages that can be displayed in the codex",
+        "type": "TArray<FMessageData>"
+      },
+      {
+        "name": "mRememberedFirstTimeEquipmentClasses",
+        "comment": "List of equipment classes that have been equipped at least once.",
+        "type": "TArray<TSubclassOf<classAFGEquipment>>"
+      },
+      {
+        "name": "mNumArmSlots",
+        "comment": "Total number of arm equipment slots for this player",
+        "type": "int32"
+      },
+      {
+        "name": "mOnlyShowAffordableRecipes",
+        "comment": "True if we only should show affordable recipes in manufacturing widgets",
+        "type": "bool"
+      },
+      {
+        "name": "mCollapsedItemCategories",
+        "comment": "The item categories that the user have collapsed in manufacturing widgets",
+        "type": "TArray<TSubclassOf<classUFGItemCategory>>"
+      },
+      {
+        "name": "mFilteredOutMapTypes",
+        "type": "TArray<ERepresentationType>"
+      },
+      {
+        "name": "mFilteredOutCompassTypes",
+        "type": "TArray<ERepresentationType>"
+      },
+      {
+        "name": "mLastSelectedResourceSinkShopCategory",
+        "comment": "The last selected category in the resource sink shop so we can open the shop at the same category later",
+        "type": "TSubclassOf<UFGSchematicCategory>"
+      }
+    ]
+  }
+]

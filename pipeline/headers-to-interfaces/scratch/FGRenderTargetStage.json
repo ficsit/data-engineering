@@ -1,0 +1,78 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGRenderTargetStage",
+    "category": "UCLASS",
+    "extends": [
+      "AActor"
+    ],
+    "methods": [
+      {
+        "name": "AFGRenderTargetStage",
+        "comment": "Ctor"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "~ Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "CaptureOnce",
+        "comment": "\t/\nCapture a picture once",
+        "returnType": "void"
+      },
+      {
+        "name": "GetStage",
+        "comment": "\t/\n Get the stage of this preview scene",
+        "returnType": "classUSceneComponent*"
+      },
+      {
+        "name": "UpdateRenderedComponents",
+        "comment": "Call this when you have attached/detached components from our stage, this will make sure only they get rendered",
+        "returnType": "void"
+      },
+      {
+        "name": "SetPreviewDistance",
+        "comment": "Set the distance we want to preview the stage from",
+        "returnType": "void"
+      },
+      {
+        "name": "SetView",
+        "comment": "Move the camera so it looks at the stage from this view",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRenderTarget",
+        "comment": "Get the render target that this stage renders to",
+        "returnType": "classUTextureRenderTarget2D*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mDynamicRenderTargetSizeX",
+        "comment": "If we create a dynamic render target (that is, a new one every time), then this is it's x size",
+        "type": "int32"
+      },
+      {
+        "name": "mDynamicRenderTargetSizeY",
+        "comment": "If we create a dynamic render target (that is, a new one every time), then this is it's y size",
+        "type": "int32"
+      },
+      {
+        "name": "mDynamicPixelFormat",
+        "comment": "Set the pixel format of a dynamic rendertarget",
+        "type": "TEnumAsByte<EPixelFormat>"
+      },
+      {
+        "name": "mSceneCaptureComponent",
+        "comment": "The scene captor component that will generate the result of our render target",
+        "type": "classUSceneCaptureComponent2D*"
+      },
+      {
+        "name": "mDynamicRenderTarget",
+        "comment": "\t/\n If true, then we create our own render target every time we want to play",
+        "type": "uint8"
+      }
+    ]
+  }
+]

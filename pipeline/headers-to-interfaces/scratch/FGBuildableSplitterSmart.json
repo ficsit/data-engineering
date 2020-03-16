@@ -1,0 +1,133 @@
+[
+  {
+    "kind": "class",
+    "name": "FSplitterSortRule",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FSplitterSortRule"
+      },
+      {
+        "name": "FSplitterSortRule"
+      }
+    ],
+    "properties": [
+      {
+        "name": "ItemClass",
+        "comment": "This is the item class to filter out.",
+        "type": "TSubclassOf<UFGItemDescriptor>"
+      },
+      {
+        "name": "OutputIndex",
+        "comment": "Which output to send this to.",
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildableSplitterSmart",
+    "category": "UCLASS",
+    "comment": "A smart splitter which you can tell where stuff should go!",
+    "extends": [
+      "AFGBuildableAttachmentSplitter"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableSplitterSmart"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "comment": "Begin Save Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetNumSortRules",
+        "comment": "Get the number of sort rules this splitter has.",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetMaxNumSortRules",
+        "comment": "Get number of max sort rules.",
+        "returnType": "int32"
+      },
+      {
+        "name": "IsValidSortRuleAt",
+        "comment": "Is this a valid sort rule index",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetSortRuleAt",
+        "comment": "Get the number of sort rules this splitter has.",
+        "returnType": "FSplitterSortRule"
+      },
+      {
+        "name": "AddSortRule",
+        "comment": "Adds a new sort rule.",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveSortRuleAt",
+        "comment": "Removes the rule at passed index.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetSortRuleAt",
+        "comment": "Updates the sort rule at the passed index.",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_GrabOutput_Implementation",
+        "comment": "Begin Factory_ interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "FillDistributionTable",
+        "comment": "End Factory_ interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_SortRules",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAllOutputConnectionsForItem",
+        "comment": "Returns all connections that this item could be placed onto. It excludes wildcard outputs if there is a rule specifically set for this item type",
+        "returnType": "TArray<UFGFactoryConnectionComponent*>"
+      }
+    ],
+    "properties": [
+      {
+        "name": "OnSortRulesChangedDelegate",
+        "type": "FOnSortRulesChanged"
+      },
+      {
+        "name": "mSortRules",
+        "comment": "These are the sorting rules the player has entered.",
+        "type": "TArray<FSplitterSortRule>"
+      },
+      {
+        "name": "mMaxNumSortRules",
+        "comment": "How many rules this splitter can have.",
+        "type": "int32"
+      },
+      {
+        "name": "mLastItem",
+        "type": "FInventoryItem"
+      },
+      {
+        "name": "mItemToLastOutputMap",
+        "type": "TMap<TSubclassOf<UFGItemDescriptor>,uint8>"
+      },
+      {
+        "name": "mLastOutputIndex",
+        "type": "int32"
+      }
+    ]
+  }
+]

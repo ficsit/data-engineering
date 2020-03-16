@@ -1,0 +1,195 @@
+[
+  {
+    "kind": "class",
+    "name": "FCollectedStats",
+    "comment": "Filtered and gathered stats we get during each frame",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "FrameTime",
+        "comment": "How long was the frame",
+        "type": "float"
+      },
+      {
+        "name": "RequiredMips",
+        "comment": "The size of the required mips pool",
+        "type": "float"
+      },
+      {
+        "name": "DrawCalls",
+        "comment": "The amount of drawcalls submitted",
+        "type": "int32"
+      },
+      {
+        "name": "TrianglesDrawn",
+        "comment": "The amount of triangles drawn this frame",
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "IStatCollector",
+    "comment": "Interface for stats collectors for our nightly stats gathering from maps",
+    "extends": [],
+    "methods": [
+      {
+        "name": "~IStatCollector"
+      },
+      {
+        "name": "StartCollection",
+        "comment": "Called when we start collecting stats, make sure to reset all members here\n@note Called on StatsThread",
+        "returnType": "void"
+      },
+      {
+        "name": "StopCollection",
+        "comment": "Called when we stop collecting stats\n@note Called on StatsThread",
+        "returnType": "void"
+      },
+      {
+        "name": "CollectData",
+        "comment": "Called every frame whenever new stats has been gathered and filtered to a smaller subset\n@note Called on StatsThread",
+        "returnType": "void"
+      },
+      {
+        "name": "SetLabel",
+        "comment": "\n @note Called on StatsThread",
+        "returnType": "void"
+      },
+      {
+        "name": "SetGUID",
+        "comment": "\n @note Called on StatsThread",
+        "returnType": "void"
+      },
+      {
+        "name": "DumpChart",
+        "comment": "\n @note Called on GameThread",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLabel",
+        "returnType": "void"
+      },
+      {
+        "name": "GetGUID",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAndCreateOutputDirectory",
+        "comment": "Get the output directory where we dump our chart",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDesiredOutputFile",
+        "comment": "Get the filename of the stats file",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Label",
+        "comment": "The label of the collectior",
+        "type": "FString"
+      },
+      {
+        "name": "GUID",
+        "comment": "The guid of the collector",
+        "type": "FString"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FFGEngineCommon",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "Init",
+        "comment": "Called during startup",
+        "returnType": "void"
+      },
+      {
+        "name": "Start",
+        "comment": "Slightly later start o.O",
+        "returnType": "void"
+      },
+      {
+        "name": "PreExit",
+        "comment": "Called right before engine shutdown",
+        "returnType": "void"
+      },
+      {
+        "name": "Exec",
+        "comment": "Handle exec commands",
+        "returnType": "bool"
+      },
+      {
+        "name": "Tick",
+        "comment": "The the created worlds and update the render targets in them",
+        "returnType": "void"
+      },
+      {
+        "name": "CreateWorld",
+        "comment": "Implements IFGWorldCreationInterface::CreateWorld",
+        "returnType": "classUWorld*"
+      },
+      {
+        "name": "DestroyWorld",
+        "comment": "Implements IFGWorldCreationInterface::DestroyWorld",
+        "returnType": "void"
+      },
+      {
+        "name": "PostPIEStarted",
+        "comment": "For pigment map, we want stuff to be updated when opening maps",
+        "returnType": "void"
+      },
+      {
+        "name": "OnMapOpened",
+        "returnType": "void"
+      },
+      {
+        "name": "DumpChart",
+        "comment": "Dumps stats collection charts to disc\n@note called on GameThread, called as a result of calling StopCollection",
+        "returnType": "void"
+      },
+      {
+        "name": "HandleHiddenTextureStatsCommand",
+        "comment": "Dump more texture stats that doesn't show up in ListTextures",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Engine",
+        "type": "classUEngine*"
+      },
+      {
+        "name": "CreatedWorlds",
+        "comment": "The worlds created through IFGWorldCreationInterface",
+        "type": "TArray<UWorld*>"
+      },
+      {
+        "name": "HeightFogUpdater",
+        "comment": "Height fog properties that's controlled from camera",
+        "type": "classUFGAtmosphereUpdater*"
+      },
+      {
+        "name": "StatCollectors",
+        "comment": "The current stats collectors, @note: Threadcontext StatsThread",
+        "type": "TArray<IStatCollector*>"
+      },
+      {
+        "name": "CollectStatsDelegateHandle",
+        "comment": "Handle for the delegate the function that get called every frame on the stats thread when collecting stats, @note: Threadcontext StatsThread",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mCollectStats",
+        "comment": "If true, then we are collecting stats",
+        "type": "bool"
+      }
+    ]
+  }
+]

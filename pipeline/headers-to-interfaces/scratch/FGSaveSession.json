@@ -1,0 +1,289 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGSaveSession",
+    "category": "UCLASS",
+    "comment": "Handles serialization for save and load functionality",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "UFGSaveSession"
+      },
+      {
+        "name": "~UFGSaveSession"
+      },
+      {
+        "name": "GetVersion",
+        "comment": "Get the save version of a header",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetBuildVersion",
+        "comment": "Get the build version this save was saved with",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetMapName",
+        "comment": "Get the map that this save was saved with",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetMapOptions",
+        "comment": "Get the options that this save was saved with",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetName",
+        "comment": "The name of the save game",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetSessionID",
+        "comment": "The session ID of the save game",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetSessionName",
+        "comment": "The session name of the save game",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetPlayDurationSeconds",
+        "comment": "The name of the save game",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetSaveDateTime",
+        "comment": "The time this was saved",
+        "returnType": "FDateTime"
+      },
+      {
+        "name": "GetSaveSessionVisibility",
+        "comment": "Returns saved visibility of the session",
+        "returnType": "TEnumAsByte<ESessionVisibility>"
+      },
+      {
+        "name": "GetSaveSessionID",
+        "comment": "Returns the name of this session",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetSaveSessionName",
+        "comment": "Returns the name of this session",
+        "returnType": "FString"
+      },
+      {
+        "name": "Init",
+        "comment": "\n @param willLoad - we will later on get a LoadGame call",
+        "returnType": "void"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the save system from a world",
+        "returnType": "classUFGSaveSession*"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the save system from a world",
+        "returnType": "classUFGSaveSession*"
+      },
+      {
+        "name": "RoutePostLoadGame",
+        "comment": "Run post load on all loaded objects",
+        "returnType": "void"
+      },
+      {
+        "name": "SaveGame",
+        "comment": "\n @param fileName - a valid filename that we want to save the game to\n@param return true if the file name is a valid file name",
+        "returnType": "void"
+      },
+      {
+        "name": "ReadRawSaveGameData",
+        "comment": "@param out_rawSaveData - the data that was read.\n@return true if the data was read successfully",
+        "returnType": "bool"
+      },
+      {
+        "name": "LoadGame",
+        "comment": "\n @param saveName - the save file's name without extension\n@return true if a save game with that name exists and load happend successfully",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetNumRotatingAutosaves",
+        "comment": "Get the number of rotating autosaves",
+        "returnType": "uint8"
+      },
+      {
+        "name": "SerializeHeader",
+        "comment": "\n @return false if we try to load a old header or if we can't load from a ar, true otherwise",
+        "returnType": "bool"
+      },
+      {
+        "name": "SaveNameToFileName",
+        "comment": "Converts a saveName to a file name",
+        "returnType": "FString"
+      },
+      {
+        "name": "SharedInventoryPtrLoaded",
+        "comment": "Called by shared inventory code to report that a shared inventory pointer has been loaded.\nUsed to verify that no actor has several references.",
+        "returnType": "void"
+      },
+      {
+        "name": "Autosave",
+        "comment": "Called every time by timer to trigger a autosave. Can be called manually if we want to trigger a autosave for key events",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAutosaveInterval",
+        "comment": "Gets the autosave interval",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetAutosaveInterval",
+        "comment": "Updates the autosave interval",
+        "returnType": "void"
+      },
+      {
+        "name": "GetWorld",
+        "comment": "Make sure we can get a world easily",
+        "returnType": "classUWorld*"
+      },
+      {
+        "name": "GenerateAutosaveName",
+        "comment": "Generate the next autosave name, calling this twice will give you different results",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetFullMapName",
+        "comment": "Get the full map name",
+        "returnType": "FString"
+      },
+      {
+        "name": "SetupAutosave",
+        "comment": "Setup the autosave timer",
+        "returnType": "void"
+      },
+      {
+        "name": "SortObjectsByDependency",
+        "comment": "\n @param io_objectsToSerialize - the object list to sort",
+        "returnType": "void"
+      },
+      {
+        "name": "CollectObjects",
+        "comment": "\n @param rootSet - the base objects\n@param out_objectsToSerialize - A reference to the array that holds all the objects we want to serialize",
+        "returnType": "void"
+      },
+      {
+        "name": "CollectObjects",
+        "comment": "\n @param rootObject - the base object\n@param out_objectsToSerialize - A reference to the array that holds all the objects we want to serialize",
+        "returnType": "void"
+      },
+      {
+        "name": "GenerateRootSet",
+        "comment": "Generate the root set of objects",
+        "returnType": "void"
+      },
+      {
+        "name": "LoadDestroyActors",
+        "comment": "Destroy actors in mDestroyedActors list",
+        "returnType": "void"
+      },
+      {
+        "name": "OnActorDestroyed",
+        "comment": "\t/\n Called when a save actor placed in the level is destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "SaveWorldEndOfFrame",
+        "comment": "Called after actor ticking so we can save when all actors have been saved",
+        "returnType": "void"
+      },
+      {
+        "name": "SaveWorldImplementation",
+        "returnType": "void"
+      },
+      {
+        "name": "SaveToDiskWithCompression",
+        "comment": "@return bool - Returns true if file was successfully compressed and saved.",
+        "returnType": "bool"
+      },
+      {
+        "name": "LoadCompressedFileFromDisk",
+        "comment": "Loads a save file that has been compressed. This includes serializing the SaveHeader.",
+        "returnType": "bool"
+      },
+      {
+        "name": "LoadDeprecatedFileFromDisk",
+        "comment": "Loads a save file prior to compressed save versions. This includes serializing the SaveHeader.",
+        "returnType": "bool"
+      },
+      {
+        "name": "PeekAtFileHeader",
+        "comment": "Retrieves just the header for any valid save file. Returns true/false if it manages to read the header.",
+        "returnType": "bool"
+      },
+      {
+        "name": "SerializeLoadedObjects",
+        "comment": "@param memArchive - A loaded archive (excluding the header) that is used to serialize the session.\n@param includesSaveHeader - Whether or not the archive parameter contains the SaveHeader (which will also be serialized in this case)",
+        "returnType": "bool"
+      },
+      {
+        "name": "BundledSaveWorldImplementation",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mDestroyedActors",
+        "comment": "Actors in the world that's destroyed",
+        "type": "TArray<FObjectReferenceDisc>"
+      },
+      {
+        "name": "mLoadedObjects",
+        "comment": "Objects that has been loaded",
+        "type": "TArray<classUObject*>"
+      },
+      {
+        "name": "mSaveHeader",
+        "comment": "Cached save header from last save game",
+        "type": "FSaveHeader"
+      },
+      {
+        "name": "mAutosaveHandle",
+        "comment": "Timer holding the autosave timer",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mOnSaveCompleteDelegate",
+        "comment": "Delegate that listens for when the save is done",
+        "type": "FOnSaveGameComplete"
+      },
+      {
+        "name": "mSaveCompleteUserData",
+        "comment": "User data to pass to on save complete delegate",
+        "type": "void*"
+      },
+      {
+        "name": "mAutosaveInterval",
+        "comment": "How often in seconds to autosave, a value of < 0 means disabled",
+        "type": "float"
+      },
+      {
+        "name": "mNumRotatingAutosaves",
+        "comment": "The number of autosaves to rotate",
+        "type": "int32"
+      },
+      {
+        "name": "mPendingSaveName",
+        "comment": "Name of the save that will be saved at end of frame",
+        "type": "FString"
+      },
+      {
+        "name": "mPendingSaveWorldHandle",
+        "comment": "Callback to end of frame to be removed after save",
+        "type": "FDelegateHandle"
+      }
+    ]
+  }
+]

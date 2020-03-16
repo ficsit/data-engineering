@@ -1,0 +1,29 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildablePoleBase",
+    "category": "UCLASS",
+    "comment": "a bitt differently for no real reason, and it's a bit scary to do that without proper testing and time to adjust.\nSo we'll not  do that now. But one day we should probably unify a good base here.",
+    "extends": [
+      "AFGBuildable"
+    ],
+    "methods": [
+      {
+        "name": "GetStackHeight",
+        "returnType": "float"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mCanStack",
+        "comment": "Can this pole stack.",
+        "type": "bool"
+      },
+      {
+        "name": "mStackHeight",
+        "comment": "Height between two stacked poles excluding the poles height.",
+        "type": "float"
+      }
+    ]
+  }
+]

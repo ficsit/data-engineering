@@ -1,0 +1,1606 @@
+[
+  {
+    "kind": "enum",
+    "name": "ECameraMode",
+    "entries": [
+      {
+        "name": "ECM_None"
+      },
+      {
+        "name": "ECM_FirstPerson"
+      },
+      {
+        "name": "ECM_ThirdPerson"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FDisabledInputGate",
+    "category": "USTRUCT",
+    "comment": "structure that holds variables per input whether it's allowed or not. NOTE: True if input is disabled.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FDisabledInputGate"
+      },
+      {
+        "name": "FDisabledInputGate"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mBuildGun",
+        "type": "uint8"
+      },
+      {
+        "name": "mDismantle",
+        "type": "uint8"
+      },
+      {
+        "name": "mFlashLight",
+        "type": "uint8"
+      },
+      {
+        "name": "mResourceScanner",
+        "type": "uint8"
+      },
+      {
+        "name": "mOpenCodex",
+        "type": "uint8"
+      },
+      {
+        "name": "mInventory",
+        "type": "uint8"
+      },
+      {
+        "name": "mToggleMap",
+        "type": "uint8"
+      },
+      {
+        "name": "mHotbar",
+        "type": "uint8"
+      },
+      {
+        "name": "mJump",
+        "type": "uint8"
+      },
+      {
+        "name": "mChat",
+        "type": "uint8"
+      },
+      {
+        "name": "mUse",
+        "type": "uint8"
+      },
+      {
+        "name": "mVehicleRecording",
+        "type": "uint8"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGUseState_ReviveInvalid_PlayerNotDead",
+    "category": "UCLASS",
+    "comment": "not dead, cant revive",
+    "extends": [
+      "UFGUseState"
+    ],
+    "methods": [
+      {
+        "name": "UFGUseState_ReviveInvalid_PlayerNotDead"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGUseState_ReviveValid",
+    "category": "UCLASS",
+    "comment": "Revive valid",
+    "extends": [
+      "UFGUseState"
+    ],
+    "methods": [
+      {
+        "name": "UFGUseState_ReviveValid"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "AFGCharacterPlayer",
+    "category": "UCLASS",
+    "comment": "Base class for all player characters in the game.",
+    "extends": [
+      "AFGCharacterBase",
+      "IFGAggroTargetInterface",
+      "IFGUseableInterface",
+      "IFGRadiationInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGCharacterPlayer"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "PostActorCreated",
+        "comment": "Begin AActor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostInitializeComponents",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "IsLocallyControlled",
+        "comment": "Begin Pawn Interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "PossessedBy",
+        "returnType": "void"
+      },
+      {
+        "name": "UnPossessed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_Controller",
+        "returnType": "void"
+      },
+      {
+        "name": "AddControllerPitchInput",
+        "returnType": "void"
+      },
+      {
+        "name": "Jump",
+        "returnType": "void"
+      },
+      {
+        "name": "OnJumped_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "CanJumpInternal_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnEndCrouch",
+        "comment": "Begin ACharacter Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Died",
+        "comment": "Begin AFGCharacterBase interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFootstepEffect",
+        "returnType": "FFootstepEffect&"
+      },
+      {
+        "name": "OnTakeDamage",
+        "returnType": "void"
+      },
+      {
+        "name": "OnMovementModeChanged",
+        "comment": "Begin ACharacter interface",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateUseState_Implementation",
+        "comment": "Begin IFGUseableInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUse_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUseStop_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "IsUseable_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "StartIsLookedAt_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLookAtDecription_Implementation",
+        "returnType": "FText"
+      },
+      {
+        "name": "StopIsLookedAt_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterInteractingPlayer_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterInteractingPlayer_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "ReceiveRadiation_Implementation",
+        "comment": "Begin IFGRadiationInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterIncomingAttacker_Implementation",
+        "comment": "Begin IFGAggroTargetInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterAttacker_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetActor_Implementation",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "GetEnemyTargetDesirability_Implementation",
+        "returnType": "float"
+      },
+      {
+        "name": "ShouldAutoregisterAsTargetable_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetTargetComponent_Implementation",
+        "returnType": "classUPrimitiveComponent*"
+      },
+      {
+        "name": "IsAlive_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetAttackLocation_Implementation",
+        "returnType": "FVector"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "comment": "~Begin IFGSaveInterface",
+        "returnType": "bool"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "TickVisuals",
+        "comment": "Blueprint function that ticks visual things not needed on dedicated server",
+        "returnType": "void"
+      },
+      {
+        "name": "EquipEquipment",
+        "comment": "Must be called on the owning client for the client to be able to switch the weapon",
+        "returnType": "void"
+      },
+      {
+        "name": "UnequipEquipment",
+        "comment": "Must be called on the owning client to unequip one equipment",
+        "returnType": "void"
+      },
+      {
+        "name": "SetOverrideEquipment",
+        "comment": "This must be called on both server and client (simulated)\n@param The equipment, cannot be null and must have a valid slot set.",
+        "returnType": "void"
+      },
+      {
+        "name": "ClearOverrideEquipment",
+        "returnType": "void"
+      },
+      {
+        "name": "GetActiveEquipments",
+        "comment": "@return - The equipments you have equipped",
+        "returnType": "TArray<AFGEquipment*>"
+      },
+      {
+        "name": "GetActiveAttachments",
+        "comment": "@return - The attachments you have equipped",
+        "returnType": "TArray<classAFGEquipmentAttachment*>"
+      },
+      {
+        "name": "GetActiveCrosshairState",
+        "comment": "@return - The current desired state for the cross hair polled by the HUD.",
+        "returnType": "ECrosshairState"
+      },
+      {
+        "name": "GetEquipmentSlot",
+        "comment": "@return The inventory component for the given equipment slot.",
+        "returnType": "classUFGInventoryComponentEquipment*"
+      },
+      {
+        "name": "GetEquipmentInSlot",
+        "comment": "@return The active equipment in the given equipment slot; nullptr if nothing is equipped.",
+        "returnType": "classAFGEquipment*"
+      },
+      {
+        "name": "GetActiveEquipmentItem",
+        "comment": "@return The item given equipment slot; nullptr if nothing is equipped.",
+        "returnType": "FInventoryItem"
+      },
+      {
+        "name": "GetBuildGun",
+        "comment": "Get Buildgun",
+        "returnType": "AFGBuildGun*"
+      },
+      {
+        "name": "CanEquipBuildGun",
+        "comment": "Can equip the build gun",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanEquipBuildGunForDismantle",
+        "comment": "Can equip the build gun specifically to dismantle",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsBuildGunEquipped",
+        "comment": "Is the build gun equipped",
+        "returnType": "bool"
+      },
+      {
+        "name": "ToggleBuildGun",
+        "comment": "Equips/unequips buildgun",
+        "returnType": "void"
+      },
+      {
+        "name": "HotKeyRecipe",
+        "comment": "Instantly goes to build mode for selected recipe",
+        "returnType": "void"
+      },
+      {
+        "name": "HotKeyDismantle",
+        "comment": "Instantly goes to dismantle mode",
+        "returnType": "void"
+      },
+      {
+        "name": "GetMesh1P",
+        "comment": "Returns Mesh1P subobject",
+        "returnType": "classUSkeletalMeshComponent*"
+      },
+      {
+        "name": "GetMesh3P",
+        "comment": "Returns Mesh3P subobject",
+        "returnType": "USkeletalMeshComponent*"
+      },
+      {
+        "name": "GetMainMesh",
+        "comment": "Returns 1p or 3p mesh",
+        "returnType": "USkeletalMeshComponent*"
+      },
+      {
+        "name": "ToggleCameraMode",
+        "comment": "Switches between camera modes",
+        "returnType": "void"
+      },
+      {
+        "name": "StartFocusAim",
+        "comment": "Start focus aiming",
+        "returnType": "void"
+      },
+      {
+        "name": "StopFocusAim",
+        "comment": "Stop focus aiming",
+        "returnType": "void"
+      },
+      {
+        "name": "StartFreeRotate3P",
+        "comment": "Starts the free rotate mode",
+        "returnType": "void"
+      },
+      {
+        "name": "StopFreeRotate3P",
+        "comment": "Stops the free rotate mode",
+        "returnType": "void"
+      },
+      {
+        "name": "CameraZoomIn",
+        "comment": "Starts the free rotate mode",
+        "returnType": "void"
+      },
+      {
+        "name": "CameraZoomOut",
+        "comment": "Stops the free rotate mode",
+        "returnType": "void"
+      },
+      {
+        "name": "SetFirstPersonMode",
+        "comment": "Do stuff needed for first person mode",
+        "returnType": "void"
+      },
+      {
+        "name": "SetThirdPersonMode",
+        "comment": "Do stuff needed for third person mode",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCameraMode",
+        "comment": "Get current camera mode",
+        "returnType": "ECameraMode"
+      },
+      {
+        "name": "SetCameraMode",
+        "comment": "Set camera mode",
+        "returnType": "void"
+      },
+      {
+        "name": "UsePreferredCameraMode",
+        "comment": "Set the camera mode to the one specified in mPlayerPreferredCameraMode",
+        "returnType": "void"
+      },
+      {
+        "name": "IsFirstPerson",
+        "comment": "Are we in first person mode?",
+        "returnType": "bool"
+      },
+      {
+        "name": "SprintPressed",
+        "comment": "Start and stop sprinting, called when player presses/releases Left Shift, as standard.",
+        "returnType": "void"
+      },
+      {
+        "name": "SprintReleased",
+        "returnType": "void"
+      },
+      {
+        "name": "CrouchPressed",
+        "comment": "Start and stop crouch, called when player presses/releases Left Ctrl, as standard.",
+        "returnType": "void"
+      },
+      {
+        "name": "CrouchReleased",
+        "returnType": "void"
+      },
+      {
+        "name": "TickCameraOffset",
+        "comment": "Updates the camera with crouch settings",
+        "returnType": "void"
+      },
+      {
+        "name": "CycleHandEquipmentPressedUp",
+        "comment": "Cycles hand equipments in equipment slots",
+        "returnType": "void"
+      },
+      {
+        "name": "CycleHandEquipmentPressedDown",
+        "comment": "Cycles hand equipments in equipment slots",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_CycleHandEquipmentPressed",
+        "comment": "Cycles hand equipments in equipment slots",
+        "returnType": "void"
+      },
+      {
+        "name": "DoCycleEquipment",
+        "comment": "Actually cycle the equipment",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOutline",
+        "returnType": "UFGOutlineComponent*"
+      },
+      {
+        "name": "IsDrivingVehicle",
+        "comment": "The vehicle we are currently driving",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDrivenVehicle",
+        "comment": "The vehicle we are currently driving",
+        "returnType": "classAFGDriveablePawn*"
+      },
+      {
+        "name": "StartDriving",
+        "comment": "Start and StopDriving is called on server and then client when mDrivenVehicle is replicated.\nUse these to prepare the pawn for driving, e.g. unequip/re-equip equipments, setting physics state.",
+        "returnType": "void"
+      },
+      {
+        "name": "StopDriving",
+        "returnType": "void"
+      },
+      {
+        "name": "TrySpawnInitialGear",
+        "comment": "See if we have spawned our initial gear, if not, spawn it here",
+        "returnType": "void"
+      },
+      {
+        "name": "SpawnInitialGear",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPickUpItem",
+        "comment": "Picked up an item",
+        "returnType": "void"
+      },
+      {
+        "name": "PickUpItem",
+        "comment": "Picks up an item. Is currently being called from item's OnUse(), and was needed in order to\nroute it through a client owned actor for the pickup action to become reliable.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetPickupToCollect",
+        "comment": "** The target of a pickup, this is only set if the pickup has a collection time */",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFoliagePickupProxy",
+        "returnType": "classAFGFoliagePickup*"
+      },
+      {
+        "name": "GetInventory",
+        "comment": "@return This players inventory.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetTrashSlot",
+        "comment": "@return This players trash inventory.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetBeltSlot",
+        "comment": "@return This players belt inventory.",
+        "returnType": "classUFGInventoryComponentBeltSlot*"
+      },
+      {
+        "name": "GetResourceScanner",
+        "comment": "@return This players resource scanner.",
+        "returnType": "AFGResourceScanner*"
+      },
+      {
+        "name": "GetResourceMiner",
+        "comment": "@return This players resource miner.",
+        "returnType": "classAFGResourceMiner*"
+      },
+      {
+        "name": "Get3PMesh",
+        "returnType": "classUSkeletalMeshComponent*"
+      },
+      {
+        "name": "Server_ToggleSwitchControl",
+        "comment": "@todo This should move to the replicator object... Toggles the switch on the server.",
+        "returnType": "void"
+      },
+      {
+        "name": "TickDrownDamage",
+        "comment": "Ticks drown damage. Tests drown interval and applies drown damage when appropriate",
+        "returnType": "void"
+      },
+      {
+        "name": "TickHealthGeneration",
+        "comment": "Ticks healt regen",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFoliagePickupData",
+        "comment": "returns the foliage pickup proxy, duh",
+        "returnType": "classAFGFoliagePickup*"
+      },
+      {
+        "name": "GetCachedUseState",
+        "comment": "returns currently cached use state, duh",
+        "returnType": "FUseState*"
+      },
+      {
+        "name": "GetCurrentLadderComponent",
+        "comment": "returns ladder we are currently on",
+        "returnType": "classUFGLadderComponent*"
+      },
+      {
+        "name": "GetDesiredSprintHeadBobShake",
+        "comment": "Gets the camera bobbing animation we want to use when sprinting ( can vary with equipment )",
+        "returnType": "TSubclassOf<classUCameraShake>"
+      },
+      {
+        "name": "GetDesiredWalkHeadBobShake",
+        "comment": "Gets the camera bobbing animation we want to use when walking ( can vary with equipment )",
+        "returnType": "TSubclassOf<classUCameraShake>"
+      },
+      {
+        "name": "GetFGMovementComponent",
+        "comment": "Gets a precasted movement component. We should be able to optimzie this by ensuring that this component is the right type when assigning it and then do a free cast here ans have it faster. So making this way of fetching it now. Even though it's not really faster atm, it can be optimized later.",
+        "returnType": "classUFGCharacterMovementComponent*"
+      },
+      {
+        "name": "SetWantSprintBobbing",
+        "comment": "Setter for mWantsSprintBobbing",
+        "returnType": "void"
+      },
+      {
+        "name": "GetWantSprintBobbing",
+        "comment": "Getter for mWantsSprintBobbing",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetCameraComponentWorldLocation",
+        "comment": "Getter for the world location of the Camera component",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetInventoryDropLocation",
+        "comment": "Where to drop a inventory item if we drop one",
+        "returnType": "FVector"
+      },
+      {
+        "name": "AddRadiationImmunity",
+        "comment": "Adds or removes an amount of radiation",
+        "returnType": "void"
+      },
+      {
+        "name": "SetRadiationImmunity",
+        "comment": "Sets an amount of radiation",
+        "returnType": "void"
+      },
+      {
+        "name": "ClientCheatFly_Implementation",
+        "comment": "Cheats",
+        "returnType": "void"
+      },
+      {
+        "name": "CheatJump",
+        "returnType": "void"
+      },
+      {
+        "name": "StopCheatJump",
+        "returnType": "void"
+      },
+      {
+        "name": "CheatCrouch",
+        "returnType": "void"
+      },
+      {
+        "name": "StopCheatCrouch",
+        "returnType": "void"
+      },
+      {
+        "name": "CheatToggleGhostFly",
+        "returnType": "void"
+      },
+      {
+        "name": "CheatToggleGhostFly",
+        "returnType": "void"
+      },
+      {
+        "name": "CheatToggleGhostFlyIsActive",
+        "returnType": "bool"
+      },
+      {
+        "name": "CheatToggleFlyModeIsActive",
+        "returnType": "bool"
+      },
+      {
+        "name": "CheatToggleFlyMode",
+        "returnType": "void"
+      },
+      {
+        "name": "CheatTeleport",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSlideStart",
+        "comment": "Called when a slide has started",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSlideStartLocal",
+        "comment": "Called when a slide has started, local only",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSlideEnd",
+        "comment": "Called when a slide has ended",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSlideEndLocal",
+        "comment": "Called when a slide has ended, local only",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSlideEndSimulated",
+        "comment": "Called when a slide has ended, simulated proxies only",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSlideStartSimulated",
+        "comment": "Called when a slide has started, simulated proxies only",
+        "returnType": "void"
+      },
+      {
+        "name": "Multicast_PlayJumpEffects",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayJumpEffects",
+        "comment": "Called when a slide has started, simulated proxies only",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_HyperTubeStart",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_HyperTubeEnd",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupPlayerInputComponent",
+        "comment": "APawn interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnInventorySlotsUnlocked",
+        "comment": "Called when we unlock more inventory slots",
+        "returnType": "void"
+      },
+      {
+        "name": "OnArmsSlotsUnlocked",
+        "comment": "Called when we unlock more arms slots",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckAndAddPositionToSafeList",
+        "returnType": "void"
+      },
+      {
+        "name": "AdjustDamage",
+        "comment": "Begin AFGCharacterBase interface",
+        "returnType": "float"
+      },
+      {
+        "name": "DoRagdoll_Internal",
+        "returnType": "void"
+      },
+      {
+        "name": "SetMeshVisibility",
+        "comment": "Sets what mesh is visible on us ( 1p or 3p )",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayPickupEffects",
+        "comment": "Blueprint accessor for when an item was picked up, called on client/server/remote",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFootstepEvent",
+        "comment": "For playing 1P events",
+        "returnType": "classUAkAudioEvent*"
+      },
+      {
+        "name": "OnDisabledInputGateChanged",
+        "returnType": "void"
+      },
+      {
+        "name": "SpawnDeathCrate",
+        "comment": "SERVER ONLY: Drops the contents of the player on the ground",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupInventory",
+        "comment": "Setup the players inventories, including equipment slots.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnItemAddedToInventory",
+        "returnType": "void"
+      },
+      {
+        "name": "AddDefaultInventoryItems",
+        "comment": "Hand out the starting resources.",
+        "returnType": "void"
+      },
+      {
+        "name": "ReEquipExistingEquipment",
+        "comment": "Equip the existing equipment, useful when exiting a car, loading games a similar",
+        "returnType": "void"
+      },
+      {
+        "name": "UnEquipAllEquipment",
+        "comment": "Equip the existing equipment, useful when exiting a car, loading games a similar",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateBestUsableActor",
+        "comment": "Update which actor we can interact with at our location.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUsePressed",
+        "comment": "Called when the use input action is triggered.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUseReleased",
+        "comment": "Called when we release the use button",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUse",
+        "comment": "Called on both server and client when we want to use something.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUseStop",
+        "comment": "Called on both server and client when we want to use something.",
+        "returnType": "void"
+      },
+      {
+        "name": "CanBePickedUp",
+        "comment": "Checks if what we hit can be picked up",
+        "returnType": "bool"
+      },
+      {
+        "name": "MoveForward",
+        "comment": "Handles moving forward/backward",
+        "returnType": "void"
+      },
+      {
+        "name": "MoveRight",
+        "comment": "Handles strafing movement, left and right",
+        "returnType": "void"
+      },
+      {
+        "name": "TurnAtRate",
+        "comment": "Called via input to turn at a given rate.\n@param Rate\tThis is a normalized rate, i.e. 1.0 means 100% of desired turn rate",
+        "returnType": "void"
+      },
+      {
+        "name": "LookUpAtRate",
+        "comment": "Called via input to turn look up/down at a given rate.\n@param Rate\tThis is a normalized rate, i.e. 1.0 means 100% of desired turn rate",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCameraComponent",
+        "comment": "Returns Camera subobject",
+        "returnType": "classUCameraComponent*"
+      },
+      {
+        "name": "GetSpringArmComponent",
+        "comment": "Returns spring arm subobject",
+        "returnType": "classUSpringArmComponent*"
+      },
+      {
+        "name": "SetBestUsableActor",
+        "comment": "Set the best usable actor",
+        "returnType": "void"
+      },
+      {
+        "name": "GetUseDistance",
+        "comment": "Returns distance we want to be able to use stuff from",
+        "returnType": "float"
+      },
+      {
+        "name": "SnapSpringArmToDesiredLocation",
+        "comment": "snaps the camera spring arm to its desired location, so no interp",
+        "returnType": "void"
+      },
+      {
+        "name": "OnReviveTimerComplete",
+        "comment": "Callback for the revive timer",
+        "returnType": "void"
+      },
+      {
+        "name": "GetReviveProgress",
+        "comment": "returns the progress of reviving a player 0..1",
+        "returnType": "float"
+      },
+      {
+        "name": "OnReviveComplete",
+        "comment": "called when a revive process is complete. Called on the player being revived.",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_Revived",
+        "comment": "Takes care of client side stuff when revived (eg. Enabling player input)",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPickupProgress",
+        "comment": "returns the progress of reviving a player 0..1",
+        "returnType": "float"
+      },
+      {
+        "name": "OnReceiveRadiationStart",
+        "comment": "Called when we start receiving radiation.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRadiationIntensityUpdated",
+        "comment": "Called when we have updated radiation intensity.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnReceiveRadiationStop",
+        "comment": "Called when we stop receiving radiation.",
+        "returnType": "void"
+      },
+      {
+        "name": "StartReceivingRadiation",
+        "returnType": "void"
+      },
+      {
+        "name": "StopReceivingRadiation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSpawnDeathMarker",
+        "comment": "Called when we respawn but didn't get a death crate, so we can find our last death location.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRadiationIntensity",
+        "comment": "Returns accumulated normalized radiation intensity at the the players location",
+        "returnType": "float"
+      },
+      {
+        "name": "GetRadiationImmunity",
+        "comment": "Returns accumulated radioation immunity",
+        "returnType": "float"
+      },
+      {
+        "name": "GetRadiationDamageAngle",
+        "comment": "Returns the angle from the players view to the accumulated radiation damage",
+        "returnType": "float"
+      },
+      {
+        "name": "TornOff",
+        "comment": "Start the pending removal of the character",
+        "returnType": "void"
+      },
+      {
+        "name": "GetArmBoneLocation",
+        "comment": "Returns the arm bone location offset we want to use depending on crouch/stand state",
+        "returnType": "float"
+      },
+      {
+        "name": "DebugBuildablesInFrustum",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBestUsableActor",
+        "comment": "The best usable actor nearby.",
+        "returnType": "classAActor*"
+      },
+      {
+        "name": "UpdateHUDCrosshair",
+        "comment": "Update what crosshair to show",
+        "returnType": "void"
+      },
+      {
+        "name": "IsSliding",
+        "comment": "Gets sliding status",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsTryingToUnslide",
+        "comment": "Gets mTryToUnSlide",
+        "returnType": "bool"
+      },
+      {
+        "name": "SpawnEquipment",
+        "comment": "@param equipmentClass Class to spawn.\n@param owner Optionally pass an owner, only use this in combination with persistent equipments.",
+        "returnType": "AFGEquipment*"
+      },
+      {
+        "name": "SpawnEquipment",
+        "returnType": "T*"
+      },
+      {
+        "name": "SpawnAttachmentForEquipment",
+        "comment": "Spawns the attachment for this equipment",
+        "returnType": "AFGEquipmentAttachment*"
+      },
+      {
+        "name": "SpawnSecondaryAttachmentForEquipment",
+        "comment": "Spawns the secondary attachment for this equipment",
+        "returnType": "AFGEquipmentAttachment*"
+      },
+      {
+        "name": "UpdateHeadBob",
+        "comment": "Custom ticks",
+        "returnType": "void"
+      },
+      {
+        "name": "NotifyGameStatePlayerAdded",
+        "returnType": "void"
+      },
+      {
+        "name": "GetGameUI",
+        "returnType": "UFGGameUI*"
+      },
+      {
+        "name": "UpdateGameUIRadiationStatus",
+        "comment": "Update the UI with status if we are in radioactive zone or not",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateGameUIRadiationIntensity",
+        "comment": "Update the UI with radiation intensity",
+        "returnType": "void"
+      },
+      {
+        "name": "GetTotalPlayerInventorySlots",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetTotalPlayerArmEquipmentSlots",
+        "returnType": "int32"
+      },
+      {
+        "name": "Server_EquipEquipment",
+        "comment": "Server function that are called from public clients of the same name",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_UnequipEquipment",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_RevivePlayer",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_OnUse",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_OnUseReleased",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_PickUpItem",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSlideStatusUpdated",
+        "comment": "Called when slide status changes so we can change capsule size accordingly",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_ActiveEquipments",
+        "comment": "OnReps",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_ActiveAttachments",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_DrivenVehicle",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_PickupCounter",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_InRadioactiveZone",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_RadiationIntensity",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_IsSliding",
+        "returnType": "void"
+      },
+      {
+        "name": "MigrateNumSavedSlots",
+        "comment": "Migrate number of inventory and arm equipment slots saved before BU3 to unlock subsystem",
+        "returnType": "void"
+      },
+      {
+        "name": "FilterInventoryClasses",
+        "comment": "Bound to mItemFilter to filter what items can be used in the inventory slots.",
+        "returnType": "bool"
+      },
+      {
+        "name": "InitializePreferredCameraMode",
+        "returnType": "void"
+      },
+      {
+        "name": "DoUnSlide",
+        "comment": "Character can unslide, no collision is blocking",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUserSettingsUpdated",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "ArmsInvComponentName",
+        "comment": "Name of the inventory component for the arms",
+        "type": "staticconstFName"
+      },
+      {
+        "name": "BackInvComponentName",
+        "comment": "Name of the inventory component for the back",
+        "type": "staticconstFName"
+      },
+      {
+        "name": "OnPersistentEquipmentSpawned",
+        "comment": "Callbacks used by the replication graph to build dependency lists\nEvent for when equipment that is should always be replicated on the player is spawned",
+        "type": "staticFOnPersistentEquipmentSpawned"
+      },
+      {
+        "name": "OnEquipmentEquipped",
+        "comment": "Event on when new equipment has been equipped",
+        "type": "staticFOnEquipmentEquipped"
+      },
+      {
+        "name": "OnEquipmentUnequipped",
+        "comment": "Event on when equipment has been unequipped",
+        "type": "staticFOnEquipmentUnequipped"
+      },
+      {
+        "name": "OnFoliagePickupSpawned",
+        "comment": "Event when the foliage pickup proxy has spawned",
+        "type": "staticFOnFoliagePickupSpawned"
+      },
+      {
+        "name": "mBaseTurnRate",
+        "comment": "Base turn rate, in deg/sec. Other scaling may affect final turn rate.",
+        "type": "float"
+      },
+      {
+        "name": "mBaseLookUpRate",
+        "comment": "Base look up/down rate, in deg/sec. Other scaling may affect final rate.",
+        "type": "float"
+      },
+      {
+        "name": "mMesh1PAnimClass",
+        "comment": "The default arms animation when we're idle.",
+        "type": "TSubclassOf<classUAnimInstance>"
+      },
+      {
+        "name": "mMesh3P",
+        "comment": "Pawn mesh: 3rd person view",
+        "type": "classUSkeletalMeshComponent*"
+      },
+      {
+        "name": "mFoliagePickupProxyClass",
+        "comment": "As we have no foliage actor to actually put pickup code in, we use this actor as a proxy",
+        "type": "TSubclassOf<classAFGFoliagePickup>"
+      },
+      {
+        "name": "mFoliagePickupProxy",
+        "comment": "Actor that's used when trying to pickup foliage",
+        "type": "classAFGFoliagePickup*"
+      },
+      {
+        "name": "mBuildGun",
+        "comment": "This is the infamous build gun.",
+        "type": "AFGBuildGun*"
+      },
+      {
+        "name": "mResourceScanner",
+        "comment": "Reference to the resource scanner",
+        "type": "AFGResourceScanner*"
+      },
+      {
+        "name": "mResourceMiner",
+        "comment": "Reference to the resource miner",
+        "type": "classAFGResourceMiner*"
+      },
+      {
+        "name": "mBestUsableActor",
+        "comment": "The best usable actor nearby.",
+        "type": "classAActor*"
+      },
+      {
+        "name": "mCachedUseState",
+        "comment": "Of the usable actor we are looking at, UPROPERTY to prevent the AdditionalData to be garbage collected",
+        "type": "FUseState"
+      },
+      {
+        "name": "mAnimInstanceClass",
+        "comment": "Anim instance class to use in third person",
+        "type": "TSubclassOf<classUAnimInstance>"
+      },
+      {
+        "name": "mAnimInstanceClass1P",
+        "comment": "Anim instance class to use in first person",
+        "type": "TSubclassOf<classUAnimInstance>"
+      },
+      {
+        "name": "mReviveDuration",
+        "comment": "time (in seconds) it takes to revive a fellow player",
+        "type": "float"
+      },
+      {
+        "name": "mStartingResources",
+        "comment": "The starting resources for the player",
+        "type": "TArray<FItemAmount>"
+      },
+      {
+        "name": "mStartingResourceForTesting",
+        "comment": "The starting resources for the player if we are NOT in shipping",
+        "type": "TArray<FItemAmount>"
+      },
+      {
+        "name": "mDrownDamageDamageType",
+        "comment": "@todo: This should not be specified for each pawn",
+        "type": "TSubclassOf<classUFGDamageType>"
+      },
+      {
+        "name": "mDrownDamage",
+        "comment": "The amount of damage to receive when drowning.",
+        "type": "float"
+      },
+      {
+        "name": "mDrownDamageInterval",
+        "comment": "Time between each application of drowning damage (in seconds)",
+        "type": "float"
+      },
+      {
+        "name": "mPlayerToRevive",
+        "comment": "The player that we are reviving",
+        "type": "AFGCharacterPlayer*"
+      },
+      {
+        "name": "mPickupToCollect",
+        "comment": "The pickup we are collecting",
+        "type": "classAFGItemPickup*"
+      },
+      {
+        "name": "m1PDefaultFootstepEffect",
+        "comment": "Default effects to play when a foot hits the ground when the material doesn't exist in m1PFootstepEffect",
+        "type": "FFootstepEffect"
+      },
+      {
+        "name": "m1PFootstepEffect",
+        "comment": "Effects to play when a foot hits the ground in first person",
+        "type": "TArray<FFootstepEffectSurface>"
+      },
+      {
+        "name": "m1PFootstepEvent",
+        "comment": "Effects to play when a foot hits the ground in first person",
+        "type": "TArray<classUAkAudioEvent*>"
+      },
+      {
+        "name": "mLastSafeGroundCheckTimer",
+        "comment": "latest safe ground location check timer",
+        "type": "float"
+      },
+      {
+        "name": "MAX_SAFE_GROUND_POS_BUFFER_SIZE",
+        "type": "staticconstint32"
+      },
+      {
+        "name": "mLastSafeGroundPositions",
+        "comment": "latest safe ground location positions",
+        "type": "FVector"
+      },
+      {
+        "name": "mLastSafeGroundPositionLoopHead",
+        "comment": "used for knowing which is the latest written safe ground position",
+        "type": "int32"
+      },
+      {
+        "name": "mCameraComponent",
+        "comment": "Player camera",
+        "type": "classUCameraComponent*"
+      },
+      {
+        "name": "mSpringArmComponent",
+        "comment": "Spring arm for camera",
+        "type": "classUSpringArmComponent*"
+      },
+      {
+        "name": "mActiveEquipments",
+        "comment": "This is the equipment we hold in our hands.",
+        "type": "TArray<classAFGEquipment*>"
+      },
+      {
+        "name": "mClientActiveEquipments",
+        "comment": "Simulated on the client so they know what to unequip.",
+        "type": "TArray<classAFGEquipment*>"
+      },
+      {
+        "name": "mAllAttachments",
+        "comment": "@todo They should be in the inventory later on. But right now this is what you toggle with",
+        "type": "TArray<classAFGEquipmentAttachment*>"
+      },
+      {
+        "name": "mActiveAttachments",
+        "comment": "Remote client representation of the equipment",
+        "type": "TArray<classAFGEquipmentAttachment*>"
+      },
+      {
+        "name": "mCurrentCameraMode",
+        "comment": "Current camera mode for the character",
+        "type": "ECameraMode"
+      },
+      {
+        "name": "mPlayerPreferredCameraMode",
+        "comment": "What camera mode were we in before we opened the",
+        "type": "ECameraMode"
+      },
+      {
+        "name": "mInventory",
+        "comment": "The players inventory.",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mAllowedResourceFormsInInventory",
+        "comment": "The resource forms that are allowed in players inventory.",
+        "type": "TArray<EResourceForm>"
+      },
+      {
+        "name": "mBeltSlot",
+        "comment": "The belt slot inventory.",
+        "type": "classUFGInventoryComponentBeltSlot*"
+      },
+      {
+        "name": "mTrashSlot",
+        "comment": "The players inventory.",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mAllowCameraToggling",
+        "comment": "Allow toggling of camera modes",
+        "type": "bool"
+      },
+      {
+        "name": "mUseDistance",
+        "comment": "Maximum distance we use objects on",
+        "type": "float"
+      },
+      {
+        "name": "mTimeToApplyDrownDamage",
+        "comment": "keeps track of current drown damage interval time",
+        "type": "float"
+      },
+      {
+        "name": "mPickupCounter",
+        "comment": "Counter used for replicating to remote clients when something is picked up",
+        "type": "int8"
+      },
+      {
+        "name": "mReviver",
+        "comment": "The player that is reviving me",
+        "type": "AFGCharacterPlayer*"
+      },
+      {
+        "name": "mReviveTimerHandle",
+        "comment": "Revive timer handle, duh.",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mWantsSprintBobbing",
+        "comment": "Indicates if the player is sprinting and wants to use the sprint bobbing",
+        "type": "bool"
+      },
+      {
+        "name": "mCurrentHeadBobShake",
+        "comment": "Reference to the current head bob shake we should use",
+        "type": "TSubclassOf<classUCameraShake>"
+      },
+      {
+        "name": "mDefaultWalkHeadBobShake",
+        "comment": "Reference to the default walk head bob shake",
+        "type": "TSubclassOf<classUCameraShake>"
+      },
+      {
+        "name": "mDefaultSprintHeadBobShake",
+        "comment": "Reference to the default sprint head bob shake",
+        "type": "TSubclassOf<classUCameraShake>"
+      },
+      {
+        "name": "mDrivenVehicle",
+        "comment": "Vehicle currently driven by pawn.",
+        "type": "classAFGDriveablePawn*"
+      },
+      {
+        "name": "mSavedDrivenVehicle",
+        "comment": "Used by server to remember which vehicle we drove when saving.\nUsed by client to remember which vehicle we drove when leaving the vehicle.",
+        "type": "classAFGDriveablePawn*"
+      },
+      {
+        "name": "mOutlineComponent",
+        "type": "classUFGOutlineComponent*"
+      },
+      {
+        "name": "mHealthGenerationThreshold",
+        "comment": "Health Generation",
+        "type": "float"
+      },
+      {
+        "name": "mHealthGenerationAmount",
+        "type": "float"
+      },
+      {
+        "name": "mHealthGenerationInterval",
+        "type": "float"
+      },
+      {
+        "name": "mHealthGenerationWaitTime",
+        "type": "float"
+      },
+      {
+        "name": "mHealthGenerationTimer",
+        "type": "float"
+      },
+      {
+        "name": "mLastDamageTakenTime",
+        "type": "float"
+      },
+      {
+        "name": "mRadiationMinDamageInterval",
+        "comment": "The minimum damage interval ( 0.2 = every 5 second, 10.0 = 10 times per second )",
+        "type": "float"
+      },
+      {
+        "name": "mRadiationMaxDamageInterval",
+        "comment": "The maximum damage interval ( 0.2 = every 5 second, 10.0 = 10 times per second )",
+        "type": "float"
+      },
+      {
+        "name": "mRadiationDamagePerInterval",
+        "comment": "How much damage we should apply during each damage event. Once per interval",
+        "type": "float"
+      },
+      {
+        "name": "mRadiationCounter",
+        "comment": "Counter to know when we should take damage from radiation\"",
+        "type": "float"
+      },
+      {
+        "name": "mRadiationTimerHandle",
+        "comment": "Timer that keeps track of our exposure to radiation.",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mRadiationIntensity",
+        "comment": "The accumulated normalized radiation intensity of the players current location",
+        "type": "float"
+      },
+      {
+        "name": "mRadiationDamageAngle",
+        "comment": "The angle from the players view to the accumulated radiation damage",
+        "type": "float"
+      },
+      {
+        "name": "mRadiationImmunity",
+        "comment": "How much immunity do we have for radiation",
+        "type": "float"
+      },
+      {
+        "name": "mInRadioactiveZone",
+        "comment": "Are we in a radioactive zone",
+        "type": "bool"
+      },
+      {
+        "name": "mDefaultPlayerInventorySlots",
+        "comment": "Number of starting slots for players inventory",
+        "type": "int32"
+      },
+      {
+        "name": "mDefaultPlayerArmEquipmentSlots",
+        "comment": "Number of starting slots for players arm equipments",
+        "type": "int32"
+      },
+      {
+        "name": "mCurrentCameraRelativeOffset",
+        "comment": "Current offset when blending the camera between stand and crouch",
+        "type": "float"
+      },
+      {
+        "name": "mArmBoneLocation",
+        "comment": "Z location offset for  the arms mesh",
+        "type": "float"
+      },
+      {
+        "name": "mCameraOffsetBlend",
+        "comment": "Current blend value",
+        "type": "float"
+      },
+      {
+        "name": "mCameraOffsetBlendSpeed",
+        "comment": "How fast the blend is",
+        "type": "float"
+      },
+      {
+        "name": "mReplicatedIsSliding",
+        "comment": "Replicated value of sliding status. Used to let non owning player know whats happening",
+        "type": "bool"
+      },
+      {
+        "name": "mLastSlideStatus",
+        "comment": "Keep track of what status was for mReplicatedIsSliding",
+        "type": "bool"
+      },
+      {
+        "name": "mTargetCameraRelativeOffset",
+        "comment": "New offset that we want to have",
+        "type": "float"
+      },
+      {
+        "name": "mOldCameraRelativeOffset",
+        "comment": "Old offset we are interpolating from",
+        "type": "float"
+      },
+      {
+        "name": "mSpringArmOffsetX",
+        "comment": "Feched during begin play from the spring arm, and used to be able to restore it's valu later on",
+        "type": "float"
+      },
+      {
+        "name": "mCurrentCameraPipeOffset",
+        "comment": "New offset that we want to have",
+        "type": "float"
+      },
+      {
+        "name": "mCameraMoveFeedback",
+        "comment": "Reprecentation of user setting",
+        "type": "float"
+      },
+      {
+        "name": "mCrouchSpeed",
+        "comment": "How fast the blend is for crouch and slide",
+        "type": "float"
+      },
+      {
+        "name": "mStandSpeed",
+        "comment": "How fast the blend is from crouch/slide to stand",
+        "type": "float"
+      },
+      {
+        "name": "mSlideToCrouchSpeed",
+        "comment": "How fast the blend is from slide to crouch",
+        "type": "float"
+      },
+      {
+        "name": "mDefaultCrouchHalfHeight",
+        "comment": "Saving the default value of the crouch height since we manipulate it when sliding",
+        "type": "float"
+      },
+      {
+        "name": "mTryToUnSlide",
+        "comment": "We are trying to raise capsule collision to default size after a slide has ended",
+        "type": "bool"
+      },
+      {
+        "name": "mIsUsingFull3DInput",
+        "comment": "If enable th einput vector will use the look direction as the forward vector",
+        "type": "bool"
+      },
+      {
+        "name": "mNoUpdate",
+        "type": "bool"
+      }
+    ]
+  }
+]

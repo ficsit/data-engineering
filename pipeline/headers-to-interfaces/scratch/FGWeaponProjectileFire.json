@@ -1,0 +1,107 @@
+[
+  {
+    "kind": "class",
+    "name": "FProjectileData",
+    "category": "USTRUCT",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FProjectileData",
+        "comment": "defaults"
+      }
+    ],
+    "properties": [
+      {
+        "name": "ProjectileClass",
+        "comment": "projectile class",
+        "type": "TSubclassOf<classAFGProjectile>"
+      },
+      {
+        "name": "ProjectileLifeSpan",
+        "comment": "life time",
+        "type": "float"
+      },
+      {
+        "name": "ProjectileStickSpan",
+        "comment": "How long the projectile will live after it has gotten stuck to something",
+        "type": "float"
+      },
+      {
+        "name": "ExplosionDamage",
+        "comment": "damage at impact point",
+        "type": "int32"
+      },
+      {
+        "name": "ExplosionRadius",
+        "comment": "radius of damage",
+        "type": "float"
+      },
+      {
+        "name": "ImpactDamage",
+        "comment": "Damage dealt to actor that get hit or impacted by this projectile",
+        "type": "int32"
+      },
+      {
+        "name": "ShouldExplodeOnImpact",
+        "comment": "If we impact something, should this projectile explode so that it deals radius damage?",
+        "type": "bool"
+      },
+      {
+        "name": "CanTriggerExplodeBySameClass",
+        "comment": "Indicates if we should explode if we are taking damage from same actor class as ourselves",
+        "type": "bool"
+      },
+      {
+        "name": "ExplodeAtEndOfLife",
+        "comment": "Should the projectile explode when it dies of lifespan?",
+        "type": "bool"
+      },
+      {
+        "name": "DamageType",
+        "comment": "type of damage used for impact damage",
+        "type": "TSubclassOf<UFGDamageType>"
+      },
+      {
+        "name": "DamageTypeExplode",
+        "comment": "type of damage used for detonation",
+        "type": "TSubclassOf<UFGDamageType>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGWeaponProjectileFire",
+    "category": "UCLASS",
+    "comment": "Weapon that fires client side projectiles.",
+    "extends": [
+      "AFGWeapon"
+    ],
+    "methods": [
+      {
+        "name": "AFGWeaponProjectileFire"
+      },
+      {
+        "name": "FireAmmunition_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetProjectileData",
+        "comment": "apply config on projectile",
+        "returnType": "void"
+      },
+      {
+        "name": "ProjectileFire",
+        "comment": "Spawns the projectile",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mProjectileData",
+        "comment": "weapon config",
+        "type": "FProjectileData"
+      }
+    ]
+  }
+]

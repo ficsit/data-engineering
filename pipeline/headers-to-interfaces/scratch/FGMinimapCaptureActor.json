@@ -1,0 +1,196 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGHeightWaterUserData",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UAssetUserData"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGHeightFoliageUserData",
+    "category": "UCLASS",
+    "extends": [
+      "UAssetUserData"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGHeightHideUserData",
+    "category": "UCLASS",
+    "extends": [
+      "UAssetUserData"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "FFGHeightData",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FFGHeightData"
+      },
+      {
+        "name": "AddHitLocation",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "minZ",
+        "type": "float"
+      },
+      {
+        "name": "maxZ",
+        "type": "float"
+      },
+      {
+        "name": "lowestZ",
+        "type": "float"
+      },
+      {
+        "name": "highestZ",
+        "type": "float"
+      },
+      {
+        "name": "zHitLocations",
+        "type": "TArray<float>"
+      },
+      {
+        "name": "noHitIndexes",
+        "type": "TArray<int32>"
+      },
+      {
+        "name": "deepHitIndexes",
+        "type": "TArray<int32>"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "EHeightDataType",
+    "entries": [
+      {
+        "name": "HDT_NONE"
+      },
+      {
+        "name": "HDT_TERRAIN"
+      },
+      {
+        "name": "HDT_WATER"
+      },
+      {
+        "name": "HDT_FOLIAGE"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGMinimapCaptureActor",
+    "category": "UCLASS",
+    "extends": [
+      "ASceneCapture2D"
+    ],
+    "methods": [
+      {
+        "name": "AFGMinimapCaptureActor"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetMapAreaTexture",
+        "comment": "Returns the map area texture that has been specified on this capture actor",
+        "returnType": "classUFGMapAreaTexture*"
+      },
+      {
+        "name": "ExportHeightData",
+        "comment": "This function traces all over the level to find height info that can be used when we draw the minimap",
+        "returnType": "void"
+      },
+      {
+        "name": "CalculateHeightData",
+        "returnType": "void"
+      },
+      {
+        "name": "GetTypeFromHitResult",
+        "returnType": "EHeightDataType"
+      },
+      {
+        "name": "SetNotHitLocationsToLowestValue",
+        "returnType": "void"
+      },
+      {
+        "name": "SetDeepHitLocationsToLowestValue",
+        "returnType": "void"
+      },
+      {
+        "name": "ClampToBinaryValues",
+        "returnType": "void"
+      },
+      {
+        "name": "CalculateDepthBetween",
+        "returnType": "void"
+      },
+      {
+        "name": "CreatePixelArray",
+        "returnType": "TArray<FColor>"
+      },
+      {
+        "name": "CreateLayeredPixelArray",
+        "returnType": "TArray<TArray<FColor>>"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mIncludeFoliage",
+        "comment": "Do we want the foliage to be considered for the height data generation?",
+        "type": "bool"
+      },
+      {
+        "name": "mIgnoreUserData",
+        "comment": "Should we ignore the userdata set on static meshes, all static meshes will be considered for the height data",
+        "type": "bool"
+      },
+      {
+        "name": "mLayersForTerrain",
+        "comment": "Divides the terrain height map into the given amount of layers",
+        "type": "int32"
+      },
+      {
+        "name": "mShowDepthOnWaterMap",
+        "comment": "Show depth on the water map",
+        "type": "bool"
+      },
+      {
+        "name": "mWaterMaxDepth",
+        "comment": "The max water depth considered, everything deeper than this will be clamped to this value",
+        "type": "float"
+      },
+      {
+        "name": "mWaterDepthBufferMultiplier",
+        "comment": "Decides how big the buffer between \"no water\"-areas and the deepest water-area is",
+        "type": "float"
+      },
+      {
+        "name": "mHeightDataResolution",
+        "type": "int32"
+      },
+      {
+        "name": "mMapAreaTexture",
+        "comment": "The areas defined as by this texture",
+        "type": "UFGMapAreaTexture*"
+      }
+    ]
+  }
+]

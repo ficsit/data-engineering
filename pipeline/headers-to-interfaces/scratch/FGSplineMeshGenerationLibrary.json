@@ -1,0 +1,43 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGSplineMeshGenerationLibrary",
+    "category": "UCLASS",
+    "comment": "Helper library for generating spline meshes, collision and meshes along a splines.",
+    "extends": [
+      "UBlueprintFunctionLibrary"
+    ],
+    "methods": [
+      {
+        "name": "BuildSplineMeshes",
+        "comment": "\n\t\t\t\t\t\t\t\treturn newComponent;\n\t\t\t\t\t\t}",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildSplineMeshes",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildSplineMeshesInstanced",
+        "comment": "\t\t\t\t\t\t\t\t\tThis can be reused between calls to update an existing one.\n\t\t\t\t\t\t\t\t\tIf this have mobility Static, it must not be registered before calling this function, if it is then this function have no effect.",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildSplineCollisionBoxes",
+        "comment": "\n @note The created collisions are registered and attached to the spline with the same owning actor.",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildSplineCollisionCapsules",
+        "comment": "\n @note The created collisions are registered and attached to the spline with the same owning actor.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetNextDistanceExcedingTollerance",
+        "comment": "\n @return\tbool - returns false if we've reached the end and true if there is still more left",
+        "returnType": "bool"
+      }
+    ],
+    "properties": []
+  }
+]

@@ -1,0 +1,118 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableWire",
+    "category": "UCLASS",
+    "comment": "A wire that connects to wire connection components.\nThis is an edge in a circuit graph.",
+    "extends": [
+      "AFGBuildable"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableWire"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Serialize",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDismantleRefundReturnsMultiplier",
+        "comment": "Begin Buildable interface",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetLength",
+        "comment": "@return The distance between the points the wire connects.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetConnection",
+        "comment": "@return The connection connected at the end of the wire.",
+        "returnType": "classUFGCircuitConnectionComponent*"
+      },
+      {
+        "name": "GetOppositeConnection",
+        "comment": "@param connection Connection at our end of the wire.\n@return The connection at the other end of the wire, may be nullptr for dangling wires.",
+        "returnType": "classUFGCircuitConnectionComponent*"
+      },
+      {
+        "name": "Disconnect",
+        "comment": "Helper function to disconnect this wire.\nNote: This only disconnects the wire but do not destroy it, call TurnOffAndDestroy to disconnect and remove a wire.",
+        "returnType": "void"
+      },
+      {
+        "name": "DisplayDebug",
+        "comment": "Debug",
+        "returnType": "void"
+      },
+      {
+        "name": "GetWireMeshTag",
+        "comment": "Read only access to the tag of the wire mesh",
+        "returnType": "FName&"
+      },
+      {
+        "name": "UpdateWireMesh",
+        "returnType": "void"
+      },
+      {
+        "name": "Connect",
+        "comment": "Internal helper function to connect this wire.\n[DavalliusA:Sun/16-02-2020] moved this out as it was needed for upgrades. If there is a reason to hide it, please make that clear, or I won't know why not to expose it.",
+        "returnType": "void"
+      },
+      {
+        "name": "IsConnected",
+        "comment": "Internal helper function to see if this wire is connected.\n@return true if either side of the wire is connected; false if no side is connected.",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnRep_Locations",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mMaxLength",
+        "comment": "Maximum length a wire may be. [cm]",
+        "type": "float"
+      },
+      {
+        "name": "mLengthPerCost",
+        "comment": "How much length we get per unit cost, 0 to disable per length cost. [cm]",
+        "type": "float"
+      },
+      {
+        "name": "mWireMesh",
+        "comment": "Mesh used to visualize the power line",
+        "type": "UStaticMeshComponent*"
+      },
+      {
+        "name": "mWireMeshTag",
+        "comment": "The tag used to identify the wire mesh.",
+        "type": "staticFName"
+      },
+      {
+        "name": "mConnections",
+        "comment": "Weak references as buildings can be removed and leave the cables hanging.\nThis is for mod stability or just different lifespan when dismantling building and wires.",
+        "type": "TWeakObjectPtr<classUFGCircuitConnectionComponent>"
+      },
+      {
+        "name": "mLocations",
+        "comment": "The two locations this wire span.",
+        "type": "FVector"
+      }
+    ]
+  }
+]

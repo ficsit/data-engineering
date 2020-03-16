@@ -1,0 +1,134 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGPipelineAttachmentHologram",
+    "category": "UCLASS",
+    "comment": "Base attachment class for buildables built onto pipelines",
+    "extends": [
+      "AFGFactoryHologram"
+    ],
+    "methods": [
+      {
+        "name": "AFGPipelineAttachmentHologram"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin Actor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "SetHologramLocationAndRotation",
+        "comment": "Begin AFGHologram Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "TrySnapToActor",
+        "returnType": "bool"
+      },
+      {
+        "name": "ScrollRotate",
+        "comment": "Begin AFGHologram interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRotationStep",
+        "returnType": "int32"
+      },
+      {
+        "name": "CheckClearance",
+        "returnType": "void"
+      },
+      {
+        "name": "ConfigureComponents",
+        "comment": "Begin AFGBuildableHologram Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckValidPlacement",
+        "returnType": "void"
+      },
+      {
+        "name": "TrySnapToConnection",
+        "comment": "@note -\tThis will return the location of the component, it will not account for Local PipeComponent transform offset.\n\t\tPlacing the hologram component to component must be done manually per case as the desired behavior can vary.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mConnection0",
+        "comment": "Name of the pass through input connection.",
+        "type": "staticFName"
+      },
+      {
+        "name": "mConnection1",
+        "comment": "Name of the pass through output connection.",
+        "type": "staticFName"
+      },
+      {
+        "name": "mMaxValidTurnOffset",
+        "comment": "Used to limit the placement in turns. What's the maximum offset to check from center to detect the curve.",
+        "type": "float"
+      },
+      {
+        "name": "mMaxValidTurnAngle",
+        "comment": "Used to limit the placement in turns. What's the maximum angle.",
+        "type": "float"
+      },
+      {
+        "name": "mRotationAxis",
+        "comment": "The axis to rotate around for scroll rotation",
+        "type": "TEnumAsByte<EAxis::Type>"
+      },
+      {
+        "name": "mIncrementSnappedConnectionOnScroll",
+        "comment": "Should this attachment increment its snapped connection index on Scroll?",
+        "type": "bool"
+      },
+      {
+        "name": "mUseProducerDirectionalArrow",
+        "comment": "Whether or not to display directional arrows on producer component types",
+        "type": "uint8"
+      },
+      {
+        "name": "mProducerArrowRelativeLocation",
+        "comment": "Local location to place the producer directional arrow mesh if enabled",
+        "type": "FVector"
+      },
+      {
+        "name": "mWallSnapOffset",
+        "comment": "When snapping to a Wall apply this offset on the wall.",
+        "type": "FVector2D"
+      },
+      {
+        "name": "mProducerComponentArrows",
+        "comment": "Directional indicator. Added to visualize \"Producer\" type pipe connection components direction",
+        "type": "TArray<classUStaticMeshComponent*>"
+      },
+      {
+        "name": "mSnappedPipeline",
+        "comment": "The pipeline we snapped to.",
+        "type": "classAFGBuildablePipeline*"
+      },
+      {
+        "name": "mPipeConnectionComponents",
+        "comment": "Cached list of all connections in this attachment hologram",
+        "type": "TArray<classUFGPipeConnectionComponent*>"
+      },
+      {
+        "name": "mSnapConnectionIndex",
+        "comment": "Index of the connection component we wish to snap",
+        "type": "int32"
+      },
+      {
+        "name": "mSnappedConnectionComponent",
+        "comment": "The pipeline connection Component we have snapped to. Can be NULL\n Used when attempting to place the attachment at the end of a pipe that is not connected",
+        "type": "classUFGPipeConnectionComponent*"
+      },
+      {
+        "name": "mSnappedPipelineOffset",
+        "comment": "The offset we snapped on the pipeline.",
+        "type": "float"
+      }
+    ]
+  }
+]

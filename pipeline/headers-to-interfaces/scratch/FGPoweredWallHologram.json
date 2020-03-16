@@ -1,0 +1,19 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGPoweredWallHologram",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGWallHologram"
+    ],
+    "methods": [
+      {
+        "name": "ConfigureSnappedPower",
+        "comment": "Begin AFGBuildableHologram interface",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

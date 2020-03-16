@@ -1,0 +1,13 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableRamp",
+    "category": "UCLASS",
+    "comment": "Base class for all kinds of ramps.",
+    "extends": [
+      "AFGBuildableFoundation"
+    ],
+    "methods": [],
+    "properties": []
+  }
+]

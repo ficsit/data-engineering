@@ -1,0 +1,91 @@
+[
+  {
+    "kind": "class",
+    "name": "FErrors",
+    "category": "USTRUCT",
+    "comment": "Errors we want to store to disc",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "UnknownObjects",
+        "comment": "All unknown objects",
+        "type": "TSet<FObjectReferenceDisc>"
+      },
+      {
+        "name": "UnknownLevels",
+        "comment": "All unknown levels",
+        "type": "TSet<FString>"
+      },
+      {
+        "name": "UnknownClasses",
+        "comment": "All unknown classes",
+        "type": "TSet<FString>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FSaveErrors",
+    "extends": [],
+    "methods": [
+      {
+        "name": "AddUnknownClass",
+        "comment": "@param unknownClass - the class that we tried to find but didn't",
+        "returnType": "void"
+      },
+      {
+        "name": "AddUnknownLevel",
+        "comment": "\n @param unknownLevel - the level that we tried to find but didn't",
+        "returnType": "void"
+      },
+      {
+        "name": "AddUnknownObject",
+        "comment": "\n @param unknownReference - the reference that we tried to find but didn't",
+        "returnType": "void"
+      },
+      {
+        "name": "DumpSaveErrors",
+        "comment": "Dump all save errors we got during the load",
+        "returnType": "void"
+      },
+      {
+        "name": "IsAnyErrorsOnDisc",
+        "comment": "returns true if there are any errors on disc",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetErrorsFromDisc",
+        "comment": "Get all errors that's on disc so we can process them",
+        "returnType": "void"
+      },
+      {
+        "name": "SetSaveErrors",
+        "comment": "For runtime updating the errors",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSaveErrorDirectory",
+        "comment": "Get the directory with the save errors",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetSaveErrorFileName",
+        "comment": "Get the file with the save errors",
+        "returnType": "FString"
+      },
+      {
+        "name": "DumpErrorsToFile",
+        "comment": "Dump all errors to a file",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Errors",
+        "comment": "All errors",
+        "type": "staticFErrors"
+      }
+    ]
+  }
+]

@@ -1,0 +1,145 @@
+[
+  {
+    "kind": "class",
+    "name": "FColorMapAreaPair",
+    "category": "USTRUCT",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FColorMapAreaPair"
+      }
+    ],
+    "properties": [
+      {
+        "name": "PaletteColor",
+        "type": "FColor"
+      },
+      {
+        "name": "MapArea",
+        "type": "TSubclassOf<classUFGMapArea>"
+      },
+      {
+        "name": "MinX",
+        "comment": "A top left pixel that together with MaxX/MaxY encompasses the entire area",
+        "type": "int32"
+      },
+      {
+        "name": "MinY",
+        "type": "int32"
+      },
+      {
+        "name": "MaxX",
+        "type": "int32"
+      },
+      {
+        "name": "MaxY",
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGMapAreaTexture",
+    "category": "UCLASS",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "PostEditChangeProperty",
+        "comment": "When this is changed in the editor, propagate the changes to the preview window",
+        "returnType": "void"
+      },
+      {
+        "name": "GenerateAreaData",
+        "comment": "Generate a icon for this item",
+        "returnType": "void"
+      },
+      {
+        "name": "InitMapAreaTexture",
+        "comment": "Init the map area texture, fetches scale and offset",
+        "returnType": "void"
+      },
+      {
+        "name": "GetMapAreaForWorldLocation",
+        "comment": "Returns the map area encompassing the world location passed",
+        "returnType": "TSubclassOf<UFGMapArea>"
+      },
+      {
+        "name": "InitFogOfWarTexture",
+        "comment": "Creates and inits the fog of war texture",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFogOfWarTexture",
+        "comment": "Returns the current fog of war texture that has been generated",
+        "returnType": "UTexture2D*"
+      },
+      {
+        "name": "GetAllMapAreas",
+        "returnType": "void"
+      },
+      {
+        "name": "OnNewMapAreaVisisted",
+        "comment": "Called when any player enters a new area on the map, should case a redraw of the fog of war texture",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateFogOfWarTexture",
+        "comment": "Updates the fog of war texture",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mAreaTexture",
+        "comment": "This is the texture that the level designers made to define areas on the map",
+        "type": "UTexture2D*"
+      },
+      {
+        "name": "mFogOfWarTexture",
+        "comment": "The current fog of war is generated to this texture",
+        "type": "UTexture2D*"
+      },
+      {
+        "name": "mAreaData",
+        "comment": "This is where we store the raw data we generated from the texture",
+        "type": "TArray<uint8>"
+      },
+      {
+        "name": "mColorPalette",
+        "comment": "This are all the unique colors found in the texture",
+        "type": "TArray<FColor>"
+      },
+      {
+        "name": "mColorToArea",
+        "type": "TArray<FColorMapAreaPair>"
+      },
+      {
+        "name": "mCaptureActor",
+        "comment": "A cached camera in the Skye",
+        "type": "classAFGMinimapCaptureActor*"
+      },
+      {
+        "name": "mDataWidth",
+        "comment": "The width of the data and the texture",
+        "type": "int32"
+      },
+      {
+        "name": "mUpperLeftWorld",
+        "comment": "Used for the map area check, world coordinate for \"upper left\".",
+        "type": "FVector2D"
+      },
+      {
+        "name": "mWorldToMapScale",
+        "comment": "Unreal Unit to pixel of map texture scale",
+        "type": "float"
+      },
+      {
+        "name": "mCachedGameState",
+        "type": "classAFGGameState*"
+      }
+    ]
+  }
+]

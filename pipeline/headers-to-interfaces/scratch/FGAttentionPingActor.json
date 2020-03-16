@@ -1,0 +1,51 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGAttentionPingActor",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AActor"
+    ],
+    "methods": [
+      {
+        "name": "AFGAttentionPingActor",
+        "comment": "Sets default values for this actor's properties"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "SetOwningPlayerState",
+        "comment": "Set the player state of the player that spawned this actor",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOwningPlayerState",
+        "comment": "player state of the player that spawned this actor",
+        "returnType": "AFGPlayerState*"
+      },
+      {
+        "name": "OnRep_OwningPlayerState",
+        "returnType": "void"
+      },
+      {
+        "name": "SpawnAttentionPingEffects",
+        "comment": "Called when we have the player state replicated so now we can spawn the effects",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOwningPlayerState",
+        "comment": "The player state of the pawn that spawned this actor",
+        "type": "classAFGPlayerState*"
+      }
+    ]
+  }
+]

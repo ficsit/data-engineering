@@ -1,0 +1,19 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableWindTurbine",
+    "category": "UCLASS",
+    "comment": "Generates power from wind.",
+    "extends": [
+      "AFGBuildableFactory"
+    ],
+    "methods": [
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

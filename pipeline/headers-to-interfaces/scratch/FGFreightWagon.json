@@ -1,0 +1,214 @@
+[
+  {
+    "kind": "enum",
+    "name": "EFreightCargoType",
+    "comment": "Enum to track the two types of cargo (Standard and Liquid)",
+    "entries": [
+      {
+        "name": "FCT_NONE",
+        "displayName": "None"
+      },
+      {
+        "name": "FCT_Standard",
+        "displayName": "Standard"
+      },
+      {
+        "name": "FCT_Liquid",
+        "displayName": "Liquid"
+      },
+      {
+        "name": "FCT_MAX"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGFreightWagon",
+    "category": "UCLASS",
+    "comment": "Freight cart that has an inventory component to transport items.\nDepending on the inventory it is holding it can be either a liquid / gas container or a standard storage container",
+    "extends": [
+      "AFGRailroadVehicle"
+    ],
+    "methods": [
+      {
+        "name": "AFGFreightWagon"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetMovementComponent",
+        "comment": "Begin Movement",
+        "returnType": "classUPawnMovementComponent*"
+      },
+      {
+        "name": "GetRailroadVehicleMovementComponent",
+        "returnType": "classUFGRailroadVehicleMovementComponent*"
+      },
+      {
+        "name": "OnUse_Implementation",
+        "comment": "~ Begin IFGUseableInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "IsUseable_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetFreightInventory",
+        "comment": "Get the inventory where we store the cargo.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetFreightInventoryFilledPercent",
+        "comment": "Get the inventory where we store the cargo.\n@todotrains return a correct value - Update on todo - This really doesn't seem used. Remove this.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetScaledFluidStackSize",
+        "comment": "Get the override stack size scaled for fluid types. Specified in class / BP defaults",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetCargoMeshVisibility",
+        "comment": "Sets the visibility on the cargo mesh component. Toggled during load / unload sequences. As well when there is no inventory present or some is added",
+        "returnType": "void"
+      },
+      {
+        "name": "SetTransitoryCargoType",
+        "comment": "Sets the transitory cargo type ( see property declaration for its used )",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateFreightCargoType",
+        "comment": "Updates the type of this freight based on the items in its inventory",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFreightCargoType",
+        "comment": "Gets the types of Freight Cargo this freight is carrying",
+        "returnType": "EFreightCargoType"
+      },
+      {
+        "name": "CanDockWithPlatformOfType",
+        "comment": "Checks if a freight is valid to dock with a certain platform and its type",
+        "returnType": "bool"
+      },
+      {
+        "name": "DisplayDebug",
+        "comment": "Debug",
+        "returnType": "void"
+      },
+      {
+        "name": "OnItemAddedToFreight",
+        "returnType": "void"
+      },
+      {
+        "name": "OnItemRemovedFromFreight",
+        "returnType": "void"
+      },
+      {
+        "name": "InitializeInventoryComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginLaunchOverlappedCharacter",
+        "comment": "When the player is first killed by an appearing container (items were added to an empty container) this is called.",
+        "returnType": "void"
+      },
+      {
+        "name": "EndLaunchOverlappedCharacters",
+        "comment": "Called a frame after a player is killed by an appearing container",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCargoStaticMesh",
+        "comment": "Returns a UStaticMesh pointer ( loaded if necessary ) that matches the inventory housed in our inventory component",
+        "returnType": "UStaticMesh*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "VehicleMovementComponentName",
+        "comment": "Name of the VehicleMovement. Use this name if you want to use a different class (with ObjectInitializer.SetDefaultSubobjectClass).",
+        "type": "staticFName"
+      },
+      {
+        "name": "CargoMeshComponentName",
+        "comment": "Name of the cargo mesh component",
+        "type": "staticFName"
+      },
+      {
+        "name": "mFreightCargoType",
+        "comment": "The current type of inventory this freight is holding. Default is FCT_Standard.",
+        "type": "EFreightCargoType"
+      },
+      {
+        "name": "mTransitoryCargoType",
+        "comment": "This temporary type does not carry any influence when updating mFreightCargoType but will be used as an override to specify container type when getting the needed static mesh if mFreightCargoType is FCT_None\n@note - Is reset to FCT_None by calls to UpdateFrieghtCargoType() which sets the actually value based on the inventory present",
+        "type": "EFreightCargoType"
+      },
+      {
+        "name": "mLaunchedCharacters",
+        "type": "TArray<AFGCharacterPlayer*>"
+      },
+      {
+        "name": "mVehicleMovement",
+        "comment": "vehicle simulation component",
+        "type": "classUFGRailroadVehicleMovementComponent*"
+      },
+      {
+        "name": "mStorageInventory",
+        "comment": "Responsible for handling our inventory",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mContainerMeshStandard",
+        "comment": "Static mesh to use when freight is holding standard inventory ( factory items )",
+        "type": "TSoftObjectPtr<UStaticMesh>"
+      },
+      {
+        "name": "mContainerMeshLiquid",
+        "comment": "Static mesh to use when freight is holding liquid / gas inventory",
+        "type": "TSoftObjectPtr<UStaticMesh>"
+      },
+      {
+        "name": "mInventorySize",
+        "comment": "The size of the inventory for this wagon.",
+        "type": "int32"
+      },
+      {
+        "name": "mFluidStackSizeDefault",
+        "comment": "Item stack size Enum to use as base for how much fluid a Liquid / Gas Item descriptor can be stored on an index in an inventory",
+        "type": "EStackSize"
+      },
+      {
+        "name": "mFluidStackSizeMultiplier",
+        "comment": "The size of the inventory for this wagon.",
+        "type": "int32"
+      },
+      {
+        "name": "mCachedFluidStackSize",
+        "comment": "Cached value of Fluid Resource Stack Size ( set in begin play from the default stack enum )",
+        "type": "int32"
+      },
+      {
+        "name": "mCargoMeshComponent",
+        "type": "classUStaticMeshComponent*"
+      },
+      {
+        "name": "mLaunchCharacterScalar",
+        "type": "float"
+      },
+      {
+        "name": "mCargoOverlapCollision",
+        "type": "classUBoxComponent*"
+      }
+    ]
+  }
+]

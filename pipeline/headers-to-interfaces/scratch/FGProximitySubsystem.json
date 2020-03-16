@@ -1,0 +1,91 @@
+[
+  {
+    "kind": "class",
+    "name": "FMapAreaParticleCollection",
+    "category": "USTRUCT",
+    "comment": "Copyright 2016-2019 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "Areas",
+        "comment": "Array of map areas that all use the same particle",
+        "type": "TArray<TSubclassOf<classUFGMapArea>>"
+      },
+      {
+        "name": "Particle",
+        "comment": "Particle associated with map areas",
+        "type": "classUParticleSystem*"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGProximitySubsystem",
+    "category": "UCLASS",
+    "extends": [
+      "AActor"
+    ],
+    "methods": [
+      {
+        "name": "AFGProximitySubsystem",
+        "comment": "Sets default values for this actor's properties"
+      },
+      {
+        "name": "OnEnteredMapArea",
+        "comment": "Player entered a new map area",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPawnChanged",
+        "comment": "Owning controller got a new pawn",
+        "returnType": "void"
+      },
+      {
+        "name": "GetParticleSystemFromMapArea",
+        "comment": "Gets particle system mapped to provided map area. Can return null if no mapping exist",
+        "returnType": "classUParticleSystem*"
+      },
+      {
+        "name": "SpawnPooledDecal",
+        "comment": "@param Rotation - rotation to place the decal in world space\n@param LifeSpan - destroy decal component after time runs out (0 = infinite)",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Called when the game starts or when spawned",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "comment": "Called every frame",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOwningController",
+        "type": "classAFGPlayerController*"
+      },
+      {
+        "name": "mRootComponent",
+        "type": "USceneComponent*"
+      },
+      {
+        "name": "mMapAreaParticleCollection",
+        "comment": "Contains mappings of particle system that should play when entering a given map area",
+        "type": "TArray<FMapAreaParticleCollection>"
+      },
+      {
+        "name": "mPooledDecals",
+        "comment": "Pool of decals",
+        "type": "TArray<UDecalComponent*>"
+      },
+      {
+        "name": "mMaxNumDecals",
+        "comment": "How many decals we want to show",
+        "type": "int32"
+      }
+    ]
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGAnimNotify_Attack",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UAnimNotify"
+    ],
+    "methods": [
+      {
+        "name": "GetNotifyName_Implementation",
+        "comment": "~ Begin UAnimNotify interface",
+        "returnType": "FString"
+      },
+      {
+        "name": "Notify",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGItemDescriptorBiomass",
+    "category": "UCLASS",
+    "comment": "Base descriptor for types of biomass.",
+    "extends": [
+      "UFGItemDescriptor"
+    ],
+    "methods": [],
+    "properties": []
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "kind": "class",
+    "name": "FFGBuildingColorSlotStruct",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "operator==",
+        "returnType": "bool"
+      },
+      {
+        "name": "operator=",
+        "returnType": "FFGBuildingColorSlotStruct&"
+      },
+      {
+        "name": "set",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "primary",
+        "type": "FColor"
+      },
+      {
+        "name": "secondary",
+        "type": "FColor"
+      }
+    ]
+  }
+]

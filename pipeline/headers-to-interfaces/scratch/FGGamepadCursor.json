@@ -1,0 +1,54 @@
+[
+  {
+    "kind": "class",
+    "name": "FFGGamepadCursor",
+    "comment": "#include \"FGGamepadCursor.generated.h\"",
+    "extends": [
+      "FAnalogCursor"
+    ],
+    "methods": [
+      {
+        "name": "FFGGamepadCursor",
+        "comment": "default ctor"
+      },
+      {
+        "name": "FFGGamepadCursor",
+        "comment": "Ctor"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "EnableAnalogCursor",
+        "returnType": "void"
+      },
+      {
+        "name": "DisableAnalogCursor",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRadius",
+        "comment": "Getter",
+        "returnType": "float"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Radius",
+        "comment": "The radius of the analog cursor",
+        "type": "float"
+      },
+      {
+        "name": "PlayerContext",
+        "comment": "The Player's Context",
+        "type": "FLocalPlayerContext"
+      },
+      {
+        "name": "AnalogCursor",
+        "comment": "The single analog cursor we allow in the game",
+        "type": "staticTSharedPtr<FFGGamepadCursor>"
+      }
+    ]
+  }
+]

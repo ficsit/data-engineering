@@ -1,0 +1,386 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableTrainPlatformCargo",
+    "category": "UCLASS",
+    "comment": "Train Platform with inputs and outputs that can both load and unload train freight carts. Must be attached to another platform or station",
+    "extends": [
+      "AFGBuildableTrainPlatform"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableTrainPlatformCargo",
+        "comment": "ctor"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreReplication",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "GetInventory",
+        "comment": "Get the inventory the docked vehicle loads/unloads to",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetDockedActor",
+        "comment": "Get the docked actor if any.",
+        "returnType": "classAFGRailroadVehicle*"
+      },
+      {
+        "name": "Dock",
+        "comment": "Dock an actor to this docking station.",
+        "returnType": "bool"
+      },
+      {
+        "name": "Undock",
+        "comment": "Undock the docked actor.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetIsInLoadMode",
+        "comment": "Set whether this station should load or unload from vehicles",
+        "returnType": "void"
+      },
+      {
+        "name": "GetIsInLoadMode",
+        "comment": "Get whether this station should load or unload from vehicles",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsLoadUnloading",
+        "comment": "Get whether this station is currently loading or unloading from vehicles",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDockedVehicleOffset",
+        "comment": "Get the docked vehicles offset from the center of the platform",
+        "returnType": "float"
+      },
+      {
+        "name": "OnTransferComplete",
+        "comment": "Notify for when unload and/or load transfers are completed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnBeginLoadSequence",
+        "comment": "****** Start of Progress Events - Use to trigger animations and attachments from blueprint ******* /\nCalled when raising the crane from the platform to send to cart",
+        "returnType": "void"
+      },
+      {
+        "name": "OnBeginUnloadSequence",
+        "comment": "Called when sending the crane from the platform to the cart",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOutflowRate",
+        "comment": "Get the smoothed Outflow rate in m^3/s. Only valid for Liquid Freight Platforms",
+        "returnType": "float"
+      },
+      {
+        "name": "GetInflowRate",
+        "comment": "Get the smoothed Inflow rate in m^3/s. Only valid for Liquid Freight Platforms",
+        "returnType": "float"
+      },
+      {
+        "name": "GetReplicationDetailActorClass",
+        "comment": "Begin IFGReplicationDetailActorOwnerInterface",
+        "returnType": "UClass*"
+      },
+      {
+        "name": "NotifyTrainDocked",
+        "comment": "Begin BuildableTrainPlatform Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateDockingSequence",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdatePowerConnectionFromTrack",
+        "comment": "Sets the hidden power connection from the child track assigned to this platform",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_Tick",
+        "comment": "Begin Factory_ interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_CollectInput_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_PullPipeInput_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_PushPipeOutput_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "CanProduce_Implementation",
+        "comment": "Begin AFGBuildableFactory interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnRep_ReplicationDetailActor",
+        "comment": "Handle Inventory component replication via DetailActor",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_UpdateDockingStatus",
+        "comment": "Handle Custom docking update behaviour for clients",
+        "returnType": "void"
+      },
+      {
+        "name": "FilterResourceForms",
+        "comment": "Filter items that are not valid for this type of cargo platform",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetFirstIndexWithItem",
+        "comment": "Returns the first slot index that has any items on it\nIf nothing exists in inventory -1 is returned",
+        "returnType": "int32"
+      },
+      {
+        "name": "TransferInventoryToTrain",
+        "comment": "Loads all possible inventory from the platform inventory into the freight inventory",
+        "returnType": "void"
+      },
+      {
+        "name": "TransferInventoryToPlatform",
+        "comment": "Transfers all possible inventory from the train cart into the platform inventory",
+        "returnType": "void"
+      },
+      {
+        "name": "LoadUnloadVehicleComplete",
+        "comment": "Done loading or unloading vehicle",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateUnloadSettings",
+        "comment": "Check if we are able to fit the contents of the frieght cart into the platforms inventory",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateLoadSettings",
+        "comment": "Check if we are able to fit the contents of the frieght cart into the platforms inventory",
+        "returnType": "void"
+      },
+      {
+        "name": "SwapCargoContainerVisibility",
+        "comment": "Swap the visibility on the load / unload cargo container component during load / unload sequences",
+        "returnType": "void"
+      },
+      {
+        "name": "HidePlatformCargoContainer",
+        "comment": "Explicitly hide the cargo container for the platform (called from a next tick timer to allow the anim blueprint to catch up)",
+        "returnType": "void"
+      },
+      {
+        "name": "ShowPlatformCargoContainer",
+        "comment": "Explicitly show the cargo container for the platform (called from a next tick timer to allow the anim blueprint to catch up)",
+        "returnType": "void"
+      },
+      {
+        "name": "OnCargoPowerStateChanged",
+        "comment": "Called when power state changes. Used to track and set docking progress so that it can recover when power is restored",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCastRepDetailsActor",
+        "returnType": "classAFGReplicationDetailActor_CargoPlatform*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mMagicBoxComponentName",
+        "comment": "Name of the magic box skel mesh comp added via BP",
+        "type": "staticFName"
+      },
+      {
+        "name": "mCargoMeshComponentName",
+        "comment": "Name of the cargo static mesh comp added via BP",
+        "type": "staticFName"
+      },
+      {
+        "name": "mFreightCargoType",
+        "comment": "The freight cargo type this platform can interface with ( conveyor vs. pipes )",
+        "type": "EFreightCargoType"
+      },
+      {
+        "name": "mStorageSizeX",
+        "comment": "SizeX of storage inventory",
+        "type": "int8"
+      },
+      {
+        "name": "mStorageSizeY",
+        "comment": "SizeY of storage inventory",
+        "type": "int8"
+      },
+      {
+        "name": "mMagicBoxSkelMeshComponent",
+        "comment": "Magic box skeletal mesh component. Plays load / unload animations during partial load / unload sequences",
+        "type": "classUSkeletalMeshComponent*"
+      },
+      {
+        "name": "mCargoMeshComponent",
+        "comment": "Cargo container mesh component. Shown / Hidden during full load and unload sequences",
+        "type": "classUStaticMeshComponent*"
+      },
+      {
+        "name": "mCargoInventoryHandler",
+        "comment": "Maintainer of the active storage component for this actor. Use this to get the active inventory component. Never call mInventory directly.",
+        "type": "classUFGReplicationDetailInventoryComponent*"
+      },
+      {
+        "name": "mCanUnloadAny",
+        "comment": "Set during a dock sequence, indicating if any items can be moved from the train to the platform",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsFullUnload",
+        "comment": "Indicates that the unloading sequence will be removing the entire contents of the freight car (there is enough room in its inventory to fit the freight cars contents)",
+        "type": "uint8"
+      },
+      {
+        "name": "mCanLoadAny",
+        "comment": "Set during a load sequence, indicating if any items can be moved from the platform to the train",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsFullLoad",
+        "comment": "Indicates that the loading sequence will load an entire new container onto the freight car (its inventory is empty)",
+        "type": "uint8"
+      },
+      {
+        "name": "mTimeToCompleteLoad",
+        "comment": "Time in seconds to complete a unload",
+        "type": "float"
+      },
+      {
+        "name": "mTimeToSwapLoadVisibility",
+        "comment": "Time in seconds to show the cargo container and hide platform container (for full loads)",
+        "type": "float"
+      },
+      {
+        "name": "mTimeToCompleteUnload",
+        "comment": "Time in seconds to complete a load",
+        "type": "float"
+      },
+      {
+        "name": "mTimeToSwapUnloadVisibility",
+        "comment": "Time in seconds to show freight container and hide platform container (for full unloads)",
+        "type": "float"
+      },
+      {
+        "name": "mStorageInputConnections",
+        "comment": "All factory connections that can pull to our storage",
+        "type": "TArray<classUFGFactoryConnectionComponent*>"
+      },
+      {
+        "name": "mPipeInputConnections",
+        "comment": "All pipe connections that can pull to our storage",
+        "type": "TArray<classUFGPipeConnectionComponent*>"
+      },
+      {
+        "name": "mPipeOutputConnections",
+        "comment": "All pipe connections that can push to pipelines from our storage",
+        "type": "TArray<classUFGPipeConnectionComponent*>"
+      },
+      {
+        "name": "mInventory",
+        "comment": "Inventory where we transfer items to when unloading from a vehicle. Never reference this pointer directly. Use mCargoInventoryHandler->GetActiveInventory().",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mHasDockedActor",
+        "comment": "If an actor is docked to this station. Used to detect actor becomes invalid due to e.g. dismantle.",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsInLoadMode",
+        "comment": "Have the player specified that this station should either load or unload to vehicles?",
+        "type": "uint8"
+      },
+      {
+        "name": "mIsLoadUnloading",
+        "comment": "Are we currently in the process of loading or unloading inventory  @todoTrainPlatforms - Migrate this out and replace instances with checks against the status enum",
+        "type": "uint8"
+      },
+      {
+        "name": "mShouldExecuteLoadOrUnload",
+        "comment": "Set when Docking sequence completes to inform Factory_TickProducing it should perform a load / unload",
+        "type": "uint8"
+      },
+      {
+        "name": "mSwapCargoVisibilityTimerHandle",
+        "comment": "Set during a docking sequence update to toggle the visibility of the platform and freight cargo meshes",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mCachedDockingTimeRemaining",
+        "comment": "Set during a power outtage to store how much time remains on the current timer if a docking sequence is in progress",
+        "type": "float"
+      },
+      {
+        "name": "mCachedSwapCargoVisibilityTimeRemaining",
+        "comment": "Set during a power outtage to store how much time remains on the toggle platform and freight cargo meshes",
+        "type": "float"
+      },
+      {
+        "name": "mFluidPushedLastProducingTick",
+        "comment": "Last content value when updating flow rate",
+        "type": "int32"
+      },
+      {
+        "name": "mFluidPulledLastProducingTick",
+        "comment": "Last content value when updating flow rate",
+        "type": "int32"
+      },
+      {
+        "name": "mSmoothedOutflowRate",
+        "comment": "Current smoothed outflow rate",
+        "type": "float"
+      },
+      {
+        "name": "mSmoothedInflowRate",
+        "comment": "Current smoothed outflow rate",
+        "type": "float"
+      },
+      {
+        "name": "mUpdateReplicatedFlowFrequency",
+        "comment": "How frequently to update flow rate ( both clients and server will use the replicated value in the UI )",
+        "type": "float"
+      },
+      {
+        "name": "mTimeSinceLastFlowUpdate",
+        "comment": "How long since the last replicated flow assignment",
+        "type": "float"
+      },
+      {
+        "name": "mReplicatedOutflowRate",
+        "comment": "Replicated smoothed outflow rate",
+        "type": "float"
+      },
+      {
+        "name": "mReplicatedInflowRate",
+        "comment": "Replicated smoothed inflow rate",
+        "type": "float"
+      }
+    ]
+  }
+]

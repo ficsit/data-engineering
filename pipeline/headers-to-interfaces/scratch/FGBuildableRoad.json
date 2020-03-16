@@ -1,0 +1,52 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableRoad",
+    "category": "UCLASS",
+    "comment": "Roads for the wroom wroom.",
+    "extends": [
+      "AFGBuildable"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGBuildableRoad"
+      },
+      {
+        "name": "GetLength",
+        "returnType": "float"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mConnection0",
+        "comment": "First connection on track",
+        "type": "classUFGRoadConnectionComponent*"
+      },
+      {
+        "name": "mConnection1",
+        "comment": "Second connection on tack",
+        "type": "classUFGRoadConnectionComponent*"
+      },
+      {
+        "name": "mSplineComponent",
+        "comment": "The spline component for this train track.",
+        "type": "classUFGSplineComponent*"
+      },
+      {
+        "name": "mSplineData",
+        "comment": "Spline data saved in a compact form for saving and replicating. All the vectors are in local space.",
+        "type": "TArray<FSplinePointData>"
+      }
+    ]
+  }
+]

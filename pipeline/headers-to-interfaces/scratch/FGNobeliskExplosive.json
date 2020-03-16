@@ -1,0 +1,74 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGNobeliskExplosive",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2019 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGDestructiveProjectile"
+    ],
+    "methods": [
+      {
+        "name": "AFGNobeliskExplosive"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnImpact",
+        "comment": "Override to modify rotation behaviour",
+        "returnType": "void"
+      },
+      {
+        "name": "TakeDamage",
+        "comment": "Start AActor interface",
+        "returnType": "float"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "comment": "** Save Game Interface */",
+        "returnType": "bool"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetToDetonate",
+        "comment": "Explode this actor",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_DetonateIn",
+        "comment": "Called when the server has blown this explosive",
+        "returnType": "void"
+      },
+      {
+        "name": "SetAndEnableRotation",
+        "comment": "Assigns the rotation rate to rotating movement component, scaling the mThrowRotation by the scale parameter",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mRotatingMovementComp",
+        "type": "classURotatingMovementComponent*"
+      },
+      {
+        "name": "mDetonateIn",
+        "comment": "Tells client to mark this to explode after a certain time",
+        "type": "float"
+      },
+      {
+        "name": "mEnvironmentDestructionSphere",
+        "type": "classUSphereComponent*"
+      },
+      {
+        "name": "mThrowRotation",
+        "type": "FRotator"
+      }
+    ]
+  }
+]

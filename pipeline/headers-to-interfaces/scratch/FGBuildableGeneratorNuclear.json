@@ -1,0 +1,93 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableGeneratorNuclear",
+    "category": "UCLASS",
+    "comment": "A generator that runs on nuclear fuel and produces waste.",
+    "extends": [
+      "AFGBuildableGeneratorFuel"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableGeneratorNuclear"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_Tick",
+        "comment": "Begin Factory_ interface",
+        "returnType": "void"
+      },
+      {
+        "name": "LoadFuel",
+        "comment": "Begin AFGBuildableGeneratorFuel",
+        "returnType": "void"
+      },
+      {
+        "name": "HasPower",
+        "comment": "Begin AFGBuildableGenerator interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanStartPowerProduction_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetReplicationDetailActorClass",
+        "comment": "Begin IFGReplicationDetailActorOwnerInterface",
+        "returnType": "UClass*"
+      },
+      {
+        "name": "IsWasteFull",
+        "comment": "End IFGReplicationDetailActorOwnerInterface",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanLoadFuel",
+        "comment": "We can only load fuel if waste is not full",
+        "returnType": "bool"
+      },
+      {
+        "name": "TryProduceWaste",
+        "comment": "Try to produce nuclear waste and put it in the output inventory",
+        "returnType": "void"
+      },
+      {
+        "name": "GetWasteInventory",
+        "comment": "Returns the inventory for waste in the nuclear generator",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "OnRep_ReplicationDetailActor",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCastRepDetailsActor",
+        "returnType": "classAFGReplicationDetailActor_GeneratorNuclear*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOutputInventory",
+        "comment": "Spent fuel rods goes here.",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mOutputInventoryHandler",
+        "type": "UFGReplicationDetailInventoryComponent*"
+      },
+      {
+        "name": "mWasteLeftFromCurrentFuel",
+        "comment": "Waste left to produce from the current fuel rod",
+        "type": "int32"
+      }
+    ]
+  }
+]

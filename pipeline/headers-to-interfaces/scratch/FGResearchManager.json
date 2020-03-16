@@ -1,0 +1,314 @@
+[
+  {
+    "kind": "enum",
+    "name": "EResearchState",
+    "comment": "The current state of research",
+    "entries": [
+      {
+        "name": "ERS_NotResearching",
+        "displayName": "Not Researching"
+      },
+      {
+        "name": "ERS_Researching",
+        "displayName": "Researching"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FResearchData",
+    "category": "USTRUCT",
+    "comment": "Contains data about the research conducted",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FResearchData"
+      },
+      {
+        "name": "FResearchData"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Schematic",
+        "comment": "The schematic that holds the research data",
+        "type": "TSubclassOf<classUFGSchematic>"
+      },
+      {
+        "name": "InitiatingResearchTree",
+        "comment": "The research tree that initiated the research",
+        "type": "TSubclassOf<classUFGResearchTree>"
+      },
+      {
+        "name": "PendingRewards",
+        "comment": "This is used for example to store randomized alternate recipe schematics when analyzing a hard drive\nThis array can be empty since most schematics use the unlock system except hard drives that generate rewards when research is initialized",
+        "type": "TArray<TSubclassOf<classUFGSchematic>>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FResearchTime",
+    "category": "USTRUCT",
+    "comment": "Keeps track of ongoing research and when it's supposed to be completed.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FResearchTime"
+      },
+      {
+        "name": "FResearchTime"
+      },
+      {
+        "name": "FResearchTime"
+      }
+    ],
+    "properties": [
+      {
+        "name": "TimerHandle",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "ResearchData",
+        "comment": "The research entry that contains data about the research conducted",
+        "type": "FResearchData"
+      },
+      {
+        "name": "ResearchCompleteTimestamp",
+        "comment": "The time stamp for when the research is completed. When saved it represents how much time is left for research",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGResearchManager",
+    "category": "UCLASS",
+    "comment": "The research manager handles everything research related",
+    "extends": [
+      "AFGSubsystem",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGResearchManager"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "PreInitializeComponents",
+        "returnType": "void"
+      },
+      {
+        "name": "Get",
+        "returnType": "AFGResearchManager*"
+      },
+      {
+        "name": "Get",
+        "returnType": "AFGResearchManager*"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetAllResearchTrees",
+        "comment": "Returns every possible research tree that is in the game\n@note Calling this is only valid after PopulateResearchTreeList has been run.",
+        "returnType": "void"
+      },
+      {
+        "name": "IsResesearchTreeUnlocked",
+        "returnType": "bool"
+      },
+      {
+        "name": "InitiateResearch",
+        "comment": "@param initiatingResearchTree The research tree that triggered this schematic research\n@param schematic The schematic we want to research",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanResearchBeInitiated",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsResearchBeingConducted",
+        "comment": "Checks whether a piece of research is currently being conducted.",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsResearchComplete",
+        "comment": "Checks whether a specific piece of research has completed (i.e. can be claimed)",
+        "returnType": "bool"
+      },
+      {
+        "name": "ContainsAnyCompletedResearch",
+        "comment": "Whether or not there is any research that has been completed but not claimed.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetAllCompletedResearch",
+        "comment": "Returns all schematics that have been researched and are ready to be claimed.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOngoingResearchTimeLeft",
+        "comment": "Returns how much time there is left for a specific research. If the research in question isn't ongoing it will return -1.f",
+        "returnType": "float"
+      },
+      {
+        "name": "GetResearchBeingConducted",
+        "returnType": "TSubclassOf<classUFGSchematic>"
+      },
+      {
+        "name": "ClaimResearchResults",
+        "comment": "Tries to claim rewards from completed research. If rewards have already been claimed then no results will be returned. Returns true if research could be claimed.",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsAnyResearchBeingConducted",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanAffordResearch",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetCurrentResearchState",
+        "returnType": "EResearchState"
+      },
+      {
+        "name": "CanConductMultipleResearch",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetInitiatingResearchTree",
+        "comment": "Return the researchTree that initiated the research of the given schematic",
+        "returnType": "TSubclassOf<classUFGResearchTree>"
+      },
+      {
+        "name": "GetPendingRewards",
+        "comment": "Returns all schematics that have been researched and are ready to be claimed.",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateUnlockedResearchTrees",
+        "comment": "Check if any new trees have been unlocked",
+        "returnType": "void"
+      },
+      {
+        "name": "UnlockResearchTree",
+        "comment": "Unlock a research tree",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_OngoingResearch",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_NewResearchStarted",
+        "returnType": "void"
+      },
+      {
+        "name": "PopulateResearchTreeList",
+        "comment": "Populates list with all available research trees in the game",
+        "returnType": "void"
+      },
+      {
+        "name": "StartResearch",
+        "comment": "Handles research timers internally and inits research. If research is already started will do nothing.",
+        "returnType": "void"
+      },
+      {
+        "name": "GeneratePendingReward",
+        "comment": "Generates pending research for any completed research",
+        "returnType": "void"
+      },
+      {
+        "name": "OnResearchTimerComplete",
+        "returnType": "void"
+      },
+      {
+        "name": "PayForResearch",
+        "returnType": "bool"
+      },
+      {
+        "name": "ClaimPendingRewards",
+        "comment": "Claim pending rewards. One alternate recipe or give back one hard drive",
+        "returnType": "void"
+      },
+      {
+        "name": "AreResearchTreeUnlockDependeciesMet",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "ResearchStartedDelegate",
+        "comment": "Called when a research recipe is started",
+        "type": "FResearchStartedDelegate"
+      },
+      {
+        "name": "ResearchCompletedDelegate",
+        "comment": "Called when ongoing research has completed",
+        "type": "FResearchCompletedDelegate"
+      },
+      {
+        "name": "ResearchStateChangedDelegate",
+        "comment": "Called when research state has changed",
+        "type": "FResearchStateChangedDelegate"
+      },
+      {
+        "name": "ResearchResultsClaimedDelegate",
+        "comment": "Called when research results are collected from completed research",
+        "type": "FResearchResultsClaimed"
+      },
+      {
+        "name": "ResearchTreeUnlockedDelegate",
+        "comment": "Called when research trees are unlocked",
+        "type": "FResearchTreeUnlocked"
+      },
+      {
+        "name": "mCanConductMultipleResearch",
+        "comment": "Whether multiple concurrent research can be conducted, or only one at a time.",
+        "type": "bool"
+      },
+      {
+        "name": "mAllResearchTrees",
+        "type": "TArray<TSubclassOf<classUFGResearchTree>>"
+      },
+      {
+        "name": "mUnlockedResearchTrees",
+        "type": "TArray<TSubclassOf<classUFGResearchTree>>"
+      },
+      {
+        "name": "mCompletedResearch",
+        "comment": "What research has been conducted and is complete.",
+        "type": "TArray<FResearchData>"
+      },
+      {
+        "name": "mOngoingResearch",
+        "comment": "What research that is currently being analyzed. i.e. that has started their timer and is ticking down.",
+        "type": "TArray<FResearchTime>"
+      },
+      {
+        "name": "mSavedOngoingResearch",
+        "comment": "Used save the current ongoing research, saved research is restarted on load",
+        "type": "TArray<FResearchTime>"
+      }
+    ]
+  }
+]

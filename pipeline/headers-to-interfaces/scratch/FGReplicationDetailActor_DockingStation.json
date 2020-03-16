@@ -1,0 +1,47 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGReplicationDetailActor_DockingStation",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2019 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGReplicationDetailActor_BuildableFactory"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "InitReplicationDetailActor",
+        "returnType": "void"
+      },
+      {
+        "name": "FlushReplicationActorStateToOwner",
+        "returnType": "void"
+      },
+      {
+        "name": "HasCompletedInitialReplication",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetCargoInventory",
+        "returnType": "UFGInventoryComponent*"
+      },
+      {
+        "name": "GetFuelInventory",
+        "returnType": "UFGInventoryComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mCargoInventory",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mFuelInventory",
+        "type": "classUFGInventoryComponent*"
+      }
+    ]
+  }
+]

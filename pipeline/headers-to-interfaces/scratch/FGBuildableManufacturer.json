@@ -1,0 +1,257 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableManufacturer",
+    "category": "UCLASS",
+    "comment": "Base class for all buildings that are producing something out of something, i.e. constructors, smelters, refinery etc.",
+    "extends": [
+      "AFGBuildableFactory",
+      "IFGRecipeProducerInterface"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication",
+        "returnType": "void"
+      },
+      {
+        "name": "PreReplication",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGBuildableManufacturer",
+        "comment": "Constructor"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "IsConfigured",
+        "comment": "Begin AFGBuildableFactory interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetProductionCycleTime",
+        "returnType": "float"
+      },
+      {
+        "name": "GetDefaultProductionCycleTime",
+        "returnType": "float"
+      },
+      {
+        "name": "GetProductionCycleTimeForRecipe",
+        "returnType": "float"
+      },
+      {
+        "name": "CalcProductionCycleTimeForPotential",
+        "returnType": "float"
+      },
+      {
+        "name": "GetReplicationDetailActorClass",
+        "comment": "Begin IFGReplicationDetailActorOwnerInterface",
+        "returnType": "UClass*"
+      },
+      {
+        "name": "MoveOrDropInputInventory",
+        "comment": "Move all items in the input inventory to the given inventory.\n@return true if successful; false if the given inventory is full or does not support the given type of item.",
+        "returnType": "bool"
+      },
+      {
+        "name": "MoveOrDropOutputInventory",
+        "comment": "Move all items in the input output to the given inventory.\n@return true if successful; false if the given inventory is full or does not support the given type of item.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetProductionProgress",
+        "comment": "Get the progress of the current production.\n@return - Percent in range [0,1] of the current production progress.",
+        "returnType": "float"
+      },
+      {
+        "name": "HasAnyInputConnetions",
+        "comment": "Checks whether or not this manufacturer contains any inputs. If false, this shouldn't contain an input component. Will be null on client.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetAvailableRecipes",
+        "comment": "@note This is an expensive operation so cache the result.\n@param out_recipes Returns all recipes available to this machine.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetManufacturingSpeed",
+        "comment": "Returns the speed of which this building manufacture recipes",
+        "returnType": "float"
+      },
+      {
+        "name": "GetInputInventory",
+        "comment": "Get the input inventory from this manufacturer.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetOutputInventory",
+        "comment": "Get the output inventory from this manufacturer.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetCurrentRecipe",
+        "comment": "Get the current recipe for manufacturing.",
+        "returnType": "TSubclassOf<classUFGRecipe>"
+      },
+      {
+        "name": "SetRecipe",
+        "comment": "      This is so the case when players inventory is full can be handled correctly.\n@param recipe - The new recipe.",
+        "returnType": "void"
+      },
+      {
+        "name": "CanProduce_Implementation",
+        "comment": "Begin AFGBuildableFactory interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_CollectInput_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_PullPipeInput_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_PushPipeOutput_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_TickProducing",
+        "returnType": "void"
+      },
+      {
+        "name": "CreateInventories",
+        "comment": "Creates inventories needed for the manufacturer",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_CurrentRecipe",
+        "comment": "Called when NewRecipe is replicated",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_ReplicationDetailActor",
+        "returnType": "void"
+      },
+      {
+        "name": "GetInputInventoryItems",
+        "comment": "Read the items in the input inventory.",
+        "returnType": "void"
+      },
+      {
+        "name": "ClearInputInventoryItems",
+        "comment": "Clear the items in the input inventory.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOutputInventoryItems",
+        "comment": "Read the items in the Output inventory.",
+        "returnType": "void"
+      },
+      {
+        "name": "ClearOutputInventoryItems",
+        "comment": "Clear the items in the Output inventory.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetUpInventoryFilters",
+        "comment": "This function sets the filters on the input and output inventories.",
+        "returnType": "void"
+      },
+      {
+        "name": "AssignInputAccessIndices",
+        "comment": "This function assigns an inventory index to each input connection to add ingredients to\n @return - True if the ingredients did not exceed the availble connections possible. False otherwise. The Recipe should not be set if this fails.",
+        "returnType": "bool"
+      },
+      {
+        "name": "AssignOutputAccessIndices",
+        "comment": "This function assigns an inventory index to each output connection to pull from",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_ConsumeIngredients",
+        "comment": "This can differ between buildings (e.g. Converters), so override if you need something special.\n@note this function assumes the available ingredients are there and have been checked with CanProduce()",
+        "returnType": "void"
+      },
+      {
+        "name": "HasRequiredIngredients",
+        "comment": "Returns true if the required ingredients are in the input slots.\nHow this is checked can differ between buildings (e.g. Converters), so override if you need something special.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetCastRepDetailsActor",
+        "returnType": "classAFGReplicationDetailActor_Manufacturing*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mCurrentRecipeChanged",
+        "comment": "Called when a new recipe has been set.",
+        "type": "FOnNewRecipeDelegate"
+      },
+      {
+        "name": "mManufacturingSpeed",
+        "comment": "The speed of which this building manufacture recipes, this is a multiplier to the recipe speed",
+        "type": "float"
+      },
+      {
+        "name": "mCurrentManufacturingProgress",
+        "comment": "Manufacturing progress in range [0,1].",
+        "type": "float"
+      },
+      {
+        "name": "mInputInventory",
+        "comment": "Our input inventory, shared for all input connections.",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mFactoryInputConnections",
+        "comment": "Cached factory input connections",
+        "type": "TArray<classUFGFactoryConnectionComponent*>"
+      },
+      {
+        "name": "mPipeInputConnections",
+        "comment": "Cached input pipe connections",
+        "type": "TArray<classUFGPipeConnectionComponent*>"
+      },
+      {
+        "name": "mFactoryOutputConnections",
+        "comment": "Cached factory output connections",
+        "type": "TArray<classUFGFactoryConnectionComponent*>"
+      },
+      {
+        "name": "mPipeOutputConnections",
+        "comment": "Cached output pipe connections",
+        "type": "TArray<classUFGPipeConnectionComponent*>"
+      },
+      {
+        "name": "mOutputInventory",
+        "comment": "Our output inventory, shared for all output connections.",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mInputInventoryHandler",
+        "comment": "Active Inventory Component pointers which will switch once the replication detail actor has been created",
+        "type": "classUFGReplicationDetailInventoryComponent*"
+      },
+      {
+        "name": "mOutputInventoryHandler",
+        "type": "classUFGReplicationDetailInventoryComponent*"
+      },
+      {
+        "name": "mCurrentRecipe",
+        "comment": "The recipe we're currently running.",
+        "type": "TSubclassOf<classUFGRecipe>"
+      }
+    ]
+  }
+]

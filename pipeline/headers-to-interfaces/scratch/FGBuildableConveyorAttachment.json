@@ -1,0 +1,114 @@
+[
+  {
+    "kind": "class",
+    "name": "FConnectionItemStruct",
+    "category": "USTRUCT",
+    "comment": "This is a struct that will assign an item to a certain connection. Used by splitters to cycle outputs so all items dont always go to one output",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FConnectionItemStruct"
+      },
+      {
+        "name": "FConnectionItemStruct"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Connection",
+        "comment": "The connection to put the item on",
+        "type": "classUFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "Item",
+        "comment": "The item to put on the connection",
+        "type": "FInventoryItem"
+      },
+      {
+        "name": "IndexInInventory",
+        "comment": "What is our index in the inventory component",
+        "type": "int32"
+      },
+      {
+        "name": "OffsetBeyond",
+        "comment": "How far past the conveyor belt length this item is",
+        "type": "float"
+      },
+      {
+        "name": "Grabbed",
+        "comment": "To allow this to be thread safe, this bool marks if a table element has been consumed, to remove the need to delete from the table array",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildableConveyorAttachment",
+    "category": "UCLASS",
+    "extends": [
+      "AFGBuildableFactory"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableConveyorAttachment"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Dismantle_Implementation",
+        "comment": "~ Begin IFGDismantleInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_CollectInput_Implementation",
+        "comment": "Begin Factory_ interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_ReplicationDetailActor",
+        "comment": "End Factory_ interface",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mInventorySizeX",
+        "comment": "The size of the inventory for this attachment. Used to hold a buffer of incoming items",
+        "type": "int32"
+      },
+      {
+        "name": "mInventorySizeY",
+        "comment": "The size of the inventory for this storage. Used to hold a buffer of incoming items",
+        "type": "int32"
+      },
+      {
+        "name": "mBufferInventory",
+        "comment": "The inventory to store everything in. Don't use this directly, use mStorageInventoryHandler->GetActiveInventoryComponent()",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mBufferInventoryHandler",
+        "comment": "Maintainer of the active storage component for this actor. Use this to get the active inventory component.",
+        "type": "classUFGReplicationDetailInventoryComponent*"
+      },
+      {
+        "name": "mInputs",
+        "comment": "Cached input connections for faster lookup.",
+        "type": "TArray<UFGFactoryConnectionComponent*>"
+      },
+      {
+        "name": "mOutputs",
+        "comment": "Cached output connections for faster lookup.",
+        "type": "TArray<UFGFactoryConnectionComponent*>"
+      },
+      {
+        "name": "mCachedInventorySize",
+        "comment": "Cached linear size of the inventory component",
+        "type": "int32"
+      }
+    ]
+  }
+]

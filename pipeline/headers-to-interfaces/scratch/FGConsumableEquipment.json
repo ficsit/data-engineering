@@ -1,0 +1,53 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGConsumableEquipment",
+    "category": "UCLASS",
+    "comment": "Used to hold consumeables, so we can eat berries, and consume medpacks a.s.o",
+    "extends": [
+      "AFGEquipment"
+    ],
+    "methods": [
+      {
+        "name": "AFGConsumableEquipment",
+        "comment": "ctor"
+      },
+      {
+        "name": "ShouldSaveState",
+        "comment": "Begin AFGEquipment interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnPrimaryFire",
+        "comment": "Called on the owner, client or server but not both.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnConsumePressed",
+        "comment": "Called on the owner, client or server but not both.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConsumeable",
+        "comment": "Get the consumeable currently in hands",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_PrimaryFire",
+        "comment": "Only server implementation of primary fire",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayConsumeEffects",
+        "comment": "Plays effects when consuming stuff",
+        "returnType": "void"
+      },
+      {
+        "name": "AddEquipmentActionBindings",
+        "comment": "Add custom bindings for this equipment",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

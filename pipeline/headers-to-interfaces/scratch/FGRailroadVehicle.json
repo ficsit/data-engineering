@@ -1,0 +1,176 @@
+[
+  {
+    "kind": "enum",
+    "name": "ERailroadVehicleCoupler",
+    "comment": "Type of connections in the game.",
+    "entries": [
+      {
+        "name": "RVC_FRONT",
+        "displayName": "Front"
+      },
+      {
+        "name": "RVC_BACK",
+        "displayName": "Back"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGRailroadVehicle",
+    "category": "UCLASS",
+    "comment": "Base vehicle for all railroad vehicles. E.g. locomotives, wagons etc.",
+    "extends": [
+      "AFGVehicle"
+    ],
+    "methods": [
+      {
+        "name": "AFGRailroadVehicle"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "IsNetRelevantFor",
+        "returnType": "bool"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "Serialize",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "CanDismantle_Implementation",
+        "comment": "~ Begin IFGDismantleInterface",
+        "returnType": "bool"
+      },
+      {
+        "name": "GainedSignificance_Implementation",
+        "comment": "Begin IFGSignificanceInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateAnimation",
+        "comment": "Update the animations for this vehicle, this is called after the whole train has been moved.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRailroadVehicleMovementComponent",
+        "comment": "Get the railroad movement for this vehicle.",
+        "returnType": "classUFGRailroadVehicleMovementComponent*"
+      },
+      {
+        "name": "GetTrain",
+        "comment": "Get the train this vehicle is part of.",
+        "returnType": "classAFGTrain*"
+      },
+      {
+        "name": "GetSlidingShoe",
+        "comment": "Get the sliding shoe if this vehicle consumes power.",
+        "returnType": "classUFGPowerConnectionComponent*"
+      },
+      {
+        "name": "GetLength",
+        "comment": "@return The length of this vehicle.",
+        "returnType": "float"
+      },
+      {
+        "name": "IsDocked",
+        "comment": "Is this vehicle docked to a station.",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsOrientationReversed",
+        "comment": "If this vehicles orientation is reversed in the train formation.\n@return true if forward for this vehicle is not the same as the trains forward.",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsCoupledAt",
+        "comment": "@param at Coupler, valid values are 0 (front) and 1 (back).\n@return the vehicle coupled at index.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetCoupledVehicleAt",
+        "comment": "@param at Coupler, valid values are 0 (front) and 1 (back).\n@return the vehicle coupled at index.",
+        "returnType": "AFGRailroadVehicle*"
+      },
+      {
+        "name": "GetTrackPosition",
+        "comment": "Get the track position for this vehicle.",
+        "returnType": "FRailroadTrackPosition"
+      },
+      {
+        "name": "GetTrackGraphID",
+        "comment": "Get the track id this vehicle is on; -1 if the track is invalid.",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetTrackPosition",
+        "comment": "Set the track position for this vehicle, be careful cause the actor and any coupled vehicles will not get moved.",
+        "returnType": "void"
+      },
+      {
+        "name": "DisplayDebug",
+        "comment": "Debug",
+        "returnType": "void"
+      },
+      {
+        "name": "IsVehicleNetRelevantFor",
+        "returnType": "bool"
+      },
+      {
+        "name": "CoupleVehicleAt",
+        "comment": "@param at Coupler to connect to.",
+        "returnType": "void"
+      },
+      {
+        "name": "DecoupleVehicleAt",
+        "comment": "@param at Coupler to connect to.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mTrain",
+        "comment": "The train this vehicle is part of, updated from the railroad subsystem",
+        "type": "classAFGTrain*"
+      },
+      {
+        "name": "mLength",
+        "comment": "How long is this vehicle.",
+        "type": "float"
+      },
+      {
+        "name": "mCoupledVehicles",
+        "comment": "\n Saved in serialize.",
+        "type": "TWeakObjectPtr<AFGRailroadVehicle>"
+      },
+      {
+        "name": "mIsOrientationReversed",
+        "comment": "If this vehicle is reversed in the train formation.",
+        "type": "bool"
+      },
+      {
+        "name": "mTrackPosition",
+        "comment": "Where along the track is the train.",
+        "type": "FRailroadTrackPosition"
+      }
+    ]
+  }
+]

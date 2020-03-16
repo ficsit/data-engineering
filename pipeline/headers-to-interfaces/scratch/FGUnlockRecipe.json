@@ -1,0 +1,43 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGUnlockRecipe",
+    "category": "UCLASS",
+    "comment": "Unlocks the specified recipes",
+    "extends": [
+      "UFGUnlock"
+    ],
+    "methods": [
+      {
+        "name": "Unlock",
+        "comment": "Begin FGUnlock interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Apply",
+        "returnType": "void"
+      },
+      {
+        "name": "Init",
+        "comment": "For migration",
+        "returnType": "void"
+      },
+      {
+        "name": "AddRecipe",
+        "comment": "For adding a recipe to this schematic with editor tools",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRecipesToUnlock",
+        "returnType": "TArray<TSubclassOf<classUFGRecipe>>"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mRecipes",
+        "comment": "The recipes you get from this unlock",
+        "type": "TArray<TSubclassOf<classUFGRecipe>>"
+      }
+    ]
+  }
+]

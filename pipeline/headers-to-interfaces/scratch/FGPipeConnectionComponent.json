@@ -1,0 +1,330 @@
+[
+  {
+    "kind": "enum",
+    "name": "EPipeConnectionType",
+    "comment": "Type of pipe connections",
+    "entries": [
+      {
+        "name": "PCT_ANY",
+        "displayName": "Any"
+      },
+      {
+        "name": "PCT_CONSUMER",
+        "displayName": "Consumer"
+      },
+      {
+        "name": "PCT_PRODUCER",
+        "displayName": "Producer"
+      },
+      {
+        "name": "PCT_SNAP_ONLY",
+        "displayName": "Snap Only",
+        "comment": "How its handled for factories, which also mentions it may need a refactor"
+      },
+      {
+        "name": "PCT_MAX"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGPipeConnectionComponentBase",
+    "category": "UCLASS",
+    "comment": "Connection base used to link generic pipes together",
+    "extends": [
+      "UFGConnectionComponent"
+    ],
+    "methods": [
+      {
+        "name": "UFGPipeConnectionComponentBase"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin ActorComponent interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnComponentDestroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRegister",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUnregister",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "comment": "Begin save interface",
+        "returnType": "void"
+      },
+      {
+        "name": "SetConnectorClearance",
+        "comment": "Set the conveyor clearance for this connection.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConnectorClearance",
+        "comment": "Return the clearance needed when routing a pipe from this connection.",
+        "returnType": "float"
+      },
+      {
+        "name": "SetConnection",
+        "comment": "@note Sets both ends of the connection.\nIf there already a connection made we assert.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConnection",
+        "comment": "Get which connection this is connected to.",
+        "returnType": "classUFGPipeConnectionComponentBase*"
+      },
+      {
+        "name": "ClearConnection",
+        "comment": "@note Clears both ends of the connection.\nIf nothing is connected this does nothing.",
+        "returnType": "void"
+      },
+      {
+        "name": "IsConnected",
+        "comment": "Is this connection connected to anything.\n@return - true if connected; otherwise false. Always false if attached to hologram, snap only or bad index configuration.",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanSnapTo",
+        "comment": "Check if the given connection can snap to this.",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanConnectTo",
+        "comment": "Check if the given connection can connect to this.",
+        "returnType": "bool"
+      },
+      {
+        "name": "CheckCompatibility",
+        "comment": "@return\tbool - returns true if compatible and no errors reported",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetPipeConnectionType",
+        "comment": "Set the connection type for this connection",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPipeConnectionType",
+        "comment": "Get the Pipe Connection type for this connection",
+        "returnType": "EPipeConnectionType"
+      },
+      {
+        "name": "GetConnectorLocation",
+        "comment": "Return the connectors world location with or without considering the clearance.",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetConnectorNormal",
+        "comment": "Return the connectors world normal.",
+        "returnType": "FVector"
+      },
+      {
+        "name": "FindCompatibleOverlappingConnection",
+        "comment": "Find overlapping connections that are compatible with this one.",
+        "returnType": "UFGPipeConnectionComponentBase*"
+      },
+      {
+        "name": "FindOverlappingConnection",
+        "comment": "Returns an overlapped pipe connection. Does not take into account if it is a valid connection only if the connection is in the radius of the one passed in",
+        "returnType": "UFGPipeConnectionComponentBase*"
+      },
+      {
+        "name": "UpdateClientCachedConnection",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mPipeConnectionType",
+        "comment": "Specifies the type of connection this is, used to determine attachment potential",
+        "type": "EPipeConnectionType"
+      },
+      {
+        "name": "mConnectorClearance",
+        "comment": "How long the connector is extending, indicates where the connected pipe may start turning.",
+        "type": "float"
+      },
+      {
+        "name": "mPipeType",
+        "comment": "used to find matching types for snapping and so on",
+        "type": "FName"
+      },
+      {
+        "name": "mConnectedComponent",
+        "comment": "Connection to another component. If this is set we're connected.",
+        "type": "classUFGPipeConnectionComponentBase*"
+      },
+      {
+        "name": "mHasConnectedComponent",
+        "comment": "Light-weight connected indication for clients.",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGPipeConnectionComponent",
+    "category": "UCLASS",
+    "comment": "Connection used to link pipelines together",
+    "extends": [
+      "UFGPipeConnectionComponentBase"
+    ],
+    "methods": [
+      {
+        "name": "UFGPipeConnectionComponent"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin ActorComponent Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckCompatibility",
+        "comment": "End ActorComponent Interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "ClearConnection",
+        "comment": "Begin Connection Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPipeConnection",
+        "comment": "Get which pipe connection this is connected to.",
+        "returnType": "UFGPipeConnectionComponent*"
+      },
+      {
+        "name": "GetPipeNetworkID",
+        "comment": "Used by the pipe subsystem to update the network this is connected to.",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetFluidIntegrant",
+        "comment": "Called from begin play for buildables that implement the fluid integrant interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFluidIntegrant",
+        "comment": "@return The FluidIntegrant interface that this connection potentially belongs to. Can be null.",
+        "returnType": "classIFGFluidIntegrantInterface*"
+      },
+      {
+        "name": "HasFluidIntegrant",
+        "comment": "Does this connection belong to a buildable that implements the Fluid Integrant Interface?",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetFluidDescriptor",
+        "comment": "Set the item descriptor for this connection ( is defined by the network this connection belongs to )",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFluidDescriptor",
+        "comment": "Get item descriptor for this connections ( can be null )",
+        "returnType": "TSubclassOf<classUFGItemDescriptor>"
+      },
+      {
+        "name": "SetInventory",
+        "comment": "Set the inventory associated with this connection",
+        "returnType": "void"
+      },
+      {
+        "name": "SetInventoryAccessIndex",
+        "comment": "Sets a specified index for the component to access on its assigned inventory, if it has one",
+        "returnType": "void"
+      },
+      {
+        "name": "GetInventoryAccessIndex",
+        "comment": "Get the specified index for a component to access its assigned inventory",
+        "returnType": "int32"
+      },
+      {
+        "name": "Factory_PushPipeOutput",
+        "comment": "Acts on an Inventory component and fluid integrant. This is independent of the Pipe Network fluid updates\nCalls the internal implementation after determining if it is the component on the destination buildable",
+        "returnType": "int32"
+      },
+      {
+        "name": "Factory_PullPipeInput",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_Internal_PushPipeOutput",
+        "comment": "Actual implementation of PushPipeOutput",
+        "returnType": "int32"
+      },
+      {
+        "name": "Factory_Internal_PullPipeInput",
+        "comment": "Actual implementation of PullPipeInput",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetPipeNetworkID",
+        "comment": "Used by the pipe subsystem to update the network this is connected to.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_FluidDescriptor",
+        "comment": "todoPipes This is a rather ugly necessity of the fluid descriptor residing on connections and being needed by pipelines\n\t\tThe way its set up there is no reliable way for client pipelines to know when their fluid descriptor has been set",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mConnectionInventory",
+        "comment": "The inventory of this connection. This can be null in many cases.",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mInventoryAccessIndex",
+        "comment": "buildables. This is because fluids should belong to a single stack in an inventory and if none is specified then a pipe should\nnot be eligible to receive liquid. There may be a better way to handle this but that is how its operating.",
+        "type": "int32"
+      },
+      {
+        "name": "mPipeNetworkID",
+        "comment": "The network this connection is connected to. INDEX_NONE if not connected.\n@note - This ID may change at any time when changes occurs in the network. Do not save copies of it!",
+        "type": "int32"
+      },
+      {
+        "name": "mFluidDescriptor",
+        "comment": "          And the pipe network id gets wonky on the client as well... and\n          we need this to work for the play test so for now lets go with ugly.",
+        "type": "TSubclassOf<classUFGItemDescriptor>"
+      },
+      {
+        "name": "mFluidIntegrant",
+        "comment": "The fluid integrant this connection belongs to ( interface on the outer buildable ). Assigned in begin play if one exists.\nCan be null. Tex. For production buildings",
+        "type": "classIFGFluidIntegrantInterface*"
+      },
+      {
+        "name": "mPushOrPullTimeDebt",
+        "comment": "Time debt since last push or pull ( only tracks unused quantities, does not act as a timer and thus will not increment while nothing is attempting to push or pull )",
+        "type": "float"
+      },
+      {
+        "name": "mCachedFluidToInventoryStackRate",
+        "comment": "Cached value of mFluidToInventoryStackRate defined on the PipeSubsystem",
+        "type": "int32"
+      },
+      {
+        "name": "mCachedInventoryStackToFluidRate",
+        "comment": "Cached value of mInventoryStackToFluidRate defined on the PipeSubsystem",
+        "type": "int32"
+      },
+      {
+        "name": "mCachedPipelineOwner",
+        "comment": "Cached Owner. Valid if owner is a pipeline. Null otherwise (Not a UPROPERTY because this component must have an owner and null is okay )",
+        "type": "classAFGBuildablePipeline*"
+      }
+    ]
+  }
+]

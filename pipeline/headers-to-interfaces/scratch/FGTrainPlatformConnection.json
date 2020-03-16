@@ -1,0 +1,133 @@
+[
+  {
+    "kind": "enum",
+    "name": "ETrainPlatformConnectionType",
+    "comment": "Enum indicating the direction to or from a station. Stations should specify their tail direct via the ETPC_Out type",
+    "entries": [
+      {
+        "name": "ETPC_Out",
+        "displayName": "Output"
+      },
+      {
+        "name": "ETPC_In",
+        "displayName": "Input"
+      },
+      {
+        "name": "ETPC_Neutral",
+        "displayName": "Neutral"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGTrainPlatformConnection",
+    "category": "UCLASS",
+    "comment": "Component for detecting overlap and direction of platforms for snapping and connection referencing",
+    "extends": [
+      "UFGConnectionComponent"
+    ],
+    "methods": [
+      {
+        "name": "AttachToConnection",
+        "comment": "Specify a connection for this platform connection to connect to and adjust its direction to match the connection",
+        "returnType": "void"
+      },
+      {
+        "name": "SetConnectedTo",
+        "comment": "Sets the platform this component is connecting to. Does not modify connection direction",
+        "returnType": "void"
+      },
+      {
+        "name": "DetachFromConnection",
+        "comment": "Detach this connection from another (when another platform is dismantled tx.)",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConnectedTo",
+        "comment": "Get the connection that this is connected to",
+        "returnType": "UFGTrainPlatformConnection*"
+      },
+      {
+        "name": "SetConnectionType",
+        "comment": "Specify the status of this connection ( is it an incoming, outgoing, or pending )\n@note This function is also called when SetConnectedPlatform is called. Possibly a move out of public space if it is not needed explicitly.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConnectionType",
+        "comment": "Get The current status of this connection",
+        "returnType": "ETrainPlatformConnectionType"
+      },
+      {
+        "name": "ReverseComponentDirection",
+        "comment": "Force the component into the reverse direction",
+        "returnType": "void"
+      },
+      {
+        "name": "SetComponentDirection",
+        "comment": "Set the component direction explicitly",
+        "returnType": "void"
+      },
+      {
+        "name": "GetComponentDirection",
+        "comment": "Get the direction of the connection",
+        "returnType": "uint8"
+      },
+      {
+        "name": "GetPlatformOwner",
+        "comment": "Get owning FGBuildableTrainPlatform",
+        "returnType": "classAFGBuildableTrainPlatform*"
+      },
+      {
+        "name": "SetRailroadConnectionReference",
+        "comment": "Assign the railroad connection pointed to by this platform connection\n@note Each platform connection should have exactly one RailroadTrackConnection they link to.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRailroadConnectionReference",
+        "comment": "Return a reference to the train platform interface this connection is a part of",
+        "returnType": "UFGRailroadTrackConnectionComponent*"
+      },
+      {
+        "name": "IsConnected",
+        "comment": "Is this platform connected to another one?",
+        "returnType": "bool"
+      },
+      {
+        "name": "DrawDebugDirection",
+        "comment": "TEMP: Will remove (TM)",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mDrawDebugTimerHandle",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mComponentDirection",
+        "comment": "This bool indicates an arbitrary direction of this platform. It is used for stepping through platforms\nPlatforms that connect must have mismatched values for their snapped components ( i.e: 1 -> 0 || 0 -> 1 && !(1 -> 1) etc. )",
+        "type": "uint8"
+      },
+      {
+        "name": "mPlatformConnectionStatus",
+        "comment": "Enum indicating the status of this connection",
+        "type": "ETrainPlatformConnectionType"
+      },
+      {
+        "name": "platformOwner",
+        "comment": "store a reference to the owner of this connection as a FGBuildableTrainPlatform, not a UProperty as this is our Owning actor cached so we don't need to keep casting",
+        "type": "classAFGBuildableTrainPlatform*"
+      },
+      {
+        "name": "mRailroadTrackConnection",
+        "comment": "Stores a reference to the track connection (Not a Uproperty because the reference exists in the railroad track)",
+        "type": "UFGRailroadTrackConnectionComponent*"
+      },
+      {
+        "name": "mConnectedTo",
+        "comment": "Stores a reference to the connected platform component, if there is one (Not a UProperty as this is just a reference to an external component)",
+        "type": "UFGTrainPlatformConnection*"
+      }
+    ]
+  }
+]

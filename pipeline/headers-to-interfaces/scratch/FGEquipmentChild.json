@@ -1,0 +1,57 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGEquipmentChild",
+    "category": "UCLASS",
+    "comment": "They are not saved and thus all actions should be driven by their parent.\nIf the FGEquipable parent is loaded from save, then their FGEquipmentChild (this) is spawned in PostLoadGame()",
+    "extends": [
+      "AActor"
+    ],
+    "methods": [
+      {
+        "name": "AFGEquipmentChild"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Equip",
+        "comment": "Called by Equipable parent when it is equipped",
+        "returnType": "void"
+      },
+      {
+        "name": "UnEquip",
+        "comment": "Called by UnEquip parent when it is unequiped",
+        "returnType": "void"
+      },
+      {
+        "name": "OnEquip",
+        "comment": "Called by after equip has run allowing for blueprint functionality",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUnEquip",
+        "comment": "Called by after Unequip has run allowing for blueprint functionality",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAttachSocketTransform",
+        "returnType": "FTransform"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mParentEquipment",
+        "comment": "stores a reference to the FGEquipment that spawned this class",
+        "type": "classAFGEquipment*"
+      },
+      {
+        "name": "mAttachSocket",
+        "comment": "The socket to attach any child equipment to",
+        "type": "FName"
+      }
+    ]
+  }
+]

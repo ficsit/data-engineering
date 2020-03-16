@@ -1,0 +1,56 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGColorInterface",
+    "category": "UINTERFACE",
+    "comment": "For blueprint support of the interface, we will never add anything to it, just use it to\nhave a UCLASS to be able to access",
+    "extends": [
+      "UInterface"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "IFGColorInterface",
+    "extends": [],
+    "methods": [
+      {
+        "name": "SetColorSlot",
+        "comment": "Sets the color slot for the buildable",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPrimaryColor",
+        "comment": "Returns the primary color of this building",
+        "returnType": "FLinearColor"
+      },
+      {
+        "name": "GetSecondaryColor",
+        "comment": "Returns the primary color of this building",
+        "returnType": "FLinearColor"
+      },
+      {
+        "name": "GetColorSlot",
+        "comment": "Returns the color slot index of this building",
+        "returnType": "uint8"
+      },
+      {
+        "name": "GetCanBeColored",
+        "comment": "Returns wherther the building can be colored right now or not",
+        "returnType": "bool"
+      },
+      {
+        "name": "StartIsAimedAtForColor",
+        "comment": "Called on by the interface if we are looking at something that's useable",
+        "returnType": "void"
+      },
+      {
+        "name": "StopIsAimedAtForColor",
+        "comment": "Called when we stop looking at the item",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

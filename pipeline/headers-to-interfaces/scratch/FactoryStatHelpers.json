@@ -1,0 +1,73 @@
+[
+  {
+    "kind": "class",
+    "name": "FFactoryStats",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FFactoryStats"
+      }
+    ],
+    "properties": [
+      {
+        "name": "NumBuildables",
+        "comment": "All length measurements are in cm.\nAll area measurements are in cm2.",
+        "type": "int32"
+      },
+      {
+        "name": "NumBuildablesByClass",
+        "type": "TMap<TSubclassOf<AFGBuildable>,int32>"
+      },
+      {
+        "name": "NumVehicles",
+        "type": "int32"
+      },
+      {
+        "name": "NumVehiclesByClass",
+        "type": "TMap<TSubclassOf<AFGVehicle>,int32>"
+      },
+      {
+        "name": "TotalConveyorLength",
+        "type": "float"
+      },
+      {
+        "name": "TotalRailroadTrackLength",
+        "type": "float"
+      },
+      {
+        "name": "TotalRoadLength",
+        "type": "float"
+      },
+      {
+        "name": "TotalWireLength",
+        "type": "float"
+      },
+      {
+        "name": "SpentOnBuilding",
+        "type": "TArray<FItemAmount>"
+      },
+      {
+        "name": "StockInventory",
+        "type": "TArray<FItemAmount>"
+      },
+      {
+        "name": "NumRemovedFoliageInstances",
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FFactoryStatHelpers",
+    "comment": "Functions for gathering stats about the factory.\nThis does not collect any stats, it just summarizes stats from other systems.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "GetFactoryStats",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

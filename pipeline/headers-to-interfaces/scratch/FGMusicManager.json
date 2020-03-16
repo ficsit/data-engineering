@@ -1,0 +1,109 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGMusicManager",
+    "category": "UCLASS",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "CreateMusicManager",
+        "comment": "Create a music manager from the specified class in a config",
+        "returnType": "classUFGMusicManager*"
+      },
+      {
+        "name": "Get",
+        "returnType": "UFGMusicManager*"
+      },
+      {
+        "name": "Get",
+        "comment": "To easy access the music manager from anywhere, can return null if world context is invalid or no music manager is spawned.",
+        "returnType": "UFGMusicManager*"
+      },
+      {
+        "name": "GetWorld",
+        "returnType": "UWorld*"
+      },
+      {
+        "name": "OnPlayerControllerBeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Play",
+        "comment": "Start/Continue music playback.",
+        "returnType": "void"
+      },
+      {
+        "name": "Pause",
+        "comment": "Pause music playback.",
+        "returnType": "void"
+      },
+      {
+        "name": "Stop",
+        "comment": "Stop music playback.",
+        "returnType": "void"
+      },
+      {
+        "name": "NotifyPostLoadMap",
+        "comment": "Notify that a new map has been loaded.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPlayerEnteredArea",
+        "comment": "Called whenever a player enters an area",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPlayerNearBaseChanged",
+        "comment": "Called whenever a player enters",
+        "returnType": "void"
+      },
+      {
+        "name": "UFGMusicManager"
+      },
+      {
+        "name": "Update",
+        "comment": "called on regular interval to update music",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPostLoadMap",
+        "comment": "Called when a new level has been loaded.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mUpdateInterval",
+        "comment": "How often (in seconds) we want to check if we are close to a factory",
+        "type": "float"
+      },
+      {
+        "name": "mFactoryCloseDistance",
+        "comment": "The distance that we considers a factory as close",
+        "type": "float"
+      },
+      {
+        "name": "mAkObject",
+        "comment": "Object we post event on, set RTPC on etc.",
+        "type": "classUAkObject*"
+      },
+      {
+        "name": "mMusicManagerClassName",
+        "comment": "Music manager class name",
+        "type": "FSoftClassPath"
+      },
+      {
+        "name": "mUpdateHandle",
+        "comment": "Handle for the timer to check if a player i near a factory",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mIsPlayerNearBase",
+        "comment": "If the player is in his factory.",
+        "type": "uint8"
+      }
+    ]
+  }
+]

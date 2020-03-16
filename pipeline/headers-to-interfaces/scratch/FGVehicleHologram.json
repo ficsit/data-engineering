@@ -1,0 +1,43 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGVehicleHologram",
+    "category": "UCLASS",
+    "comment": "The base class for vehicle holograms such as trucks, trains etc.",
+    "extends": [
+      "AFGHologram"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Construct",
+        "comment": "Begin AFGHologram interface",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "SetHologramLocationAndRotation",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckValidPlacement",
+        "comment": "Begin AFGHologram interface",
+        "returnType": "void"
+      },
+      {
+        "name": "ConstructVehicle",
+        "comment": "Construct the actual thing from this hologram (the vehicle).\n@return - The constructed vehicle on success; nullptr on failure.",
+        "returnType": "classAFGVehicle*"
+      }
+    ],
+    "properties": []
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGPowerPoleHologram",
+    "category": "UCLASS",
+    "comment": "Hologram for power poles.",
+    "extends": [
+      "AFGBuildableHologram"
+    ],
+    "methods": [
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "IsValidHitResult",
+        "comment": "Begin hologram interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetUpgradedActor",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "TryUpgrade",
+        "returnType": "bool"
+      },
+      {
+        "name": "DoMultiStepPlacement",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetSnapConnection",
+        "comment": "Get the connections the wires snap to.",
+        "returnType": "UFGCircuitConnectionComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSnapConnection",
+        "comment": "The connection wires snap to, used when placing a pole automatically.",
+        "type": "classUFGCircuitConnectionComponent*"
+      },
+      {
+        "name": "mUpgradeTarget",
+        "type": "classAFGBuildablePowerPole*"
+      }
+    ]
+  }
+]

@@ -1,0 +1,151 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGWireHologram",
+    "category": "UCLASS",
+    "comment": "Hologram for placing wires between circuit connections.",
+    "extends": [
+      "AFGBuildableHologram"
+    ],
+    "methods": [
+      {
+        "name": "AFGWireHologram"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "Construct",
+        "comment": "Begin AFGHologram Interface",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "GetBaseCostMultiplier",
+        "returnType": "int32"
+      },
+      {
+        "name": "DoMultiStepPlacement",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetHologramLocationAndRotation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnInvalidHitResult",
+        "returnType": "void"
+      },
+      {
+        "name": "SpawnChildren",
+        "returnType": "void"
+      },
+      {
+        "name": "ScrollRotate",
+        "returnType": "void"
+      },
+      {
+        "name": "ConfigureActor",
+        "comment": "Begin AFGBuildableHologram Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnAutomaticPoleDisableToggle",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckValidPlacement",
+        "comment": "Begin AFGHologram Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupDepthMeshComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckClearance",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckValidSnap",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckLength",
+        "returnType": "void"
+      },
+      {
+        "name": "FindOverlappingCircuitConnectionComponent",
+        "comment": "Check for nearby connectors.\n@return Closest connection, with or without free connections left.",
+        "returnType": "classUFGCircuitConnectionComponent*"
+      },
+      {
+        "name": "StartLookAtBuilding",
+        "returnType": "void"
+      },
+      {
+        "name": "StopLookAtBuilding",
+        "returnType": "void"
+      },
+      {
+        "name": "StartLookAtTooManyConnectionsBuilding",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLength",
+        "returnType": "float"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mMaxLength",
+        "type": "float"
+      },
+      {
+        "name": "mLengthPerCost",
+        "type": "float"
+      },
+      {
+        "name": "mConnections",
+        "comment": "The two connection components we connect.",
+        "type": "classUFGCircuitConnectionComponent*"
+      },
+      {
+        "name": "mPowerPole",
+        "type": "classAFGPowerPoleHologram*"
+      },
+      {
+        "name": "mDefaultPowerPoleRecipe",
+        "type": "TSubclassOf<classUFGRecipe>"
+      },
+      {
+        "name": "mStartLocation",
+        "comment": "The start location of this wire",
+        "type": "FVector"
+      },
+      {
+        "name": "mCurrentConnection",
+        "comment": "Keeps track of what connection we are working with",
+        "type": "int32"
+      },
+      {
+        "name": "mWireMesh",
+        "comment": "The mesh we should stretch",
+        "type": "UStaticMeshComponent*"
+      }
+    ]
+  }
+]

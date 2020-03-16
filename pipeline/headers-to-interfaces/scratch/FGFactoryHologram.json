@@ -1,0 +1,64 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGFactoryHologram",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGBuildableHologram"
+    ],
+    "methods": [
+      {
+        "name": "AFGFactoryHologram",
+        "comment": "Ctor"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupClearance",
+        "comment": "Begin AFGHologram interface",
+        "returnType": "void"
+      },
+      {
+        "name": "SetHologramLocationAndRotation",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "GetGuideLinesBaseLocation",
+        "returnType": "FVector"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mClearanceMeshComponent",
+        "comment": "@todo: Move clearance mesh thingies to BuildableHologram\nMesh component used to display the clearance mesh",
+        "type": "classUStaticMeshComponent*"
+      },
+      {
+        "name": "mClearanceMesh",
+        "comment": "Mesh we want to use in the component",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mClearanceMaterial",
+        "comment": "Material to use on the clearance component",
+        "type": "classUMaterialInterface*"
+      },
+      {
+        "name": "mGuideLineBuildings",
+        "type": "TMap<classUObject*,classAFGBuildGuide*>"
+      }
+    ]
+  }
+]

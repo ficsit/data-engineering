@@ -1,0 +1,49 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGConnectionComponent",
+    "category": "UCLASS",
+    "comment": "Base class for connection components, i.e. factory, power, track connections...",
+    "extends": [
+      "USceneComponent",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "Serialize",
+        "comment": "Begin UObject interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      }
+    ],
+    "properties": []
+  }
+]

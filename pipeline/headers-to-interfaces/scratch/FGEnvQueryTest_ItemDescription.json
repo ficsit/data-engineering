@@ -1,0 +1,25 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGEnvQueryTest_ItemDescription",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UEnvQueryTest"
+    ],
+    "methods": [
+      {
+        "name": "RunTest",
+        "comment": "This is where we actually check for the ItemDescriptor class",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mItemDescriptorClass",
+        "comment": "Class of what descriptor we are looking for",
+        "type": "TSubclassOf<classUFGItemDescriptor>"
+      }
+    ]
+  }
+]

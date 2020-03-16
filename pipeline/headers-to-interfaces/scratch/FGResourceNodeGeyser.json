@@ -1,0 +1,23 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGResourceNodeGeyser",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGResourceNode"
+    ],
+    "methods": [
+      {
+        "name": "AFGResourceNodeGeyser",
+        "comment": "CTOR, who the hell is that? Some Star Wars robot?"
+      },
+      {
+        "name": "GetLookAtDecription_Implementation",
+        "comment": "Begin IFGUseableInterface",
+        "returnType": "FText"
+      }
+    ],
+    "properties": []
+  }
+]

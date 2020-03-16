@@ -1,0 +1,146 @@
+[
+  {
+    "kind": "class",
+    "name": "FGuideLineBuildingSweepData",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FGuideLineBuildingSweepData"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mBuilding",
+        "type": "classAActor*"
+      },
+      {
+        "name": "mAngle",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "EGuideLineType",
+    "entries": [
+      {
+        "name": "GLT_Default",
+        "displayName": "Default"
+      },
+      {
+        "name": "GLT_ConveyorBelt",
+        "displayName": "Conveyor Belt"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FBuildingGuideLineData",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FBuildingGuideLineData"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mReferenceObject",
+        "type": "classUObject*"
+      },
+      {
+        "name": "mStartPoint",
+        "type": "FVector"
+      },
+      {
+        "name": "mEndPoint",
+        "type": "FVector"
+      },
+      {
+        "name": "mGuideLineType",
+        "type": "EGuideLineType"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildGuide",
+    "category": "UCLASS",
+    "extends": [
+      "AActor"
+    ],
+    "methods": [
+      {
+        "name": "FindAngleBetweenBuildingCenterpoints",
+        "comment": "Find how many degrees pointB is from pointA's right-angles (0, 90, 180, 270). Will convert vectors to 2D space.",
+        "returnType": "float"
+      },
+      {
+        "name": "FindRotationAngleBetweenVectors",
+        "comment": "Finds the angle between two points based on the rotation of vector a.",
+        "returnType": "float"
+      },
+      {
+        "name": "FindRelativeSnapPoint",
+        "comment": "Finds the point on originPoint's right-angled axis that the relativePoint is closest to snap to.",
+        "returnType": "FVector"
+      },
+      {
+        "name": "FindAlignedSnapPoint",
+        "comment": "Finds a snap point that aligns with guide lines. Updates the BuildingGuideLineData to new snap point. Will base all calculations in 2D space.",
+        "returnType": "bool"
+      },
+      {
+        "name": "UpdateGuideLines",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateGuideLinesPool",
+        "comment": "Given a guide lines pool, it will update the state of the lines based on the updateData given. If lines in the pool are absent in the update data they will be removed from the pool.",
+        "returnType": "void"
+      },
+      {
+        "name": "IsClearPathToHologram",
+        "comment": "Checks whether there's anything obstructing the guide lines.",
+        "returnType": "bool"
+      },
+      {
+        "name": "SweepForAlignedBuildings",
+        "returnType": "TArray<FGuideLineBuildingSweepData>"
+      },
+      {
+        "name": "IsWithinRange",
+        "returnType": "bool"
+      },
+      {
+        "name": "AFGBuildGuide",
+        "comment": "static float FindAngleBetweenVectors( FVector a, FVector b );"
+      },
+      {
+        "name": "SetBuildGuideStartEnd",
+        "comment": "Sets the start and end points of the build guide, similar to DrawDebugLines()",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Called when the game starts or when spawned",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mGuideLineType",
+        "comment": "Defines what type of build guide line this is.",
+        "type": "EGuideLineType"
+      },
+      {
+        "name": "mMeshComponent",
+        "type": "classUStaticMeshComponent*"
+      },
+      {
+        "name": "mBuildGuideMesh",
+        "type": "classUStaticMesh*"
+      }
+    ]
+  }
+]

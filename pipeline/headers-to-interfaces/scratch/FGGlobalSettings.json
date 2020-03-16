@@ -1,0 +1,100 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGGlobalSettings",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "Initialize",
+        "comment": "Called during startup of factorygame module",
+        "returnType": "void"
+      },
+      {
+        "name": "Shutdown",
+        "comment": "Called during shutdown of factorygame module",
+        "returnType": "void"
+      },
+      {
+        "name": "GetGlobalSettingsClassCDO",
+        "returnType": "classUFGGlobalSettings*"
+      },
+      {
+        "name": "GetResourceSettingsCDO",
+        "returnType": "classUFGResourceSettings*"
+      },
+      {
+        "name": "GetFactorySettingsCDO",
+        "returnType": "classUFGFactorySettings*"
+      },
+      {
+        "name": "GetDropPodSettingsCDO",
+        "returnType": "classUFGDropPodSettings*"
+      },
+      {
+        "name": "GetHardDriveSettingsCDO",
+        "returnType": "classUFGHardDriveSettings*"
+      },
+      {
+        "name": "GetEnvironmentSettingsCDO",
+        "returnType": "classUFGEnvironmentSettings*"
+      },
+      {
+        "name": "GetSubsystemClassesCDO",
+        "returnType": "classUFGSubsystemClasses*"
+      },
+      {
+        "name": "GetSignSettingsCDO",
+        "returnType": "classUFGSignSettings*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mResourceSettings",
+        "comment": "Settings for resources",
+        "type": "TSubclassOf<classUFGResourceSettings>"
+      },
+      {
+        "name": "mFactorySettings",
+        "comment": "Settings for resources",
+        "type": "TSubclassOf<classUFGFactorySettings>"
+      },
+      {
+        "name": "mDropPodSettings",
+        "comment": "Settings for drop pods",
+        "type": "TSubclassOf<classUFGDropPodSettings>"
+      },
+      {
+        "name": "mHardDriveSettings",
+        "comment": "Settings for Hard Drive Research",
+        "type": "TSubclassOf<classUFGHardDriveSettings>"
+      },
+      {
+        "name": "mEnvironmentSettings",
+        "comment": "Settings for drop pods",
+        "type": "TSubclassOf<classUFGEnvironmentSettings>"
+      },
+      {
+        "name": "mSubsystemClasses",
+        "type": "TSubclassOf<classUFGSubsystemClasses>"
+      },
+      {
+        "name": "mSignSettings",
+        "type": "TSubclassOf<classUFGSignSettings>"
+      },
+      {
+        "name": "mGlobalSettingsClassName",
+        "comment": "Default class for specifying the settings class",
+        "type": "FSoftClassPath"
+      },
+      {
+        "name": "mGlobalSettingsClass",
+        "comment": "The actual class",
+        "type": "staticTSubclassOf<UFGGlobalSettings>"
+      }
+    ]
+  }
+]

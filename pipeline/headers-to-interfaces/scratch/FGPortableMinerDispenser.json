@@ -1,0 +1,69 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGPortableMinerDispenser",
+    "category": "UCLASS",
+    "extends": [
+      "AFGEquipment"
+    ],
+    "methods": [
+      {
+        "name": "AFGPortableMinerDispenser"
+      },
+      {
+        "name": "Tick",
+        "comment": "It's a tick!",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "SetMaterial",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPrimaryFirePressed",
+        "comment": "Called on the owner, client or server but not both.",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_PrimaryFire",
+        "comment": "Only the server handles the building.",
+        "returnType": "void"
+      },
+      {
+        "name": "SpawnPortableMiner",
+        "returnType": "void"
+      },
+      {
+        "name": "AddEquipmentActionBindings",
+        "comment": "Add custom bindings for this equipment",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mAllowedResourceForms",
+        "comment": "What form can the overlapping resources be in.",
+        "type": "TArray<EResourceForm>"
+      },
+      {
+        "name": "mPlaceDistanceMax",
+        "comment": "Trace distance when building. * /",
+        "type": "float"
+      },
+      {
+        "name": "mValidPlacementMaterial",
+        "comment": "Material on hologram for valid placement.",
+        "type": "classUMaterialInstance*"
+      },
+      {
+        "name": "mInvalidPlacementMaterial",
+        "comment": "Material on hologram for invalid placement.",
+        "type": "classUMaterialInstance*"
+      }
+    ]
+  }
+]

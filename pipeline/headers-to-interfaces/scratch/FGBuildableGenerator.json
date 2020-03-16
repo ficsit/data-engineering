@@ -1,0 +1,124 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableGenerator",
+    "category": "UCLASS",
+    "comment": "Base for all generators, i.e. coal, fuel, nuclear etc.",
+    "extends": [
+      "AFGBuildableFactory"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Decide on what properties to replicate",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGBuildableGenerator",
+        "comment": "Constructor"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "CanProduce_Implementation",
+        "comment": "Begin AFGBuildableFactory interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "HasPower",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetProductionIndicatorStatus",
+        "returnType": "EProductionStatus"
+      },
+      {
+        "name": "GetLoadPercentage",
+        "comment": "Get the current load of this generator in the range [0,1].",
+        "returnType": "float"
+      },
+      {
+        "name": "IsFuseTriggered",
+        "comment": "@return true if the fuse is triggered.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPowerProductionCapacity",
+        "comment": "The power this generator can produce.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetDefaultPowerProductionCapacity",
+        "comment": "The default amount power this generator can produce.",
+        "returnType": "float"
+      },
+      {
+        "name": "CalcPowerProductionCapacityForPotential",
+        "comment": "Calculate the power this generator can produce with a given potential.",
+        "returnType": "float"
+      },
+      {
+        "name": "SetActorHiddenInGame",
+        "returnType": "void"
+      },
+      {
+        "name": "CanStartPowerProduction",
+        "comment": "Called to check if power production can be started.",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_TickProducing",
+        "comment": "Begin AFGBuildableFactory interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_StartProducing",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_StopProducing",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_StartPowerProduction",
+        "comment": "Called when we start producing fuel.",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_StopPowerProduction",
+        "comment": "Called when we stop producing fuel.",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_TickPowerProduction",
+        "comment": "Tick the power production, consume any fuel, update base and dynamic production.\n@param dt - Time since last tick.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mPowerProduction",
+        "comment": "Amount of power this generator produces in MW.",
+        "type": "float"
+      },
+      {
+        "name": "mPowerProductionExponent",
+        "comment": "Example: 2.5 ^ ( 1 / 1.6 ) = 1.77      An exponent of 1.6 gives a maximum production of 177% at 2.5x overclock.\nIf exponent is 1.0 the function becomes linear.",
+        "type": "float"
+      },
+      {
+        "name": "mLoadPercentage",
+        "comment": "Current load of this generator in the range [0,1].",
+        "type": "float"
+      },
+      {
+        "name": "mIsFuseTriggered",
+        "comment": "Is the fuse triggered.",
+        "type": "bool"
+      }
+    ]
+  }
+]

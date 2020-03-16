@@ -1,0 +1,256 @@
+[
+  {
+    "kind": "class",
+    "name": "FFogOfWarQueuePair",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FFogOfWarQueuePair"
+      }
+    ],
+    "properties": [
+      {
+        "name": "playerController",
+        "type": "classAFGPlayerController*"
+      },
+      {
+        "name": "currentPackageIndex",
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGMapManager",
+    "category": "UCLASS",
+    "comment": "This class manages the map.",
+    "extends": [
+      "AFGSubsystem",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "Get",
+        "comment": "Get the map manager, this should always return something unless you call it really early.",
+        "returnType": "AFGMapManager*"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the map manager from a world context, this should always return something unless you call it really early.",
+        "returnType": "AFGMapManager*"
+      },
+      {
+        "name": "AFGMapManager"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetFogOfWarTexture",
+        "comment": "End IFSaveInterface",
+        "returnType": "classUTexture2D*"
+      },
+      {
+        "name": "RequestFogOfWarData",
+        "comment": "Puts a player controller in the transfer queue awaiting fog of war transfer",
+        "returnType": "void"
+      },
+      {
+        "name": "TransferFogOfWarData",
+        "comment": "Transfers fog of war data via player controller",
+        "returnType": "void"
+      },
+      {
+        "name": "SyncFogOfWarChanges",
+        "comment": "Receive fog of war data via player controller",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupFogOfWarTexture",
+        "comment": "Setups the fog of war texture TODO: Move the texture parts to separate class",
+        "returnType": "void"
+      },
+      {
+        "name": "InitialFogOfWarRequest",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupRepresentationManager",
+        "returnType": "void"
+      },
+      {
+        "name": "BindActorRepresentationManager",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateFogOfWar",
+        "comment": "Local updates of the fog of war",
+        "returnType": "void"
+      },
+      {
+        "name": "GetMapPositionFromWorldLocation",
+        "returnType": "FVector2D"
+      },
+      {
+        "name": "GetMapDistanceFromWorldDistance",
+        "returnType": "float"
+      },
+      {
+        "name": "DrawCircle",
+        "returnType": "void"
+      },
+      {
+        "name": "OnActorRepresentationAdded",
+        "returnType": "void"
+      },
+      {
+        "name": "OnActorRepresentationUpdated",
+        "returnType": "void"
+      },
+      {
+        "name": "OnActorRepresentationRemoved",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mFogOfWarRawData",
+        "comment": "The raw pixel data for the fog of war texture. Each element represents a channel for a pixel",
+        "type": "TArray<uint8>"
+      },
+      {
+        "name": "mFogOfWarDataSize",
+        "comment": "The size of the raw pixel data array",
+        "type": "int32"
+      },
+      {
+        "name": "mFogOfWarResolution",
+        "comment": "The resolution for the fog of war texture",
+        "type": "int32"
+      },
+      {
+        "name": "mFogOfWarPixelsPerPacket",
+        "comment": "Number of pixels we will send per packet when we transfer fog of war to clients",
+        "type": "int32"
+      },
+      {
+        "name": "mFogOfWarNumberOfPackets",
+        "comment": "Number of packets that will be sent when we transfer fog of war to clients",
+        "type": "int32"
+      },
+      {
+        "name": "mFogOfWarTexture",
+        "comment": "The fog of war texture that is used for the map",
+        "type": "UTexture2D*"
+      },
+      {
+        "name": "mFogOfWarUpdateTextureRegion",
+        "comment": "The fog of war texture region used for updating the texture",
+        "type": "FUpdateTextureRegion2D"
+      },
+      {
+        "name": "mCachedMinimapCaptureActor",
+        "comment": "Capture actor used for translate world locations to map locations",
+        "type": "AFGMinimapCaptureActor*"
+      },
+      {
+        "name": "mLowestWorldLocation",
+        "comment": "Fog of war config values used for debugging",
+        "type": "float"
+      },
+      {
+        "name": "mHighestWorldLocation",
+        "type": "float"
+      },
+      {
+        "name": "mFogOfWarUpperRangeMin",
+        "type": "float"
+      },
+      {
+        "name": "mFogOfWarUpperRangeMax",
+        "type": "float"
+      },
+      {
+        "name": "mFogOfWarGradientExpandValue",
+        "type": "float"
+      },
+      {
+        "name": "mEnableFogOfWarRevealCalculations",
+        "type": "bool"
+      },
+      {
+        "name": "mEnableFogOfWarTextureUpdates",
+        "type": "bool"
+      },
+      {
+        "name": "mForceSingleThreadedCalculations",
+        "type": "bool"
+      },
+      {
+        "name": "mFogOfWarTransferQueue",
+        "comment": "Queue to handle clients waiting for fog of war transfer",
+        "type": "TArray<FFogOfWarQueuePair>"
+      },
+      {
+        "name": "mActorRepresentationManager",
+        "comment": "Actor representation manager to get representations updates to calculate fog of war data",
+        "type": "classAFGActorRepresentationManager*"
+      },
+      {
+        "name": "mDynamicFogOfWarRevealActors",
+        "comment": "The currently active dynamic actor representations that reveal fog of war",
+        "type": "TArray<UFGActorRepresentation*>"
+      },
+      {
+        "name": "mDynamicActorsArrayIndex",
+        "comment": "The current index for the tick update loop for fog of war from dynamic actor representations",
+        "type": "int32"
+      },
+      {
+        "name": "PIXEL_OFFSET",
+        "comment": "The pixel data array contains 4 uint8 per pixel. We only need to change 1 during runtime and the red channel is used in the material.\n\tSo we stick with an offset of 2 for now.",
+        "type": "conststaticint32"
+      }
+    ]
+  }
+]

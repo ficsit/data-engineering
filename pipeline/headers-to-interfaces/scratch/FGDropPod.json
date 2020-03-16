@@ -1,0 +1,201 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGDropPod",
+    "category": "UCLASS",
+    "extends": [
+      "AActor",
+      "IFGUseableInterface",
+      "IFGSaveInterface",
+      "IFGSignificanceInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGDropPod"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoad",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "GainedSignificance_Implementation",
+        "comment": "Begin IFGSignificanceInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "RegisterInteractingPlayer_Implementation",
+        "comment": "Begin IFGUseableInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterInteractingPlayer_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateUseState_Implementation",
+        "comment": "Begin IFGUseableInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUse_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUseStop_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "IsUseable_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "StartIsLookedAt_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLookAtDecription_Implementation",
+        "returnType": "FText"
+      },
+      {
+        "name": "StopIsLookedAt_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "HasBeenOpened",
+        "comment": "@return true if this has been opened.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetLootInventory",
+        "comment": "@return The inventory containing possible loot",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetHasPower",
+        "returnType": "bool"
+      },
+      {
+        "name": "Open",
+        "comment": "Open the drop pod.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnOpened",
+        "comment": "Called on server, rolls the loot for the drop pod.",
+        "returnType": "void"
+      },
+      {
+        "name": "RollLoot",
+        "comment": "Called on server, rolls the loot for the drop pod.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRepair",
+        "comment": "Event called when player tries to repair the drop-pod.",
+        "returnType": "void"
+      },
+      {
+        "name": "RequiresPowerToOpen",
+        "comment": "Necessary to add for optimization reasons. We don't want to tick drop pods that don't require power but this is only set in blueprint.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetPowerConnection",
+        "comment": "[Snutt:Thu/20-02-2020] I added this because setting up a new connection component caused issues when loading\nGets the power connection that's been assigned to the drop pod via blueprint",
+        "returnType": "classUFGPowerConnectionComponent*"
+      },
+      {
+        "name": "RollDropPackage",
+        "comment": "Roll a package to drop and adds the items to the loot inventory. Call this on server only.",
+        "returnType": "FDropPackage"
+      },
+      {
+        "name": "GenerateDropPodInventory",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_HasBeenOpened",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPowerConnectionChanged",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mAmountOfInventorySlots",
+        "comment": "The amount of available inventory slots for the drop pod",
+        "type": "int32"
+      },
+      {
+        "name": "mPowerInfo",
+        "type": "classUFGPowerInfoComponent*"
+      },
+      {
+        "name": "mHasPower",
+        "type": "bool"
+      },
+      {
+        "name": "mHasBeenOpened",
+        "comment": "True when this has been opened",
+        "type": "bool"
+      },
+      {
+        "name": "mInventory",
+        "comment": "Contains the loot if any",
+        "type": "classUFGInventoryComponent*"
+      }
+    ]
+  }
+]

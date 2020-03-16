@@ -1,0 +1,224 @@
+[
+  {
+    "kind": "class",
+    "name": "FRailroadTrackPosition",
+    "category": "USTRUCT",
+    "comment": "This is a way to represent a position on the railroad.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FRailroadTrackPosition"
+      },
+      {
+        "name": "FRailroadTrackPosition"
+      },
+      {
+        "name": "FRailroadTrackPosition"
+      },
+      {
+        "name": "~FRailroadTrackPosition"
+      },
+      {
+        "name": "Serialize",
+        "comment": "Function called when serializing this struct to a FArchive.",
+        "returnType": "bool"
+      },
+      {
+        "name": "operator<<",
+        "returnType": "FArchive&"
+      },
+      {
+        "name": "IsValid",
+        "comment": "Is this a valid track position.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetWorldLocationAndDirection",
+        "comment": "Get the world location and direction of this track position; zero if invalid.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetForwardOffset",
+        "comment": "@return Offset from the beginning/end of the track in the forward direction if valid; otherwise zero.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetReverseOffset",
+        "returnType": "float"
+      },
+      {
+        "name": "GetForwardConnection",
+        "comment": "@return The next track connection in the forward direction if valid; otherwise a nullptr.",
+        "returnType": "classUFGRailroadTrackConnectionComponent*"
+      },
+      {
+        "name": "GetReverseConnection",
+        "returnType": "classUFGRailroadTrackConnectionComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "InvalidTrackPosition",
+        "comment": "A null track position.",
+        "type": "staticconstFRailroadTrackPosition"
+      },
+      {
+        "name": "Track",
+        "comment": "This is the track segment this position is on.\nIf null then this is not a valid position.",
+        "type": "TWeakObjectPtr<classAFGBuildableRailroadTrack>"
+      },
+      {
+        "name": "Offset",
+        "comment": "Offset along the track.",
+        "type": "float"
+      },
+      {
+        "name": "Forward",
+        "comment": " 1: We travel forward by increasing the offset (Along the spline).\n-1: We travel forward by decreasing the offset (Against the spine).",
+        "type": "float"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "TStructOpsTypeTraits",
+    "comment": "Enable custom serialization of FRailroadTrackPosition",
+    "extends": [
+      "TStructOpsTypeTraitsBase2"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildableRailroadTrack",
+    "category": "UCLASS",
+    "comment": "A piece of train track, it has a spline and to ends.",
+    "extends": [
+      "AFGBuildable"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableRailroadTrack"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "Dismantle_Implementation",
+        "comment": "Begin IFGDismantleInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "CanDismantle_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDismantleRefundReturnsMultiplier",
+        "comment": "Begin Buildable interface",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetSplineComponent",
+        "comment": "Get the spline for this track.",
+        "returnType": "classUSplineComponent*"
+      },
+      {
+        "name": "GetLength",
+        "comment": "Get the length of this track.",
+        "returnType": "float"
+      },
+      {
+        "name": "SetIsOwnedByPlatform",
+        "comment": "Flag the track as being owned by a platform",
+        "returnType": "void"
+      },
+      {
+        "name": "GetIsOwnedByPlatform",
+        "comment": "Get whether a platform takes ownership of this track",
+        "returnType": "bool"
+      },
+      {
+        "name": "FindTrackPositionClosestToWorldLocation",
+        "comment": "Get the track location closest to the given world location.",
+        "returnType": "FRailroadTrackPosition"
+      },
+      {
+        "name": "GetWorldLocationAndDirectionAtPosition",
+        "comment": "Get a location and rotation given a train position.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConnection",
+        "comment": "\n @return The connection; nullptr if offset is invalid.",
+        "returnType": "classUFGRailroadTrackConnectionComponent*"
+      },
+      {
+        "name": "GetTrackGraphID",
+        "comment": "@return The track graph this track belongs to.",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetTrackGraphID",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mMesh",
+        "comment": "Mesh to use for his track.",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mMeshLength",
+        "comment": "Length of the mesh to use for this track",
+        "type": "float"
+      },
+      {
+        "name": "mSplineComponent",
+        "comment": "The spline component for this train track.",
+        "type": "classUSplineComponent*"
+      },
+      {
+        "name": "mInstancedSplineComponent",
+        "comment": "The spline meshes for this train track.",
+        "type": "classUFGInstancedSplineMeshComponent*"
+      },
+      {
+        "name": "mSplineData",
+        "comment": "Spline data saved in a compact form for saving and replicating. All the vectors are in local space.",
+        "type": "TArray<FSplinePointData>"
+      },
+      {
+        "name": "mConnections",
+        "comment": "This tracks connection component.",
+        "type": "classUFGRailroadTrackConnectionComponent*"
+      },
+      {
+        "name": "mIsOwnedByPlatform",
+        "comment": "Was this track created and is owned by a platform.",
+        "type": "bool"
+      },
+      {
+        "name": "mTrackGraphID",
+        "comment": "The graph this track belongs to.",
+        "type": "int32"
+      },
+      {
+        "name": "mLength",
+        "comment": "Length of this track. [cm]",
+        "type": "float"
+      }
+    ]
+  }
+]

@@ -1,0 +1,319 @@
+[
+  {
+    "kind": "enum",
+    "name": "ECycleDirection",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "entries": [
+      {
+        "name": "CD_Forward"
+      },
+      {
+        "name": "CD_Backward"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FScannableDetails",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "HasRequiredSchematic",
+        "comment": "Return true if this object has a required schematic",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetRequiredSchematic",
+        "comment": "Get the required schematic to be able to scan stuff, null signifies that the schematic isn't loaded OR there is none",
+        "returnType": "TSubclassOf<classUFGSchematic>"
+      },
+      {
+        "name": "FScannableDetails"
+      }
+    ],
+    "properties": [
+      {
+        "name": "ScannableClass",
+        "comment": "Type of object to scan for",
+        "type": "TSubclassOf<AActor>"
+      },
+      {
+        "name": "DisplayText",
+        "comment": "Name of object to scan for",
+        "type": "FText"
+      },
+      {
+        "name": "ScannerLightColor",
+        "comment": "Scanner light color",
+        "type": "FColor"
+      },
+      {
+        "name": "PreCacheAllOfType",
+        "comment": "Should we get all actors at load and cache them? or do we need to update these every frame.\nBetter to cache it, but some things can't be cached (eg. Enemies)",
+        "type": "bool"
+      },
+      {
+        "name": "ShouldOverrideDetectionRange",
+        "comment": "If true, NewDetectionRange will be used.",
+        "type": "bool"
+      },
+      {
+        "name": "NewDetectionRange",
+        "comment": "Override the base detection range of the scanner",
+        "type": "float"
+      },
+      {
+        "name": "RequiredSchematic",
+        "comment": "Required schematic to search for this object. None means no requirement.",
+        "type": "TSoftClassPtr<classUFGSchematic>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGObjectScanner",
+    "category": "UCLASS",
+    "extends": [
+      "AFGEquipment"
+    ],
+    "methods": [
+      {
+        "name": "AFGObjectScanner",
+        "comment": "Ctor"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayBeep",
+        "comment": "guess what this does.",
+        "returnType": "void"
+      },
+      {
+        "name": "Equip",
+        "comment": "Equips the equipment.",
+        "returnType": "void"
+      },
+      {
+        "name": "UnEquip",
+        "comment": "Put the equipment away.",
+        "returnType": "void"
+      },
+      {
+        "name": "IsBeeping",
+        "returnType": "bool"
+      },
+      {
+        "name": "CycleForward",
+        "comment": "Cycles scannable type forward and updates the light on the attachment\n@return true if there was a setting change, false means there was nothing to cycle to",
+        "returnType": "bool"
+      },
+      {
+        "name": "CycleBackward",
+        "comment": "Cycles scannable type backward and updates the light on the attachment\n@return true if there was a setting change, false means there was nothing to cycle to",
+        "returnType": "bool"
+      },
+      {
+        "name": "UpdateScannerVisuals",
+        "comment": "Set light color etc.\n@param wasChange is true if there was a scanner setting change, false if not. eg. false when initialising scanner, true when you change what you are scanning for.",
+        "returnType": "void"
+      },
+      {
+        "name": "HasValidCurrentDetails",
+        "comment": "Returns whether or not object scanner has a valid currently selected object",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetCurrentDetails",
+        "comment": "Does what it says on the tin: get's the current details",
+        "returnType": "FScannableDetails"
+      },
+      {
+        "name": "GetAvailableObjectDetails",
+        "comment": "Returns array with all object details that we can search for",
+        "returnType": "TArray<FScannableDetails>"
+      },
+      {
+        "name": "SetScannableEntry",
+        "comment": "Sets to a desired scannable entry",
+        "returnType": "void"
+      },
+      {
+        "name": "PrecacheObjects",
+        "comment": "Precaches all CACHEABLE objects (as defined by FScannableDetails).",
+        "returnType": "void"
+      },
+      {
+        "name": "Internal_CycleObjects",
+        "returnType": "bool"
+      },
+      {
+        "name": "RemoveInvalidObjectsFromCache",
+        "comment": "Removes all nullptr entries from cache. Possible because other players may pick up Objects, thus nulling them,\nand this cache does use any replication etc.",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateClosestObject",
+        "comment": "Loops through the cached list of Objects and finds the closest one. This may call RemoveInvalidObjectsFromCache if a null is found",
+        "returnType": "void"
+      },
+      {
+        "name": "Internal_PlayBeep",
+        "comment": "Calls PlayBeep() and sets up timer for the next beep",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAllActorsOfClassAsWeakPtr",
+        "comment": "Gets all actors of a class and adds them to an array of weak ptrs",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCurrentDetailsWithIndex",
+        "comment": "Returns array with all object details that we can search for including their index in the list of all object details",
+        "returnType": "TArray<TTuple<FScannableDetails,int32>>"
+      },
+      {
+        "name": "TryToEquipDefaultObject",
+        "comment": "If no object has been selected, this will try and equip the first available object in the object scanner",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mBeepDelayMax",
+        "comment": "Maximum delay (in seconds) between each beep",
+        "type": "float"
+      },
+      {
+        "name": "mBeepDelayMin",
+        "comment": "Minimum delay (in seconds) between each beep",
+        "type": "float"
+      },
+      {
+        "name": "mDetectionRange",
+        "comment": "Detection range of the scanner",
+        "type": "float"
+      },
+      {
+        "name": "mUpdateClosestObjectTime",
+        "comment": "\"the closest\" Object doesn't really need to be updated every frame. Maybe every second, or 2, or so.",
+        "type": "float"
+      },
+      {
+        "name": "mObjectDetails",
+        "comment": "Details regarding what we should scan.\n@note order is important here. the order this is in is the order that the scanner's toggle will be in.",
+        "type": "TArray<FScannableDetails>"
+      },
+      {
+        "name": "mClosestObject",
+        "type": "classAActor*"
+      },
+      {
+        "name": "mShouldBeepEvenIfNoObject",
+        "comment": "If true, the scanner beeps even if there is nothing within range. If false, it starts beeping if something comes within range.",
+        "type": "bool"
+      },
+      {
+        "name": "mCachedObjects",
+        "comment": "Stores a reference to all Objects.\nEntries -may- be nullptr, so be careful. Consider removing nullptr when you find it.",
+        "type": "TMap<TSubclassOf<classAActor>,TArray<TWeakObjectPtr<classAActor>>>"
+      },
+      {
+        "name": "mUncachedObjects",
+        "comment": "objects that werent cached",
+        "type": "TArray<TWeakObjectPtr<classAActor>>"
+      },
+      {
+        "name": "mCurrentBeepDelay",
+        "comment": "The delay between beeps is variable based on distance from the object. This is the current beep delay.",
+        "type": "float"
+      },
+      {
+        "name": "mUpdateClosestObjectTimerHandle",
+        "comment": "Handle that triggers on mUpdateClosestObjectTime",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mBeepTimerHandle",
+        "comment": "Handle that triggers on mUpdateClosestObjectTime",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mIsBeeping",
+        "comment": "if true, the device is beeping.",
+        "type": "bool"
+      },
+      {
+        "name": "mCurrentObjectSelection",
+        "comment": "index for mObjectDetails, this determines what we are scanning for",
+        "type": "int32"
+      },
+      {
+        "name": "mHadClosestObject",
+        "comment": "if we had a closest object last frame",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGObjectScannerAttachment",
+    "category": "UCLASS",
+    "extends": [
+      "AFGEquipmentAttachment"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "SetIsBeeping",
+        "returnType": "void"
+      },
+      {
+        "name": "IsBeeping",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetScannerLightColor",
+        "returnType": "void"
+      },
+      {
+        "name": "GetScannerLightColor",
+        "returnType": "FColor"
+      },
+      {
+        "name": "UpdateScannerVisuals",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_IsBeeping",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_ScannerLightColor",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mIsBeeping",
+        "comment": "True if scanner is beeping",
+        "type": "bool"
+      },
+      {
+        "name": "mScannerLightColor",
+        "comment": "Scanner light color",
+        "type": "FColor"
+      }
+    ]
+  }
+]

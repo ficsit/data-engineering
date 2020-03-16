@@ -1,0 +1,239 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGWorkBench",
+    "category": "UCLASS",
+    "comment": "Component attachable to things that should have a workbench, i.e. vehicles and of course the workbench building.",
+    "extends": [
+      "USceneComponent",
+      "IFGRecipeProducerInterface"
+    ],
+    "methods": [
+      {
+        "name": "UFGWorkBench"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin ActorComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "TickComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "TickProducing",
+        "comment": "End ActorComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "SetRecipe",
+        "comment": "Set the active recipe to produce.",
+        "returnType": "void"
+      },
+      {
+        "name": "CanProduce",
+        "comment": "Can we produce the given recipe, using the inventory passed for payment and output.",
+        "returnType": "bool"
+      },
+      {
+        "name": "HasAuthority",
+        "comment": "Checks if our owner has authority, and assumes that if they have, then so do we",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsProducing",
+        "comment": "Are we currently producing.",
+        "returnType": "bool"
+      },
+      {
+        "name": "Produce",
+        "comment": "Produce one step",
+        "returnType": "void"
+      },
+      {
+        "name": "CraftComplete",
+        "comment": "Called when a craft have been completed.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetManufacturingProgress",
+        "comment": "Manufacturing progress in range [0,1].",
+        "returnType": "float"
+      },
+      {
+        "name": "GetCurrentRecipe",
+        "comment": "The recipe we're currently running.",
+        "returnType": "TSubclassOf<classUFGRecipe>"
+      },
+      {
+        "name": "GetWorkBenchUser",
+        "comment": "Returns current workbench user",
+        "returnType": "classAFGCharacterPlayer*"
+      },
+      {
+        "name": "SetInventory",
+        "comment": "sets current inventory we want",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPlayerInventory",
+        "comment": "@return The inventory for the player working at bench; nullptr if no one is working.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetInventory",
+        "comment": "@return The inventory this workbench is set to work with",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "SetWorkBenchUser",
+        "comment": "sets current workbench user",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveIngredientsAndAwardRewards",
+        "comment": "Called when we finish a product and wants to give it to the inventory passed",
+        "returnType": "void"
+      },
+      {
+        "name": "GetManufacturingSpeed",
+        "comment": "The speed of which we manufacture stuff",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPlayerWorkingAtBench",
+        "comment": "Returns the player that is working at this workbench.",
+        "returnType": "AFGCharacterPlayer*"
+      },
+      {
+        "name": "UpdateFatigueMultiplier",
+        "comment": "Called when a craft has completed",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCurrentFatigue",
+        "comment": "Returns how much worse the workbench is currently performing. 0.2 means it's 20% worse currently",
+        "returnType": "float"
+      },
+      {
+        "name": "GetCurrentDuration",
+        "comment": "Gets recipes duration. Including fatigue",
+        "returnType": "float"
+      },
+      {
+        "name": "GetActiveManufacturingTime",
+        "comment": "Gets the active time we spent manufacturing",
+        "returnType": "float"
+      },
+      {
+        "name": "SetupManufacturingButton",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRecipeFatigueMultiplier",
+        "comment": "A recipe should take longer to produce after you have produced a certain amount in a row",
+        "returnType": "float"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mCurrentRecipe",
+        "comment": "The recipe we're currently running.",
+        "type": "TSubclassOf<classUFGRecipe>"
+      },
+      {
+        "name": "mCurrentManufacturingProgress",
+        "comment": "Manufacturing progress in range [0,1].",
+        "type": "float"
+      },
+      {
+        "name": "mManufacturingSpeed",
+        "comment": "The speed of which this manufacturer manufactures stuff. Slower for Work Bench",
+        "type": "float"
+      },
+      {
+        "name": "mPlayerWorkingAtBench",
+        "type": "classAFGCharacterPlayer*"
+      },
+      {
+        "name": "mRecipeRate",
+        "comment": "Manufacturing rate in product per second.",
+        "type": "float"
+      },
+      {
+        "name": "mIsProducing",
+        "comment": "Are we producing?",
+        "type": "bool"
+      },
+      {
+        "name": "mInventory",
+        "comment": "The inventory this workbench is set to work with",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mActiveManufacturingTime",
+        "comment": "Actual time spent producing ( holding button )",
+        "type": "float"
+      },
+      {
+        "name": "mFatigueMultiplier",
+        "comment": "Work bench efficiency decrease per interval. 0.2 means 20%",
+        "type": "float"
+      },
+      {
+        "name": "mCurrentFatigue",
+        "comment": "Fatigue we are currently at",
+        "type": "float"
+      },
+      {
+        "name": "mFatigueDecreaseSpeedMultiplier",
+        "comment": "Multiplier for mFatigueUpdaterInterval, shows how long it takes to go down one step in fatigue",
+        "type": "float"
+      },
+      {
+        "name": "mHoldProduceTime",
+        "comment": "How long it takes to produce one cycle",
+        "type": "float"
+      },
+      {
+        "name": "mManufacturingButton",
+        "type": "classUFGManufacturingButton*"
+      },
+      {
+        "name": "mFatigueUpdaterInterval",
+        "comment": "at what interval should the fatigue multiplier be applied?",
+        "type": "int32"
+      },
+      {
+        "name": "mCounter",
+        "comment": "Indicates how many times the fatigue has been multiplied",
+        "type": "int32"
+      },
+      {
+        "name": "mRecipeDuration",
+        "comment": "DUration it takes to make a recipe with added multipliers of manufacturingspeed and manufacturingmultiplier",
+        "type": "float"
+      },
+      {
+        "name": "mCooldownDelay",
+        "comment": "How long to wait before applying cooldown",
+        "type": "float"
+      },
+      {
+        "name": "mCurrentCooldown",
+        "type": "float"
+      },
+      {
+        "name": "mIsFatigueEnabled",
+        "comment": "Should fatigue be used on this component",
+        "type": "bool"
+      },
+      {
+        "name": "mAdditionalFatigue",
+        "comment": "Fatigue added based on how much of the fatigue interval we are currently in",
+        "type": "float"
+      }
+    ]
+  }
+]

@@ -1,0 +1,75 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildablePole",
+    "category": "UCLASS",
+    "comment": "An arbitrarily high pole.",
+    "extends": [
+      "AFGBuildablePoleBase"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildablePole"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetStackHeight",
+        "comment": "End AActor interface",
+        "returnType": "float"
+      },
+      {
+        "name": "SetPoleHeight",
+        "comment": "Set the pole's height.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupConnectionComponent",
+        "comment": "Sets the connection component to be at correct height and registers",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoad",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "PoleMeshName",
+        "type": "staticconstFName"
+      },
+      {
+        "name": "mHeight",
+        "comment": "This poles height.",
+        "type": "float"
+      },
+      {
+        "name": "mPoleComponentProxy",
+        "comment": "The component we want to use with the pole",
+        "type": "classUFGColoredInstanceMeshProxy*"
+      },
+      {
+        "name": "mSnapOnly0",
+        "comment": "Connection component used",
+        "type": "classUFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "mPoleMesh",
+        "comment": "This poles mesh. @save 2018-10-24, this is here so old poles < alpha 2 path will still have a correct mesh, resaving an old save",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mUseStaticHeight",
+        "comment": "Should the stack height only be calculated using the mStackHeight?",
+        "type": "bool"
+      }
+    ]
+  }
+]

@@ -1,0 +1,264 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGResourceSinkSubsystem",
+    "category": "UCLASS",
+    "comment": "Subsystem to handle the resource sink and the rewards from sinked items",
+    "extends": [
+      "AFGSubsystem",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGResourceSinkSubsystem"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the resource sink subsystem, this should always return something unless you call it really early.",
+        "returnType": "AFGResourceSinkSubsystem*"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the resource sink subsystem from a world context, this should always return something unless you call it really early.",
+        "returnType": "AFGResourceSinkSubsystem*"
+      },
+      {
+        "name": "DisplayDebug",
+        "returnType": "void"
+      },
+      {
+        "name": "AddPoints_ThreadSafe",
+        "comment": "Will only add points if the item can be discarded and is valued to at least 1 point.\nReturns if the item could be sunk or not.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetNumTotalPoints",
+        "comment": "Returns the total number of accumulated points for all resource sinks",
+        "returnType": "int64"
+      },
+      {
+        "name": "GetGlobalPointHistory",
+        "comment": "Returns an array with the global point per minute history. Sorted from old to new",
+        "returnType": "TArray<int32>"
+      },
+      {
+        "name": "GetNumCoupons",
+        "comment": "Returns the number of available resource sink coupons",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetNumPointsToNextCoupon",
+        "comment": "Returns the number of points left until you receive the next coupon",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetProgressionTowardsNextCoupon",
+        "comment": "Returns the percentage (normalized value) of your progression towards the next coupon",
+        "returnType": "float"
+      },
+      {
+        "name": "GetCouponClass",
+        "comment": "Return the item descriptor class that we use as coupon",
+        "returnType": "classTSubclassOf<classUFGItemDescriptor>"
+      },
+      {
+        "name": "GetCostOfSchematics",
+        "comment": "Returns the number of coupons this schematic costs",
+        "returnType": "int32"
+      },
+      {
+        "name": "CanAffordResourceSinkSchematics",
+        "comment": "Does the given player inventory contain enough coupons to purchase the given schematics",
+        "returnType": "bool"
+      },
+      {
+        "name": "PurchaseResourceSinkSchematics",
+        "comment": "Purchase the the given schematics. The cost of the schematics in coupons will be removed from the given player inventory\nReturns true if we could afford all schematics and none of them are already purchased",
+        "returnType": "bool"
+      },
+      {
+        "name": "AddResourceSinkCoupons",
+        "comment": "Add resource sink coupons to the resource sink subsystem",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveResourceSinkCoupons",
+        "comment": "Remove resource sink coupons from the resource sink subsystem\nReturns how many coupons that were removed",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetResourceSinkPointsForItem",
+        "returnType": "int32"
+      },
+      {
+        "name": "HandleQueuedPoints",
+        "comment": "Handle the points added to the point queue and adds them to the system",
+        "returnType": "void"
+      },
+      {
+        "name": "HandleQueuedFailedItems",
+        "comment": "Handle the items added to the item queue and plays messages",
+        "returnType": "void"
+      },
+      {
+        "name": "InitCouponClass",
+        "comment": "Init and load the coupon class that we use for buying resource sink schematics. Defined in project settings",
+        "returnType": "void"
+      },
+      {
+        "name": "CalculateLevel",
+        "comment": "Calculate the current coupon level and gives more coupons if we reached a new level",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRequiredPointsForLevel",
+        "comment": "Returns the required poins to reach the given point level",
+        "returnType": "int64"
+      },
+      {
+        "name": "CalculateAccumulatedPointsPastInterval",
+        "comment": "Sums up how many points we accumulated the last interval and adds it to the history data",
+        "returnType": "void"
+      },
+      {
+        "name": "TriggerCyberCoupon",
+        "comment": "Used to trigger cyber coupon events from non-game thread",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSchematicManager",
+        "comment": "The cached schematic manager",
+        "type": "classAFGSchematicManager*"
+      },
+      {
+        "name": "mCouponClass",
+        "comment": "The coupon class that we use for buying resource sink schematics",
+        "type": "TSubclassOf<classUFGItemDescriptor>"
+      },
+      {
+        "name": "mTotalResourceSinkPoints",
+        "comment": "The total number of resource sink points we have accumulated in total",
+        "type": "int64"
+      },
+      {
+        "name": "mAccumulatedPointsPastInterval",
+        "comment": "The number of resource sink points we have accumulated the last interval",
+        "type": "int32"
+      },
+      {
+        "name": "mQueuedPoints",
+        "comment": "Thread safe queue where we store the points that have been given by resource sinks during the factory tick",
+        "type": "TQueue<int32,EQueueMode::Mpsc>"
+      },
+      {
+        "name": "mQueuedFailedItems",
+        "comment": "Thread safe queue where we store the failed items that have been tried to be sinked and failed by resource sinks during the factory tick",
+        "type": "TQueue<TSubclassOf<UFGItemDescriptor>,EQueueMode::Mpsc>"
+      },
+      {
+        "name": "mGlobalHistorySize",
+        "comment": "The number of data points for the global resource sink subsystem history",
+        "type": "int32"
+      },
+      {
+        "name": "mCurrentPointLevel",
+        "comment": "The current point level we have reached, this value only increases and isn't not affected by printing coupons",
+        "type": "int32"
+      },
+      {
+        "name": "mNumResourceSinkCoupons",
+        "comment": "The number of coupons we have to our disposal to print and use",
+        "type": "int32"
+      },
+      {
+        "name": "mGlobalPointHistory",
+        "comment": "The data for the global points history of the resource sink subsystem",
+        "type": "TArray<int32>"
+      },
+      {
+        "name": "mCalculateHistoryTimer",
+        "comment": "The timer handle that is used to trigger updates of the global points history of the resource sink subsystem",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mResourceSinkPoints",
+        "comment": "Cached points per itemdescriptor",
+        "type": "TMap<TSubclassOf<classUFGItemDescriptor>,int32>"
+      },
+      {
+        "name": "mRewardLevels",
+        "comment": "Cached number of points we need to reach to unlock a new coupon",
+        "type": "TArray<int64>"
+      },
+      {
+        "name": "mOverflowDeltaPoints",
+        "comment": "The number of points we need to reach to unlock a new coupon after we have reached the defined reward levels",
+        "type": "int64"
+      },
+      {
+        "name": "mFailedItemSinkMessages",
+        "comment": "The messages that should play if the player tries to sink a item that you can't sink",
+        "type": "TMap<TSubclassOf<classUFGItemDescriptor>,TSubclassOf<classUFGMessageBase>>"
+      },
+      {
+        "name": "mItemsFailedToSink",
+        "comment": "The items that the player tried to sink that you can't sink that is also present in mFailedItemSinkMessages",
+        "type": "TArray<TSubclassOf<classUFGItemDescriptor>>"
+      },
+      {
+        "name": "mAnyGenericItemsFailedToSink",
+        "comment": "Have we ever tried to sink any item that you can't sink that is not present in mFailedItemSinkMessages",
+        "type": "bool"
+      },
+      {
+        "name": "mIsCouponEverSunk",
+        "comment": "Have we sunken a item of the coupon class, Used to give a schematic",
+        "type": "bool"
+      }
+    ]
+  }
+]

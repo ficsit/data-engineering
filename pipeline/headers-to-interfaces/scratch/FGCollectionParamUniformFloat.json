@@ -1,0 +1,46 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGCollectionParamUniformFloat",
+    "category": "UCLASS",
+    "comment": "*\n*/",
+    "extends": [
+      "UDistributionVector"
+    ],
+    "methods": [
+      {
+        "name": "UFGCollectionParamUniformFloat"
+      },
+      {
+        "name": "IsPostLoadThreadSafe",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetValue",
+        "returnType": "FVector"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Collection",
+        "type": "UMaterialParameterCollection*"
+      },
+      {
+        "name": "WindDirectionParamName",
+        "type": "FName"
+      },
+      {
+        "name": "WindIntensityParamName",
+        "type": "FName"
+      },
+      {
+        "name": "IntensityMin",
+        "type": "float"
+      },
+      {
+        "name": "IntensityMax",
+        "type": "float"
+      }
+    ]
+  }
+]

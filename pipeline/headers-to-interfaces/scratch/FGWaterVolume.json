@@ -1,0 +1,222 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGWaterVolume",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "APhysicsVolume",
+      "IFGExtractableResourceInterface",
+      "IInterface_PostProcessVolume",
+      "INavRelevantInterface",
+      "IFGSignificanceInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGWaterVolume",
+        "comment": "ctor"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "IsOverlapInVolume",
+        "comment": "Begin APhysicsVolume interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "GainedSignificance_Implementation",
+        "comment": "IFGSignificanceInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GainedSignificance_Native",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Native",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSignificanceRange",
+        "returnType": "float"
+      },
+      {
+        "name": "SetCameraIsInside",
+        "comment": "Audio subsystem tells this water volume if the listener is inside",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAudioSettings",
+        "comment": "Get the audio settings for this water volume",
+        "returnType": "classUFGWaterAudio*"
+      },
+      {
+        "name": "EncompassesPoint",
+        "comment": "~ Begin IInterface_PostProcessVolume Interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetProperties",
+        "returnType": "FPostProcessVolumeProperties"
+      },
+      {
+        "name": "PostUnregisterAllComponents",
+        "comment": "~ Begin AActor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostRegisterAllComponents",
+        "returnType": "void"
+      },
+      {
+        "name": "GetNavigationData",
+        "comment": "~ Begin NavInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetNavigationBounds",
+        "returnType": "FBox"
+      },
+      {
+        "name": "RebuildNavigationData",
+        "returnType": "void"
+      },
+      {
+        "name": "GetIsSignificant",
+        "comment": "Getter for significance",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetIsOccupied_Implementation",
+        "comment": "Begin Extractable Resource Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "IsOccupied_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanBecomeOccupied_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "HasAnyResources_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetResourceClass_Implementation",
+        "returnType": "TSubclassOf<classUFGResourceDescriptor>"
+      },
+      {
+        "name": "ExtractResource_Implementation",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetExtractionSpeedMultiplier_Implementation",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPlacementLocation_Implementation",
+        "returnType": "FVector"
+      },
+      {
+        "name": "CanPlaceResourceExtractor_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "PostLoad",
+        "comment": "Begin UObject interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSave",
+        "returnType": "void"
+      },
+      {
+        "name": "PostEditChangeProperty",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckForErrors",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPrimitiveComponentEntered",
+        "comment": "Called whenever a primitive component enters the water, used to create effects on the water surface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPrimitiveComponentExited",
+        "comment": "Called whenever a primitive component exits the water, used to create effects on the water surface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPawnEntered",
+        "comment": "Called when a pawn enters the water, uses mWaterAudio to create water splosh",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPawnExited",
+        "comment": "Called when a pawn exits the water",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mAreaClass",
+        "comment": "Specify what typ of nav area blocker this is ( defaults to null )",
+        "type": "TSubclassOf<UNavArea>"
+      },
+      {
+        "name": "mWaterAudio",
+        "comment": "Audio settings for the this water volume",
+        "type": "TSubclassOf<classUFGWaterAudio>"
+      },
+      {
+        "name": "mCanPlaceExtractor",
+        "type": "bool"
+      },
+      {
+        "name": "mPostProcessSettings",
+        "comment": "A template of settings for our post process settings",
+        "type": "TSubclassOf<classUFGSharedPostProcessSettings>"
+      },
+      {
+        "name": "mAssociatedPostProcessVolume_DEPRECATED",
+        "comment": "Old deprecated data that isn't used anymore, but we want to be sure that the post process volumes will be deleted",
+        "type": "classAPostProcessVolume*"
+      },
+      {
+        "name": "mCameraIsInside",
+        "comment": "If true, then the camera is inside the volume",
+        "type": "bool"
+      },
+      {
+        "name": "mResourceClass",
+        "comment": "Reference to the Water Descriptor specified in FGResourceSettings. Assigned in begin play",
+        "type": "TSubclassOf<classUFGResourceDescriptor>"
+      },
+      {
+        "name": "mIsSignificant",
+        "comment": "Is this volume in significance range",
+        "type": "bool"
+      },
+      {
+        "name": "mSignificanceRange",
+        "comment": "Significance range of water volume",
+        "type": "float"
+      }
+    ]
+  }
+]

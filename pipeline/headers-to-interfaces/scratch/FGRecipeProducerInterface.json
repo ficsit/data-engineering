@@ -1,0 +1,20 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGRecipeProducerInterface",
+    "category": "UINTERFACE",
+    "comment": "For blueprint support of the interface, we will never add anything to it, just use it to\nhave a UCLASS to be able to access",
+    "extends": [
+      "UInterface"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "IFGRecipeProducerInterface",
+    "extends": [],
+    "methods": [],
+    "properties": []
+  }
+]

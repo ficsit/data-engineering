@@ -1,0 +1,55 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGAggroTargetInterface",
+    "category": "UINTERFACE",
+    "comment": "For blueprint support of the interface, we will never add anything to it, just use it to\nhave a UCLASS to be able to access",
+    "extends": [
+      "UInterface"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "IFGAggroTargetInterface",
+    "comment": "@brief Interface for everything that can be in the inventory",
+    "extends": [],
+    "methods": [
+      {
+        "name": "ShouldAutoregisterAsTargetable",
+        "returnType": "bool"
+      },
+      {
+        "name": "RegisterIncomingAttacker",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterAttacker",
+        "returnType": "void"
+      },
+      {
+        "name": "GetActor",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "GetTargetComponent",
+        "comment": "Primitive component that we will try to attack",
+        "returnType": "classUPrimitiveComponent*"
+      },
+      {
+        "name": "GetEnemyTargetDesirability",
+        "returnType": "float"
+      },
+      {
+        "name": "IsAlive",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetAttackLocation",
+        "returnType": "FVector"
+      }
+    ],
+    "properties": []
+  }
+]

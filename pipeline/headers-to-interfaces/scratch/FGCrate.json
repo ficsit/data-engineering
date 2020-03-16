@@ -1,0 +1,109 @@
+[
+  {
+    "kind": "enum",
+    "name": "EFGCrateIconType",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "entries": [
+      {
+        "name": "CIT_DeathIcon"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGCrate",
+    "category": "UCLASS",
+    "comment": "@todo Comment me please!",
+    "extends": [
+      "AFGInteractActor",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGCrate"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Decide on what properties to replicate",
+        "returnType": "void"
+      },
+      {
+        "name": "PostActorCreated",
+        "comment": "Begin AActor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "RegisterInteractingPlayer_Implementation",
+        "comment": "End IFSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterInteractingPlayer_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetInventory",
+        "comment": "@return The crates inventory; cannot be null.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "FilterInventoryClasses",
+        "comment": "Bound to mItemFilter to filter what items can be used in the item slots.",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetupInventoryFilter",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRequestReprecentMarker",
+        "comment": "Called when we want a crate to be visible on the compasse.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetIconType",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mInventory",
+        "comment": "The inventory of this crate",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mIconType",
+        "type": "EFGCrateIconType"
+      }
+    ]
+  }
+]

@@ -1,0 +1,91 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGListView",
+    "category": "UCLASS",
+    "comment": " Flows Vertical\n Selection Functionality",
+    "extends": [
+      "UPanelWidget"
+    ],
+    "methods": [
+      {
+        "name": "DECLARE_DYNAMIC_DELEGATE_RetVal_OneParam",
+        "comment": "Delegate for constructing a UWidget for an item to display."
+      },
+      {
+        "name": "DECLARE_DYNAMIC_DELEGATE_RetVal",
+        "comment": "Delegate for getting the number of items to display."
+      },
+      {
+        "name": "Refresh",
+        "comment": "Tells the list view to refresh the items in the list.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPaletteCategory",
+        "comment": "UWidget interface",
+        "returnType": "FText"
+      },
+      {
+        "name": "GetSlotClass",
+        "comment": "UPanelWidget",
+        "returnType": "UClass*"
+      },
+      {
+        "name": "OnSlotAdded",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSlotRemoved",
+        "returnType": "void"
+      },
+      {
+        "name": "ReleaseSlateResources",
+        "comment": "UVisual",
+        "returnType": "void"
+      },
+      {
+        "name": "RebuildWidget",
+        "comment": "UWidget interface",
+        "returnType": "TSharedRef<SWidget>"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOnGenerateRowEvent",
+        "comment": "Delegate for constructing a UWidget for an item to display.",
+        "type": "FOnGenerateRow"
+      },
+      {
+        "name": "mGetNumRowsEvent",
+        "comment": "Delegate for getting the number of items to display.",
+        "type": "FGetNumRows"
+      },
+      {
+        "name": "mMyVerticalBox",
+        "comment": "Internal slate vertical box.",
+        "type": "TSharedPtr<classSVerticalBox>"
+      },
+      {
+        "name": "mItemToWidgetMap",
+        "comment": "Begin @todo Implement selection logic\nWhich index in the array maps to which widget.",
+        "type": "TArray<UFGListViewSlot*>"
+      },
+      {
+        "name": "mWidgetToItemMap",
+        "comment": "Which widget maps to which index in the array.",
+        "type": "TMap<UFGListViewSlot*,int32>"
+      },
+      {
+        "name": "mSelectionMode",
+        "comment": "The selection method for the list",
+        "type": "TEnumAsByte<ESelectionMode::Type>"
+      },
+      {
+        "name": "mSelectedItems",
+        "comment": "A set of selected items",
+        "type": "TSet<int32>"
+      }
+    ]
+  }
+]

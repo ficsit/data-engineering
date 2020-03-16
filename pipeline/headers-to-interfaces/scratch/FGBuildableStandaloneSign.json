@@ -1,0 +1,174 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableStandaloneSign",
+    "category": "UCLASS",
+    "comment": "Class for the creating of placeable signs. Implements the sign interface for adding and removing element via a widget class",
+    "extends": [
+      "AFGBuildable",
+      "IFGSignInterface",
+      "IFGSignificanceInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableStandaloneSign"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin Actor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin Save Interface Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnConstruction",
+        "comment": "Begin BUildable Interface Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBuildable_Implementation",
+        "comment": "Begin Sign Interface Implementation",
+        "returnType": "AFGBuildable*"
+      },
+      {
+        "name": "SetSignData_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSignData_Implementation",
+        "returnType": "FSignData"
+      },
+      {
+        "name": "GetAvailableElementID_Implementation",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetSignDimensions_Implementation",
+        "returnType": "FVector2D"
+      },
+      {
+        "name": "GetGridSquareDimensions_Implementation",
+        "returnType": "FVector2D"
+      },
+      {
+        "name": "GainedSignificance_Implementation",
+        "comment": "Begin Significance Interface Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateSignElements",
+        "comment": "Updates all sign elements with currently set sign data",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateBackgroundMaterial",
+        "comment": "Updates background material on static mesh instance",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateSignText",
+        "comment": "Force an update on the text render component",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSignConstraints",
+        "comment": "Begin Widget Getter Functions",
+        "returnType": "FSignElementConstraints"
+      },
+      {
+        "name": "GetCurrentNormalizedTextScale",
+        "returnType": "float"
+      },
+      {
+        "name": "GetCurrentNormalizedTextOffsetZ",
+        "returnType": "float"
+      },
+      {
+        "name": "GetTextScaleFromNormalizedValue",
+        "returnType": "float"
+      },
+      {
+        "name": "OnRep_SignData",
+        "comment": "Update sign components on replication",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mDataToComponentMap",
+        "comment": "Map of Element Ids to their associated component",
+        "type": "TMap<int32,USceneComponent*>"
+      },
+      {
+        "name": "mSignDisplayRoot",
+        "comment": "Root Component that holds all the sign elements, text, mesh etc.",
+        "type": "USceneComponent*"
+      },
+      {
+        "name": "mTextDisplayRoot",
+        "comment": "Root component that parents the text objects",
+        "type": "USceneComponent*"
+      },
+      {
+        "name": "mMeshComponentProxy",
+        "type": "classUFGColoredInstanceMeshProxy*"
+      },
+      {
+        "name": "mBoundingBox",
+        "comment": "Bounding box used to cull text mesh. Is assign to the BoundedTextRenderComponents",
+        "type": "UBoxComponent*"
+      },
+      {
+        "name": "mGridSquareDimensions",
+        "comment": "The size of each grid square on the this sign",
+        "type": "FVector2D"
+      },
+      {
+        "name": "mHologramParticleComponent",
+        "comment": "Particle system visual",
+        "type": "classUParticleSystemComponent*"
+      },
+      {
+        "name": "mGainSignificanceDistance",
+        "comment": "Distance at which to gain significance",
+        "type": "float"
+      },
+      {
+        "name": "mSignConstraints",
+        "type": "FSignElementConstraints"
+      },
+      {
+        "name": "mSignFont",
+        "type": "UFont*"
+      },
+      {
+        "name": "mBackgroundGridSize",
+        "type": "int32"
+      },
+      {
+        "name": "mSignData",
+        "type": "FSignData"
+      }
+    ]
+  }
+]

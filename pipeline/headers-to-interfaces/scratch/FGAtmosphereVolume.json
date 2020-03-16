@@ -1,0 +1,719 @@
+[
+  {
+    "kind": "class",
+    "name": "FExponentialFogSettings",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FExponentialFogSettings",
+        "comment": "Set defaults"
+      },
+      {
+        "name": "Reset",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "FogHeight",
+        "comment": "The ZValue of the fog",
+        "type": "float"
+      },
+      {
+        "name": "FogDensity",
+        "comment": "Density of the fog",
+        "type": "float"
+      },
+      {
+        "name": "FogInscatteringColor",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "FullyDirectionalInscatteringColorDistance",
+        "comment": "Distance at which InscatteringColorCubemap should be used directly for the Inscattering Color.",
+        "type": "float"
+      },
+      {
+        "name": "NonDirectionalInscatteringColorDistance",
+        "comment": "Distance at which only the average color of InscatteringColorCubemap should be used as Inscattering Color.",
+        "type": "float"
+      },
+      {
+        "name": "DirectionalInscatteringExponent",
+        "comment": "Controls the size of the directional inscattering cone, which is used to approximate inscattering from a directional light.\nNote: there must be a directional light with bUsedAsAtmosphereSunLight enabled for DirectionalInscattering to be used.",
+        "type": "float"
+      },
+      {
+        "name": "DirectionalInscatteringStartDistance",
+        "comment": "Controls the start distance from the viewer of the directional inscattering, which is used to approximate inscattering from a directional light.\nNote: there must be a directional light with bUsedAsAtmosphereSunLight enabled for DirectionalInscattering to be used.",
+        "type": "float"
+      },
+      {
+        "name": "DirectionalInscatteringColor",
+        "comment": "Controls the color of the directional inscattering, which is used to approximate inscattering from a directional light.\nNote: there must be a directional light with bUsedAsAtmosphereSunLight enabled for DirectionalInscattering to be used.",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "FogHeightFalloff",
+        "comment": "Height density factor, controls how the density increases as height decreases.\nSmaller values make the visible transition larger.",
+        "type": "float"
+      },
+      {
+        "name": "FogMaxOpacity",
+        "comment": "A value of 1 means the fog can become fully opaque at a distance and replace scene color completely,\nA value of 0 means the fog color will not be factored in at all.",
+        "type": "float"
+      },
+      {
+        "name": "StartDistance",
+        "comment": "Distance from the camera that the fog will start, in world units.",
+        "type": "float"
+      },
+      {
+        "name": "FogCutoffDistance",
+        "comment": "Scene elements past this distance will not have fog applied.  This is useful for excluding skyboxes which already have fog baked in.",
+        "type": "float"
+      },
+      {
+        "name": "EnableFogHeight",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableFogDensity",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableFogInscatteringColor",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableFullyDirectionalInscatteringColorDistance",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableNonDirectionalInscatteringColorDistance",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableDirectionalInscatteringExponent",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableDirectionalInscatteringStartDistance",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableDirectionalInscatteringColor",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableFogHeightFalloff",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableFogMaxOpacity",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableStartDistance",
+        "type": "uint8"
+      },
+      {
+        "name": "EnableFogCutoffDistance",
+        "type": "uint8"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGAtmosphereVolume",
+    "category": "UCLASS",
+    "comment": "@todo: Should be renamed to something else, as it does a lot more than give settings to fog",
+    "extends": [
+      "AVolume",
+      "ICurvePanningInterface",
+      "IInterface_PostProcessVolume"
+    ],
+    "methods": [
+      {
+        "name": "AFGAtmosphereVolume",
+        "comment": "Ctor"
+      },
+      {
+        "name": "PostEditChangeProperty",
+        "comment": "~ Begin UObject interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoad",
+        "returnType": "void"
+      },
+      {
+        "name": "GetViewMinInput",
+        "comment": "Begin ICurvePanningInterface",
+        "returnType": "float"
+      },
+      {
+        "name": "GetViewMaxInput",
+        "returnType": "float"
+      },
+      {
+        "name": "SetViewRange",
+        "returnType": "void"
+      },
+      {
+        "name": "EncompassesPoint",
+        "comment": "~ Begin IInterface_PostProcessVolume Interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetProperties",
+        "returnType": "FPostProcessVolumeProperties"
+      },
+      {
+        "name": "GetSettings",
+        "comment": "Get the settings of this volume",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSettings",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSkySphereSettings",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBlendDistance",
+        "comment": "Get the blend distance of this volume",
+        "returnType": "float"
+      },
+      {
+        "name": "PostUnregisterAllComponents",
+        "comment": "~ Begin AActor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostRegisterAllComponents",
+        "returnType": "void"
+      },
+      {
+        "name": "AddVolume",
+        "comment": "Add the volume to the world",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveVolume",
+        "comment": "Remove the volume from the world",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mPriority",
+        "type": "float"
+      },
+      {
+        "name": "mBlendDistance",
+        "comment": "The distance that the fog blends over",
+        "type": "float"
+      },
+      {
+        "name": "mFogHeight",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mFogDensity",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mFogInscatteringColor",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mFullyDirectionalInscatteringColorDistance",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mNonDirectionalInscatteringColorDistance",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mDirectionalInscatteringExponent",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mDirectionalInscatteringStartDistance",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mDirectionalInscatteringColor",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mFogHeightFalloff",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mFogMaxOpacity",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mStartDistance",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mFogCutoffDistance",
+        "comment": "Interpolate the fog height during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mHorizonColorCurve",
+        "comment": "How the color of the horizon changes during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mZenithColorCurve",
+        "comment": "How the color of the zenith changes during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mCloudColorCurve",
+        "comment": "How the color of clouds zenith changes during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mSunLightColorCurve",
+        "comment": "How the opakeness of the clouds change during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mMoonLightColorCurve",
+        "comment": "How the opakeness of the clouds change during the day",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mSunIntensity",
+        "comment": "How the opakeness of the clouds change during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mMoonIntensity",
+        "comment": "How the opakeness of the clouds change during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mCloudOpacity",
+        "comment": "How the opakeness of the clouds change during the day",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mBlendWeight",
+        "comment": "The blend weight of the post process volume",
+        "type": "float"
+      },
+      {
+        "name": "mWhiteTemp",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mWhiteTint",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mColorSaturation",
+        "comment": "Color Correction controls",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorContrast",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorGamma",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorGain",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorOffset",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorSaturationShadows",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorContrastShadows",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorGammaShadows",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorGainShadows",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorOffsetShadows",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorSaturationMidtones",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorContrastMidtones",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorGammaMidtones",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorGainMidtones",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorOffsetMidtones",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorSaturationHighlights",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorContrastHighlights",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorGammaHighlights",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorGainHighlights",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorOffsetHighlights",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mColorCorrectionHighlightsMin",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mColorCorrectionShadowsMax",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mBlueCorrection",
+        "comment": "Correct for artifacts with \"electric\" blues due to the ACEScg color space. Bright blue desaturates instead of going to violet.",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mExpandGamut",
+        "comment": "Expand bright saturated colors outside the sRGB gamut to fake wide gamut rendering.",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mSceneColorTint",
+        "comment": "Scene tint color",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mFilmSlope",
+        "comment": "Film Controls",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mFilmToe",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mFilmShoulder",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mFilmBlackClip",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mFilmWhiteClip",
+        "type": "FRuntimeFloatCurve"
+      },
+      {
+        "name": "mContrast_DEPRECATED",
+        "comment": "BEGIN DEPRECATED",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mGain_DEPRECATED",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mSaturation_DEPRECATED",
+        "type": "FRuntimeCurveLinearColor"
+      },
+      {
+        "name": "mEnableContrast_DEPRECATED",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableGain_DEPRECATED",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableSaturation_DEPRECATED",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFogHeight",
+        "comment": "Height fog bools",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFogDensity",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFogInscatteringColor",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFullyDirectionalInscatteringColorDistance",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableNonDirectionalInscatteringColorDistance",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableDirectionalInscatteringExponent",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableDirectionalInscatteringStartDistance",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableDirectionalInscatteringColor",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFogHeightFalloff",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFogMaxOpacity",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableStartDistance",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFogCutoffDistance",
+        "type": "uint8"
+      },
+      {
+        "name": "mOverrideHorizonColor",
+        "type": "uint8"
+      },
+      {
+        "name": "mOverrideMoonIntensity",
+        "type": "uint8"
+      },
+      {
+        "name": "mOverrideCloudOpacity",
+        "type": "uint8"
+      },
+      {
+        "name": "mOverrideSunIntensity",
+        "type": "uint8"
+      },
+      {
+        "name": "mOverrideZenithColor",
+        "type": "uint8"
+      },
+      {
+        "name": "mOverrideCloudColor",
+        "type": "uint8"
+      },
+      {
+        "name": "mOverrideSunLightColor",
+        "type": "uint8"
+      },
+      {
+        "name": "mOverrideMoonLightColor",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableWhiteTemp",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableWhiteTint",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorSaturation",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorContrast",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorGamma",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorGain",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorOffset",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFilmSlope",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFilmToe",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFilmShoulder",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFilmBlackClip",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableFilmWhiteClip",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorSaturationShadows",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorContrastShadows",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorGammaShadows",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorGainShadows",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorOffsetShadows",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorSaturationMidtones",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorContrastMidtones",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorGammaMidtones",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorGainMidtones",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorOffsetMidtones",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorSaturationHighlights",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorContrastHighlights",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorGammaHighlights",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorGainHighlights",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorOffsetHighlights",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorCorrectionShadowsMax",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableColorCorrectionHighlightsMin",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableBlueCorrection",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableExpandGamut",
+        "type": "uint8"
+      },
+      {
+        "name": "mEnableSceneColorTint",
+        "type": "uint8"
+      },
+      {
+        "name": "mPostProcessSettings",
+        "comment": "The base settings for our post process\n@todo: Remove mutable",
+        "type": "mutablestructFPostProcessSettings"
+      },
+      {
+        "name": "mPreviewTime",
+        "comment": "A stampdown in time, where we want to show of the preview settings",
+        "type": "float"
+      },
+      {
+        "name": "mPreviewSettings",
+        "comment": "A preview of all the settings in the current fog-volume",
+        "type": "FExponentialFogSettings"
+      },
+      {
+        "name": "mViewMinInput",
+        "comment": "For ICurvePanningInterface",
+        "type": "float"
+      },
+      {
+        "name": "mViewMaxInput",
+        "type": "float"
+      }
+    ]
+  }
+]

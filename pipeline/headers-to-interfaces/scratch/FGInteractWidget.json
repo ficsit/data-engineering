@@ -1,0 +1,210 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGInteractWidget",
+    "category": "UCLASS",
+    "comment": "Base class for all stackable widgets in the game.",
+    "extends": [
+      "UUserWidget"
+    ],
+    "methods": [
+      {
+        "name": "UFGInteractWidget",
+        "comment": "@todo Comments?"
+      },
+      {
+        "name": "Init",
+        "returnType": "void"
+      },
+      {
+        "name": "SetInputMode",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateIgnoreMoveInput",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateIgnoreLookInput",
+        "returnType": "void"
+      },
+      {
+        "name": "OnEscapePressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnConsume",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDesiredHorizontalAlignment",
+        "comment": "Gets the alignment we want",
+        "returnType": "EHorizontalAlignment"
+      },
+      {
+        "name": "SetDesiredHorizontalAlignment",
+        "comment": "Sets the alignment we want",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDesiredVerticalAlignment",
+        "comment": "Gets the vertical alignment we want",
+        "returnType": "EVerticalAlignment"
+      },
+      {
+        "name": "SetDesiredVerticalAlignment",
+        "comment": "Sets the vertical alignment we want",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDesiredAlignmentSize",
+        "comment": "Gets the size we want",
+        "returnType": "FSlateChildSize"
+      },
+      {
+        "name": "SetDesiredAlignmentSize",
+        "comment": "Sets the size we want",
+        "returnType": "void"
+      },
+      {
+        "name": "GetUseGamepadCursor",
+        "comment": "Getter for gamepad cursor",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetDefaultFocusWidget",
+        "comment": "Sets default focuswidget",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDefaultFocusWidget",
+        "comment": "Returns default focuswidget",
+        "returnType": "UWidget*"
+      },
+      {
+        "name": "SetupDefaultFocus",
+        "comment": "Sets up default focus for interact widgets ( usually given to the close button in the window",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSupportsStacking",
+        "comment": "Getter for mSupportsStacking",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnCustomTick",
+        "comment": "Custom tick event for updating UI that needs frequent updates. If custom tick rate <= 0.f this event will not trigger",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCustomTickRate",
+        "comment": "Get the rate for the timer that triggers the custom tick",
+        "returnType": "float"
+      },
+      {
+        "name": "NativeConstruct",
+        "returnType": "void"
+      },
+      {
+        "name": "NativeDestruct",
+        "returnType": "void"
+      },
+      {
+        "name": "NativeOnRemovedFromFocusPath",
+        "returnType": "void"
+      },
+      {
+        "name": "NativeCanCallInit",
+        "comment": "Requirement check to verify before calling blueprint Init",
+        "returnType": "bool"
+      },
+      {
+        "name": "NativeTestAndQueueInit",
+        "comment": "Internal function that checks for requierments being met before calling init",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mUseKeyboard",
+        "comment": "If we should take the keyboard input from the player. The player won't be able to move around.",
+        "type": "bool"
+      },
+      {
+        "name": "mUseMouse",
+        "comment": "If we should take the mouse input from the player. The player won't be able to look around.",
+        "type": "bool"
+      },
+      {
+        "name": "mCaptureInput",
+        "comment": "Decides if we should share input with game or capture it completely",
+        "type": "bool"
+      },
+      {
+        "name": "mRestoreFocusWhenLost",
+        "comment": "Decides if the widget should restore focus when it looses it. (e.g. when the user clicks outside of the widget)",
+        "type": "bool"
+      },
+      {
+        "name": "mInputToPassThrough",
+        "comment": "@todo Some widgets do not want to eat any input so this list is filled manually with all actions in the game...\nThere need to be a clear hierarchy of how input is handled and what to pass and not pass and if the default is pass all or pass none.",
+        "type": "TArray<FName>"
+      },
+      {
+        "name": "mDesiredHorizontalAlignment",
+        "comment": "Our desired horizontal alignment",
+        "type": "TEnumAsByte<EHorizontalAlignment>"
+      },
+      {
+        "name": "mDesiredVerticalAlignment",
+        "comment": "Our desired vetical alignment",
+        "type": "TEnumAsByte<EVerticalAlignment>"
+      },
+      {
+        "name": "mDesiredAlignmentSize",
+        "comment": "Our desired horizontal size",
+        "type": "FSlateChildSize"
+      },
+      {
+        "name": "mInteractObject",
+        "comment": "Object that we interacted with in order to show this widget ( can be nullPeter )",
+        "type": "UObject*"
+      },
+      {
+        "name": "mDefaultFocusWidgetClass",
+        "comment": "Class of the default widget we want to give focus to",
+        "type": "TSubclassOf<UUserWidget>"
+      },
+      {
+        "name": "mUseGamepadCursor",
+        "comment": "Should gamepad act as cursor when using this widget?",
+        "type": "bool"
+      },
+      {
+        "name": "mCustomTickRate",
+        "comment": "The rate for the timer that triggers the custom tick. If <= 0.f no timer will be started",
+        "type": "float"
+      },
+      {
+        "name": "mCallCustomTickOnConstruct",
+        "comment": "True if the custom tick event be called on construct. If <= 0.f no event will be triggered",
+        "type": "bool"
+      },
+      {
+        "name": "mCustomTickTimerHandle",
+        "comment": "The timer handle for the custom tick event",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mDefaultFocusWidget",
+        "comment": "Used to give focus to an object when nothing else has focus",
+        "type": "UWidget*"
+      },
+      {
+        "name": "mSupportsStacking",
+        "comment": "Does this widget support stacking widgets on top?",
+        "type": "bool"
+      }
+    ]
+  }
+]

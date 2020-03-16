@@ -1,0 +1,25 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGWidgetMultiplayer",
+    "category": "UCLASS",
+    "extends": [
+      "UUserWidget"
+    ],
+    "methods": [],
+    "properties": [
+      {
+        "name": "mIsOnline",
+        "type": "bool"
+      },
+      {
+        "name": "mIsPlayingSatisfactory",
+        "type": "bool"
+      },
+      {
+        "name": "mTitle",
+        "type": "FString"
+      }
+    ]
+  }
+]

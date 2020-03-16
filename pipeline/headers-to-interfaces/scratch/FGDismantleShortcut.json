@@ -1,0 +1,30 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGDismantleShortcut",
+    "category": "UCLASS",
+    "extends": [
+      "UFGHotbarShortcut"
+    ],
+    "methods": [
+      {
+        "name": "Execute_Implementation",
+        "comment": "~ Begin UFGHotbarShortcut interface",
+        "returnType": "void"
+      },
+      {
+        "name": "IsValidShortcut_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDisplayImage_Implementation",
+        "returnType": "UTexture2D*"
+      },
+      {
+        "name": "IsActive_Implementation",
+        "returnType": "bool"
+      }
+    ],
+    "properties": []
+  }
+]

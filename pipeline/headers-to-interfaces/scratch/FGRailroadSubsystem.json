@@ -1,0 +1,330 @@
+[
+  {
+    "kind": "class",
+    "name": "FTrackGraph",
+    "category": "USTRUCT",
+    "comment": "Struct representing a set of interconnected tracks.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FTrackGraph"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Tracks",
+        "comment": "All the tracks that are connected (nodes in the graph)",
+        "type": "TArray<classAFGBuildableRailroadTrack*>"
+      },
+      {
+        "name": "ThirdRail",
+        "comment": "This is the third rail the locomotives and stations connect to.",
+        "type": "classUFGPowerConnectionComponent*"
+      },
+      {
+        "name": "NeedFullRebuild",
+        "comment": "Do this track graph need to be rebuilt, e.g. tracks have been removed.",
+        "type": "uint8"
+      },
+      {
+        "name": "HasChanged",
+        "comment": "@todotrains Signaling, consider if this and mHasTrackGraphsChanged is needed.\nHas this track graph changed, tracks connected, rolling stock added or removed.",
+        "type": "uint8"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGRailroadSubsystem",
+    "category": "UCLASS",
+    "comment": "Actor for handling the railroad network and the trains on it.",
+    "extends": [
+      "AFGSubsystem",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGRailroadSubsystem"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Serialize",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "DisplayDebug",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the railroad subsystem, this should always return something unless you call it really early.",
+        "returnType": "AFGRailroadSubsystem*"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the railroad subsystem from a world context, this should always return something unless you call it really early.",
+        "returnType": "AFGRailroadSubsystem*"
+      },
+      {
+        "name": "AddRailroadVehicle",
+        "comment": "Adds the railroad vehicle to the subsystem, and gives it a train if it does not have one already.",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveRailroadVehicle",
+        "comment": "Removes the railroad vehicle from it's train and the subsystem, handles decoupling.",
+        "returnType": "void"
+      },
+      {
+        "name": "CoupleTrains",
+        "comment": "@param parentVehicle\t\tThis is the attach parent, this is not moved during the snap.\n@param otherVehicle\t\tThis train is nudged and attached to parent. @note This may be a newly spawned unregistered vehicle.",
+        "returnType": "void"
+      },
+      {
+        "name": "DecoupleTrains",
+        "comment": "De-couples two vehicles in a train.\nTo decouple a vehicle completely you need to run this for booth ends of the vehicle.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCouplingDistance",
+        "comment": "Get the distance between two train vehicles.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetTrains",
+        "comment": "Get all trains on the specified track.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAllTrains",
+        "comment": "Get all trains.",
+        "returnType": "void"
+      },
+      {
+        "name": "GenerateTrainStationName",
+        "comment": "Generates a new name for a train station.",
+        "returnType": "FText"
+      },
+      {
+        "name": "IsTrainStationNameAvailable",
+        "comment": "@return If the station name is available; false if another station with this name already exists.",
+        "returnType": "bool"
+      },
+      {
+        "name": "AddTrainStation",
+        "comment": "Add, update and remove train stations for use in time tables.",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateTrainStation",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveTrainStation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetTrainStations",
+        "comment": "Get all stations for the specified track.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAllTrainStations",
+        "comment": "Get all stations.",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateCargoPlatformPowerConnection",
+        "comment": "Called to externally update a platforms power connection to use its tracks third rail",
+        "returnType": "void"
+      },
+      {
+        "name": "MoveTrackPosition",
+        "comment": "Move a position along a track, leaving the current segment and entering a new if needed.\n@return true on success, false if we did not move the whole distance.",
+        "returnType": "bool"
+      },
+      {
+        "name": "AddTrack",
+        "comment": "Add a new track segment.\n@note Track must have its connections set up.",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveTrack",
+        "comment": "Remove a track segment. Called on dismantle.",
+        "returnType": "void"
+      },
+      {
+        "name": "TickTrackGraphs",
+        "returnType": "void"
+      },
+      {
+        "name": "RefreshPlatformPowerConnectionsFromStation",
+        "comment": "Call when updating a stations hidden power connection to update all platforms attached to that station",
+        "returnType": "void"
+      },
+      {
+        "name": "InitializeStationNames",
+        "comment": "Initializes all auto generated station names.",
+        "returnType": "void"
+      },
+      {
+        "name": "CreateTrain",
+        "comment": "Creates a new train with vehicle as the first vehicle.",
+        "returnType": "classAFGTrain*"
+      },
+      {
+        "name": "RemoveTrain",
+        "comment": "Remove a train and destroy the actor.",
+        "returnType": "void"
+      },
+      {
+        "name": "ReconnectTrainToThirdRail",
+        "comment": "Reconnects all vehicles in this train to the third rail.",
+        "returnType": "void"
+      },
+      {
+        "name": "PreTickPhysics",
+        "comment": "The physics is driven by the physics scene.",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdatePhysics",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateSimulationData",
+        "returnType": "void"
+      },
+      {
+        "name": "OnTrainOrderChanged",
+        "comment": "Called when the vehicles in a train changes, i.e. rolling stock is (de)coupled.",
+        "returnType": "void"
+      },
+      {
+        "name": "MergeTrackGraphs",
+        "comment": "Merge two track graphs to one.",
+        "returnType": "void"
+      },
+      {
+        "name": "CreateTrackGraph",
+        "comment": "Create a new track graph.",
+        "returnType": "int32"
+      },
+      {
+        "name": "RemoveTrackGraph",
+        "comment": "Remove track graph.",
+        "returnType": "void"
+      },
+      {
+        "name": "AddTrackToGraph",
+        "comment": "Adds a track to a graph, performs a merge if the track is connected to another graph.",
+        "returnType": "void"
+      },
+      {
+        "name": "GenerateUniqueTrackGraphID",
+        "comment": "Get a new UID for a track graph.",
+        "returnType": "int32"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mConnectDistance",
+        "comment": "Can be used as the actor distance or track distance.\n(note that the track distance will be slightly longer than the actor distance in curved sections)",
+        "type": "float"
+      },
+      {
+        "name": "mSwitchControlClass",
+        "comment": "Default switch control to place when building switches.",
+        "type": "TSubclassOf<classAFGBuildableRailroadSwitchControl>"
+      },
+      {
+        "name": "mVehicleSoundComponentClass",
+        "comment": "This is sound component used to play sounds on trains.",
+        "type": "TSubclassOf<classUFGRailroadVehicleSoundComponent>"
+      },
+      {
+        "name": "OnPhysScenePreTickHandle",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "OnPhysSceneStepHandle",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mTrackGraphIDCounter",
+        "comment": "Counters for generating UIDs.",
+        "type": "int32"
+      },
+      {
+        "name": "mStationNames",
+        "comment": "A random name is picked from here when placing a stop.",
+        "type": "TArray<FString>"
+      },
+      {
+        "name": "mTrackGraphs",
+        "comment": "All the train tracks in the world, separated by connectivity.",
+        "type": "TMap<int32,FTrackGraph>"
+      },
+      {
+        "name": "mHasTrackGraphsChanged",
+        "comment": "If the track graphs has changed and dependent data needs an update.",
+        "type": "bool"
+      },
+      {
+        "name": "mTrainStationIdentifiers",
+        "comment": "All station identifiers in the world.",
+        "type": "TArray<classAFGTrainStationIdentifier*>"
+      },
+      {
+        "name": "mTrains",
+        "comment": "All the trains in the world.",
+        "type": "TArray<classAFGTrain*>"
+      }
+    ]
+  }
+]

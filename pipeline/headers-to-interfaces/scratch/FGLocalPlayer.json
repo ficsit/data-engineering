@@ -1,0 +1,528 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGEM_LoggedOutFromOnlineService",
+    "category": "UCLASS",
+    "comment": "Fill out your copyright notice in the Description page of Project Settings.",
+    "extends": [
+      "UFGErrorMessage"
+    ],
+    "methods": [
+      {
+        "name": "UFGEM_LoggedOutFromOnlineService"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGEM_LostConnectionWithOnlineService",
+    "category": "UCLASS",
+    "extends": [
+      "UFGErrorMessage"
+    ],
+    "methods": [
+      {
+        "name": "UFGEM_LostConnectionWithOnlineService"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGEM_FailedToLoginToOnlineService",
+    "category": "UCLASS",
+    "extends": [
+      "UFGErrorMessage"
+    ],
+    "methods": [
+      {
+        "name": "UFGEM_FailedToLoginToOnlineService"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "enum",
+    "name": "EFrindsListState",
+    "entries": [
+      {
+        "name": "FLS_Invalid"
+      },
+      {
+        "name": "FLS_Querying"
+      },
+      {
+        "name": "FLS_Valid"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "ELoginState",
+    "entries": [
+      {
+        "name": "LS_NotLoggedIn",
+        "displayName": "NotLoggedIn"
+      },
+      {
+        "name": "LS_LoggingIn",
+        "displayName": "LoggingIn"
+      },
+      {
+        "name": "LS_LoggedIn",
+        "displayName": "LoggedIn"
+      },
+      {
+        "name": "LS_FailedToLogin",
+        "displayName": "FailedToLogin"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "ECreateSessionState",
+    "entries": [
+      {
+        "name": "CSS_NotCreateingSession"
+      },
+      {
+        "name": "CSS_CreatingSession"
+      },
+      {
+        "name": "CSS_DestroyingOldSession"
+      },
+      {
+        "name": "CSS_UpdatingPresence"
+      },
+      {
+        "name": "CSS_WaitingForPresenceToUpdate"
+      },
+      {
+        "name": "CSS_WaitingForLogin"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FFGOnlineFriend",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FFGOnlineFriend"
+      },
+      {
+        "name": "FFGOnlineFriend"
+      },
+      {
+        "name": "IsValid",
+        "returnType": "bool"
+      },
+      {
+        "name": "operator==",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Friend",
+        "comment": "Internal friend data",
+        "type": "TSharedPtr<FOnlineFriend>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FSessionInformation",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FSessionInformation"
+      },
+      {
+        "name": "Init",
+        "returnType": "void"
+      },
+      {
+        "name": "SendAnalytics",
+        "returnType": "void"
+      },
+      {
+        "name": "MarkAsOffline",
+        "returnType": "void"
+      },
+      {
+        "name": "Done",
+        "returnType": "void"
+      },
+      {
+        "name": "SetState",
+        "returnType": "void"
+      },
+      {
+        "name": "GetState",
+        "returnType": "ECreateSessionState"
+      }
+    ],
+    "properties": [
+      {
+        "name": "MapName",
+        "comment": "Map we want to travel to",
+        "type": "FString"
+      },
+      {
+        "name": "Options",
+        "comment": "Options when starting map",
+        "type": "FString"
+      },
+      {
+        "name": "SessionName",
+        "comment": "Name of the session",
+        "type": "FString"
+      },
+      {
+        "name": "Visibility",
+        "comment": "Session visibility",
+        "type": "ESessionVisibility"
+      },
+      {
+        "name": "VisibilityOptionName",
+        "comment": "The name of the visiblity string passed",
+        "type": "staticconstTCHAR*"
+      },
+      {
+        "name": "IpSocketString",
+        "type": "staticconstTCHAR*"
+      },
+      {
+        "name": "IsSessionCreationInFlight",
+        "comment": "If true, we are creating a session and won't try to create any other at the same time",
+        "type": "bool"
+      },
+      {
+        "name": "IsOfflineGame",
+        "comment": "If true, then we are creating a offline game",
+        "type": "bool"
+      },
+      {
+        "name": "State",
+        "type": "ECreateSessionState"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FUpdatedFriends",
+    "category": "USTRUCT",
+    "comment": "Workaround as it seems like you can't have a TArray<FFGOnlineFriends> exposed to a Dynamic multicast delegate",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "Friends",
+        "type": "TArray<FFGOnlineFriend>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGLocalPlayer",
+    "category": "UCLASS",
+    "comment": "properly propagated to the backend servers.\n@IMPORTANT that loading games should always be done through AFGAdminInterface::LoadGame, as that handles travel on dedicated servers.",
+    "extends": [
+      "ULocalPlayer"
+    ],
+    "methods": [
+      {
+        "name": "UFGLocalPlayer"
+      },
+      {
+        "name": "PlayerAdded",
+        "comment": "~Begin ULocalPlayer interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayerRemoved",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLoginState",
+        "comment": "Get in what state our login is",
+        "returnType": "TEnumAsByte<ELoginState>"
+      },
+      {
+        "name": "GetUsername",
+        "comment": "Get the username of the current user",
+        "returnType": "FString"
+      },
+      {
+        "name": "GetFriendList",
+        "comment": "@param out_friends - the list of the friends if this returns true\n@return true if we have access to the list of friends, if false, then the list will be empty, then wait for mOnFriendListQueried to trigger and it will be populated",
+        "returnType": "bool"
+      },
+      {
+        "name": "AutoLogin",
+        "comment": "Try to autologin to online service, don't try again if we have failed",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupServerAndTravelToMap",
+        "comment": "@todo: Potentially move to UFGOnlineSessionClient",
+        "returnType": "void"
+      },
+      {
+        "name": "CopySessionPresence",
+        "comment": "Make sure our session presence patches the specified presence",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdatePresence",
+        "comment": "Called regularly to update the users presence, can also be called to force update presence and delays the next presence update",
+        "returnType": "void"
+      },
+      {
+        "name": "OnInviteReceived",
+        "comment": "Called when we have received a invite and gotten full information about it",
+        "returnType": "void"
+      },
+      {
+        "name": "RefreshRecentRegisteredEpicIdLogin",
+        "comment": "Checks if last logged in user id matches the current logged in user and if not updates the cached value",
+        "returnType": "void"
+      },
+      {
+        "name": "HasReceivedProductUserId",
+        "comment": "Return true if we have received the Product User Id needed for hosting the game",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetPlayerId",
+        "comment": "Get the unique net id of the current local player",
+        "returnType": "TSharedPtr<constFUniqueNetId>"
+      },
+      {
+        "name": "OnLoginStatusChanged",
+        "comment": "~Begin Online Delegates\n~Begin OnlineIdentity delegates",
+        "returnType": "void"
+      },
+      {
+        "name": "OnLoginComplete",
+        "returnType": "void"
+      },
+      {
+        "name": "OnAutoLoginComplete",
+        "returnType": "void"
+      },
+      {
+        "name": "OnConnectionStatusChanged",
+        "returnType": "void"
+      },
+      {
+        "name": "OnReadFriendsListComplete",
+        "comment": "~Begin OnlineFriends delegates",
+        "returnType": "void"
+      },
+      {
+        "name": "OnFriendsChange",
+        "returnType": "void"
+      },
+      {
+        "name": "OnQueryUserInfoForFriendListComplete",
+        "comment": "~Begin OnlineUser delegates\nvoid OnQueryUserInfoComplete( int32 localUSerNum, bool wasSuccessful, const TArray< TSharedRef<const FUniqueNetId> >& userIds, const FString& errorString );",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPresenceReceived",
+        "comment": "~Begin OnlinePresence delegates",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSessionCleanup_SetupServer",
+        "comment": "~End OnlinePresence deleages",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSessionCreated_SetupServer",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPresenceUpdated_SetupServer",
+        "returnType": "void"
+      },
+      {
+        "name": "OnLoginFailed_OpenMap",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPresenceFailedToUpdate_OpenMap",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateLoginState",
+        "returnType": "void"
+      },
+      {
+        "name": "CreateOfflineSession_SetupServer",
+        "comment": "Create a offline session",
+        "returnType": "void"
+      },
+      {
+        "name": "CanAutoLogin",
+        "comment": "@return true if we are able to autologin",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetPresenceString",
+        "comment": "Get the presence string we should show to other users",
+        "returnType": "FString"
+      },
+      {
+        "name": "FromLoginStatus",
+        "comment": "Convert a login status to a login state",
+        "returnType": "ELoginState"
+      },
+      {
+        "name": "OpenMap_WaitForPresence",
+        "comment": "Called on end of SetupServer-chain, waiting for presence to be properly updated",
+        "returnType": "void"
+      },
+      {
+        "name": "OpenMap_WaitForProductUserId",
+        "comment": "Called on end of SetupServer-chain, waiting for presence to be properly updated",
+        "returnType": "void"
+      },
+      {
+        "name": "OpenMap",
+        "comment": "the map that's setup in progress",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCurrentCreateSessionState",
+        "comment": "Pulls the current state of creating a session",
+        "returnType": "ECreateSessionState"
+      },
+      {
+        "name": "OnLoggedIn",
+        "comment": "Called whenever we get logged in",
+        "returnType": "void"
+      },
+      {
+        "name": "SetLoginState",
+        "comment": "Set the login state of the local player and broadcast it",
+        "returnType": "void"
+      },
+      {
+        "name": "GetUsersWithNoData",
+        "comment": "Get friends that we don't have any presence data or similar for",
+        "returnType": "void"
+      },
+      {
+        "name": "PresenceHasSessionId",
+        "comment": "Return true if our presence has session id set",
+        "returnType": "bool"
+      },
+      {
+        "name": "PushErrorAndAutosave",
+        "comment": "Push error and autosave the game",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOnFriendsChangeHandle",
+        "comment": "~Begin OnlineFriends delegates",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mOnLoginStatusChangeHandle",
+        "comment": "~End OnlineFriends delegates\n~Begin OnlineIdentity delegates",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mOnLoginCompleteHandle",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mOnAutoLoginCompleteHandle",
+        "comment": "Special delegate that is just setup during autologin",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mOnQueryUserInfoForFriendListCompleteHandle",
+        "comment": "~End OnlineIdentity delegates\n~Begin OnlineUser delegates",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mOnPresenceReceived",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mSetupServer_OnCreateSessionCompleteDelegateHandle",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mSetupServer_OnPresenceReceivedCompleteDelegateHandle",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mPresenceUpdateHandle",
+        "comment": "Handle for updating presence info",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mOnConnectionStatusChangedHandle",
+        "comment": "For detecting player disconnects from services",
+        "type": "FDelegateHandle"
+      },
+      {
+        "name": "mLoginState",
+        "comment": "The status of our logins",
+        "type": "ELoginState"
+      },
+      {
+        "name": "mOnLoginStateChanged",
+        "type": "FOnLoginStateChanged"
+      },
+      {
+        "name": "mOnFriendsListUpdated",
+        "comment": "Called when the friendslist has been updated (that is, a user is has added/removed you as a friend)",
+        "type": "FOnFriendsListUpdated"
+      },
+      {
+        "name": "mOnCreateSessionStateChanged",
+        "comment": "Called when the session state has changed when creating a online game",
+        "type": "FOnCreateSessionStateChanged"
+      },
+      {
+        "name": "mOnFriendsPresenceUpdated",
+        "comment": "Called a friends presence is updated",
+        "type": "FOnFriendPresenceUpdated"
+      },
+      {
+        "name": "mOnInviteReceived",
+        "comment": "Called a friends presence is updated",
+        "type": "FOnGameInviteReceived"
+      },
+      {
+        "name": "mFriendsListState",
+        "comment": "Current state of the friends list",
+        "type": "EFrindsListState"
+      },
+      {
+        "name": "mCurrentSessionInformation",
+        "comment": "Information about the current session that we are setting up",
+        "type": "FSessionInformation"
+      },
+      {
+        "name": "mCachedFriends",
+        "type": "TArray<FFGOnlineFriend>"
+      },
+      {
+        "name": "mFailedAutologin",
+        "comment": "If true, then we have failed to autologin, and won't try to autologin again",
+        "type": "bool"
+      }
+    ]
+  }
+]

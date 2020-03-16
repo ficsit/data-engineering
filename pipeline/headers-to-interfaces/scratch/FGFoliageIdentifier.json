@@ -1,0 +1,79 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGFoliageIdentifier",
+    "category": "UCLASS",
+    "comment": "Class to identify different types of foliage",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGFoliageIdentifier_RemovableByBuildings",
+    "category": "UCLASS",
+    "comment": "Foliage that can be removed by buildings",
+    "extends": [
+      "UFGFoliageIdentifier"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGFoliageIdentifier_Pickupable",
+    "category": "UCLASS",
+    "comment": "Foliage that can be picked up by hand",
+    "extends": [
+      "UFGFoliageIdentifier_RemovableByBuildings"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGFoliageIdentifier_Chainsawable",
+    "category": "UCLASS",
+    "comment": "Foliage that you need a chainsaw to be able to remove",
+    "extends": [
+      "UFGFoliageIdentifier"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGFoliageIdentifier_ChainsawableXmasTree",
+    "category": "UCLASS",
+    "comment": "xmas tree :3",
+    "extends": [
+      "UFGFoliageIdentifier_Chainsawable"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGFoliageIdentifier_VehicleDestroyable",
+    "category": "UCLASS",
+    "comment": "Will be destroyed by a vehicle that runs over it",
+    "extends": [
+      "UFGFoliageIdentifier"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "UFGFoliageIdentifier_ExplosiveDestroyable",
+    "category": "UCLASS",
+    "comment": "Will be destroyed by explosives",
+    "extends": [
+      "UFGFoliageIdentifier"
+    ],
+    "methods": [],
+    "properties": []
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGReplicationDetailActor_BuildableFactory",
+    "category": "UCLASS",
+    "comment": "Copyright 2019 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGReplicationDetailActor"
+    ],
+    "methods": [
+      {
+        "name": "AFGReplicationDetailActor_BuildableFactory"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "InitReplicationDetailActor",
+        "returnType": "void"
+      },
+      {
+        "name": "FlushReplicationActorStateToOwner",
+        "returnType": "void"
+      },
+      {
+        "name": "HasCompletedInitialReplication",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetInventoryPotential",
+        "returnType": "classUFGInventoryComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mInventoryPotential",
+        "type": "classUFGInventoryComponent*"
+      }
+    ]
+  }
+]

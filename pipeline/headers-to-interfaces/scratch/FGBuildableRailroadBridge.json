@@ -1,0 +1,41 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableRailroadBridge",
+    "category": "UCLASS",
+    "comment": "A spline based bridge for rail roads, it can be built between 2 existing foundations, bridge and track is built separately.",
+    "extends": [
+      "AFGBuildable"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableRailroadBridge"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "GetLength",
+        "comment": "Get the length of the bridge",
+        "returnType": "float"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSplineComponent",
+        "comment": "The spline component for this bridge.",
+        "type": "classUFGSplineComponent*"
+      },
+      {
+        "name": "mSplineData",
+        "comment": "Spline data saved in a compact form for saving and replicating. All the vectors are in local space.",
+        "type": "TArray<FSplinePointData>"
+      }
+    ]
+  }
+]

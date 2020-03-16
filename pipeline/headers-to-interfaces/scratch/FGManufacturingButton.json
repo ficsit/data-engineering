@@ -1,0 +1,73 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGManufacturingButton",
+    "category": "UCLASS",
+    "extends": [
+      "UUserWidget"
+    ],
+    "methods": [
+      {
+        "name": "SetButton",
+        "comment": "Sets our internal button that will be used for focus handling",
+        "returnType": "void"
+      },
+      {
+        "name": "SetHoldTime",
+        "comment": "Sets how long one produce cycle should take",
+        "returnType": "void"
+      },
+      {
+        "name": "IsButtonHeld",
+        "comment": "Are we holding the button",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnPressedButton",
+        "comment": "Internal button was pressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnReleasedButton",
+        "comment": "Internal button was released, added BlueprintCallable to be able to simulate button release",
+        "returnType": "void"
+      },
+      {
+        "name": "NativeTick",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "OnManufacturePressed",
+        "comment": "Called when a valid press on manufacture happens",
+        "type": "FManufacturePressed"
+      },
+      {
+        "name": "mLastPressTime",
+        "comment": "Saving when we last pressed button",
+        "type": "float"
+      },
+      {
+        "name": "mIsHolding",
+        "comment": "Is the button being held?",
+        "type": "bool"
+      },
+      {
+        "name": "mHoldTimeMax",
+        "comment": "How long to hold for a manufacture to be called",
+        "type": "float"
+      },
+      {
+        "name": "mHoldTime",
+        "comment": "How long has the button been held?",
+        "type": "float"
+      },
+      {
+        "name": "mInternalButton",
+        "comment": "Reference to the UButton we have internally",
+        "type": "classUButton*"
+      }
+    ]
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGGameplayTask_Attack",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UFGGameplayTask_Base"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication",
+        "returnType": "void"
+      },
+      {
+        "name": "InitSimulatedTask",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAttackTarget",
+        "comment": "@todoai: document",
+        "returnType": "TScriptInterface<classIFGAggroTargetInterface>"
+      },
+      {
+        "name": "UFGGameplayTask_Attack",
+        "comment": "ctor"
+      },
+      {
+        "name": "GetAttackClass",
+        "comment": "Gets the attack class",
+        "returnType": "TSubclassOf<classUFGAttack>"
+      },
+      {
+        "name": "Activate",
+        "returnType": "void"
+      },
+      {
+        "name": "OnDestroy",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mAttackClass",
+        "type": "TSubclassOf<classUFGAttack>"
+      }
+    ]
+  }
+]

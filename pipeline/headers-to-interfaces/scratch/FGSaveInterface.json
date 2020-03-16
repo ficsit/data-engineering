@@ -1,0 +1,37 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGSaveInterface",
+    "category": "UINTERFACE",
+    "comment": "For blueprint support of the interface, we will never add anything to it, just use it to\nhave a UCLASS to be able to access",
+    "extends": [
+      "UInterface"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "IFGSaveInterface",
+    "comment": "@brief If you want your actor to be saved, implement this!",
+    "extends": [],
+    "methods": [
+      {
+        "name": "GatherDependencies",
+        "comment": "\n @param out_dependentObjects -\tpopulate this with the object you are dependent on, no need to care about outer/owner, they are automatically\n\t\t\t\t\t\t\t\thandled by calling code",
+        "returnType": "void"
+      },
+      {
+        "name": "ShouldSave",
+        "comment": "\n @return true if the object want to be saved",
+        "returnType": "bool"
+      },
+      {
+        "name": "NeedTransform",
+        "comment": "Only relevant for actors.\nIf returning true, then when loading, we are returned to the location that was stored when saving",
+        "returnType": "bool"
+      }
+    ],
+    "properties": []
+  }
+]

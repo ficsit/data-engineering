@@ -1,0 +1,42 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGReplicationDetailActor_CargoPlatform",
+    "category": "UCLASS",
+    "comment": "Inventory info replication actor for Train Cargo Platform.",
+    "extends": [
+      "AFGReplicationDetailActor_BuildableFactory"
+    ],
+    "methods": [
+      {
+        "name": "AFGReplicationDetailActor_CargoPlatform"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "InitReplicationDetailActor",
+        "returnType": "void"
+      },
+      {
+        "name": "FlushReplicationActorStateToOwner",
+        "returnType": "void"
+      },
+      {
+        "name": "HasCompletedInitialReplication",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetCargoInventory",
+        "returnType": "UFGInventoryComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mCargoInventory",
+        "type": "classUFGInventoryComponent*"
+      }
+    ]
+  }
+]

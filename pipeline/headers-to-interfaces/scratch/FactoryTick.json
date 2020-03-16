@@ -1,0 +1,39 @@
+[
+  {
+    "kind": "class",
+    "name": "FFactoryTickFunction",
+    "category": "USTRUCT",
+    "comment": "Tick function that calls AFGBuildable::TickFactory",
+    "extends": [
+      "FTickFunction"
+    ],
+    "methods": [
+      {
+        "name": "ExecuteTick",
+        "comment": "@param CurrentThread - thread we are executing on, useful to pass along as new tasks are created\n@param MyCompletionGraphEvent - completion event for this task. Useful for holding the completetion of this task until certain child tasks are complete.",
+        "returnType": "void"
+      },
+      {
+        "name": "DiagnosticMessage",
+        "comment": "Abstract function to describe this tick. Used to print messages about illegal cycles in the dependency graph",
+        "returnType": "FString"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Target",
+        "comment": "Buildable that is the target of this tick.",
+        "type": "classAFGBuildableSubsystem*"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "TStructOpsTypeTraits",
+    "extends": [
+      "TStructOpsTypeTraitsBase2"
+    ],
+    "methods": [],
+    "properties": []
+  }
+]

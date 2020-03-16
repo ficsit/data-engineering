@@ -1,0 +1,54 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGRecipeShortcut",
+    "category": "UCLASS",
+    "extends": [
+      "UFGHotbarShortcut"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Decide on what properties to replicate",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRecipe",
+        "comment": "Get the recipe we want to activate when activating this shortcut",
+        "returnType": "TSubclassOf<classUFGRecipe>"
+      },
+      {
+        "name": "SetRecipe",
+        "comment": "Set the recipe of the current shortcut, the recipe will be saved\n@param recipe - null is valid, then we won't have any shortcut show up",
+        "returnType": "void"
+      },
+      {
+        "name": "Execute_Implementation",
+        "comment": "~ Begin UFGHotbarShortcut interface",
+        "returnType": "void"
+      },
+      {
+        "name": "IsValidShortcut_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDisplayImage_Implementation",
+        "returnType": "UTexture2D*"
+      },
+      {
+        "name": "IsActive_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnRep_Recipe",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mRecipeToActivate",
+        "type": "TSubclassOf<classUFGRecipe>"
+      }
+    ]
+  }
+]

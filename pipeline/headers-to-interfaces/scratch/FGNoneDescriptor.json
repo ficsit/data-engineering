@@ -1,0 +1,17 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGNoneDescriptor",
+    "category": "UCLASS",
+    "comment": "Not a real resource, used to indicate none in sorting rules.",
+    "extends": [
+      "UFGItemDescriptor"
+    ],
+    "methods": [
+      {
+        "name": "UFGNoneDescriptor"
+      }
+    ],
+    "properties": []
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGNavArea_Factory",
+    "category": "UCLASS",
+    "comment": "Intended for all man made surfaces. Player created or in the world.",
+    "extends": [
+      "UNavArea"
+    ],
+    "methods": [
+      {
+        "name": "UFGNavArea_Factory"
+      }
+    ],
+    "properties": []
+  }
+]

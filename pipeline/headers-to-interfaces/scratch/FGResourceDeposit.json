@@ -1,0 +1,110 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGResourceDeposit",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGResourceNode"
+    ],
+    "methods": [
+      {
+        "name": "AFGResourceDeposit"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Decide on what properties to replicate",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoad",
+        "comment": "Begin UObject interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "RollResourceType",
+        "comment": "Determine what type of resource node this is by a random factor",
+        "returnType": "void"
+      },
+      {
+        "name": "TrySetDesiredResourceType",
+        "comment": "Tries to up the resource type to be the one specified in override variable",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupResourceInfo",
+        "comment": "Sets up all the data for this node",
+        "returnType": "void"
+      },
+      {
+        "name": "ExtractResourceAndGiveToPlayer",
+        "comment": "Gives one resource to a player",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayDepletedEffect",
+        "comment": "Function used to play effects and change mesh when a deposit is emptied",
+        "returnType": "void"
+      },
+      {
+        "name": "IsDepositEmpty",
+        "comment": "Is deposit empty?",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetMineAmount",
+        "comment": "How much to mine per cycle",
+        "returnType": "int32"
+      },
+      {
+        "name": "OnRep_ResourceDepositEmptied",
+        "comment": "Called on client when resource deposit has been emptied",
+        "returnType": "void"
+      },
+      {
+        "name": "InitRadioactivity",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateRadioactivity",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mResourceDepositPackage",
+        "comment": "Valid if mLootTableIndex is not INDEX_NONE",
+        "type": "FResourceDepositPackage"
+      },
+      {
+        "name": "mResourceDepositTableIndex",
+        "comment": "Index in the resource deposit table",
+        "type": "int32"
+      },
+      {
+        "name": "mIsEmptied",
+        "comment": "is deposit emptied",
+        "type": "bool"
+      },
+      {
+        "name": "mMineAmount",
+        "comment": "How much to mine per cycle",
+        "type": "int32"
+      },
+      {
+        "name": "mDepositMeshComponent",
+        "comment": "The mesh we use for displaying the resource deposit",
+        "type": "UStaticMeshComponent*"
+      },
+      {
+        "name": "mOverrideResourceClass",
+        "type": "TSubclassOf<classUFGResourceDescriptor>"
+      }
+    ]
+  }
+]

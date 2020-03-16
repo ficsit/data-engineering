@@ -1,0 +1,29 @@
+[
+  {
+    "kind": "class",
+    "name": "FItemAmount",
+    "category": "USTRUCT",
+    "comment": "Struct used to specify an amount of items.\nE.g. a cost, a recipe product or ingredient.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FItemAmount"
+      },
+      {
+        "name": "FItemAmount"
+      }
+    ],
+    "properties": [
+      {
+        "name": "ItemClass",
+        "comment": "The item.",
+        "type": "TSubclassOf<classUFGItemDescriptor>"
+      },
+      {
+        "name": "Amount",
+        "comment": "The amount of this item.",
+        "type": "int32"
+      }
+    ]
+  }
+]

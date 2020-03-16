@@ -1,0 +1,110 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGHookshot",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGEquipment"
+    ],
+    "methods": [
+      {
+        "name": "AFGHookshot"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPrimaryFirePressed",
+        "comment": "Called locally",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSecondaryFirePressed",
+        "returnType": "void"
+      },
+      {
+        "name": "Equip",
+        "comment": "AFGEquipment interface",
+        "returnType": "void"
+      },
+      {
+        "name": "UnEquip",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "comment": "AFGEquipment interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnWireDetach",
+        "comment": "Called whenever the wire is detached",
+        "returnType": "void"
+      },
+      {
+        "name": "OnFire",
+        "comment": "Called locally when a player shoots the hookshot",
+        "returnType": "void"
+      },
+      {
+        "name": "WireDetach",
+        "comment": "Wire gets detached",
+        "returnType": "void"
+      },
+      {
+        "name": "AddEquipmentActionBindings",
+        "comment": "@copydoc AFGEquipment::AddEquipmentActionBindings",
+        "returnType": "void"
+      },
+      {
+        "name": "MoveAudioSourceInFrontOfPlayer",
+        "comment": "Move the audio in fron of the player",
+        "returnType": "void"
+      },
+      {
+        "name": "RestoreAudioSourceToOriginalLocation",
+        "comment": "Stop updating position in front of the player",
+        "returnType": "void"
+      },
+      {
+        "name": "OwnerLanded",
+        "comment": "Called whenever the actor we are attached to landed",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mMaxHookDistance",
+        "comment": "How far we will trace to try and find something to attach to",
+        "type": "float"
+      },
+      {
+        "name": "mAccelRate",
+        "comment": "How fast do we accellerate toward the grappled target.",
+        "type": "float"
+      },
+      {
+        "name": "mBrakeAccelRate",
+        "comment": "Accel bonus added when we are moving away from the grappled target.",
+        "type": "float"
+      },
+      {
+        "name": "mCachedMovementComponent",
+        "comment": "A cached instance of the instigators movementcomponent",
+        "type": "classUFGCharacterMovementComponent*"
+      },
+      {
+        "name": "mHookshotAudio",
+        "comment": "Component handling our hookshot sounds",
+        "type": "classUAkComponent*"
+      },
+      {
+        "name": "mAttachDistance",
+        "comment": "Distance from player when attached, caluclated from mHookshotAudio",
+        "type": "float"
+      }
+    ]
+  }
+]

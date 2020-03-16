@@ -1,0 +1,211 @@
+[
+  {
+    "kind": "class",
+    "name": "FCostIngredientEffectActorInfo",
+    "category": "USTRUCT",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "ItemClass",
+        "comment": "What class is this cost of",
+        "type": "TSubclassOf<classUFGItemDescriptor>"
+      },
+      {
+        "name": "SpawnDelay",
+        "comment": "Delay between this and the previous cost actor spawned",
+        "type": "float"
+      },
+      {
+        "name": "TargetLocation",
+        "comment": "Where this cost actor should travel to",
+        "type": "FVector"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FCachedMaterialArray",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "MaterialInterfaces",
+        "type": "TArray<UMaterialInterface*>"
+      },
+      {
+        "name": "MeshFNames",
+        "comment": "Component FName for each material interface",
+        "type": "TArray<FName>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGMaterialEffectComponent",
+    "category": "UCLASS",
+    "comment": "Base class for material based effects on actors.",
+    "extends": [
+      "UActorComponent"
+    ],
+    "methods": [
+      {
+        "name": "UFGMaterialEffectComponent"
+      },
+      {
+        "name": "OnUnregister",
+        "comment": "Begin AActorComponent interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Activate",
+        "returnType": "void"
+      },
+      {
+        "name": "Deactivate",
+        "returnType": "void"
+      },
+      {
+        "name": "TickComponent",
+        "returnType": "void"
+      },
+      {
+        "name": "Start",
+        "comment": "End ActorComponent interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Stop",
+        "returnType": "void"
+      },
+      {
+        "name": "SetMeshes",
+        "comment": "Set the meshes to override material on, cannot be called after PreStarted.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetMeshes",
+        "comment": "Get the meshes which have the overridden material.",
+        "returnType": "TArray<UMeshComponent*>"
+      },
+      {
+        "name": "GetMeshesBounds",
+        "comment": "Get the bounds of the meshes.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetDuration",
+        "comment": "Set the duration for this effect [seconds]. This is not replicated.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDuration",
+        "comment": "Get the duration for this effect. [seconds]",
+        "returnType": "float"
+      },
+      {
+        "name": "SetAutoDestroy",
+        "returnType": "void"
+      },
+      {
+        "name": "PreStarted",
+        "comment": "Called prior to the build effect starting and before the materials have been overridden.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnStarted",
+        "comment": "Called when the effect has been started and the materials have been overridden.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnEnded",
+        "comment": "Called when the effect has ended and the material overrides have been cleared.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUpdate",
+        "comment": "Called when the effect is updated.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetMaterialScalarParameterValue",
+        "comment": "Set a scalar parameter on the effect.",
+        "returnType": "void"
+      },
+      {
+        "name": "InitializeMaterials",
+        "returnType": "void"
+      },
+      {
+        "name": "FinalizeMaterials",
+        "returnType": "void"
+      },
+      {
+        "name": "TryGetFNameFromMeshComponent",
+        "comment": "Helper to try and deduce the name of the mesh element on a given mesh component (Used to track changes to applied meshes between start and end of Material Effect)",
+        "returnType": "void"
+      },
+      {
+        "name": "DECLARE_DELEGATE",
+        "comment": "Delegates"
+      },
+      {
+        "name": "DECLARE_DELEGATE"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOnStarted",
+        "comment": "Called when material effect has finished.",
+        "type": "FMaterialEffectStarted"
+      },
+      {
+        "name": "mOnEnded",
+        "comment": "Called when material effect has finished.",
+        "type": "FMaterialEffectEnded"
+      },
+      {
+        "name": "mMeshes",
+        "comment": "Meshes affected by the material effect.",
+        "type": "TArray<UMeshComponent*>"
+      },
+      {
+        "name": "mMaterial",
+        "comment": "Material to display.",
+        "type": "classUMaterialInterface*"
+      },
+      {
+        "name": "mDuration",
+        "comment": "How long is this effect.",
+        "type": "float"
+      },
+      {
+        "name": "mAutoStart",
+        "comment": "Automatically start playing this effect.",
+        "type": "bool"
+      },
+      {
+        "name": "mIsStarted",
+        "comment": "Is this effect running",
+        "type": "bool"
+      },
+      {
+        "name": "mAutoDestroy",
+        "comment": "Should this effect be auto destroyed on finish.",
+        "type": "bool"
+      },
+      {
+        "name": "mMids",
+        "comment": "The cached mids we apply effects to.",
+        "type": "TArray<classUMaterialInstanceDynamic*>"
+      },
+      {
+        "name": "mOverrideMaterials",
+        "comment": "The cached override materials present before initializing (Takes into account custom override materials on meshes)",
+        "type": "TArray<FCachedMaterialArray>"
+      }
+    ]
+  }
+]

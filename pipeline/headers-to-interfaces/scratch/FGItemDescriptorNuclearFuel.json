@@ -1,0 +1,38 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGItemDescriptorNuclearFuel",
+    "category": "UCLASS",
+    "comment": "Base descriptor for nuclear fuel.",
+    "extends": [
+      "UFGItemDescriptor"
+    ],
+    "methods": [
+      {
+        "name": "UFGItemDescriptorNuclearFuel"
+      },
+      {
+        "name": "GetSpentFuelClass",
+        "comment": "@return The descriptor to use when the fuel is removed from the reactor (waste).",
+        "returnType": "TSubclassOf<UFGItemDescriptor>"
+      },
+      {
+        "name": "GetAmountWasteCreated",
+        "comment": "@return The amount of waste to create",
+        "returnType": "int32"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSpentFuelClass",
+        "comment": "The descriptor to use when the fuel is removed from the reactor (waste).",
+        "type": "TSubclassOf<UFGItemDescriptor>"
+      },
+      {
+        "name": "mAmountOfWaste",
+        "comment": "How much waste to produce",
+        "type": "int32"
+      }
+    ]
+  }
+]

@@ -1,0 +1,19 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGReplicationDependencyActorInterface",
+    "category": "UINTERFACE",
+    "extends": [
+      "UInterface"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "IFGReplicationDependencyActorInterface",
+    "extends": [],
+    "methods": [],
+    "properties": []
+  }
+]

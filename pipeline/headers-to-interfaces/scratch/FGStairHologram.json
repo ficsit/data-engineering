@@ -1,0 +1,24 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGStairHologram",
+    "category": "UCLASS",
+    "comment": "Hologram for stairs.",
+    "extends": [
+      "AFGFoundationHologram"
+    ],
+    "methods": [
+      {
+        "name": "TrySnapToActor",
+        "comment": "Begin AFGHologram interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "CheckValidPlacement",
+        "comment": "Begin AFGHologram Interface",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

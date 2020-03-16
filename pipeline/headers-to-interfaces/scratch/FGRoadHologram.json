@@ -1,0 +1,80 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGRoadHologram",
+    "category": "UCLASS",
+    "comment": "Hologram for spline roads.",
+    "extends": [
+      "AFGSplineHologram"
+    ],
+    "methods": [
+      {
+        "name": "AFGRoadHologram",
+        "comment": "Ctor"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupComponent",
+        "comment": "Begin AFGHologram interface",
+        "returnType": "classUSceneComponent*"
+      },
+      {
+        "name": "SetHologramLocationAndRotation",
+        "returnType": "void"
+      },
+      {
+        "name": "DoMultiStepPlacement",
+        "returnType": "bool"
+      },
+      {
+        "name": "ConfigureActor",
+        "comment": "Begin AFGBuildableHologram interface",
+        "returnType": "void"
+      },
+      {
+        "name": "ConfigureComponents",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckValidFloor",
+        "comment": "Begin AFGBuildableHologram interface",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckClearance",
+        "returnType": "void"
+      },
+      {
+        "name": "FindOverlappingConnectionComponent",
+        "comment": "Check for nearby snapping connections.",
+        "returnType": "classUFGRoadConnectionComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mFloorData",
+        "comment": "This is an additional floor data for the spline data (local space).",
+        "type": "TArray<FVector>"
+      },
+      {
+        "name": "mCurrentConnection",
+        "comment": "Index of the currently moved point.",
+        "type": "int32"
+      },
+      {
+        "name": "mConnectionComponents",
+        "comment": "The connections we have.",
+        "type": "classUFGRoadConnectionComponent*"
+      },
+      {
+        "name": "mSnappedConnectionComponents",
+        "comment": "The connection we snapped to.",
+        "type": "classUFGRoadConnectionComponent*"
+      }
+    ]
+  }
+]

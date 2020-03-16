@@ -1,0 +1,18 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGCreatureSpawnerDebugComponent",
+    "category": "UCLASS",
+    "comment": "@todo: We could potentially generalize this even more to spawn whatever actor depending on some special rules\n@todo: Do we maybe want to create a scene proxy for this, so that we can always draw cylinders, even when we ain't clicked (see USphereComponent)",
+    "extends": [
+      "UActorComponent"
+    ],
+    "methods": [
+      {
+        "name": "UFGCreatureSpawnerDebugComponent",
+        "comment": "Sets default values for this component's properties"
+      }
+    ],
+    "properties": []
+  }
+]

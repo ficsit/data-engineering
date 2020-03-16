@@ -1,0 +1,17 @@
+[
+  {
+    "kind": "class",
+    "name": "FFactoryGameModule",
+    "extends": [
+      "FDefaultGameModuleImpl"
+    ],
+    "methods": [
+      {
+        "name": "IsGameModule",
+        "comment": "\t/\n We want this module to be hot reloaded",
+        "returnType": "bool"
+      }
+    ],
+    "properties": []
+  }
+]

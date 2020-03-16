@@ -1,0 +1,285 @@
+[
+  {
+    "kind": "enum",
+    "name": "EFactoryConnectionConnector",
+    "comment": "Type of connections in the game.\n@todoPipes - This is old, we're shifting to a different connection component type for pipes as they don't need most of the special logic in the factory connection",
+    "entries": [
+      {
+        "name": "FCC_CONVEYOR",
+        "displayName": "Conveyor"
+      },
+      {
+        "name": "FCC_PIPE",
+        "displayName": "Pipe"
+      },
+      {
+        "name": "FCC_MAX"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "EFactoryConnectionDirection",
+    "comment": "Type of connections in the game.",
+    "entries": [
+      {
+        "name": "FCD_INPUT",
+        "displayName": "Input"
+      },
+      {
+        "name": "FCD_OUTPUT",
+        "displayName": "Output"
+      },
+      {
+        "name": "FCD_ANY",
+        "displayName": "Any"
+      },
+      {
+        "name": "FCD_SNAP_ONLY",
+        "displayName": "Snap Only",
+        "comment": "Special case for conveyor poles, may need refactor later."
+      },
+      {
+        "name": "FCD_MAX"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGFactoryConnectionComponent",
+    "category": "UCLASS",
+    "comment": "This component is used on factories to connect to.",
+    "extends": [
+      "UFGConnectionComponent"
+    ],
+    "methods": [
+      {
+        "name": "UFGFactoryConnectionComponent"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication",
+        "returnType": "void"
+      },
+      {
+        "name": "OnComponentDestroyed",
+        "comment": "Begin ActorComponent interface",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRegister",
+        "returnType": "void"
+      },
+      {
+        "name": "OnUnregister",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "comment": "Begin save interface",
+        "returnType": "void"
+      },
+      {
+        "name": "SetDirection",
+        "comment": "Set our direction after creation time",
+        "returnType": "void"
+      },
+      {
+        "name": "SetConnectorClearance",
+        "comment": "Set the conveyor clearance for this connection.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetInventory",
+        "comment": "Set the inventory associated with this connection",
+        "returnType": "void"
+      },
+      {
+        "name": "SetInventoryAccessIndex",
+        "comment": "Sets a specified index for the component to access on its assigned inventory",
+        "returnType": "void"
+      },
+      {
+        "name": "GetInventoryAccessIndex",
+        "comment": "Gets the inventory access index specified for this factory connection",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetConnection",
+        "comment": "@note Sets both ends of the connection.\nIf there already a connection made we assert.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConnection",
+        "comment": "Get which connection this is connected to.",
+        "returnType": "classUFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "ClearConnection",
+        "comment": "@note Clears both ends of the connection.\nIf nothing is connected this does nothing.",
+        "returnType": "void"
+      },
+      {
+        "name": "IsConnected",
+        "comment": "Is this connection connected to anything.\n@return - true if connected; otherwise false. Always false if attached to hologram, snap only or bad index configuration.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetInventory",
+        "comment": "Return the inventory associated with this connection.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetDirection",
+        "comment": "Return the direction for this connection.",
+        "returnType": "EFactoryConnectionDirection"
+      },
+      {
+        "name": "GetCompatibleSnapDirection",
+        "comment": "Get the direction needed to be able to connect to this connection, ANY if anything is valid.",
+        "returnType": "EFactoryConnectionDirection"
+      },
+      {
+        "name": "GetConnector",
+        "comment": "Return the connector used for this connection.",
+        "returnType": "EFactoryConnectionConnector"
+      },
+      {
+        "name": "CanSnapTo",
+        "comment": "Check if the given connection can snap to this.",
+        "returnType": "bool"
+      },
+      {
+        "name": "CanConnectTo",
+        "comment": "Check if the given connection can connect to this.",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetForwardPeekAndGrabToBuildable",
+        "comment": "Accessor for c++ constructors",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConnectorClearance",
+        "comment": "Return the clearance needed when routing a conveyor belt from this connection.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetConnectorLocation",
+        "comment": "Return the connectors world location with or without considering the clearance.",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetConnectorNormal",
+        "comment": "Return the connectors world normal.",
+        "returnType": "FVector"
+      },
+      {
+        "name": "Factory_PeekOutput",
+        "comment": "@param type - Optionally check the type of the output, nullptr for any.\n@return true if it has output; false if no output or",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_GrabOutput",
+        "comment": "@param offset - if we are grabbing from a belt the item might have an offset beyond the belt's length\n@return valid resource descriptor on success; nullptr if no output of given type exists.",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_Internal_PeekOutputInventory",
+        "comment": "Internal function, for when overloading how to handle a peek, peeks our output from a inventory",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_Internal_GrabOutputInventory",
+        "comment": "Internal function, for when overloading how to handle a grab, grabs our output from a inventory",
+        "returnType": "bool"
+      },
+      {
+        "name": "DisplayDebug",
+        "comment": "Debug",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOuterBuildable",
+        "returnType": "classAFGBuildable*"
+      },
+      {
+        "name": "SortComponentList",
+        "comment": "@param io_components - List to be sorted",
+        "returnType": "void"
+      },
+      {
+        "name": "MaxNumGrab",
+        "comment": "This function tells us the maximum amounts of grabs this building can make this frame",
+        "returnType": "uint8"
+      },
+      {
+        "name": "FindCompatibleOverlappingConnections",
+        "comment": "Same as FindOverlappingConnections but finds a connection compatible with the passed connection.",
+        "returnType": "UFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "FindOverlappingConnections",
+        "comment": "Find the closest overlapping connection matching all search criteria.",
+        "returnType": "UFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "FindAllOverlappingConnections",
+        "comment": "Fin all overlapping connections and returns them in a list. Filters to not include blocks connections or other incompatible connections",
+        "returnType": "int32"
+      },
+      {
+        "name": "CheckIfSnapOnlyIsBlockedbyOtherConnection",
+        "comment": "checks if a connection is blocked by another connection in a list of building overlaps. If not blocked it returns null, if blocked it returns the blocking connection. Intended for internal use in finding connections but left exposed for potential general usefulness",
+        "returnType": "UFGFactoryConnectionComponent*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mConnector",
+        "comment": "Physical type of connector used for this connection.",
+        "type": "EFactoryConnectionConnector"
+      },
+      {
+        "name": "mDirection",
+        "comment": "Direction for this connection.",
+        "type": "EFactoryConnectionDirection"
+      },
+      {
+        "name": "mConnectorClearance",
+        "comment": "How long the connector is extending, indicates where the connected conveyor may start turning.",
+        "type": "float"
+      },
+      {
+        "name": "mConnectedComponent",
+        "comment": "Connection to another component. If this is set we're connected.",
+        "type": "classUFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "mHasConnectedComponent",
+        "comment": "Light-weight connected indication for clients.",
+        "type": "bool"
+      },
+      {
+        "name": "mConnectionInventory",
+        "comment": "The inventory of this connection",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mInventoryAccessIndex",
+        "comment": "The inventory index utilized by this connection ( -1 for none specified )",
+        "type": "int32"
+      },
+      {
+        "name": "mOuterBuildable",
+        "comment": "Buildable owning us, cached for performance",
+        "type": "classAFGBuildable*"
+      },
+      {
+        "name": "mForwardPeekAndGrabToBuildable",
+        "comment": "Forward implementation details to our owner.",
+        "type": "uint8"
+      }
+    ]
+  }
+]

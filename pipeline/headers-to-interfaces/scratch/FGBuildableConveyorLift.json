@@ -1,0 +1,115 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableConveyorLift",
+    "category": "UCLASS",
+    "comment": "Base for conveyor lifts.",
+    "extends": [
+      "AFGBuildableConveyorBase"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableConveyorLift"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDismantleRefundReturnsMultiplier",
+        "comment": "Begin Buildable interface",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetHeight",
+        "comment": "Get the height for this lift.",
+        "returnType": "float"
+      },
+      {
+        "name": "TickItemTransforms",
+        "comment": "Begin AFGBuildableConveyorBase interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildStaticMeshes",
+        "returnType": "void"
+      },
+      {
+        "name": "FitClearance",
+        "returnType": "FBoxCenterAndExtent"
+      },
+      {
+        "name": "OnRep_TopTransform",
+        "comment": "If the input and output is reversed so the input is at the top, the reverse flag is set.\nFrom this the mesh and connection transform is calculated.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "CLEARANCE_EXTENT_2D",
+        "type": "staticconstFVector2D"
+      },
+      {
+        "name": "CONNECTION_RELATIVE_FORWARD",
+        "type": "staticconstexprfloat"
+      },
+      {
+        "name": "BELLOW_MESH_LENGTH",
+        "type": "staticconstexprfloat"
+      },
+      {
+        "name": "mMeshHeight",
+        "comment": "What's the height of the meshes used.",
+        "type": "float"
+      },
+      {
+        "name": "mBottomMesh",
+        "comment": "Mesh at the bottom of the lift.",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mMidMesh",
+        "comment": "Mesh repeated for the mid section.",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mTopMesh",
+        "comment": "Mesh at the top of the lift.",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mBellowMesh",
+        "comment": "Mesh placed on the input/output as a bellow between a wall or factory.",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mJointMesh",
+        "comment": "Mesh placed between two joined lift sections.",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mShelfMesh",
+        "comment": "Shelf placed under each item.",
+        "type": "classUStaticMesh*"
+      },
+      {
+        "name": "mTopTransform",
+        "type": "FTransform"
+      },
+      {
+        "name": "mIsReversed",
+        "type": "bool"
+      },
+      {
+        "name": "mItemMeshMap",
+        "comment": "Meshes for items.",
+        "type": "TMap<FName,classUInstancedStaticMeshComponent*>"
+      }
+    ]
+  }
+]

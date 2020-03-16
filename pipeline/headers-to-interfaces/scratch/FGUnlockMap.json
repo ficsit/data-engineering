@@ -1,0 +1,19 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGUnlockMap",
+    "category": "UCLASS",
+    "comment": "Unlock the in game map",
+    "extends": [
+      "UFGUnlock"
+    ],
+    "methods": [
+      {
+        "name": "Apply",
+        "comment": "Begin FGUnlock interface",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

@@ -1,0 +1,173 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGEquipmentAttachment",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AActor"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication.",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGEquipmentAttachment"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Attach",
+        "comment": "Attaches this attachment to a character",
+        "returnType": "void"
+      },
+      {
+        "name": "OnAttach",
+        "comment": "Event called when this equipment has been attached",
+        "returnType": "void"
+      },
+      {
+        "name": "Detach",
+        "comment": "Detach from current parent",
+        "returnType": "void"
+      },
+      {
+        "name": "OnDetach",
+        "comment": "Event called before this equipment is detached",
+        "returnType": "void"
+      },
+      {
+        "name": "IsAttached",
+        "comment": "@return true if this is attached; false if not.",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetEquippedSlot",
+        "comment": "Sets what slot we are equipped on",
+        "returnType": "void"
+      },
+      {
+        "name": "GetEquippedSlot",
+        "comment": "@return The equipment slot that this attachment is associated with",
+        "returnType": "EEquipmentSlot"
+      },
+      {
+        "name": "SetAttachmentUseState",
+        "comment": "Calls UpdateUseState on all instances on all connections so that they can handle any visual effects they need to.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnAttachmentUseStateUpdated",
+        "comment": "Event called when use state is updated",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayAttachEffects3P",
+        "comment": "Event called when we should play attach effects",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayDetachEffects3P",
+        "comment": "Event called when we should play detach",
+        "returnType": "void"
+      },
+      {
+        "name": "SetUseLocation",
+        "comment": "Set the use location on server so that it can be relicated to clients",
+        "returnType": "void"
+      },
+      {
+        "name": "PlayUseEffect",
+        "comment": "Handles playing of effects on remote clients",
+        "returnType": "void"
+      },
+      {
+        "name": "GetArmsAnimation",
+        "comment": "Get the arms animation to play on the player",
+        "returnType": "EArmEquipment"
+      },
+      {
+        "name": "GetBackAnimation",
+        "comment": "Get the back animation to play on the player",
+        "returnType": "EBackEquipment"
+      },
+      {
+        "name": "GetAttachedTo",
+        "comment": "@return character this is attached to; nullptr if not attached.",
+        "returnType": "classAFGCharacterPlayer*"
+      },
+      {
+        "name": "GetAttachSocket",
+        "comment": "@return socket this should attach to, can be none.",
+        "returnType": "FName"
+      },
+      {
+        "name": "OnRep_UseLocationUpdated",
+        "comment": "Called when we get a new use location, on client through replication and on server from SetFlashLocation",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_OnAnimationStateUpdated",
+        "comment": "Called when the animation state has been updated",
+        "returnType": "void"
+      },
+      {
+        "name": "SetAttachmentTicks",
+        "comment": "Sets tick status for actor and all components",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mEquipmentClass",
+        "comment": "The class of the equipment that spawned this attachment",
+        "type": "TSubclassOf<classAFGEquipment>"
+      },
+      {
+        "name": "mUseLocation",
+        "comment": "This value get replicated to clients so they can play effect",
+        "type": "FVector"
+      },
+      {
+        "name": "mAttachSocket",
+        "comment": "If this equipment should attach to a socket, this is the socket.",
+        "type": "FName"
+      },
+      {
+        "name": "mArmAnimation",
+        "comment": "Arms animation this should play on the when the equipment is equipped (only used if mEquipmentSlot == ES_ARMS)",
+        "type": "EArmEquipment"
+      },
+      {
+        "name": "mBackAnimation",
+        "comment": "Arms animation this should play on the when the equipment is equipped (only used if mEquipmentSlot == ES_BACK)",
+        "type": "EBackEquipment"
+      },
+      {
+        "name": "mIsAttached",
+        "comment": "If this attachment is attached",
+        "type": "bool"
+      },
+      {
+        "name": "mAttachedTo",
+        "comment": "The character this is attached to.",
+        "type": "classAFGCharacterPlayer*"
+      },
+      {
+        "name": "mEquipmentSlot",
+        "comment": "To what slot is this attachment attached",
+        "type": "EEquipmentSlot"
+      },
+      {
+        "name": "mAnimationState",
+        "comment": "integer used for animation states",
+        "type": "int32"
+      }
+    ]
+  }
+]

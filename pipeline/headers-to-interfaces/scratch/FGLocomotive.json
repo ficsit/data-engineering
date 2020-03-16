@@ -1,0 +1,137 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGLocomotive",
+    "category": "UCLASS",
+    "comment": "Base class for locomotives, choo choo!",
+    "extends": [
+      "AFGRailroadVehicle"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Replication",
+        "returnType": "void"
+      },
+      {
+        "name": "PreReplication",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGLocomotive"
+      },
+      {
+        "name": "GetMovementComponent",
+        "comment": "Begin Movement",
+        "returnType": "classUPawnMovementComponent*"
+      },
+      {
+        "name": "GetRailroadVehicleMovementComponent",
+        "returnType": "classUFGRailroadVehicleMovementComponent*"
+      },
+      {
+        "name": "GetLocomotiveMovementComponent",
+        "returnType": "classUFGLocomotiveMovementComponent*"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "DriverEnter",
+        "comment": "Begin ADriveablePawn/AFGVehicle interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "DriverLeave",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetSlidingShoe",
+        "comment": "Begin ARailroadVehicle interface",
+        "returnType": "classUFGPowerConnectionComponent*"
+      },
+      {
+        "name": "GetMultipleUnitRole",
+        "comment": "Get the role for this locomotive when MUing.\n@see EMultipleUnitControl.",
+        "returnType": "EMultipleUnitControl"
+      },
+      {
+        "name": "CanSetTrainMultipleUnitMaster",
+        "comment": "@return true if we can set the multiple unit master on locomotive without forcing; false if we cannot.",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetMultipleUnitControlMaster",
+        "comment": "@param force Force this to be the master, sets any current master to slave.\n@return true on success; false if there is another master and this was not forced.",
+        "returnType": "bool"
+      },
+      {
+        "name": "ClearMultipleUnitControlMaster",
+        "comment": "Clears this vehicle as the MU master.\nReturns the train to MU disabled until another one is set as master.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPowerInfo",
+        "comment": "Get the power info about this train. If it runs on electricity.",
+        "returnType": "UFGPowerInfoComponent*"
+      },
+      {
+        "name": "SetPowerConsumption",
+        "comment": "Used by the movement component to control the power usage.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetPowerRegeneration",
+        "returnType": "void"
+      },
+      {
+        "name": "DisplayDebug",
+        "comment": "Debug",
+        "returnType": "void"
+      },
+      {
+        "name": "OnNameChanged",
+        "comment": "Called when the name of the train this locomotive is part of has changed name",
+        "returnType": "void"
+      },
+      {
+        "name": "OnRep_ReplicatedMovementTransform",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "VehicleMovementComponentName",
+        "comment": "Name of the VehicleMovement. Use this name if you want to use a different class (with ObjectInitializer.SetDefaultSubobjectClass).",
+        "type": "staticFName"
+      },
+      {
+        "name": "mPowerConsumption",
+        "comment": "The power consumption of this electric locomotive, min is idle power consumption and max is power consumption at maximum torque.",
+        "type": "FFloatInterval"
+      },
+      {
+        "name": "mSlidingShoe",
+        "comment": "The sliding shoe making contact with the third rail.",
+        "type": "classUFGPowerConnectionComponent*"
+      },
+      {
+        "name": "mPowerInfo",
+        "comment": "The power info for this train, draw power from the circuit.",
+        "type": "classUFGPowerInfoComponent*"
+      },
+      {
+        "name": "mReplicatedMovementTransform",
+        "comment": "@todo Replace when proper physics simulations are done.",
+        "type": "FTransform"
+      },
+      {
+        "name": "mVehicleMovement",
+        "comment": "vehicle simulation component",
+        "type": "classUFGLocomotiveMovementComponent*"
+      }
+    ]
+  }
+]

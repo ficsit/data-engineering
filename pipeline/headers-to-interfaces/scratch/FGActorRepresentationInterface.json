@@ -1,0 +1,107 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGActorRepresentationInterface",
+    "category": "UINTERFACE",
+    "comment": "This interface makes sure this actor gets a representation that is to be shown in compass and\nin the minimap and similar things.",
+    "extends": [
+      "UInterface"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "IFGActorRepresentationInterface",
+    "extends": [],
+    "methods": [
+      {
+        "name": "AddAsRepresentation",
+        "comment": "Adds the actor to the actor representation manager",
+        "returnType": "bool"
+      },
+      {
+        "name": "UpdateRepresentation",
+        "comment": "Updates the actor in the actor representation manager",
+        "returnType": "bool"
+      },
+      {
+        "name": "RemoveAsRepresentation",
+        "comment": "Should be called when an actor is destroyed. Then we should remove this representation.",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsActorStatic",
+        "comment": "Tells us if the actor is static or not.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetRealActorLocation",
+        "comment": "Called on the server to get the location of this actor so it can be replicated to clients.",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetRealActorRotation",
+        "comment": "Called on the server to get the rotation of this actor so it can be replicated to clients.",
+        "returnType": "FRotator"
+      },
+      {
+        "name": "GetActorRepresentationTexture",
+        "comment": "Fetches the texture to use for this actors representation",
+        "returnType": "classUTexture2D*"
+      },
+      {
+        "name": "GetActorRepresentationText",
+        "comment": "Fetches the text to use for this actors representation",
+        "returnType": "FText"
+      },
+      {
+        "name": "SetActorRepresentationText",
+        "comment": "Set the text to use for this actors representation",
+        "returnType": "FText"
+      },
+      {
+        "name": "GetActorRepresentationColor",
+        "comment": "Fetches the color to use for this actors representation",
+        "returnType": "FLinearColor"
+      },
+      {
+        "name": "SetActorRepresentationColor",
+        "comment": "Set the color to use for this actors representation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetActorRepresentationType",
+        "comment": "Fetches the representation type to use for this actor",
+        "returnType": "ERepresentationType"
+      },
+      {
+        "name": "GetActorShouldShowInCompass",
+        "comment": "Should this actor ever be shown in the compass",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetActorShouldShowOnMap",
+        "comment": "Should this actor ever be shown on the map",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetActorFogOfWarRevealType",
+        "returnType": "EFogOfWarRevealType"
+      },
+      {
+        "name": "GetActorFogOfWarRevealRadius",
+        "returnType": "float"
+      },
+      {
+        "name": "GetActorCompassViewDistance",
+        "returnType": "ECompassViewDistance"
+      },
+      {
+        "name": "SetActorCompassViewDistance",
+        "returnType": "ECompassViewDistance"
+      }
+    ],
+    "properties": []
+  }
+]

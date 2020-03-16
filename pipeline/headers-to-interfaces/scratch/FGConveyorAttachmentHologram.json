@@ -1,0 +1,101 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGConveyorAttachmentHologram",
+    "category": "UCLASS",
+    "comment": "Hologram for conveyor attachments, such as splitters/mergers.",
+    "extends": [
+      "AFGFactoryHologram"
+    ],
+    "methods": [
+      {
+        "name": "AFGConveyorAttachmentHologram"
+      },
+      {
+        "name": "SetHologramLocationAndRotation",
+        "comment": "Begin AFGHologram Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "TrySnapToActor",
+        "returnType": "bool"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "IsValidHitResult",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetRotationStep",
+        "comment": "Begin AFGHologram interface",
+        "returnType": "int32"
+      },
+      {
+        "name": "ConfigureComponents",
+        "comment": "Begin AFGBuildableHologram Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckValidPlacement",
+        "returnType": "void"
+      },
+      {
+        "name": "GetGuideLinesBaseLocation",
+        "comment": "End AFGBuildableHologram Interface",
+        "returnType": "FVector"
+      },
+      {
+        "name": "SnapToConnection",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mInputConnection1",
+        "comment": "Name of the pass through input connection.",
+        "type": "staticFName"
+      },
+      {
+        "name": "mOutputConnection1",
+        "comment": "Name of the pass through output connection.",
+        "type": "staticFName"
+      },
+      {
+        "name": "mMaxValidTurnOffset",
+        "comment": "Used to limit the placement in turns. What's the maximum offset to check from center to detect the curve.",
+        "type": "float"
+      },
+      {
+        "name": "mMaxValidTurnAngle",
+        "comment": "Used to limit the placement in turns. What's the maximum angle.",
+        "type": "float"
+      },
+      {
+        "name": "mSnappedConveyor",
+        "comment": "The conveyor we snapped to.",
+        "type": "classAFGBuildableConveyorBelt*"
+      },
+      {
+        "name": "mSnappedConection",
+        "comment": "The connection we snapped to.",
+        "type": "classUFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "mConnections",
+        "type": "TArray<classUFGFactoryConnectionComponent*>"
+      },
+      {
+        "name": "mSnappingConnectionIndex",
+        "type": "int8"
+      },
+      {
+        "name": "mSnappedConveyorOffset",
+        "comment": "The offset we snapped on the conveyor.",
+        "type": "float"
+      }
+    ]
+  }
+]

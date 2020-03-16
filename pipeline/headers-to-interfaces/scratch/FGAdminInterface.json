@@ -1,0 +1,152 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGAdminInterface",
+    "category": "UCLASS",
+    "extends": [
+      "AInfo"
+    ],
+    "methods": [
+      {
+        "name": "AFGAdminInterface"
+      },
+      {
+        "name": "IsNetRelevantFor",
+        "comment": "~Begin AActor interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "KickPlayer",
+        "comment": "Kick a player from the game",
+        "returnType": "void"
+      },
+      {
+        "name": "SetSessionVisibility",
+        "comment": "Set the visibility of the session",
+        "returnType": "void"
+      },
+      {
+        "name": "SaveGame",
+        "comment": "Save a game on this or host machine",
+        "returnType": "void"
+      },
+      {
+        "name": "LoadGame",
+        "comment": "Load a game on this or host machine",
+        "returnType": "void"
+      },
+      {
+        "name": "EnumerateSaveGames",
+        "comment": "Returns the list of saves",
+        "returnType": "void"
+      },
+      {
+        "name": "DeleteSaveSession",
+        "comment": "Delete a entire save session and all contaning saves",
+        "returnType": "void"
+      },
+      {
+        "name": "DeleteSaveFiles",
+        "comment": "Delete a list of save files",
+        "returnType": "void"
+      },
+      {
+        "name": "DeleteSaveFile",
+        "comment": "Delete a single save file",
+        "returnType": "void"
+      },
+      {
+        "name": "Internal_EnumerateSaveGames",
+        "comment": "Internal implementation of save enumeration",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_EnumerateSaveGames",
+        "comment": "Server call of save enumeration",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_OnEnumerateSaveGamesCompleted",
+        "comment": "Result call of the save enumeration",
+        "returnType": "void"
+      },
+      {
+        "name": "Internal_DeleteSaveFiles",
+        "comment": "Interal implementation of deleting a save file",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_DeleteSaveFiles",
+        "comment": "Server call of save deletion",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_DeleteSaveFilesCompleted",
+        "comment": "Client call with result of save deletion",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_LoadGame",
+        "comment": "Server call of loading a save",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_OnSaveGameCompleted",
+        "comment": "Client call with result of save game",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_SaveGame",
+        "comment": "Server call of save game",
+        "returnType": "void"
+      },
+      {
+        "name": "Internal_SaveGame",
+        "comment": "Internal implementation of save game",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOwningPlayer",
+        "comment": "Helper to get our owning player",
+        "returnType": "classAFGPlayerControllerBase*"
+      },
+      {
+        "name": "GetOwningLocalPlayer",
+        "comment": "Helper to get our owning player",
+        "returnType": "classUFGLocalPlayer*"
+      },
+      {
+        "name": "GetGameSession",
+        "comment": "Helper to get game session in a cleaner way",
+        "returnType": "classAFGGameSession*"
+      },
+      {
+        "name": "IsOwnerAdmin",
+        "comment": "@SERVER: Return true if our owner is logged in",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "RequestIdCounter",
+        "comment": "Counter to create a id of server/client requests to keep track of results",
+        "type": "staticRequestIdType"
+      },
+      {
+        "name": "mRequestEnumerateSavesDelegate",
+        "comment": "Map to keep track of what call will trigger what result",
+        "type": "TMap<int16,FOnAdminEnumerateSaveGamesComplete>"
+      },
+      {
+        "name": "mRequestDeleteSaveDelegate",
+        "comment": "Map to keep track of what call will trigger what result",
+        "type": "TMap<int16,FOnAdminDeleteSaveGameComplete>"
+      },
+      {
+        "name": "mRequestSaveGameDelegate",
+        "comment": "Map to keep track of what call will trigger what result",
+        "type": "TMap<int16,FOnAdminSaveGameComplete>"
+      }
+    ]
+  }
+]

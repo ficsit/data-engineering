@@ -1,0 +1,684 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGConveyorRemoteCallObject",
+    "category": "UCLASS",
+    "extends": [
+      "UFGRemoteCallObject"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_OnUse",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mForceNetField_UFGConveyorRemoteCallObject",
+        "comment": "Compact representation of mSplineComponent, used for replication and save game",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FConveyorBeltItem",
+    "category": "USTRUCT",
+    "comment": " @see FConveyorBeltItems::NetDeltaSerialize for more comments about the features supported and not.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FConveyorBeltItem"
+      },
+      {
+        "name": "FConveyorBeltItem",
+        "returnType": "explicit"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Item",
+        "comment": "The type of this item.",
+        "type": "FInventoryItem"
+      },
+      {
+        "name": "Offset",
+        "comment": "      Having this replicated always works for now because we never mark an item as dirty after adding it.\n      I.e. we only do one replication per item.",
+        "type": "float"
+      },
+      {
+        "name": "Removed",
+        "type": "bool"
+      },
+      {
+        "name": "AnimateRemove",
+        "comment": "@TODO:[DavalliusA:Tue/11-06-2019] not really used any more? MAke sure that is the case and if so, fix it.",
+        "type": "bool"
+      },
+      {
+        "name": "PredictedRemoveRepVersion",
+        "comment": "When receiving a package building on this state, it will be reset to INDEX_NONE, if it's a non INDEX_NONE value it will on the client be handled like if it's removed.\nMaking things more responsive, and in 99% of the cases a remove should go through without an issue, meaning this should be a very accurate prediction. However, only remove it visually. Let the item movement and so on not take this into account. Let that be in sync with the server.",
+        "type": "FG_ConveyorVersionType"
+      },
+      {
+        "name": "ReplicationID",
+        "type": "FG_ConveyorItemRepKeyType"
+      },
+      {
+        "name": "ReplicationKey",
+        "type": "FG_ConveyorItemRepKeyType"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FConveyorBeltItemsBaseState",
+    "comment": "Custom INetDeltaBaseState used by our custom NetDeltaSerialize. Representing a snapshot of the state, enough to calculate a delta between this state and another.",
+    "extends": [
+      "INetDeltaBaseState"
+    ],
+    "methods": [
+      {
+        "name": "FConveyorBeltItemsBaseState"
+      },
+      {
+        "name": "~FConveyorBeltItemsBaseState"
+      },
+      {
+        "name": "FConveyorBeltItemsBaseState"
+      },
+      {
+        "name": "FConveyorBeltItemsBaseState"
+      },
+      {
+        "name": "operator=",
+        "comment": "virtual ~FConveyorBeltItemsBaseState();",
+        "returnType": "FConveyorBeltItemsBaseState&"
+      },
+      {
+        "name": "operator=",
+        "returnType": "FConveyorBeltItemsBaseState&"
+      },
+      {
+        "name": "IsStateEqual",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "TypeToBitIDMap",
+        "comment": "Trasnaltion of class type to an int id, so we can minimize each send size. Nb elements will be used to find a sed",
+        "type": "TMap<TSubclassOf<classUFGItemDescriptor>,uint8>"
+      },
+      {
+        "name": "lastSentSpacing",
+        "comment": "used to know if we need to send a new spacing or if we can use the default state",
+        "type": "float"
+      },
+      {
+        "name": "ItemList",
+        "comment": "[DavalliusA:Thu/11-04-2019] see if we can move this to a static size, or templateify the size, so we can keep it in one memory chunk for each history entry.",
+        "type": "TArray<ItemHolder>"
+      },
+      {
+        "name": "NewestItemID",
+        "type": "FG_ConveyorItemRepKeyType"
+      },
+      {
+        "name": "NextToMoveOutItemID",
+        "comment": "oldest item. If the conveyor is empty, this value will be NewestItemID+1",
+        "type": "FG_ConveyorItemRepKeyType"
+      },
+      {
+        "name": "PresistentClientInfoPtr",
+        "comment": "created on the first delta and then kept alive through all.",
+        "type": "PresistentClientInfo*"
+      },
+      {
+        "name": "PackageCreationID",
+        "comment": "used to compare with the persistent client data to know how many packages that have been created since this one so we can detect issues/when clients are likely to run out of their delt alog and need a reset.",
+        "type": "uint32"
+      },
+      {
+        "name": "ArrayReplicationKey",
+        "comment": "The replication key from the array this state was created for.",
+        "type": "FG_ConveyorVersionType"
+      },
+      {
+        "name": "ArrayReplicationKeyLoopCounter",
+        "type": "uint8"
+      },
+      {
+        "name": "ObjectDebugPtr",
+        "type": "structFConveyorBeltItems*"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UPresistentConveyorPackagingData",
+    "category": "UCLASS",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "~UPresistentConveyorPackagingData"
+      }
+    ],
+    "properties": [
+      {
+        "name": "ClientPresistentDataPointers",
+        "comment": "@TODO:[DavalliusA:Wed/03-07-2019] we need pointers, or we can't guarantee the data stays in place when the arraygrows",
+        "type": "TMap<void*,FConveyorBeltItemsBaseState::PresistentClientInfo*>"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FConveyorBeltItems",
+    "category": "USTRUCT",
+    "comment": "  - Item changes (initial replication only) there is a todo in the source file on how this can be added if needed.\n  - Mapping of object references (objects that are replicated that is). Look at fast TArray replication on how to implement this if needed.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FConveyorBeltItems"
+      },
+      {
+        "name": "Num",
+        "returnType": "int16"
+      },
+      {
+        "name": "IsValidIndex",
+        "returnType": "bool"
+      },
+      {
+        "name": "Add",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadResetAllItemIDs",
+        "comment": "Enforce a good number sequence of items and set counter values to be in sync. Should only be used post load, before network serialization.",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveItemFromListAt",
+        "returnType": "void"
+      },
+      {
+        "name": "IsRemovedAt",
+        "returnType": "bool"
+      },
+      {
+        "name": "FlagForRemoveAt",
+        "returnType": "void"
+      },
+      {
+        "name": "operator[]",
+        "returnType": "FConveyorBeltItem&"
+      },
+      {
+        "name": "operator[]",
+        "returnType": "FConveyorBeltItem&"
+      },
+      {
+        "name": "GetIndexForItemByRepKey",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetRepKey",
+        "returnType": "FG_ConveyorVersionType"
+      },
+      {
+        "name": "GetRepKeyRecived",
+        "returnType": "FG_ConveyorVersionType"
+      },
+      {
+        "name": "NetDeltaSerialize",
+        "comment": "Custom delta serialization.",
+        "returnType": "bool"
+      },
+      {
+        "name": "MarkArrayDirty",
+        "comment": "Mark the array dirty.",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateLastestIDFromState",
+        "returnType": "void"
+      },
+      {
+        "name": "operator<<",
+        "comment": "Custom serialization of all items.",
+        "returnType": "FArchive&"
+      },
+      {
+        "name": "SetOwner",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCombinedDirtyKey",
+        "returnType": "int16"
+      },
+      {
+        "name": "ConsumeAndUpdateConveyorOffsetDept",
+        "returnType": "float"
+      },
+      {
+        "name": "GetHistoryVersion",
+        "returnType": "ItemHolderHistory*"
+      },
+      {
+        "name": "AddAndGetHistoryVersion",
+        "returnType": "ItemHolderHistory*"
+      },
+      {
+        "name": "AnimRemoveList",
+        "returnType": "TArray<FConveyorBeltItem>&"
+      },
+      {
+        "name": "IsDesynced",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDesyncedNotifyTimer",
+        "returnType": "float&"
+      },
+      {
+        "name": "MarkItemDirty",
+        "comment": "Mark a single item dirty.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "NUM_HISTORY_VERSION",
+        "comment": "[DavalliusA:Thu/16-05-2019] should be enough to get about 2 sec back with 3 other clients connected and we were to send at max speed for each client separately 3*3*2",
+        "type": "staticconstuint8"
+      },
+      {
+        "name": "ConveyorLength",
+        "comment": "[DavalliusA:Fri/26-04-2019] only used for improving appearance on belts that have gotten completely de-synced from the delta",
+        "type": "float"
+      },
+      {
+        "name": "DebugID",
+        "type": "int16"
+      },
+      {
+        "name": "IDCounter",
+        "comment": "Counter for assigning new replication IDs.\n@TODO:[DavalliusA:Tue/11-06-2019] Seems to not be used. Check and remove.",
+        "type": "int16"
+      },
+      {
+        "name": "PresistentPackDataPtr",
+        "type": "UPresistentConveyorPackagingData*"
+      },
+      {
+        "name": "TypeToBitIDMap",
+        "type": "TMap<TSubclassOf<classUFGItemDescriptor>,uint8>"
+      },
+      {
+        "name": "VersionHistoryStateList",
+        "type": "ItemHolderHistory*"
+      },
+      {
+        "name": "VersionHistoryStateListWriteHead",
+        "type": "int8"
+      },
+      {
+        "name": "Items",
+        "comment": "0 = first added item (item to be removed/move out next), max/end/n = newest item/item added most recently.",
+        "type": "TArray<FConveyorBeltItem>"
+      },
+      {
+        "name": "AnimRemoveItems",
+        "comment": "holding items we should no longer include in logics, and are just removing animation wise",
+        "type": "TArray<FConveyorBeltItem>"
+      },
+      {
+        "name": "NewestItemID",
+        "type": "FG_ConveyorItemRepKeyType"
+      },
+      {
+        "name": "DeltaLog",
+        "type": "DeltaLogStruct"
+      },
+      {
+        "name": "ArrayReplicationKey",
+        "comment": "Like a dirty flag.",
+        "type": "FG_ConveyorVersionType"
+      },
+      {
+        "name": "ArrayReplicationKeyLastSerialized",
+        "comment": "[DavalliusA:Wed/17-04-2019] we might not be able to use the regular one, as client simulation might accidentally call make dirty and increase our version then",
+        "type": "FG_ConveyorVersionType"
+      },
+      {
+        "name": "BaseReplicationKey",
+        "type": "FG_ConveyorVersionType"
+      },
+      {
+        "name": "lastRecivedSpacing",
+        "comment": "we should not need to store this in the delta history, as a new spacing should be sent if any of them are irregular enough to need a new spacing.",
+        "type": "float"
+      },
+      {
+        "name": "ConveyorOffsetDept",
+        "comment": "used to adjust for removes and adds that were received with bad timing",
+        "type": "float"
+      },
+      {
+        "name": "DeltaSinceLastNetUpdate",
+        "comment": "@TODO:[DavalliusA:Tue/11-06-2019] store a time in the delta log, so we can know the time since for the individual deltas? This can get arbitary quickly...",
+        "type": "float"
+      },
+      {
+        "name": "DescynNotifyTimer",
+        "type": "float"
+      },
+      {
+        "name": "ArrayReplicationKeyLoopCounter",
+        "type": "uint8"
+      },
+      {
+        "name": "NumPotentialDriftingSends",
+        "type": "uint8"
+      },
+      {
+        "name": "bIsDesynced",
+        "type": "bool"
+      },
+      {
+        "name": "bIsInResetState",
+        "comment": "this means we we've gotten a reset signal from the server and will treat all history events till the next real event differently.",
+        "type": "bool"
+      },
+      {
+        "name": "Owner",
+        "type": "classAFGBuildableConveyorBase*"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "TStructOpsTypeTraits",
+    "comment": "Enable custom net delta serialization for the above struct.",
+    "extends": [
+      "TStructOpsTypeTraitsBase2"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildableConveyorBase",
+    "category": "UCLASS",
+    "comment": "Shared base for conveyor belts and lifts.\nResponsible for common logic such as the factory ticking, replication, interactions etc.",
+    "extends": [
+      "AFGBuildable",
+      "IFGSignificanceInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableConveyorBase"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Serialize",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_Tick",
+        "comment": "Begin AFGBuildableFactory interface",
+        "returnType": "void"
+      },
+      {
+        "name": "MaxNumGrab",
+        "returnType": "uint8"
+      },
+      {
+        "name": "EstimatedMaxNumGrab_Threadsafe",
+        "returnType": "uint8"
+      },
+      {
+        "name": "GainedSignificance_Implementation",
+        "comment": "Begin IFGSignificanceInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GainedSignificance_Native",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Native",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupForSignificance",
+        "returnType": "void"
+      },
+      {
+        "name": "GetIsSignificant",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetLength",
+        "comment": "End IFGSignificanceInterface",
+        "returnType": "float"
+      },
+      {
+        "name": "GetSpeed",
+        "returnType": "float"
+      },
+      {
+        "name": "GetConnection0",
+        "comment": "@return The connection, safe to assume its always valid.",
+        "returnType": "classUFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "GetConnection1",
+        "returnType": "classUFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "FindOffsetClosestToLocation",
+        "comment": "Map a world location to an offset along the conveyor.",
+        "returnType": "float"
+      },
+      {
+        "name": "PURE_VIRTUAL"
+      },
+      {
+        "name": "GetLocationAndDirectionAtOffset",
+        "comment": "Get the location and direction of the conveyor at the given offset.",
+        "returnType": "void"
+      },
+      {
+        "name": "PURE_VIRTUAL"
+      },
+      {
+        "name": "PreReplication",
+        "returnType": "void"
+      },
+      {
+        "name": "SetConveyorBucketID",
+        "returnType": "void"
+      },
+      {
+        "name": "GetConveyorBucketID",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetAvailableSpace",
+        "comment": "Returns how much room there currently is on the belt. If the belt is empty it will return the length of the belt",
+        "returnType": "float"
+      },
+      {
+        "name": "GetCachedAvailableSpace_Threadsafe",
+        "comment": "Returns how much room there was on the belt after the last factory tick. If the belt is empty it will return the length of the belt",
+        "returnType": "float"
+      },
+      {
+        "name": "Factory_PeekOutput_Implementation",
+        "comment": "Begin Factory_ interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_GrabOutput_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDismantleInventoryReturns",
+        "comment": "Begin AFGBuildable interface",
+        "returnType": "void"
+      },
+      {
+        "name": "MarkItemTransformsDirty",
+        "comment": "End AFGBuildable interface",
+        "returnType": "void"
+      },
+      {
+        "name": "TickItemTransforms",
+        "comment": "Called when the visuals, radiation etc need to be updated.",
+        "returnType": "void"
+      },
+      {
+        "name": "PURE_VIRTUAL"
+      },
+      {
+        "name": "FindItemClosestToLocation",
+        "comment": "@todonow These can possibly be moved to private once Belt::OnUse has been moved to base.\nFind the item closest to the given location.",
+        "returnType": "int32"
+      },
+      {
+        "name": "Factory_HasItemAt",
+        "comment": "Checks if there is an item at index.",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_PeekItemAt",
+        "comment": "Lets you know what type of item is on a specific index.",
+        "returnType": "FConveyorBeltItem&"
+      },
+      {
+        "name": "Factory_RemoveItemAt",
+        "comment": "Remove an item from the belt at index.",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_DequeueItem",
+        "comment": "Take the first element on the belt.",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_EnqueueItem",
+        "comment": "Put a new item onto the belt.",
+        "returnType": "void"
+      },
+      {
+        "name": "HasRoomOnBelt",
+        "comment": "\n @return true if there is enough room for an item of size itemSize",
+        "returnType": "bool"
+      },
+      {
+        "name": "HasRoomOnBelt_ThreadSafe",
+        "comment": "\n\t@return true if there is enough room for an item of size itemSize",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "DEFAULT_CONVEYOR_HEIGHT",
+        "comment": "Default height above ground for conveyors.",
+        "type": "staticconstexprfloat"
+      },
+      {
+        "name": "ITEM_SPACING",
+        "comment": "Spacing between each conveyor item, from origo to origo.",
+        "type": "staticconstexprfloat"
+      },
+      {
+        "name": "PresistentConveyorPackagingDataObject",
+        "comment": "held here, but created by conveyors when replicated, as we don't want to create it unless it's used.",
+        "type": "UPresistentConveyorPackagingData*"
+      },
+      {
+        "name": "mSpeed",
+        "comment": "Speed of this conveyor.",
+        "type": "float"
+      },
+      {
+        "name": "mLength",
+        "comment": "Length of the conveyor.",
+        "type": "float"
+      },
+      {
+        "name": "mItems",
+        "comment": "All the locally simulated resource offsets on the conveyor belt.",
+        "type": "FConveyorBeltItems"
+      },
+      {
+        "name": "mConnection0",
+        "comment": "First connection on conveyor belt, Connections are always in the same order, mConnection0 is the input, mConnection1 is the output.",
+        "type": "classUFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "mConnection1",
+        "comment": "Second connection on conveyor belt",
+        "type": "classUFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "mCachedAvailableBeltSpace",
+        "comment": "Stores how much space is available on this belt after its tick runs (thread safe way to access how much space there is to enqueue new items)",
+        "type": "float"
+      },
+      {
+        "name": "mLastItemsDirtyKey",
+        "type": "int16"
+      },
+      {
+        "name": "mPendingUpdateItemTransforms",
+        "type": "bool"
+      },
+      {
+        "name": "mIsSignificant",
+        "comment": "Indicates if the factory is within significance distance",
+        "type": "bool"
+      },
+      {
+        "name": "mConveyorBucketID",
+        "comment": "The id for the conveyor bucket this conveyor belongs to",
+        "type": "int32"
+      }
+    ]
+  }
+]

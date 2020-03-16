@@ -1,0 +1,79 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGConsoleCommandManager",
+    "category": "UCLASS",
+    "comment": "Console commands that are non-cheats that can be exposed to the players.",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "GetWorld",
+        "comment": "Use the Outer Player Controller to get a World.",
+        "returnType": "UWorld*"
+      },
+      {
+        "name": "MaterialFlowAnalysis",
+        "comment": "Perform a MFA analysis. Output is shown in the log.",
+        "returnType": "void"
+      },
+      {
+        "name": "MaterialLookup",
+        "comment": "Perform a Material Lookup. Output is shown in the log.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetSessionName",
+        "comment": "Rename the name of this save session, added for older saves that got their name nulled out.",
+        "returnType": "void"
+      },
+      {
+        "name": "SaveWithNewSessionName",
+        "comment": "Save to a new save with a new session name.",
+        "returnType": "void"
+      },
+      {
+        "name": "TrackAllAkStats",
+        "comment": "Dumps all known ak stats to the log.",
+        "returnType": "void"
+      },
+      {
+        "name": "TrackAkComponents",
+        "comment": "Dumps the top playing components to log, grouped either by class or actor playing.",
+        "returnType": "void"
+      },
+      {
+        "name": "TrackAkMemoryPools",
+        "comment": "Dumps the stats for wwise memory pools to the log.",
+        "returnType": "void"
+      },
+      {
+        "name": "TrackAkComponentsWithNoPositionOrOwner",
+        "comment": "Dumps all ak components with no position (0,0,0) or owner to the log.",
+        "returnType": "void"
+      },
+      {
+        "name": "FixupBuiltByRecipeInOldSave",
+        "comment": "By default this only looks at buildings where the recipe is missing, optionally it can look for a better match and reapply that.\nA summary of the buildings fixed up is outputted to the log.",
+        "returnType": "void"
+      },
+      {
+        "name": "DumpFactoryStatsToLog",
+        "comment": "Dump some stats about the factory to the log such as number of buildings and kilometers of railway built.",
+        "returnType": "void"
+      },
+      {
+        "name": "CopyPlayerCoordinates",
+        "comment": "Copy the player coordinates to cliboard",
+        "returnType": "void"
+      },
+      {
+        "name": "DumpPlayerCoordinates",
+        "comment": "Dumps the player coordinates to log, potentially with a label and copy to clipboard",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

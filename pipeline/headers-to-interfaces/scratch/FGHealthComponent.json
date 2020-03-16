@@ -1,0 +1,213 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGHealthComponent",
+    "category": "UCLASS",
+    "extends": [
+      "UActorComponent",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "BeginPlay",
+        "comment": "Override to be able to set some properties on match start",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoad",
+        "returnType": "void"
+      },
+      {
+        "name": "PostEditChangeProperty",
+        "comment": "~ Begin UObject Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "TakeDamage",
+        "comment": "@param DamageCauser\t\tThe Actor that directly caused the damage (e.g. the projectile that exploded, the rock that landed on you)\n@return\t\t\t\t\tThe amount of damage actually applied.",
+        "returnType": "void"
+      },
+      {
+        "name": "TakePointDamage",
+        "returnType": "void"
+      },
+      {
+        "name": "TakeRadialDamage",
+        "returnType": "void"
+      },
+      {
+        "name": "SetMaxHealth",
+        "comment": "Sets a new max health",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCurrentHealth",
+        "comment": "Gets our current health",
+        "returnType": "float"
+      },
+      {
+        "name": "GetMaxHealth",
+        "comment": "Gets our current health",
+        "returnType": "float"
+      },
+      {
+        "name": "Client_TakeDamage",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_TakePointDamage",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_TakeRadialDamage",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_Died",
+        "returnType": "void"
+      },
+      {
+        "name": "Client_Heal",
+        "returnType": "void"
+      },
+      {
+        "name": "Heal",
+        "returnType": "void"
+      },
+      {
+        "name": "ResetHealth",
+        "returnType": "void"
+      },
+      {
+        "name": "ResetHealthFromDeath",
+        "returnType": "void"
+      },
+      {
+        "name": "ReviveResetHealth",
+        "returnType": "void"
+      },
+      {
+        "name": "Kill",
+        "comment": "Instantly kill, bypass AdjustDamage event. Will trigger DeathDelegate",
+        "returnType": "void"
+      },
+      {
+        "name": "IsDead",
+        "comment": "@return true if our owner is dead",
+        "returnType": "bool"
+      },
+      {
+        "name": "AddAdjustDamageListener",
+        "comment": "The return value of the listener will be the adjusted damage and is passed on to the next listener that\nget the call",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveAdjustDamageListener",
+        "comment": "Remove a listener of damage",
+        "returnType": "void"
+      },
+      {
+        "name": "SetReplicateDamageEvents",
+        "comment": "Setter for this var",
+        "returnType": "void"
+      },
+      {
+        "name": "SetReplicateDeathEvents",
+        "comment": "Setter for this var",
+        "returnType": "void"
+      },
+      {
+        "name": "Died",
+        "comment": "\n @param forceNotifies Forces our notifies to be sent anyway",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "OnTakeAnyDamageDelegate",
+        "type": "FTakeAnyDamageDelegate"
+      },
+      {
+        "name": "OnTakePointDamageDelegate",
+        "type": "FTakePointDamageSignature"
+      },
+      {
+        "name": "OnTakeRadialDamageDelegate",
+        "type": "FTakeRadialDamageSignature"
+      },
+      {
+        "name": "DeathDelegate",
+        "comment": "SERVER ONLY: Called when we die",
+        "type": "FDeathDelegate"
+      },
+      {
+        "name": "HealDelegate",
+        "type": "FHealDelegate"
+      },
+      {
+        "name": "mOnAdjustDamage",
+        "comment": "Interested listeners for the adjust damage delegates",
+        "type": "TArray<FAdjustDamageDelegate>"
+      },
+      {
+        "name": "mMaxHealth",
+        "comment": "Our maximum health",
+        "type": "float"
+      },
+      {
+        "name": "mCurrentHealth",
+        "comment": "Our current health",
+        "type": "float"
+      },
+      {
+        "name": "mRespawnHealthFactor",
+        "comment": "Scale of max health to use when respawning",
+        "type": "float"
+      },
+      {
+        "name": "mIsDead",
+        "comment": "If true, then we are dead. This is replicated to clients and they get the death event based on this.",
+        "type": "uint8"
+      },
+      {
+        "name": "mReplicateDamageEvents",
+        "comment": "If true, then the client will trigger the following events: OnTakeAnyDamageDelegate, OnTakePointDamageDelegate, OnTakeRadialDamageDelegate",
+        "type": "uint8"
+      },
+      {
+        "name": "mReplicateDeathEvents",
+        "comment": "If true, then the client will trigger the following event: DeathDelegate",
+        "type": "uint8"
+      }
+    ]
+  }
+]

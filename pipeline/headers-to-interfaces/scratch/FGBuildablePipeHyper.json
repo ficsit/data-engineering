@@ -1,0 +1,32 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildablePipeHyper",
+    "category": "UCLASS",
+    "comment": "Pipeline for transferring liquid and gases to factory buildings.",
+    "extends": [
+      "AFGBuildablePipeBase",
+      "IFGPipeHyperInterface"
+    ],
+    "methods": [
+      {
+        "name": "GetPipeProgressOfConnection_Implementation",
+        "comment": "Begin FGHyperTube Interface",
+        "returnType": "float"
+      },
+      {
+        "name": "OnPipeMove_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GetEndOfPipeInDirectionAndMaxDist",
+        "returnType": "UFGPipeConnectionComponentBase*"
+      },
+      {
+        "name": "OnPipeEnter_Implementation",
+        "returnType": "bool"
+      }
+    ],
+    "properties": []
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "kind": "class",
+    "name": "FConveyorSpaceData",
+    "category": "USTRUCT",
+    "comment": "Copyright 2017 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FConveyorSpaceData"
+      },
+      {
+        "name": "FConveyorSpaceData"
+      }
+    ],
+    "properties": [
+      {
+        "name": "AvailableSpace",
+        "comment": "The last cached available space on the belt",
+        "type": "float"
+      },
+      {
+        "name": "HasNewItem",
+        "comment": "if the conveyor has a new item on it.",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildableAttachmentSplitter",
+    "category": "UCLASS",
+    "extends": [
+      "AFGBuildableConveyorAttachment"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableAttachmentSplitter",
+        "comment": "Ctor"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Upgrade_Implementation",
+        "comment": "Begin AFGBuildable interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDismantleRefund_Implementation",
+        "comment": "~ Begin IFGDismantleInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_Tick",
+        "comment": "Begin Factory_ interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_GrabOutput_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "FillDistributionTable",
+        "comment": "Populate the elements of the distribution table. The algorithm vaires between normal splitters and smart splitters.\nThe goal is to get all possible items assigned to an output while maintaining throughput and evenly splitting items between belts",
+        "returnType": "void"
+      },
+      {
+        "name": "EstimatedMaxNumGrabFromConveyor",
+        "comment": "Returns an estimate of how many items the conveyor connected to the given component can grab. If no conveyor is connected it returns 0",
+        "returnType": "uint8"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mCurrentOutputIndex",
+        "comment": "Cycles through the outputs, stores the output we want to put mItem on. Index is for the mOutputs array.",
+        "type": "int32"
+      },
+      {
+        "name": "mCurrentInventoryIndex",
+        "type": "int32"
+      },
+      {
+        "name": "mDistributionTable",
+        "comment": "Table of all items in the inventory mapped to a desired output. The array is filled from a call to FillDistributionTable which runs in factory tick",
+        "type": "TArray<FConnectionItemStruct>"
+      },
+      {
+        "name": "mConveyorSpaceData",
+        "comment": "Store last cached available space and if an item have been grabbed by the connected components",
+        "type": "TMap<UFGFactoryConnectionComponent*,FConveyorSpaceData>"
+      }
+    ]
+  }
+]

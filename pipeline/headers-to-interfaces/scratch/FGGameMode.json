@@ -1,0 +1,297 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGGameMode",
+    "category": "UCLASS",
+    "extends": [
+      "AGameMode",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGGameMode"
+      },
+      {
+        "name": "Serialize",
+        "comment": "Begin UObject interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "FinishRestartPlayer",
+        "comment": "Begin AFGGameModeBase interface",
+        "returnType": "void"
+      },
+      {
+        "name": "InitGame",
+        "returnType": "void"
+      },
+      {
+        "name": "SpawnDefaultPawnAtTransform_Implementation",
+        "returnType": "APawn*"
+      },
+      {
+        "name": "InitGameState",
+        "returnType": "void"
+      },
+      {
+        "name": "AllowCheats",
+        "returnType": "bool"
+      },
+      {
+        "name": "ChoosePlayerStart_Implementation",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "RestartPlayer",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLogin",
+        "returnType": "void"
+      },
+      {
+        "name": "Logout",
+        "returnType": "void"
+      },
+      {
+        "name": "PostActorsInitialized",
+        "comment": "All actors initialized, notify the save system",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCurrentOptions",
+        "comment": "Get the current options we started the map with",
+        "returnType": "FString&"
+      },
+      {
+        "name": "GenerateNextAutosaveId",
+        "comment": "Generate the next autosave id",
+        "returnType": "uint8"
+      },
+      {
+        "name": "GetSaveSessionName",
+        "comment": "Get the session id of our current session",
+        "returnType": "SessionNameType"
+      },
+      {
+        "name": "SetSaveSessionName",
+        "comment": "Set the session id of our current session",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSaveSession",
+        "comment": "Get the save system",
+        "returnType": "classUFGSaveSession*"
+      },
+      {
+        "name": "GetDayLength",
+        "comment": "Get the length of the day parsed from the game options",
+        "returnType": "float"
+      },
+      {
+        "name": "GetNightLength",
+        "comment": "Get the length of the night parsed from the game options",
+        "returnType": "float"
+      },
+      {
+        "name": "IsMainMenuGameMode",
+        "comment": "Does this Game Mode function specifically as the main menu?",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSetupSave",
+        "comment": "Returns true if we should setup save for this gamemode",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetDefaultPlayerCapsuleSize",
+        "comment": "@param out_capsuleRadius - half height capsule\n@return false if there is no default player class",
+        "returnType": "bool"
+      },
+      {
+        "name": "Debug_SetStartingPoint",
+        "comment": "Debugging stuffs",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterRemoteCallObjectClass",
+        "returnType": "bool"
+      },
+      {
+        "name": "RegisterCallObjectOnAllCurrentPlayers",
+        "returnType": "void"
+      },
+      {
+        "name": "RebootSession",
+        "comment": "Saves the game, and then restarts from the load",
+        "returnType": "void"
+      },
+      {
+        "name": "SetServerRestartWorldTime",
+        "comment": "Set the desired world time we want to restart the server",
+        "returnType": "void"
+      },
+      {
+        "name": "TriggerWorldSave",
+        "comment": "Trigger a save to save the world",
+        "returnType": "void"
+      },
+      {
+        "name": "TriggerBundledWorldSave",
+        "comment": "Trigger a save to save the world",
+        "returnType": "void"
+      },
+      {
+        "name": "IsValidPawnToReclaim",
+        "comment": "If return true, then this is a pawn that we can take control of during spawning, else it's not valid\nfor some reason (dead maybe)",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetRestartSessionSaveName",
+        "comment": "Get the name of the save that we want to create when rebooting the session due to long server uptimes",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildRestartSessionURL",
+        "comment": "Build the URL for restarting the session",
+        "returnType": "void"
+      },
+      {
+        "name": "CachePlayerStarts",
+        "comment": "Caches the player starts by PlayerStartTag as the key.\n@return Play from here player start, if found; otherwise nullptr.",
+        "returnType": "classAPlayerStart*"
+      },
+      {
+        "name": "PartitionPlayerStartsByOccupancy",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "StartLocationOption",
+        "comment": "Name of the start location option that is parsed",
+        "type": "staticconstTCHAR*"
+      },
+      {
+        "name": "LoadGameOption",
+        "comment": "Name of the load game option that is parsed",
+        "type": "staticconstTCHAR*"
+      },
+      {
+        "name": "mSaveSession",
+        "type": "classUFGSaveSession*"
+      },
+      {
+        "name": "mLoadData"
+      },
+      {
+        "name": "mFromLoadGame",
+        "comment": "If true, then this game should be started from a load game",
+        "type": "bool"
+      },
+      {
+        "name": "mOptions",
+        "comment": "Options this game was started with",
+        "type": "FString"
+      },
+      {
+        "name": "mLastAutosaveId",
+        "comment": "Last autosave was this id",
+        "type": "uint8"
+      },
+      {
+        "name": "mSessionId_DEPRECATED",
+        "comment": "The save session (should actually be SaveSessionId",
+        "type": "int32"
+      },
+      {
+        "name": "mSessionIDString_DEPRECATED",
+        "comment": "The name of the session we are playing, migrated over to mSaveSessionName",
+        "type": "FString"
+      },
+      {
+        "name": "mSaveSessionName",
+        "comment": "The name of the session we are playing",
+        "type": "FString"
+      },
+      {
+        "name": "mDayLength",
+        "comment": "In minutes, how long is the daytime",
+        "type": "float"
+      },
+      {
+        "name": "mNightLength",
+        "comment": "In minutes, how long is the nighttime",
+        "type": "float"
+      },
+      {
+        "name": "mStartingPointTagName",
+        "comment": "Selected starting point",
+        "type": "FName"
+      },
+      {
+        "name": "mDebugStartingPointTagName",
+        "comment": "Overriding selected starting point when respawning.",
+        "type": "FName"
+      },
+      {
+        "name": "mDefaultRemoteCallObjectsClassNames",
+        "comment": "Config property to reference remote call objects for player controllers",
+        "type": "TArray<FSoftClassPath>"
+      },
+      {
+        "name": "mRemoteCallObjectsClassNames",
+        "comment": "These are the default Remote Call Objects for this PlayerController",
+        "type": "TArray<TSubclassOf<UFGRemoteCallObject>>"
+      },
+      {
+        "name": "mServerRestartTimeHours",
+        "comment": "After how many hours should the server restart itself",
+        "type": "float"
+      },
+      {
+        "name": "mServerRestartHandle",
+        "comment": "Handle to server restart timer",
+        "type": "FTimerHandle"
+      },
+      {
+        "name": "mSkipTutorialInPIE",
+        "comment": "Skips the tutorial step if we play in PIE",
+        "type": "bool"
+      },
+      {
+        "name": "mIsMainMenu",
+        "type": "bool"
+      }
+    ]
+  }
+]

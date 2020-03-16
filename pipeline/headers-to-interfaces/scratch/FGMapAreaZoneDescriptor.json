@@ -1,0 +1,24 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGMapAreaZoneDescriptor",
+    "category": "UCLASS",
+    "comment": "Used by different zones so that different zones can have different audio",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "GetZoneType",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mZoneType",
+        "comment": "Descriptive name of the zone type, this will be sent to music so that it can depend on it",
+        "type": "FString"
+      }
+    ]
+  }
+]

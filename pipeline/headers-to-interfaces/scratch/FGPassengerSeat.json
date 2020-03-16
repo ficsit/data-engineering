@@ -1,0 +1,42 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGPassengerSeat",
+    "category": "UCLASS",
+    "comment": "Passenger seat used in FGVehicle",
+    "extends": [
+      "AFGDriveablePawn"
+    ],
+    "methods": [
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "AFGPassengerSeat"
+      },
+      {
+        "name": "Tick",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetOuterVehicle",
+        "comment": "Gets the actual vehicle this passenger seat belongs to",
+        "returnType": "classAFGVehicle*"
+      },
+      {
+        "name": "UpdateCamera",
+        "comment": "Called every frame when we have a local driver in the vehicle",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOuterVehicle",
+        "comment": "Instance of the vehicle this passenger seat belongs to",
+        "type": "classAFGVehicle*"
+      }
+    ]
+  }
+]

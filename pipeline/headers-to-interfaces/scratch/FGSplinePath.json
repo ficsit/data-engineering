@@ -1,0 +1,33 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGSplinePath",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AActor"
+    ],
+    "methods": [
+      {
+        "name": "AFGSplinePath",
+        "comment": "Sets default values for this actor's properties"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Called when the game starts or when spawned",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "comment": "Called every frame",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSpline",
+        "type": "classUSplineComponent*"
+      }
+    ]
+  }
+]

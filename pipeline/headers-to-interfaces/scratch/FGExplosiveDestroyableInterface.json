@@ -1,0 +1,32 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGExplosiveDestroyableInterface",
+    "category": "UINTERFACE",
+    "comment": "Copyright 2016-2019 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UInterface"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "IFGExplosiveDestroyableInterface",
+    "comment": "Interface for retrieving destruction effects from Actors destroyed by explosives",
+    "extends": [],
+    "methods": [
+      {
+        "name": "GetDestroyEffect",
+        "comment": "Particle System to be played when destroyed",
+        "returnType": "classUParticleSystem*"
+      },
+      {
+        "name": "NotifyExploded",
+        "comment": "Blueprint event for modifying BP objects when they are exploded",
+        "returnType": "bool"
+      }
+    ],
+    "properties": []
+  }
+]

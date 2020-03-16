@@ -1,0 +1,13 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGBuildSubCategory",
+    "category": "UCLASS",
+    "comment": "Copyright 2017 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UFGBuildCategory"
+    ],
+    "methods": [],
+    "properties": []
+  }
+]

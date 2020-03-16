@@ -1,0 +1,55 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGMenuBase",
+    "category": "UCLASS",
+    "extends": [
+      "UUserWidget"
+    ],
+    "methods": [
+      {
+        "name": "UFGMenuBase"
+      },
+      {
+        "name": "ReleaseSlateResources",
+        "returnType": "void"
+      },
+      {
+        "name": "MenuEnter",
+        "returnType": "void"
+      },
+      {
+        "name": "MenuExit",
+        "returnType": "void"
+      },
+      {
+        "name": "NativeConstruct",
+        "comment": "Cache our parent switcher",
+        "returnType": "void"
+      },
+      {
+        "name": "OnMenuEnter",
+        "returnType": "void"
+      },
+      {
+        "name": "OnMenuExit",
+        "returnType": "void"
+      },
+      {
+        "name": "OnMenuEnterDone",
+        "returnType": "void"
+      },
+      {
+        "name": "OnMenuExitDone",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mCachedOwner",
+        "comment": "Cached switcher owning this widget",
+        "type": "classUFGWidgetSwitcher*"
+      }
+    ]
+  }
+]

@@ -1,0 +1,111 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableRailroadStation",
+    "category": "UCLASS",
+    "comment": "Base class for rail road stations. Not to be confused railroad docking stations.",
+    "extends": [
+      "AFGBuildableTrainPlatform"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableRailroadStation"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin Actor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Destroyed",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "comment": "Begin save interface",
+        "returnType": "void"
+      },
+      {
+        "name": "CanDismantle_Implementation",
+        "comment": "Begin IFGDismantlableInterface",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetStationIdentifier",
+        "comment": "Get the station identifier for this station. Shared between server, client and used in time tables.",
+        "returnType": "classAFGTrainStationIdentifier*"
+      },
+      {
+        "name": "OnNameChanged",
+        "comment": "Called when the name of the station has changed.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetStationOutputConnection",
+        "comment": "Returns the component specified as an output (pointing away from the station to its children)",
+        "returnType": "classUFGTrainPlatformConnection*"
+      },
+      {
+        "name": "CanDock",
+        "comment": "@return true if the given locomotive is valid for docking.",
+        "returnType": "bool"
+      },
+      {
+        "name": "StartDocking",
+        "comment": "\n @return true if we docked; false if we did not, e.g. no freight cars to dock.",
+        "returnType": "bool"
+      },
+      {
+        "name": "NotifyPlatformDockingComplete",
+        "comment": "Called by other platforms after a docking procedure to notify of their status",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDockedVehicleOffset",
+        "comment": "Called by relevant docked platforms to get offset to use for position the arm claw",
+        "returnType": "float"
+      },
+      {
+        "name": "SetupRailroadTrack",
+        "comment": "Begin AFGBuildableTrainPlatform",
+        "returnType": "void"
+      },
+      {
+        "name": "DockVehiclesToPlatforms",
+        "comment": "Tries to dock each vehicle in the train to a platform",
+        "returnType": "bool"
+      },
+      {
+        "name": "FinishDockingSequence",
+        "comment": "Called when a docking sequence is complete to undock the locomotive and finalize the dock",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mStationIdentifier",
+        "comment": "@todotrains private\nLight weight representation about this station, the railroad subsystem is responsible for this.",
+        "type": "classAFGTrainStationIdentifier*"
+      },
+      {
+        "name": "mDockedPlatformList",
+        "comment": "When docked, this station will fill this array with every potential platform in its tail. 1 for each train segment",
+        "type": "TArray<classAFGBuildableTrainPlatform*>"
+      },
+      {
+        "name": "mDockingLocomotive",
+        "comment": "Reference to the docked locomotive.",
+        "type": "classAFGLocomotive*"
+      },
+      {
+        "name": "mDockedPositionOffset",
+        "comment": "Stores the distance from the perfect center of the platform that a docked loco has stopped. Used to position the claw arm when loading/unloading.",
+        "type": "float"
+      }
+    ]
+  }
+]

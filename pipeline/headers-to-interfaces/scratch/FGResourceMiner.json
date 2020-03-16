@@ -1,0 +1,94 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGResourceMiner",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGEquipment"
+    ],
+    "methods": [
+      {
+        "name": "AFGResourceMiner"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "UnEquip",
+        "returnType": "void"
+      },
+      {
+        "name": "ShouldSaveState",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetResourceNode",
+        "comment": "Sets the node we are mining",
+        "returnType": "void"
+      },
+      {
+        "name": "GetResourceNode",
+        "comment": "Gets the saved resource node",
+        "returnType": "classAFGResourceNode*"
+      },
+      {
+        "name": "DoMine",
+        "comment": "This is where we do the actual mining ( claim resource etc )",
+        "returnType": "void"
+      },
+      {
+        "name": "StartMining",
+        "comment": "Called when we start mining",
+        "returnType": "void"
+      },
+      {
+        "name": "StopMining",
+        "comment": "Called when we stop mining",
+        "returnType": "void"
+      },
+      {
+        "name": "ExtractResources",
+        "comment": "Starts the actual extraction of resources from the node",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveEquipment",
+        "comment": "Used to unequip this equipment from client",
+        "returnType": "void"
+      },
+      {
+        "name": "GetNumResourcesPerExtract",
+        "comment": "Returns number of resources extracted per cycle based on the currently cached resource node",
+        "returnType": "int32"
+      },
+      {
+        "name": "Server_ExtractResources",
+        "comment": "server notified of hit from client to verify",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mPickParticleSystem",
+        "comment": "The effect the spawn when picking.",
+        "type": "classUParticleSystem*"
+      },
+      {
+        "name": "mPickArmsAnim",
+        "comment": "Animation to play when picking.",
+        "type": "classUAnimationAsset*"
+      },
+      {
+        "name": "mCachedResouceNode",
+        "comment": "The node we want to pick from",
+        "type": "classAFGResourceNode*"
+      }
+    ]
+  }
+]

@@ -1,0 +1,25 @@
+[
+  {
+    "kind": "enum",
+    "name": "EIncludeInBuilds",
+    "comment": "Where this schematic should be included. Cooker strips away builds that's marked for different build types",
+    "entries": [
+      {
+        "name": "IIB_Never",
+        "displayName": "Never"
+      },
+      {
+        "name": "IIB_Development",
+        "displayName": "Development"
+      },
+      {
+        "name": "IIB_PrivateBuilds",
+        "displayName": "PrivateBuilds"
+      },
+      {
+        "name": "IIB_PublicBuilds",
+        "displayName": "PublicBuilds"
+      }
+    ]
+  }
+]

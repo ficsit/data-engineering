@@ -1,0 +1,52 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGPipeConnectionFactory",
+    "category": "UCLASS",
+    "comment": "Pipe connection component for Pipe connections residing on factory buildings that produce or consume\nThese connections implement the fluid integrant interface and thus can belong to a pipe network.",
+    "extends": [
+      "UFGPipeConnectionComponent",
+      "IFGFluidIntegrantInterface"
+    ],
+    "methods": [
+      {
+        "name": "UFGPipeConnectionFactory"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin ActorComponent Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetFluidBox",
+        "comment": "Begin FluidIntegrantInterface",
+        "returnType": "FFluidBox*"
+      },
+      {
+        "name": "GetPipeConnections",
+        "returnType": "TArray<UFGPipeConnectionComponent*>"
+      },
+      {
+        "name": "OnDisconnectedFrom",
+        "comment": "Called from PipeConnectionComponent ClearConnection before resetting the connection",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mFluidBox",
+        "comment": "Fluid box managed by this connection. This is special to PipeConnectionFactory as other connections do not have their own fluid box",
+        "type": "FFluidBox"
+      },
+      {
+        "name": "mApplyAdditionalPressure",
+        "comment": "If this connection is a producer type, should it apply the factory settings default pressure?",
+        "type": "bool"
+      }
+    ]
+  }
+]

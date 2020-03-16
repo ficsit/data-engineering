@@ -1,0 +1,49 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGDeveloperSettings",
+    "category": "UCLASS",
+    "extends": [
+      "UDeveloperSettings"
+    ],
+    "methods": [],
+    "properties": [
+      {
+        "name": "mGreedyFocusInPIE",
+        "type": "bool"
+      },
+      {
+        "name": "mUnlockRecipeClass",
+        "type": "TSubclassOf<classUFGUnlockRecipe>"
+      },
+      {
+        "name": "mUnlockScannerResourceClass",
+        "type": "TSubclassOf<classUFGUnlockScannableResource>"
+      },
+      {
+        "name": "mUnlockMapClass",
+        "type": "TSubclassOf<classUFGUnlockMap>"
+      },
+      {
+        "name": "mUnlockBuildEfficiencyClass",
+        "type": "TSubclassOf<classUFGUnlockBuildEfficiency>"
+      },
+      {
+        "name": "mUnlockBuildOverclockClass",
+        "type": "TSubclassOf<classUFGUnlockBuildOverclock>"
+      },
+      {
+        "name": "mUnlockInvetorySlotClass",
+        "type": "TSubclassOf<classUFGUnlockInventorySlot>"
+      },
+      {
+        "name": "mUnlockArmEquipmentClass",
+        "type": "TSubclassOf<classUFGUnlockArmEquipmentSlot>"
+      },
+      {
+        "name": "mSchematicCategoryMigrationData",
+        "type": "TMap<ESchematicCategory,TSubclassOf<classUFGSchematicCategory>>"
+      }
+    ]
+  }
+]

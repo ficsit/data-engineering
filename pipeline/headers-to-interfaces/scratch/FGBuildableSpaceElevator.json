@@ -1,0 +1,107 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildableSpaceElevator",
+    "category": "UCLASS",
+    "comment": "Copyright 2016-2018 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGBuildableFactory"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildableSpaceElevator"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "replication",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Dismantle_Implementation",
+        "comment": "~ Begin IFGDismantleInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "CanBeSampled_Implementation",
+        "comment": "~ Begin AFGBuildable interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "Factory_CollectInput_Implementation",
+        "comment": "Begin AFGBuildableFactory interface",
+        "returnType": "void"
+      },
+      {
+        "name": "Factory_Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "IsFullyUpgraded",
+        "comment": "@returns true when we are fully upgraded.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetNextPhaseCost",
+        "comment": "Returns the cost for the next upgrade",
+        "returnType": "void"
+      },
+      {
+        "name": "PayOffFromInventory",
+        "comment": "Player has dropped items onto the pay off widget from their inventory",
+        "returnType": "void"
+      },
+      {
+        "name": "IsReadyToUpgrade",
+        "comment": "@returns True if we have eaten up all the items needed to upgrade. Returns false if not, but also if there is no current recipe available.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetInputInventory",
+        "comment": "Get the input inventory from this building.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "UpgradeTowTruck",
+        "comment": "Called when the player presses to send more stuff to the tow truck",
+        "returnType": "void"
+      },
+      {
+        "name": "LaunchTowTruck",
+        "comment": "When the player is on the last step of the game, sending the tow truck will end the game",
+        "returnType": "void"
+      },
+      {
+        "name": "GetGamePhaseManager",
+        "comment": "Returns the game phase manager, finds it if it isn't cached",
+        "returnType": "classAFGGamePhaseManager*"
+      },
+      {
+        "name": "ConsumeInputIngredientsIfNecessary",
+        "comment": "Checks and consumes any ingredient in the input inventory if the upgrade recipe requires it.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mInputInventory",
+        "comment": "Our input inventory, shared for all input connections.",
+        "type": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "mGamePhaseManager",
+        "comment": "A cached version of the game phase manager",
+        "type": "AFGGamePhaseManager*"
+      },
+      {
+        "name": "mInputConnections",
+        "comment": "Cached input connections (No need for UPROPERTY as they are referenced in component array)",
+        "type": "TArray<classUFGFactoryConnectionComponent*>"
+      }
+    ]
+  }
+]

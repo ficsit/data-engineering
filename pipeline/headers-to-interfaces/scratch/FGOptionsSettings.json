@@ -1,0 +1,175 @@
+[
+  {
+    "kind": "enum",
+    "name": "EOptionCategory",
+    "entries": [
+      {
+        "name": "OC_Gameplay",
+        "displayName": "Gameplay"
+      },
+      {
+        "name": "OC_Audio",
+        "displayName": "Audio"
+      },
+      {
+        "name": "OC_Video",
+        "displayName": "Video"
+      },
+      {
+        "name": "OC_Controls",
+        "displayName": "Controls"
+      },
+      {
+        "name": "OC_UserInterface",
+        "displayName": "User Interface"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "EOptionType",
+    "entries": [
+      {
+        "name": "OT_Checkbox",
+        "displayName": "Checkbox"
+      },
+      {
+        "name": "OT_IntegerSelection",
+        "displayName": "IntegerSelection (NO SUPPORT YET)"
+      },
+      {
+        "name": "OT_FloatSelection",
+        "displayName": "FloatSelection (NO SUPPORT YET)"
+      },
+      {
+        "name": "OT_Slider",
+        "displayName": "Slider"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FOptionRowData",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FOptionRowData"
+      }
+    ],
+    "properties": [
+      {
+        "name": "OptionName",
+        "type": "FText"
+      },
+      {
+        "name": "OptionType",
+        "type": "EOptionType"
+      },
+      {
+        "name": "ConsoleVariable",
+        "type": "FString"
+      },
+      {
+        "name": "DefaultCheckBoxValue",
+        "type": "bool"
+      },
+      {
+        "name": "MinValue",
+        "type": "float"
+      },
+      {
+        "name": "MaxValue",
+        "type": "float"
+      },
+      {
+        "name": "MinDisplayValue",
+        "type": "float"
+      },
+      {
+        "name": "MaxDisplayValue",
+        "type": "float"
+      },
+      {
+        "name": "MaxFractionalDigits",
+        "type": "int32"
+      },
+      {
+        "name": "ShowZeroAsOff",
+        "type": "bool"
+      },
+      {
+        "name": "DefaultSliderValue",
+        "type": "float"
+      },
+      {
+        "name": "IntegerSelectionValues",
+        "type": "TMap<FString,int32>"
+      },
+      {
+        "name": "FloatSelectionValues",
+        "type": "TMap<FString,float>"
+      },
+      {
+        "name": "DefaultSelectionValue",
+        "type": "FString"
+      },
+      {
+        "name": "UpdateInstantly",
+        "type": "bool"
+      },
+      {
+        "name": "RequireRestart",
+        "type": "bool"
+      },
+      {
+        "name": "Tooltip",
+        "type": "FText"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGOptionsSettings",
+    "category": "UCLASS",
+    "extends": [
+      "UDeveloperSettings"
+    ],
+    "methods": [
+      {
+        "name": "PostEditChangeProperty",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mGameplayOptions",
+        "type": "TArray<FOptionRowData>"
+      },
+      {
+        "name": "mAudioOptions",
+        "type": "TArray<FOptionRowData>"
+      },
+      {
+        "name": "mVideoOptions",
+        "type": "TArray<FOptionRowData>"
+      },
+      {
+        "name": "mControlsOptions",
+        "type": "TArray<FOptionRowData>"
+      },
+      {
+        "name": "mUserInterfaceOptions",
+        "type": "TArray<FOptionRowData>"
+      },
+      {
+        "name": "mOptionTypeWidgetsClasses",
+        "type": "TMap<EOptionType,TSubclassOf<classUFGOptionsValueController>>"
+      },
+      {
+        "name": "mOptionRowWidgetClass",
+        "type": "TSubclassOf<classUFGDynamicOptionsRow>"
+      }
+    ]
+  }
+]

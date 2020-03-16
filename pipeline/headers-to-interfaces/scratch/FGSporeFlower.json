@@ -1,0 +1,83 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGSporeFlower",
+    "category": "UCLASS",
+    "comment": "todo: (a bigish one) this is just a start of what should be a much more complete nativization of the spore flower",
+    "extends": [
+      "AActor",
+      "IFGSaveInterface",
+      "IFGSignificanceInterface",
+      "IFGExplosiveDestroyableInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGSporeFlower"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "~ Begin UObject interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GainedSignificance_Implementation",
+        "comment": "IFGSignificanceInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "LostSignificance_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ActorShouldTriggerFlower",
+        "comment": "Test if an actor should trigger spore flower to rise",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mTriggerActorClasses",
+        "comment": "These actor types will trigger the spore flower to emit",
+        "type": "TArray<TSubclassOf<AActor>>"
+      },
+      {
+        "name": "mTriggerActors",
+        "comment": "Holds a list of all actors inside trigger spehere",
+        "type": "TArray<AActor*>"
+      }
+    ]
+  }
+]

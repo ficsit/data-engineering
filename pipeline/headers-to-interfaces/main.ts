@@ -1,18 +1,23 @@
 import * as fs from 'fs';
 import * as glob from 'glob';
+import * as path from 'path';
 
 import { parseHeader, printTokens } from './parse';
 
-parseAll(process.argv[2]);
+parseAll(process.argv[2], process.argv[3]);
 
-function parseAll(sourceDir: string) {
+function parseAll(sourceDir: string, destDir: string) {
   if (sourceDir.endsWith('.h')) {
     parse(sourceDir);
     return;
   }
 
+  fs.mkdirSync(destDir, { recursive: true });
+
   for (const header of glob.sync(`${sourceDir}/**/*.h`)) {
-    parse(header);
+    const result = parse(header);
+    const destination = path.join(destDir, `${path.basename(header, '.h')}.json`);
+    fs.writeFileSync(destination, JSON.stringify(result, null, 2));
   }
 }
 
@@ -24,6 +29,5 @@ function parse(header: string) {
     printTokens(contents);
   }
 
-  const result = parseHeader(contents);
-  console.log(JSON.stringify(result, null, 2));
+  return parseHeader(contents);
 }

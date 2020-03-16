@@ -1,0 +1,42 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGBuildEffectSpline",
+    "category": "UCLASS",
+    "extends": [
+      "AActor"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildEffectSpline",
+        "comment": "Sets default values for this actor's properties"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Called when the game starts or when spawned",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "comment": "Called every frame",
+        "returnType": "void"
+      },
+      {
+        "name": "SetupAttachment",
+        "returnType": "void"
+      },
+      {
+        "name": "GetAttachment",
+        "comment": "Getter for attachment",
+        "returnType": "classAFGPipeBuilderTrail*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mAttachment",
+        "comment": "Attachment for this effect, can be null",
+        "type": "classAFGPipeBuilderTrail*"
+      }
+    ]
+  }
+]

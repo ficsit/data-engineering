@@ -1,0 +1,545 @@
+[
+  {
+    "kind": "enum",
+    "name": "EBuildGunState",
+    "comment": "States the build gun can be in.",
+    "entries": [
+      {
+        "name": "BGS_NONE",
+        "displayName": "None"
+      },
+      {
+        "name": "BGS_MENU",
+        "displayName": "Menu"
+      },
+      {
+        "name": "BGS_BUILD",
+        "displayName": "Build"
+      },
+      {
+        "name": "BGS_DISMANTLE",
+        "displayName": "Dismantle"
+      },
+      {
+        "name": "BGS_MAX"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGBuildGunState",
+    "category": "UCLASS",
+    "comment": "Represents a state in the build gun, e.g. build, dismantle etc.",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "UFGBuildGunState"
+      },
+      {
+        "name": "ReplicateSubobjects",
+        "comment": "For replicating more complicated objects.",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsSupportedForNetworking",
+        "comment": "Mark this class as supported for networking",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetFunctionCallspace",
+        "comment": "This is overloaded so that we can call Server/Client functions in this object by using the Callspace of the outer BuildGun.",
+        "returnType": "int32"
+      },
+      {
+        "name": "CallRemoteFunction",
+        "comment": "This is overloaded so that we can call Server/Client functions in this object by using the NetDriver of the outer BuildGun.",
+        "returnType": "bool"
+      },
+      {
+        "name": "HasAuthority",
+        "comment": "Checks if the outer build gun has authority.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetWorld",
+        "comment": "Get the build guns world.",
+        "returnType": "UWorld*"
+      },
+      {
+        "name": "BeginState",
+        "comment": "Enter this state.",
+        "returnType": "void"
+      },
+      {
+        "name": "EndState",
+        "comment": "Exit this state.",
+        "returnType": "void"
+      },
+      {
+        "name": "TickState",
+        "comment": "Tick this state.",
+        "returnType": "void"
+      },
+      {
+        "name": "IsActive",
+        "comment": "Is this state active.",
+        "returnType": "bool"
+      },
+      {
+        "name": "PrimaryFire",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "PrimaryFireRelease",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "SecondaryFire",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "ModeSelectPressed",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "ModeSelectRelease",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildSamplePressed",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "IsValidBuildingSample",
+        "comment": "If true, then the building is valid to sample in this state",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnRecipeSampled",
+        "comment": "We have sampled a new recipe",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildSampleRelease",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "ScrollDown",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "ScrollUp",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "ChangeScrollMode",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "ChangeNoSnapMode",
+        "comment": "Redirected from the build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "ChangeGuideLinesSnapMode",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBuildGun",
+        "comment": "Get the owning build gun.\n@return A valid build gun.",
+        "returnType": "classAFGBuildGun*"
+      },
+      {
+        "name": "GetBuildGunDelayPercentage",
+        "comment": "Get's current percentage of Build delay progress.\n@return Returns between 0-1. Returns 0 if no build is in progress",
+        "returnType": "float"
+      },
+      {
+        "name": "CanBeginBuildGunDelay",
+        "comment": "for the current build state to perform its action is met.\n@return true if the conditions required to use the build gun are met.",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetBuildGunDelayMessage",
+        "comment": "Get's the build delay message",
+        "returnType": "FText"
+      },
+      {
+        "name": "BeginBuildGunDelay",
+        "returnType": "void"
+      },
+      {
+        "name": "ResetBuildGunDelay",
+        "comment": "sets mActionStartTime to 0",
+        "returnType": "void"
+      },
+      {
+        "name": "BuildGunDelayIsComplete",
+        "comment": "@return true if the build gun delay is complete, or is 0 (ie. always complete)",
+        "returnType": "bool"
+      },
+      {
+        "name": "HasBuildGunDelay",
+        "comment": "@return true if there is an delay on this state.",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mCanSampleBuildingsInState",
+        "comment": "If true, then we can sample buildings in this state",
+        "type": "bool"
+      },
+      {
+        "name": "mActionDelay",
+        "comment": "Time (in seconds) it takes for the action (eg. Build, dismantle)",
+        "type": "float"
+      },
+      {
+        "name": "mActionStartTime",
+        "comment": "internal time for when action has begun (eg. Build, dismantle). if 0, ignore.",
+        "type": "float"
+      },
+      {
+        "name": "mActionMessage",
+        "comment": "Text to show while action is in progress",
+        "type": "FText"
+      },
+      {
+        "name": "mIsActive",
+        "comment": "Is this state active?",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildGun",
+    "category": "UCLASS",
+    "comment": "The latest iteration of a pink box with a red button.",
+    "extends": [
+      "AFGEquipment",
+      "IFGRecipeProducerInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGBuildGun"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "returnType": "void"
+      },
+      {
+        "name": "ReplicateSubobjects",
+        "returnType": "bool"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "Tick",
+        "returnType": "void"
+      },
+      {
+        "name": "ShouldSaveState",
+        "comment": "Begin AFGEquipment interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "Equip",
+        "returnType": "void"
+      },
+      {
+        "name": "UnEquip",
+        "returnType": "void"
+      },
+      {
+        "name": "GetHitResult",
+        "comment": "@return The FHitResult of this build gun.",
+        "returnType": "FHitResult&"
+      },
+      {
+        "name": "GetAvailableRecipes",
+        "comment": "@note This is an expensive operation so cache the result.\n@param out_recipes Returns all recipes available to this build gun.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCostForRecipe",
+        "comment": "Convenience function to get the cost for a recipe.",
+        "returnType": "TArray<FItemAmount>"
+      },
+      {
+        "name": "GetInventory",
+        "comment": "Get the inventory to charge when building and refunding when dismantling.",
+        "returnType": "classUFGInventoryComponent*"
+      },
+      {
+        "name": "GetBuildGunStateFor",
+        "comment": "Gets BuildGunState depending on the enum passed",
+        "returnType": "classUFGBuildGunState*"
+      },
+      {
+        "name": "GetCurrentBuildGunDelayPercentage",
+        "comment": "Gets the build gun delay progress from current state as a percentage between 0-1",
+        "returnType": "float"
+      },
+      {
+        "name": "GetCurrentBuildGunDelayMessage",
+        "comment": "Gets the build gun delay message from current state",
+        "returnType": "FText"
+      },
+      {
+        "name": "CompareActiveRecipeTo",
+        "comment": "@return true if the produce the same buildable; false if not.",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsInState",
+        "comment": "Checks if the buildgun is in the state we send in",
+        "returnType": "bool"
+      },
+      {
+        "name": "OnPrimaryFirePressed",
+        "comment": "Only the server is allowed to build stuff so all the actions are executed on the server but may be simulated on the client.\nSimulations may be sounds and the brrrrrrrring progress bar when selling.",
+        "returnType": "void"
+      },
+      {
+        "name": "OnPrimaryFireReleased",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSecondaryFirePressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSecondaryFireReleased",
+        "returnType": "void"
+      },
+      {
+        "name": "OnModeSelectPressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnModeSelectReleased",
+        "returnType": "void"
+      },
+      {
+        "name": "OnScrollDownPressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnScrollUpPressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnScrollModePressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnNoSnapModePressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSnapToGuideLinesPressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSnapToGuideLinesReleased",
+        "returnType": "void"
+      },
+      {
+        "name": "OnDismantleToggleMultiSelectStatePressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnDismantleToggleMultiSelectStateReleased",
+        "returnType": "void"
+      },
+      {
+        "name": "OnBuildSamplePressed",
+        "returnType": "void"
+      },
+      {
+        "name": "OnBuildSampleReleased",
+        "returnType": "void"
+      },
+      {
+        "name": "GotoMenuState",
+        "comment": "Set the build gun in dismantling mode.\n@note Must be called on the local player.",
+        "returnType": "void"
+      },
+      {
+        "name": "GotoBuildState",
+        "comment": "\n @param recipe The recipe to set as active. This may be nullptr, e.g. to hide hologram.",
+        "returnType": "void"
+      },
+      {
+        "name": "GotoDismantleState",
+        "comment": "Set the build gun in dismantling mode.\n@note Must be called on the local player.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetAllowRayCleranceHit",
+        "returnType": "void"
+      },
+      {
+        "name": "AddEquipmentActionBindings",
+        "comment": "Add custom bindings for this equipment",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_PrimaryFire",
+        "comment": "Lets the server handle the action.",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_SecondaryFire",
+        "comment": "Lets the server handle the action.",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_ScrollDown",
+        "comment": "Lets the server handle the action.",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_ScrollUp",
+        "comment": "Lets the server handle the action.",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_ScrollMode",
+        "comment": "Lets the server handle the action.",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_NoSnapMode",
+        "comment": "Lets the server handle the action.",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_GotoBuildState",
+        "comment": "Lets the server switch to build state.",
+        "returnType": "void"
+      },
+      {
+        "name": "GotoState",
+        "comment": "Some states may require additional parameters so use the GotoXyzState helper functions.\n@note Must be called on the local player.",
+        "returnType": "void"
+      },
+      {
+        "name": "Server_GotoState",
+        "comment": "Lets the server switch state.",
+        "returnType": "void"
+      },
+      {
+        "name": "GotoStateInternal",
+        "comment": "Switch the current state",
+        "returnType": "void"
+      },
+      {
+        "name": "GetState",
+        "returnType": "UFGBuildGunState*"
+      },
+      {
+        "name": "GetState",
+        "returnType": "C*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOnStateChanged",
+        "comment": "Called when the build gun state changes.",
+        "type": "FOnBuildGunStateChanged"
+      },
+      {
+        "name": "mOnRecipeChanged",
+        "comment": "Called when the build gun build state receives a new recipe. This May be called prior to OnStateChanged.",
+        "type": "FOnBuildGunRecipeChanged"
+      },
+      {
+        "name": "mBuildDistanceMax",
+        "comment": "Trace distance for this build gun when building and dismantling.",
+        "type": "float"
+      },
+      {
+        "name": "mMenuStateClass",
+        "comment": "The state to use when operating the menus.",
+        "type": "TSubclassOf<classUFGBuildGunState>"
+      },
+      {
+        "name": "mBuildStateClass",
+        "comment": "The state to use when building.",
+        "type": "TSubclassOf<classUFGBuildGunStateBuild>"
+      },
+      {
+        "name": "mDismantleStateClass",
+        "comment": "The state to use when dismantling.",
+        "type": "TSubclassOf<classUFGBuildGunStateDismantle>"
+      },
+      {
+        "name": "mAllowCleranceRayHits",
+        "type": "bool"
+      },
+      {
+        "name": "mStates",
+        "comment": "All the states.",
+        "type": "UFGBuildGunState*"
+      },
+      {
+        "name": "mPendingEntryState",
+        "comment": "State to enter on the next equip.",
+        "type": "EBuildGunState"
+      },
+      {
+        "name": "mHitResult",
+        "comment": "Result of the latest trace.",
+        "type": "FHitResult"
+      },
+      {
+        "name": "mCurrentStateEnum",
+        "comment": "Current build gun state.\nThe client sets this locally and tells the server I want this state.",
+        "type": "EBuildGunState"
+      },
+      {
+        "name": "mCurrentState",
+        "comment": "@see mCurrentStateIndex.",
+        "type": "UFGBuildGunState*"
+      },
+      {
+        "name": "mWaitingForPrimaryFireRelease",
+        "comment": "wait for primary fire release event before re-initiating another build gun fire. Does not affect click+hold.",
+        "type": "bool"
+      },
+      {
+        "name": "mHasHookedUpBuildStateUserSettings",
+        "comment": "[DavalliusA:Thu/23-01-2020] not happy with this, but didn't find a function that is only called once and where we know we have a local instagator or not",
+        "type": "bool"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGBuildGunAttachment",
+    "category": "UCLASS",
+    "comment": "Attachment for the build gun.",
+    "extends": [
+      "AFGEquipmentAttachment"
+    ],
+    "methods": [],
+    "properties": []
+  }
+]

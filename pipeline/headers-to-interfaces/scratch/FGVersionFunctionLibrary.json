@@ -1,0 +1,46 @@
+[
+  {
+    "kind": "enum",
+    "name": "EGameVersion",
+    "entries": [
+      {
+        "name": "GV_Main",
+        "displayName": "Main"
+      },
+      {
+        "name": "GV_Experimental",
+        "displayName": "Experimental"
+      },
+      {
+        "name": "GV_Other",
+        "displayName": "Other"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGVersionFunctionLibrary",
+    "category": "UCLASS",
+    "extends": [
+      "UBlueprintFunctionLibrary"
+    ],
+    "methods": [
+      {
+        "name": "GetVersionString",
+        "comment": "Get a version string to show to the user",
+        "returnType": "FString"
+      },
+      {
+        "name": "IsPublicBuild",
+        "comment": "Returns true if this build is a public build (ie, consumable for the public)",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetGameVersion",
+        "comment": "Get what version of the game we are running",
+        "returnType": "EGameVersion"
+      }
+    ],
+    "properties": []
+  }
+]

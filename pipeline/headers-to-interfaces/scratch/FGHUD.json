@@ -1,0 +1,361 @@
+[
+  {
+    "kind": "enum",
+    "name": "ECrosshairState",
+    "comment": "Copyright 2016 Coffee Stain Studios.All Rights Reserved.",
+    "entries": [
+      {
+        "name": "ECS_Default",
+        "displayName": "Default"
+      },
+      {
+        "name": "ECS_GeneralUse",
+        "displayName": "General"
+      },
+      {
+        "name": "ECS_PickUp",
+        "displayName": "Pickup"
+      },
+      {
+        "name": "ECS_Vehicle",
+        "displayName": "Vehicle"
+      },
+      {
+        "name": "ECS_Weapon",
+        "displayName": "Weapon"
+      },
+      {
+        "name": "ECS_Workbench",
+        "displayName": "Workbench"
+      },
+      {
+        "name": "ECS_Dismantle",
+        "displayName": "Dismantle"
+      },
+      {
+        "name": "ECS_Build",
+        "displayName": "Build"
+      },
+      {
+        "name": "ECS_Custom",
+        "displayName": "Cutom"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "AFGHUD",
+    "category": "UCLASS",
+    "extends": [
+      "AFGHUDBase"
+    ],
+    "methods": [
+      {
+        "name": "AFGHUD"
+      },
+      {
+        "name": "PostInitializeComponents",
+        "comment": "~ Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "DrawHUD",
+        "comment": "~ End AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "AddPawnHUD",
+        "comment": "Adds a HUD of the widget class for the provided pawn. Needs a valid pawn",
+        "returnType": "void"
+      },
+      {
+        "name": "ShowRespawnUI",
+        "returnType": "void"
+      },
+      {
+        "name": "CloseRespawnUI",
+        "comment": "Closes the respawn UI and enables the GameUI if not already enabled.",
+        "returnType": "void"
+      },
+      {
+        "name": "OpenInteractUI",
+        "comment": "All widgets that inherits from UFGInteractWidget can be opened by calling this",
+        "returnType": "void"
+      },
+      {
+        "name": "IsCheatBoardOpen",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShowDebugInfo",
+        "comment": "ShowDebug is back!",
+        "returnType": "void"
+      },
+      {
+        "name": "GetGameUI",
+        "returnType": "UFGGameUI*"
+      },
+      {
+        "name": "SetPreviewActorClass",
+        "comment": "Set the actor class to preview in a rendertarget",
+        "returnType": "void"
+      },
+      {
+        "name": "SetPreviewDistance",
+        "comment": "Set the distance we preview the actor from",
+        "returnType": "void"
+      },
+      {
+        "name": "SetPreviewView",
+        "comment": "Set the view we preview the actor from",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPreviewTexture",
+        "comment": "Get the texture that we use to preview the actor",
+        "returnType": "classUTextureRenderTarget2D*"
+      },
+      {
+        "name": "BeginPreviewActor",
+        "comment": "Start rendering the preview actor",
+        "returnType": "void"
+      },
+      {
+        "name": "EndPreviewActor",
+        "comment": "stop rendering the preview actor",
+        "returnType": "void"
+      },
+      {
+        "name": "GetShowCrosshair",
+        "comment": "Getter",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetShowCrossHair",
+        "comment": "Setter",
+        "returnType": "void"
+      },
+      {
+        "name": "SetForceHideCrossHair",
+        "comment": "Setter",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPumpiMode",
+        "comment": "HUD visibility",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetPartialPumpiMode",
+        "comment": "HUD visibility",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetPumpiMode",
+        "comment": "Hides all HUD including crosshair",
+        "returnType": "void"
+      },
+      {
+        "name": "SetPartialPumpiMode",
+        "comment": "Hides all HUD including crosshair",
+        "returnType": "void"
+      },
+      {
+        "name": "GetHUDVisibility",
+        "comment": "Getter",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetHUDVisibility",
+        "comment": "Setter",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCrosshairState",
+        "comment": "Getter for Crosshair State",
+        "returnType": "ECrosshairState"
+      },
+      {
+        "name": "SetCrosshairState",
+        "comment": "Setter for Crosshair State",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateCrosshairState",
+        "comment": "Updates the crosshair to match set the proper CrosshairState",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateCrosshairColorState",
+        "comment": "Updates the crosshair color for weapons",
+        "returnType": "void"
+      },
+      {
+        "name": "SetCrustomCrosshairTexture",
+        "comment": "Updates the crosshair to match set the proper CrosshairState",
+        "returnType": "void"
+      },
+      {
+        "name": "AddEquipmentHUD",
+        "comment": "@param widgetClass - class to use for widget\n@param slot - which slot the equipment is using",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveEquipmentHUD",
+        "comment": "Removes all equipment HUD from a certain slot",
+        "returnType": "void"
+      },
+      {
+        "name": "GetPawnHUD",
+        "comment": "Returns the latest created pawn HUD widget. Can return nullptr",
+        "returnType": "UUserWidget*"
+      },
+      {
+        "name": "SetupActorPreview",
+        "comment": "Setup our preview for a building/vehicle from our current set preview class",
+        "returnType": "void"
+      },
+      {
+        "name": "CreatePreviewComponent",
+        "comment": "Filter out what components we want to gather to preview a building",
+        "returnType": "classUSceneComponent*"
+      },
+      {
+        "name": "PonderOpeningCheatBoard",
+        "comment": "Function that adds the cheat widget if it should",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mCheatBoardWidget",
+        "comment": "Pointer to the cheat board widget",
+        "type": "TSharedPtr<classSFGCheatBoardWidget>"
+      },
+      {
+        "name": "mGameUIClass",
+        "type": "TSubclassOf<UUserWidget>"
+      },
+      {
+        "name": "mRespawnUIClass",
+        "type": "TSubclassOf<UUserWidget>"
+      },
+      {
+        "name": "mDefaultCrosshair",
+        "type": "classUTexture2D*"
+      },
+      {
+        "name": "mPickupCrosshair",
+        "type": "classUTexture2D*"
+      },
+      {
+        "name": "mVehicleCrosshair",
+        "type": "classUTexture2D*"
+      },
+      {
+        "name": "mWeaponCrosshair",
+        "type": "classUTexture2D*"
+      },
+      {
+        "name": "mWorkbenchCrosshair",
+        "type": "classUTexture2D*"
+      },
+      {
+        "name": "mBuildCrosshair",
+        "type": "classUTexture2D*"
+      },
+      {
+        "name": "mDismantleCrosshair",
+        "type": "classUTexture2D*"
+      },
+      {
+        "name": "mCustomCrosshair",
+        "type": "classUTexture2D*"
+      },
+      {
+        "name": "mGeneralCrosshair",
+        "type": "classUTexture2D*"
+      },
+      {
+        "name": "mActiveCrosshairState",
+        "comment": "Current state of crosshair",
+        "type": "ECrosshairState"
+      },
+      {
+        "name": "mWeaponCrosshairColor",
+        "type": "FLinearColor"
+      },
+      {
+        "name": "mShowCrosshair",
+        "comment": "Should we show the crosshair",
+        "type": "bool"
+      },
+      {
+        "name": "mForceCrossHairHidden",
+        "comment": "Used when when setting the HUD visibility overall",
+        "type": "bool"
+      },
+      {
+        "name": "mForceHideHUD",
+        "comment": "Used when when setting the HUD visibility overall",
+        "type": "bool"
+      },
+      {
+        "name": "mPartialForceHideHUD",
+        "comment": "Used to hide all HUD elements except for pause menu",
+        "type": "bool"
+      },
+      {
+        "name": "mHUDVisibility",
+        "comment": "my commenting sucks",
+        "type": "bool"
+      },
+      {
+        "name": "mRespawnInputComponent",
+        "comment": "Input component for blocking input during respawn",
+        "type": "classUInputComponent*"
+      },
+      {
+        "name": "mRespawnUI",
+        "type": "classUUserWidget*"
+      },
+      {
+        "name": "mGameUI",
+        "type": "classUFGGameUI*"
+      },
+      {
+        "name": "mPreviewBuildingWorld",
+        "comment": "A world for previewing the current building",
+        "type": "classUWorld*"
+      },
+      {
+        "name": "mPreviewStageClass",
+        "comment": "Class that stages the preview building item",
+        "type": "TSubclassOf<classAFGRenderTargetStage>"
+      },
+      {
+        "name": "mPreviewBuildingStage",
+        "comment": "This isn't marked as UPROPERTY as this actor resides in another world, so I think the GC will be sad if we create a reference to it",
+        "type": "classAFGRenderTargetStage*"
+      },
+      {
+        "name": "mPreviewActorClass",
+        "comment": "The actor class we want to preview, we don't use buildable as we want to support vehicles too",
+        "type": "TSubclassOf<classAActor>"
+      },
+      {
+        "name": "mPawnHUD",
+        "comment": "The latest created pawn HUD widget",
+        "type": "UUserWidget*"
+      }
+    ]
+  }
+]

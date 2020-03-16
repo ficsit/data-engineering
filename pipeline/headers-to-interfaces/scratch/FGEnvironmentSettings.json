@@ -1,0 +1,39 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGEnvironmentSettings",
+    "category": "UCLASS",
+    "comment": "Settings for the environment",
+    "extends": [
+      "UFGSettings"
+    ],
+    "methods": [
+      {
+        "name": "PostEditChangeProperty",
+        "returnType": "void"
+      },
+      {
+        "name": "GetWorldBoundsParameters",
+        "comment": "The material parameter collection that contains world bounds",
+        "returnType": "UMaterialParameterCollection*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mWorldBoundsParameters",
+        "comment": "The collection containing the world bounds",
+        "type": "classUMaterialParameterCollection*"
+      },
+      {
+        "name": "WorldBoundsMinName",
+        "comment": "The parameter name of Min of mWorldBoundsParameters",
+        "type": "staticFName"
+      },
+      {
+        "name": "WorldBoundsExtentName",
+        "comment": "The parameter name of Extent of mWorldBoundsParameters",
+        "type": "staticFName"
+      }
+    ]
+  }
+]

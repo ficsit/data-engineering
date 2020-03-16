@@ -1,0 +1,67 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGWallHologram",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "AFGFactoryBuildingHologram"
+    ],
+    "methods": [
+      {
+        "name": "AFGWallHologram"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "TrySnapToActor",
+        "comment": "Begin AFGHologram interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetUpgradedActor",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "TryUpgrade",
+        "returnType": "bool"
+      },
+      {
+        "name": "DoMultiStepPlacement",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetRotationStep",
+        "comment": "Begin AFGHologram interface",
+        "returnType": "int32"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mWidth",
+        "comment": "Width of the wall, from the default buildable.",
+        "type": "float"
+      },
+      {
+        "name": "mHeight",
+        "comment": "Height of the wall, from the default buildable.",
+        "type": "float"
+      },
+      {
+        "name": "mSnapSidesHitZoneRatio",
+        "comment": "Ratios for the snapping zones, how much of the wall to hit for snap to either direction.",
+        "type": "float"
+      },
+      {
+        "name": "mSnapBottomHitZoneRatio",
+        "type": "float"
+      },
+      {
+        "name": "mUpgradeTarget",
+        "type": "classAFGBuildableWall*"
+      }
+    ]
+  }
+]

@@ -1,0 +1,77 @@
+[
+  {
+    "kind": "enum",
+    "name": "EMessageType",
+    "comment": "Fill out your copyright notice in the Description page of Project Settings.",
+    "entries": [
+      {
+        "name": "MT_PIMARY",
+        "displayName": "Inbox"
+      },
+      {
+        "name": "MT_TUTORIAL",
+        "displayName": "Tutorial"
+      },
+      {
+        "name": "MT_SPAM",
+        "displayName": "Spam"
+      },
+      {
+        "name": "MT_UNDEFINED",
+        "displayName": "All"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGMessageBase",
+    "category": "UCLASS",
+    "extends": [
+      "UUserWidget"
+    ],
+    "methods": [
+      {
+        "name": "GetFGCharacter",
+        "comment": "Returns the owning fgpawn by looking at ower and vehicle driver",
+        "returnType": "classAFGCharacterPlayer*"
+      },
+      {
+        "name": "GetMessageDefaultObject",
+        "comment": "Gets the default object of the message class",
+        "returnType": "UObject*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mTitle",
+        "comment": "I think this may be the title",
+        "type": "FText"
+      },
+      {
+        "name": "mPreviewText",
+        "comment": "Preview text when a message is added",
+        "type": "FText"
+      },
+      {
+        "name": "mIsPopup",
+        "comment": "Should the message be displayed in a popup?",
+        "type": "bool"
+      },
+      {
+        "name": "mSenderClass",
+        "comment": "Who sent the message",
+        "type": "TSubclassOf<classUFGMessageSender>"
+      },
+      {
+        "name": "mType",
+        "comment": "What type is it",
+        "type": "EMessageType"
+      },
+      {
+        "name": "mImages",
+        "comment": "Images to display in the codex",
+        "type": "TArray<classUTexture2D*>"
+      }
+    ]
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGAvailabilityDependency",
+    "category": "UCLASS",
+    "comment": "Base class for generic dependency system to put dependency on availability of certain objects in the game\nfor example a schematic may be dependent on another schematic being purchased, a research tree may be dependent on that you have picked up an item of a certain class",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "AreDependenciesMet",
+        "returnType": "bool"
+      }
+    ],
+    "properties": []
+  }
+]

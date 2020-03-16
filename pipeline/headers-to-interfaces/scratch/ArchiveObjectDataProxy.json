@@ -1,0 +1,27 @@
+[
+  {
+    "kind": "class",
+    "name": "FArchiveObjectDataProxy",
+    "comment": "This class transplants the byte data",
+    "extends": [
+      "FArchiveProxy"
+    ],
+    "methods": [
+      {
+        "name": "FArchiveObjectDataProxy",
+        "comment": "Ctor"
+      },
+      {
+        "name": "operator<<",
+        "comment": "Write down reference names",
+        "returnType": "FArchive&"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mWorld",
+        "type": "classUWorld*"
+      }
+    ]
+  }
+]

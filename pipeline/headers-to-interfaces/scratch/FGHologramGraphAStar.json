@@ -1,0 +1,161 @@
+[
+  {
+    "kind": "class",
+    "name": "FHologramGraphAStarDefaultPolicy",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "NodePoolSize",
+        "type": "staticconstint32"
+      },
+      {
+        "name": "OpenSetSize",
+        "type": "staticconstint32"
+      },
+      {
+        "name": "FatalPathLength",
+        "type": "staticconstint32"
+      },
+      {
+        "name": "bReuseNodePoolInSubsequentSearches",
+        "type": "staticconstbool"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "EHologramGraphAStarResult",
+    "entries": [
+      {
+        "name": "HologramSearchFail"
+      },
+      {
+        "name": "HologramSearchSuccess"
+      },
+      {
+        "name": "HologramGoalUnreachable"
+      },
+      {
+        "name": "HologramSearchInfiniteLoop"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FHologramGraphAStarDefaultNode",
+    "comment": "Default A\n node class.\nExtend this class and pass as a parameter to FHologramGraphAStar for additional functionality",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FHologramGraphAStarDefaultNode"
+      },
+      {
+        "name": "MarkOpened",
+        "returnType": "void"
+      },
+      {
+        "name": "MarkNotOpened",
+        "returnType": "void"
+      },
+      {
+        "name": "MarkClosed",
+        "returnType": "void"
+      },
+      {
+        "name": "MarkNotClosed",
+        "returnType": "void"
+      },
+      {
+        "name": "IsOpened",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsClosed",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "NodeRef",
+        "type": "constFGraphNodeRef"
+      },
+      {
+        "name": "ParentRef",
+        "type": "FGraphNodeRef"
+      },
+      {
+        "name": "TraversalCost",
+        "type": "float"
+      },
+      {
+        "name": "TotalCost",
+        "type": "float"
+      },
+      {
+        "name": "SearchNodeIndex",
+        "type": "int32"
+      },
+      {
+        "name": "ParentNodeIndex",
+        "type": "int32"
+      },
+      {
+        "name": "bIsOpened",
+        "type": "uint8"
+      },
+      {
+        "name": "bIsClosed",
+        "type": "uint8"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FHologramGraphAStar",
+    "comment": "\tbool IsTraversalAllowed(const FNodeRef NodeA, const FNodeRef NodeB) const;\t\t\t\t- whether traversing given edge is allowed\n\tbool WantsPartialSolution() const;\t\t\t\t\t\t\t\t\t\t\t\t\t\t- whether to accept solutions that do not reach the goal",
+    "extends": [
+      "TArray",
+      "TArray"
+    ],
+    "methods": [
+      {
+        "name": "FHologramGraphAStar"
+      },
+      {
+        "name": "ProcessSingleNode",
+        "comment": "Single run of A\n loop: get node from open set and process neighbors\nreturns true if loop should be continued",
+        "returnType": "bool"
+      },
+      {
+        "name": "FindPath",
+        "comment": "@param [OUT] OutPath - on successful search contains a sequence of graph nodes representing\n\tsolution optimal within given constraints",
+        "returnType": "EHologramGraphAStarResult"
+      },
+      {
+        "name": "FloodFrom",
+        "comment": "Floods node pool until running out of either free nodes or open set",
+        "returnType": "EHologramGraphAStarResult"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Graph",
+        "type": "constTHologramGraph&"
+      },
+      {
+        "name": "NodePool",
+        "type": "FNodePool"
+      },
+      {
+        "name": "NodeSorter",
+        "type": "FNodeSorter"
+      },
+      {
+        "name": "OpenList",
+        "type": "FOpenList"
+      }
+    ]
+  }
+]

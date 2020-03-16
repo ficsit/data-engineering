@@ -1,0 +1,41 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGConveyorPoleHologram",
+    "category": "UCLASS",
+    "comment": "Hologram for conveyor poles.",
+    "extends": [
+      "AFGPoleHologram"
+    ],
+    "methods": [
+      {
+        "name": "AFGConveyorPoleHologram"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      },
+      {
+        "name": "GetSnapConnection",
+        "comment": "Get the connections the conveyors snap to.",
+        "returnType": "UFGFactoryConnectionComponent*"
+      },
+      {
+        "name": "SnapToConnection",
+        "comment": "Snap this pole's snap connection to to the given connection.",
+        "returnType": "void"
+      },
+      {
+        "name": "SetSnappBuilding",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mSnapConnection",
+        "comment": "The connection conveyors snap to, used when placing a pole automatically.",
+        "type": "UFGFactoryConnectionComponent*"
+      }
+    ]
+  }
+]

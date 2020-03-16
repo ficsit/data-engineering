@@ -1,0 +1,27 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGPipeAttachmentSnapTargetInterface",
+    "category": "UINTERFACE",
+    "comment": "Copyright 2016-2019 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UInterface"
+    ],
+    "methods": [],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "IFGPipeAttachmentSnapTargetInterface",
+    "comment": "Interface for actors to implement to be a valid snap target for Pipeline attachments. Eg. PipelineSupports can implement this to allow pumps to snap directly to themselves",
+    "extends": [],
+    "methods": [
+      {
+        "name": "IsValidSnapTargetForAttachment",
+        "comment": "Returns true if the passed in attachment class should snap to this target actor",
+        "returnType": "bool"
+      }
+    ],
+    "properties": []
+  }
+]

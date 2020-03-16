@@ -1,0 +1,142 @@
+[
+  {
+    "kind": "class",
+    "name": "FCustomFastArraySerializerItem",
+    "category": "USTRUCT",
+    "comment": "Base struct for items using Custom Fast TArray Replication",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FCustomFastArraySerializerItem"
+      },
+      {
+        "name": "FCustomFastArraySerializerItem"
+      },
+      {
+        "name": "operator=",
+        "returnType": "FCustomFastArraySerializerItem&"
+      },
+      {
+        "name": "PreReplicatedRemove",
+        "comment": "\n NOTE: intentionally not virtual; invoked via templated code, @see FExampleItemEntry",
+        "returnType": "void"
+      },
+      {
+        "name": "PostReplicatedAdd",
+        "comment": "\n NOTE: intentionally not virtual; invoked via templated code, @see FExampleItemEntry",
+        "returnType": "void"
+      },
+      {
+        "name": "PostReplicatedChange",
+        "comment": "\n @param InArraySerializer\tArray serializer that owns the item and has triggered the replication call\nNOTE: intentionally not virtual; invoked via templated code, @see FExampleItemEntry",
+        "returnType": "void"
+      },
+      {
+        "name": "GetDebugString",
+        "comment": "\n @param InArraySerializer\tArray serializer that owns the item and has triggered the replication call\nNOTE: intentionally not virtual; invoked via templated code, @see FExampleItemEntry",
+        "returnType": "FString"
+      }
+    ],
+    "properties": [
+      {
+        "name": "ReplicationID",
+        "type": "int32"
+      },
+      {
+        "name": "ReplicationKey",
+        "type": "int32"
+      },
+      {
+        "name": "MostRecentArrayReplicationKey",
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FCustomFastArraySerializer",
+    "category": "USTRUCT",
+    "comment": "Base struct for wrapping the array used in Custom Fast TArray Replication",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FCustomFastArraySerializer"
+      },
+      {
+        "name": "MarkItemDirty",
+        "comment": "This must be called if you add or change an item in the array",
+        "returnType": "void"
+      },
+      {
+        "name": "MarkArrayDirty",
+        "comment": "This must be called if you just remove something from the array",
+        "returnType": "void"
+      },
+      {
+        "name": "IncrementArrayReplicationKey",
+        "returnType": "void"
+      },
+      {
+        "name": "FastArrayDeltaSerialize",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldWriteFastArrayItem",
+        "comment": "Helper function for FastArrayDeltaSerialize to consolidate the logic of whether to consider writing an item in a fast TArray during network serialization.\nFor client replay recording, we don't want to write any items that have been added to the array predictively.",
+        "returnType": "bool"
+      }
+    ],
+    "properties": [
+      {
+        "name": "ItemMap",
+        "type": "TMap<int32,int32>"
+      },
+      {
+        "name": "IDCounter",
+        "type": "int32"
+      },
+      {
+        "name": "ArrayReplicationKey",
+        "type": "int32"
+      },
+      {
+        "name": "GuidReferencesMap",
+        "comment": "List of items that need to be re-serialized when the referenced objects are mapped",
+        "type": "TMap<int32,FFastArraySerializerGuidReferences>"
+      },
+      {
+        "name": "CachedNumItems",
+        "comment": "Cached item counts, used for fast sanity checking when writing.",
+        "type": "int32"
+      },
+      {
+        "name": "CachedNumItemsToConsiderForWriting",
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FStableRemover",
+    "extends": [],
+    "methods": [
+      {
+        "name": "RemoveItem",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  },
+  {
+    "kind": "class",
+    "name": "FFastRemover",
+    "extends": [],
+    "methods": [
+      {
+        "name": "RemoveItem",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

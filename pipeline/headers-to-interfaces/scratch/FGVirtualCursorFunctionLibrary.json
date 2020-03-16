@@ -1,0 +1,21 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGVirtualCursorFunctionLibrary",
+    "category": "UCLASS",
+    "extends": [
+      "UBlueprintFunctionLibrary"
+    ],
+    "methods": [
+      {
+        "name": "EnableVirtualCursor",
+        "returnType": "void"
+      },
+      {
+        "name": "DisableVirtualCursor",
+        "returnType": "void"
+      }
+    ],
+    "properties": []
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "kind": "enum",
+    "name": "EFGSignificanceType",
+    "comment": "Copyright 2016-2019 Coffee Stain Studios. All Rights Reserved.",
+    "entries": [
+      {
+        "name": "Creature"
+      },
+      {
+        "name": "AudioVolume"
+      },
+      {
+        "name": "GenericTickHelper"
+      },
+      {
+        "name": "ConveyorBelt"
+      },
+      {
+        "name": "Factory"
+      },
+      {
+        "name": "LowDistanceGainSignificance"
+      },
+      {
+        "name": "MidDistanceGainSignificance"
+      },
+      {
+        "name": "HighDistanceGainSignificance"
+      },
+      {
+        "name": "AmbientSoundSpline"
+      },
+      {
+        "name": "CustomDistanceGainSignificance"
+      },
+      {
+        "name": "ParticleSignificance"
+      },
+      {
+        "name": "TrainSignificance"
+      },
+      {
+        "name": "PipelineSignificance"
+      },
+      {
+        "name": "MAX"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FGainSignificanceData",
+    "category": "USTRUCT",
+    "extends": [],
+    "methods": [],
+    "properties": [
+      {
+        "name": "SignificanceType",
+        "type": "EFGSignificanceType"
+      },
+      {
+        "name": "GainSignificanceDistance",
+        "type": "int32"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "UFGSignificanceManager",
+    "category": "UCLASS",
+    "extends": [
+      "USignificanceManager"
+    ],
+    "methods": [
+      {
+        "name": "UFGSignificanceManager"
+      },
+      {
+        "name": "RegisterSignificanceObject",
+        "comment": "This is the function that users call as a replacement for the virtual RegisterObject which exposes only the significance type so it can be looked up",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterObject",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterObject",
+        "returnType": "void"
+      },
+      {
+        "name": "Update",
+        "returnType": "void"
+      },
+      {
+        "name": "GetClosestGainSignificanceData",
+        "returnType": "FGainSignificanceData"
+      },
+      {
+        "name": "DumpSignificanceManagedObjects",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateConveyorBelts",
+        "comment": "Keeps the list of conveyor belts sorted and sets the closest ones to significant",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateFactories",
+        "comment": "Keeps the list of factories sorted and sets the closest ones to significant",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdatePipelines",
+        "comment": "Keeps the list of pipelines sorted and sets the closest ones to significant",
+        "returnType": "void"
+      },
+      {
+        "name": "UpdateSignificanceStatus",
+        "comment": "Sets significance status",
+        "returnType": "void"
+      },
+      {
+        "name": "GetTagFromTagEnum",
+        "returnType": "FName"
+      },
+      {
+        "name": "OnComponentActivationChange",
+        "returnType": "void"
+      },
+      {
+        "name": "GenericTickSignificance",
+        "comment": "Generic Significance functions",
+        "returnType": "float"
+      },
+      {
+        "name": "GenericTickPostSignificance",
+        "returnType": "void"
+      },
+      {
+        "name": "ParticleTickSignificance",
+        "comment": "Generic Significance functions",
+        "returnType": "float"
+      },
+      {
+        "name": "ParticleTickPostSignificance",
+        "returnType": "void"
+      },
+      {
+        "name": "FactorySignificance",
+        "comment": "Factory Significance functions",
+        "returnType": "float"
+      },
+      {
+        "name": "FactoryPostSignificance",
+        "returnType": "void"
+      },
+      {
+        "name": "ConveyorBeltSignificance",
+        "comment": "ConveyorBelt Significance functions",
+        "returnType": "float"
+      },
+      {
+        "name": "ConveyorBeltPostSignificance",
+        "returnType": "void"
+      },
+      {
+        "name": "PipelineSignificance",
+        "comment": "Pipeline Significance functions",
+        "returnType": "float"
+      },
+      {
+        "name": "PipelinePostSignificance",
+        "returnType": "void"
+      },
+      {
+        "name": "LowDistanceSignificance",
+        "comment": "Gain Significance on low distance functions",
+        "returnType": "float"
+      },
+      {
+        "name": "MidDistanceSignificance",
+        "comment": "Gain Significance on mid distance functions",
+        "returnType": "float"
+      },
+      {
+        "name": "HighDistanceSignificance",
+        "comment": "Gain Significance on high distance functions",
+        "returnType": "float"
+      },
+      {
+        "name": "CustomDistanceSignificance",
+        "comment": "Gain Significance on custom distance functions",
+        "returnType": "float"
+      },
+      {
+        "name": "GainSignificanceOnDistancePostSignificance",
+        "comment": "Either call gain or lose significance based on value",
+        "returnType": "void"
+      },
+      {
+        "name": "AudioVolumeSignificance",
+        "comment": "Ambient volume functions",
+        "returnType": "float"
+      },
+      {
+        "name": "AudioVolumePostSignificance",
+        "returnType": "void"
+      },
+      {
+        "name": "AmbientSoundSplineSignificance",
+        "comment": "Ambient sound spline functions",
+        "returnType": "float"
+      },
+      {
+        "name": "AmbientSoundSplinePostSignificance",
+        "returnType": "void"
+      },
+      {
+        "name": "TrainSignificance",
+        "comment": "Ambient sound spline functions",
+        "returnType": "float"
+      },
+      {
+        "name": "TrainPostSignificance",
+        "returnType": "void"
+      },
+      {
+        "name": "GetObjectLocation",
+        "comment": "Helper functions for getting location and setting tick rates",
+        "returnType": "FVector"
+      },
+      {
+        "name": "GetObjectLocation",
+        "returnType": "FVector"
+      },
+      {
+        "name": "SetObjectTickRate",
+        "returnType": "void"
+      },
+      {
+        "name": "SetObjectTickRate",
+        "returnType": "void"
+      },
+      {
+        "name": "SetObjectTicks",
+        "returnType": "void"
+      },
+      {
+        "name": "SetObjectTicks",
+        "returnType": "void"
+      },
+      {
+        "name": "SetObjectLOD",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mIsEnabled",
+        "comment": "Is the manager enabled",
+        "type": "bool"
+      },
+      {
+        "name": "mCachedDT",
+        "comment": "caching delta time before doing Update()",
+        "type": "float"
+      },
+      {
+        "name": "mGainSignificanceData",
+        "comment": "Data about the different distance levels",
+        "type": "TArray<FGainSignificanceData>"
+      },
+      {
+        "name": "mPreviousSignificantFactories",
+        "comment": "List of factories that were significant last time we checked",
+        "type": "TArray<classAFGBuildableFactory*>"
+      },
+      {
+        "name": "mPreviousSignificantConveyorBases",
+        "comment": "List of conveyor bases (belts and lifts) that were significant last time we checked",
+        "type": "TArray<classAFGBuildableConveyorBase*>"
+      },
+      {
+        "name": "mPreviousSignificantPipelines",
+        "comment": "List of pipelines that were significant last time we checked",
+        "type": "TArray<classAFGBuildablePipeBase*>"
+      },
+      {
+        "name": "mSortTimerTime",
+        "comment": "How often we should sort the factories/conveyors",
+        "type": "float"
+      },
+      {
+        "name": "mSortTimer",
+        "comment": "Current value of sorting timer",
+        "type": "float"
+      }
+    ]
+  }
+]

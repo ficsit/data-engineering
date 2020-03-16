@@ -1,0 +1,92 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGTrainStationIdentifier",
+    "category": "UCLASS",
+    "comment": "Identifier for a train station that is always available on server and clients.",
+    "extends": [
+      "AInfo",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGTrainStationIdentifier"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetStation",
+        "comment": "Get the station actor, only valid on server.",
+        "returnType": "classAFGBuildableRailroadStation*"
+      },
+      {
+        "name": "GetStationName",
+        "comment": "Get the name of this station.",
+        "returnType": "FText"
+      },
+      {
+        "name": "SetStationName",
+        "comment": "Set the name of this station, must be called on server.",
+        "returnType": "void"
+      },
+      {
+        "name": "GetTrackGraphID",
+        "comment": "Get the track this station belongs to.",
+        "returnType": "int32"
+      },
+      {
+        "name": "OnRep_StationName",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mStation",
+        "comment": "The station this info represents.",
+        "type": "classAFGBuildableRailroadStation*"
+      },
+      {
+        "name": "mTrackGraphID",
+        "comment": "The track this station is on.",
+        "type": "int32"
+      },
+      {
+        "name": "mStationName",
+        "comment": "Cached here for clients.",
+        "type": "FText"
+      }
+    ]
+  }
+]

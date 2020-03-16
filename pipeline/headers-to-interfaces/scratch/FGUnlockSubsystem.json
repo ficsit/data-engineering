@@ -1,0 +1,222 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGUnlockSubsystem",
+    "category": "UCLASS",
+    "comment": "Subsystem responsible for handling unlocks that you get when purchasing/research a schematic",
+    "extends": [
+      "AFGSubsystem",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGUnlockSubsystem"
+      },
+      {
+        "name": "GetLifetimeReplicatedProps",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the unlock subsystem, this should always return something unless you call it really early.",
+        "returnType": "AFGUnlockSubsystem*"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the unlock subsystem from a world context, this should always return something unless you call it really early.",
+        "returnType": "AFGUnlockSubsystem*"
+      },
+      {
+        "name": "Init",
+        "returnType": "void"
+      },
+      {
+        "name": "UnlockRecipe",
+        "returnType": "void"
+      },
+      {
+        "name": "UnlockScannableResource",
+        "returnType": "void"
+      },
+      {
+        "name": "UnlockMap",
+        "returnType": "void"
+      },
+      {
+        "name": "UnlockBuildEfficiency",
+        "returnType": "void"
+      },
+      {
+        "name": "UnlockBuildOverclock",
+        "returnType": "void"
+      },
+      {
+        "name": "UnlockInventorySlots",
+        "returnType": "void"
+      },
+      {
+        "name": "UnlockArmEquipmentSlots",
+        "returnType": "void"
+      },
+      {
+        "name": "GetScannableResources",
+        "returnType": "TArray<TSubclassOf<classUFGResourceDescriptor>>"
+      },
+      {
+        "name": "GetIsMapUnlocked",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetIsBuildingEfficiencyUnlocked",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetIsBuildingOverclockUnlocked",
+        "returnType": "bool"
+      },
+      {
+        "name": "RemoveAllScannableResources",
+        "returnType": "void"
+      },
+      {
+        "name": "OnSchematicPurchased",
+        "returnType": "void"
+      },
+      {
+        "name": "SetTotalNumInventorySlots",
+        "returnType": "void"
+      },
+      {
+        "name": "SetTotalNumArmEquipmentSlots",
+        "returnType": "void"
+      },
+      {
+        "name": "GetNumTotalInventorySlots",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetNumTotalArmEquipmentSlots",
+        "returnType": "int32"
+      },
+      {
+        "name": "SetNumOfAdditionalInventorySlots",
+        "returnType": "void"
+      },
+      {
+        "name": "SetNumAdditionalArmEquipmentSlots",
+        "returnType": "void"
+      },
+      {
+        "name": "SendMessageToAllPlayers",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOnUnlockedMoreInventorySlots",
+        "comment": "SERVER ONLY: Called when we unlocked more inventory slots",
+        "type": "FUnlockMoreInventorySlots"
+      },
+      {
+        "name": "mOnUnlockedMoreArmsSlots",
+        "comment": "SERVER ONLY: Called when we unlocked more arms slots",
+        "type": "FUnlockMoreInventorySlots"
+      },
+      {
+        "name": "mMapUnlockedMessage",
+        "comment": "Message sent when the map is unlocked",
+        "type": "TSubclassOf<classUFGMessageBase>"
+      },
+      {
+        "name": "mInventorySlotUnlockedMessage",
+        "comment": "Message sent when unlocking inventory slot",
+        "type": "TSubclassOf<classUFGMessageBase>"
+      },
+      {
+        "name": "mBuildingEfficiencyUnlockedMessage",
+        "comment": "Message sent when unlocking building efficiency display",
+        "type": "TSubclassOf<classUFGMessageBase>"
+      },
+      {
+        "name": "mBuildingOverclockUnlockedMessage",
+        "comment": "Message sent when unlocking overclocking of buildings",
+        "type": "TSubclassOf<classUFGMessageBase>"
+      },
+      {
+        "name": "mArmEquipmentSlotUnlockedMessage",
+        "comment": "Message sent when unlocking arm equipment slot",
+        "type": "TSubclassOf<classUFGMessageBase>"
+      },
+      {
+        "name": "mScannableResources",
+        "comment": "These are the resources the players can use their scanner to find",
+        "type": "TArray<TSubclassOf<classUFGResourceDescriptor>>"
+      },
+      {
+        "name": "mIsMapUnlocked",
+        "comment": "Did the player unlock the minimap?",
+        "type": "bool"
+      },
+      {
+        "name": "mIsBuildingEfficiencyUnlocked",
+        "comment": "Is the building efficiency display unlocked",
+        "type": "bool"
+      },
+      {
+        "name": "mIsBuildingOverclockUnlocked",
+        "comment": "Is the building overclocking unlocked",
+        "type": "bool"
+      },
+      {
+        "name": "mNumAdditionalInventorySlots",
+        "comment": "How many additional inventory slots have been unlocked for the players",
+        "type": "int32"
+      },
+      {
+        "name": "mNumTotalInventorySlots",
+        "comment": "The highest total number of inventory slots that any player have ever had, saved for save compatibility and rebalancing",
+        "type": "int32"
+      },
+      {
+        "name": "mNumAdditionalArmEquipmentSlots",
+        "comment": "How many additional arm equipment slots have been unlocked for the players",
+        "type": "int32"
+      },
+      {
+        "name": "mNumTotalArmEquipmentSlots",
+        "comment": "The highest total number of arm equipment slots that any player have ever had, saved for save compatibility and rebalancing",
+        "type": "int32"
+      }
+    ]
+  }
+]

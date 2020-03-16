@@ -1,0 +1,77 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGBuildingDescriptor",
+    "category": "UCLASS",
+    "comment": "Build descriptor for buildables.",
+    "extends": [
+      "UFGBuildDescriptor"
+    ],
+    "methods": [
+      {
+        "name": "UFGBuildingDescriptor"
+      },
+      {
+        "name": "PostLoad",
+        "comment": "~ Begin UObject Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "GetBuildableClass",
+        "comment": "Get the buildable class for this building descriptor.",
+        "returnType": "TSubclassOf<classAFGBuildable>"
+      },
+      {
+        "name": "GetPowerConsumption",
+        "comment": "Get the the power consumption of buildable.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetPowerProduction",
+        "comment": "Get the the power production of buildable, 0 for non-producers.",
+        "returnType": "float"
+      },
+      {
+        "name": "GetItemNameInternal",
+        "returnType": "FText"
+      },
+      {
+        "name": "GetItemDescriptionInternal",
+        "returnType": "FText"
+      },
+      {
+        "name": "GetHologramClassInternal",
+        "returnType": "TSubclassOf<classAFGHologram>"
+      },
+      {
+        "name": "GetBuildClassInternal",
+        "returnType": "TSubclassOf<AActor>"
+      },
+      {
+        "name": "SetupStage",
+        "returnType": "void"
+      },
+      {
+        "name": "GetCenterOfCollision",
+        "returnType": "FVector"
+      },
+      {
+        "name": "SetBuildableClass",
+        "comment": "Sets the class this buidling descriptor builds. Only for editor use",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mOverrideDisplayNameAndDescription",
+        "comment": "Value to display instead of display name and description.",
+        "type": "staticFText"
+      },
+      {
+        "name": "mBuildableClass",
+        "comment": "The class to build.",
+        "type": "TSubclassOf<classAFGBuildable>"
+      }
+    ]
+  }
+]

@@ -1,0 +1,121 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGResourceExtractorHologram",
+    "category": "UCLASS",
+    "comment": "Hologram for buildings that can only be placed (snapped) on resource nodes.",
+    "extends": [
+      "AFGFactoryHologram"
+    ],
+    "methods": [
+      {
+        "name": "AFGResourceExtractorHologram"
+      },
+      {
+        "name": "BeginPlay",
+        "comment": "Begin AActor Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "TrySnapToActor",
+        "comment": "Begin AFGHologram Interface",
+        "returnType": "bool"
+      },
+      {
+        "name": "TryUpgrade",
+        "returnType": "bool"
+      },
+      {
+        "name": "SetHologramLocationAndRotation",
+        "returnType": "void"
+      },
+      {
+        "name": "DoMultiStepPlacement",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsValidHitResult",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetUpgradedActor",
+        "returnType": "AActor*"
+      },
+      {
+        "name": "CheckValidPlacement",
+        "comment": "Begin AFGHologram Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "ConfigureActor",
+        "comment": "Begin AFGBuildableHologram Interface",
+        "returnType": "void"
+      },
+      {
+        "name": "ConfigureComponents",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckResourcesAvailable",
+        "comment": "Helper to check if there's resources available for IsValidPlacement.",
+        "returnType": "void"
+      },
+      {
+        "name": "CheckMinimumDepth",
+        "comment": "Check if this hologram meets minimum depth requirements.",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mAllowedResourceForms",
+        "comment": "What form can the overlapping resources be in.",
+        "type": "TArray<EResourceForm>"
+      },
+      {
+        "name": "mOnlyAllowCertainResources",
+        "comment": "Only allow certain specified resources ( set on the buildable )",
+        "type": "bool"
+      },
+      {
+        "name": "mMustPlaceOnResourceDisqualifier",
+        "comment": "Class of disqualifier to display when not snapped to a resource ( copied from buildable )",
+        "type": "TSubclassOf<classUFGConstructDisqualifier>"
+      },
+      {
+        "name": "mAllowedResources",
+        "comment": "If this buildable only allows certain resources for placement, this is the list of those taken from the buildable",
+        "type": "TArray<TSubclassOf<UFGResourceDescriptor>>"
+      },
+      {
+        "name": "mSnappedExtractableResource",
+        "comment": "The resource node we snapped to.",
+        "type": "TScriptInterface<classIFGExtractableResourceInterface>"
+      },
+      {
+        "name": "mUpgradeTarget",
+        "type": "classAFGBuildableResourceExtractor*"
+      },
+      {
+        "name": "mExtractorTypeName",
+        "comment": "name used to mathc types of extractros for compatiblility when upgrading",
+        "type": "FName"
+      },
+      {
+        "name": "mMinimumDepthForPlacement",
+        "comment": "Minimum depth for placement assigned from the Buildable",
+        "type": "float"
+      },
+      {
+        "name": "mRequireResourceAtMinimumDepthChecks",
+        "comment": "Require collision with the resource class at all minimum depth points? Assigned from the buildable",
+        "type": "bool"
+      },
+      {
+        "name": "mDepthTraceOriginOffset",
+        "comment": "Origin Offset when performing minimum depth traces. Assigned from the buildable",
+        "type": "FVector"
+      }
+    ]
+  }
+]

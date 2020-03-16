@@ -1,0 +1,96 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGAttack",
+    "category": "UCLASS",
+    "extends": [
+      "UObject"
+    ],
+    "methods": [
+      {
+        "name": "UFGAttack",
+        "comment": "ctor"
+      },
+      {
+        "name": "PerformAttack",
+        "comment": "\t/ Handles the attack logic, differs depending on type of attack ( ex melee, ranged etc )",
+        "returnType": "void"
+      },
+      {
+        "name": "PURE_VIRTUAL"
+      },
+      {
+        "name": "GetAttackRange",
+        "comment": "Get attack range",
+        "returnType": "float"
+      },
+      {
+        "name": "GetAttackActivationDistance",
+        "comment": "Get attack activation distance ( returns the attack range if the activation distance has not been set )",
+        "returnType": "float"
+      },
+      {
+        "name": "GetDamage",
+        "comment": "Get damage this attack does",
+        "returnType": "int32"
+      },
+      {
+        "name": "GetAttackAngle",
+        "comment": "Get angle needed for this attack to hit",
+        "returnType": "float"
+      },
+      {
+        "name": "GetDamageType",
+        "comment": "Get damage type for this attack",
+        "returnType": "TSubclassOf<classUDamageType>"
+      },
+      {
+        "name": "GetStopsMovement",
+        "comment": "Get for stop movement",
+        "returnType": "bool"
+      },
+      {
+        "name": "GetAttackMontage",
+        "comment": "Get attack montage",
+        "returnType": "UAnimMontage*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mAttackMontage",
+        "comment": "Animation to play when attacking",
+        "type": "classUAnimMontage*"
+      },
+      {
+        "name": "mStopsMovement",
+        "comment": "True if this attack stops movement",
+        "type": "bool"
+      },
+      {
+        "name": "mAttackRange",
+        "comment": "How far can we attack",
+        "type": "float"
+      },
+      {
+        "name": "mAttackActivationDistance",
+        "comment": "How far can we attack",
+        "type": "float"
+      },
+      {
+        "name": "mDamage",
+        "comment": "How much damage to do when hitting",
+        "type": "int32"
+      },
+      {
+        "name": "mDamageType",
+        "comment": "Damage type that this attack uses",
+        "type": "TSubclassOf<classUDamageType>"
+      },
+      {
+        "name": "mAttackAngle",
+        "comment": "Angle that target must be within in order to hit with attack ( 180 = full circle hit area )",
+        "type": "float"
+      }
+    ]
+  }
+]

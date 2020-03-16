@@ -1,0 +1,152 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGPipeSubsystem",
+    "category": "UCLASS",
+    "comment": "Subsystem that manages all pipes in the game, grouping them into networks and managing the simulation of the networks.",
+    "extends": [
+      "AFGSubsystem",
+      "IFGSaveInterface"
+    ],
+    "methods": [
+      {
+        "name": "AFGPipeSubsystem"
+      },
+      {
+        "name": "PreSaveGame_Implementation",
+        "comment": "Begin IFGSaveInterface",
+        "returnType": "void"
+      },
+      {
+        "name": "PostSaveGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PreLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "PostLoadGame_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "GatherDependencies_Implementation",
+        "returnType": "void"
+      },
+      {
+        "name": "NeedTransform_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "ShouldSave_Implementation",
+        "returnType": "bool"
+      },
+      {
+        "name": "Tick",
+        "comment": "Begin AActor interface",
+        "returnType": "void"
+      },
+      {
+        "name": "DisplayDebug",
+        "returnType": "void"
+      },
+      {
+        "name": "Get",
+        "comment": "Get the pipe subsystem.",
+        "returnType": "AFGPipeSubsystem*"
+      },
+      {
+        "name": "GetPipeSubsystem",
+        "comment": "Get the pipe subsystem",
+        "returnType": "AFGPipeSubsystem*"
+      },
+      {
+        "name": "RegisterPipeNetwork",
+        "comment": "Called by the network to register themselves.\nA network registers itself when spawned on the server or when spawned by relevancy on client.",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterPipeNetwork",
+        "comment": "Called by the network to register themselves on end play.\nThis happens on both server and client.",
+        "returnType": "void"
+      },
+      {
+        "name": "FindPipeNetwork",
+        "comment": "\n @note The returned pointer is only valid this tick or until a change is made to the network.",
+        "returnType": "classAFGPipeNetwork*"
+      },
+      {
+        "name": "TrySetNetworkFluidDescriptor",
+        "comment": "Attempts to set the fluid descriptor on a given network ID. Will fail if a pipe network already has a specified descriptorii.",
+        "returnType": "void"
+      },
+      {
+        "name": "FlushIntegrant",
+        "comment": "Resets a single fluid integrant. This emptys its content and flow values but NOT the fluid descriptor as the network maintains that\n@note - This takes an AActor for blueprint sanity with the IFGFluidIntegrantInterface ( that is not a blueprint type ) as such, it will cast. If the cast fails it will abort.",
+        "returnType": "void"
+      },
+      {
+        "name": "FlushPipeNetwork",
+        "comment": "\n @note - This is not blueprint callable as the blueprints will have no reliable way to query the NetworkID",
+        "returnType": "void"
+      },
+      {
+        "name": "FlushPipeNetworkFromIntegrant",
+        "comment": "Flushes a given pipe network by ID. Will clear the fluid descriptor and empty the contents of all fluid integrants\n@param integrantActor - Actor implementing IFGFluidIntegrantInterface. Will resolve the networkID from the passed integrant",
+        "returnType": "void"
+      },
+      {
+        "name": "RegisterFluidIntegrant",
+        "comment": "Add a new fluid integrant to the system.\nFluid integrants are any object that should belong to a pipe network",
+        "returnType": "void"
+      },
+      {
+        "name": "UnregisterFluidIntegrant",
+        "comment": "Remove a fluid integrant. Called when the owning actor is dismantled",
+        "returnType": "void"
+      },
+      {
+        "name": "GenerateUniqueID",
+        "returnType": "int32"
+      },
+      {
+        "name": "TickPipeNetworks",
+        "returnType": "void"
+      },
+      {
+        "name": "MergePipeNetworks",
+        "comment": "Helpers to manage pipe networks.",
+        "returnType": "void"
+      },
+      {
+        "name": "CreatePipeNetwork",
+        "returnType": "int32"
+      },
+      {
+        "name": "RemovePipeNetwork",
+        "returnType": "void"
+      },
+      {
+        "name": "RemoveFluidIntegrantFromNetwork",
+        "comment": "Removes a fluid integrant from an existing network.",
+        "returnType": "void"
+      },
+      {
+        "name": "AddFluidIntegrantToNetwork",
+        "comment": "Adds a fluid integrant to an existing network. Performs a merge on the network if its already connected",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mIDCounter",
+        "type": "int32"
+      },
+      {
+        "name": "mNetworks",
+        "comment": "Map with all circuits and the circuit ID as the key.",
+        "type": "TMap<int32,classAFGPipeNetwork*>"
+      }
+    ]
+  }
+]

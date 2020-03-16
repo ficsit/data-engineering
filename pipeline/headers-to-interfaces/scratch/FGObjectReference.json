@@ -1,0 +1,166 @@
+[
+  {
+    "kind": "class",
+    "name": "FObjectRedirect",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FObjectRedirect",
+        "comment": "Creates a redirector"
+      }
+    ],
+    "properties": [
+      {
+        "name": "Source",
+        "comment": "Redirected string",
+        "type": "FString"
+      },
+      {
+        "name": "Destination",
+        "comment": "New Name for the redirector",
+        "type": "FString"
+      }
+    ]
+  },
+  {
+    "kind": "class",
+    "name": "FObjectReferenceDisc",
+    "comment": "Level agnostic object reference",
+    "extends": [],
+    "methods": [
+      {
+        "name": "FObjectReferenceDisc",
+        "comment": "ctor"
+      },
+      {
+        "name": "FObjectReferenceDisc",
+        "comment": "Setups reference from a object"
+      },
+      {
+        "name": "IsNullptr",
+        "comment": "If returning true, then this is a nullptr",
+        "returnType": "bool"
+      },
+      {
+        "name": "Reset",
+        "comment": "Reset all values to sensible defaults without deallocating them",
+        "returnType": "void"
+      },
+      {
+        "name": "Resolve",
+        "comment": "Resolve the object in the context of the specified world",
+        "returnType": "UObject*"
+      },
+      {
+        "name": "ResolveWithRedirect",
+        "comment": "@param outerName - outer object for this actor\n@param outer - returns the outer object for this object if found",
+        "returnType": "bool"
+      },
+      {
+        "name": "Resolve",
+        "returnType": "T*"
+      },
+      {
+        "name": "Set",
+        "comment": "Set the reference to a object",
+        "returnType": "void"
+      },
+      {
+        "name": "ParseObjectName",
+        "comment": "Parse out the name of the object from the relative path",
+        "returnType": "void"
+      },
+      {
+        "name": "ParseObjectNameAndPath",
+        "comment": "Parse out the name of the object from the relative path",
+        "returnType": "void"
+      },
+      {
+        "name": "GetRelativePath",
+        "comment": "Get the relative path between the level the object resides in",
+        "returnType": "void"
+      },
+      {
+        "name": "FindOuterLevel",
+        "comment": "Find the level a object resides in",
+        "returnType": "ULevel*"
+      },
+      {
+        "name": "FindLevel",
+        "comment": "Find the level this actor/object resides in with redirector support",
+        "returnType": "ULevel*"
+      },
+      {
+        "name": "operator<<",
+        "comment": "Save/load data from disc",
+        "returnType": "FArchive&"
+      },
+      {
+        "name": "Valid",
+        "comment": "Returns true if this instance is valid",
+        "returnType": "bool"
+      },
+      {
+        "name": "ToString",
+        "comment": "For debug, prints Level::Path",
+        "returnType": "FString"
+      },
+      {
+        "name": "IsProbablyClass",
+        "comment": "@return true if this most probably is a class",
+        "returnType": "bool"
+      },
+      {
+        "name": "IsInLevel",
+        "comment": "@return true if this references something in a level.",
+        "returnType": "bool"
+      },
+      {
+        "name": "ClearRedirects",
+        "comment": "Clear all redirects that has been done",
+        "returnType": "void"
+      },
+      {
+        "name": "FindRedirect",
+        "comment": "\n @return true if we found a redirected name",
+        "returnType": "bool"
+      },
+      {
+        "name": "operator==",
+        "comment": "For comparisons of references",
+        "returnType": "bool"
+      },
+      {
+        "name": "InternalResolve",
+        "returnType": "UObject*"
+      },
+      {
+        "name": "AddRedirector",
+        "comment": "Add a redirector from a object name to a new object name",
+        "returnType": "void"
+      },
+      {
+        "name": "InternalFindLevel",
+        "comment": "Does the internal level finding logic",
+        "returnType": "ULevel*"
+      }
+    ],
+    "properties": [
+      {
+        "name": "LevelName",
+        "comment": "Name of the level we reside in, if empty, PathName is a absolute path",
+        "type": "FString"
+      },
+      {
+        "name": "PathName",
+        "comment": "Pathname including sublevel name",
+        "type": "FString"
+      },
+      {
+        "name": "Redirects",
+        "comment": "Redirects done during this latest session",
+        "type": "staticTArray<FObjectRedirect>"
+      }
+    ]
+  }
+]

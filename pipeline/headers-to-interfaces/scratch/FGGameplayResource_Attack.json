@@ -1,0 +1,18 @@
+[
+  {
+    "kind": "class",
+    "name": "UFGameplayTaskResource_Attack",
+    "category": "UCLASS",
+    "comment": "Copyright 2016 Coffee Stain Studios. All Rights Reserved.",
+    "extends": [
+      "UGameplayTaskResource"
+    ],
+    "methods": [
+      {
+        "name": "GenerateDebugDescription",
+        "returnType": "FString"
+      }
+    ],
+    "properties": []
+  }
+]

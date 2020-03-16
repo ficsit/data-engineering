@@ -1,0 +1,27 @@
+[
+  {
+    "kind": "class",
+    "name": "AFGRadioactiveActor",
+    "category": "UCLASS",
+    "comment": "An actor that is radioactive.",
+    "extends": [
+      "AActor"
+    ],
+    "methods": [
+      {
+        "name": "AFGRadioactiveActor"
+      },
+      {
+        "name": "BeginPlay",
+        "returnType": "void"
+      }
+    ],
+    "properties": [
+      {
+        "name": "mRadioactiveDecay",
+        "comment": "0 means no radiation and 1 is 10^15 (1 quadrillion) decays/s.\nGood values are in the range 0 to 1.",
+        "type": "float"
+      }
+    ]
+  }
+]
