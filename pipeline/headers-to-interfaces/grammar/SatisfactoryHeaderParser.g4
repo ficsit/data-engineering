@@ -11,8 +11,10 @@ file
 element
   : classDeclaration
   | enumDeclaration
+  | namespaceDeclaration
   | staticMethodCall
   | staticFunctionDeclaration
+  | staticInlineFunctionDeclaration
   | staticPropertyDeclaration
   | typedef
   | SEMICOLON
@@ -57,12 +59,7 @@ typeDeclaration
   ;
 
 templateType
-  : OPEN_ANGLE templateTypeList CLOSE_ANGLE
-  ;
-
-templateTypeList
-  : typeDeclaration
-  | typeDeclaration COMMA templateTypeList
+  : contentWithNestedAngles
   ;
 
 typeModifier
@@ -71,6 +68,7 @@ typeModifier
   | CONSTEXPR
   | ENUM
   | STRUCT
+  | STATIC
   | MUTABLE
   | uParamMacro
   ;
@@ -119,7 +117,7 @@ classExtension
   ;
 
 classBody
-  : generatedBodyMacro? SEMICOLON? classEntries?
+  : classEntries?
   ;
 
 classEntries
@@ -132,8 +130,11 @@ classEntry
   | friendDeclaration
   | classProperty
   | statDeclaration
-  | classEnum
+  | nestedEnum
+  | nestedClass
+  | nestedStruct
   | typedef
+  | generatedBodyMacro
   | SEMICOLON
   ;
 
@@ -148,7 +149,7 @@ classVisibilityModifier
   ;
 
 friendDeclaration
-  : FRIEND CLASS? identifier SEMICOLON
+  : FRIEND classKeyword? identifier SEMICOLON
   ;
 
 statDeclaration
@@ -162,7 +163,7 @@ classMethod
   ;
 
 classMethodEnd
-  : SEMICOLON
+  : SEMICOLON?
   | contentWithNestedBraces SEMICOLON?
   | COLON classInitializerList contentWithNestedBraces SEMICOLON?
   | EQUALS numericLiteral SEMICOLON
@@ -185,7 +186,7 @@ classInitializer
 // Class Properties
 
 classProperty
-  : upropertyMacro? STATIC? typeDeclaration? identifier classPropertyArraySizeDeclaration? classPropertyDefaultValue? SEMICOLON
+  : upropertyMacro? typeDeclaration? identifier contentWithNestedSquares? classPropertyDefaultValue? SEMICOLON
   ;
 
 classPropertyDefaultValue
@@ -195,19 +196,24 @@ classPropertyDefaultValue
   | EQUALS identifier contentWithNestedParens
   ;
 
-classPropertyArraySizeDeclaration
-  : OPEN_SQUARE classPropertyArraySize CLOSE_SQUARE
-  ;
 
 classPropertyArraySize
   : identifier
   | numericLiteral
   ;
 
-// Nested Enum
+// Nested Elements
 
-classEnum
-  : ENUM contentWithNestedBraces
+nestedEnum
+  : ENUM identifier? contentWithNestedBraces
+  ;
+
+nestedClass
+  : CLASS identifier classInheritance? contentWithNestedBraces
+  ;
+
+nestedStruct
+  : STRUCT identifier classInheritance? contentWithNestedBraces
   ;
 
 // Enums
@@ -243,6 +249,10 @@ staticFunctionDeclaration
 staticPropertyDeclaration
   : STATIC typeDeclaration identifier EQUALS literal SEMICOLON;
 
+staticInlineFunctionDeclaration
+  : FORCEINLINE typeDeclaration identifier contentWithNestedParens
+  ;
+
 // Miscellaneous
 
 staticMethodCall
@@ -250,7 +260,7 @@ staticMethodCall
   ;
 
 typedef
-  : TYPEDEF typeDeclaration identifier SEMICOLON
+  : TYPEDEF TYPENAME? typeDeclaration identifier SEMICOLON
   | CLASS identifier SEMICOLON
   ;
 
@@ -281,16 +291,28 @@ contentWithNestedAnglesInner
   | contentWithNestedAngles
   ;
 
+contentWithNestedSquares
+  : OPEN_SQUARE contentWithNestedSquaresInner* CLOSE_SQUARE
+  ;
+
+contentWithNestedSquaresInner
+  : ~(OPEN_SQUARE | CLOSE_SQUARE)+
+  | contentWithNestedSquares
+  ;
+
 functionName
-  : identifier
+  : TILDE? identifier
   | OPERATOR EQUALS
   | OPERATOR EQUALS EQUALS
   | OPERATOR BANG EQUALS
+  | OPERATOR PLUS
+  | OPERATOR MINUS
   | OPERATOR OPEN_SQUARE CLOSE_SQUARE
   | OPERATOR OPEN_ANGLE
   | OPERATOR OPEN_ANGLE OPEN_ANGLE
   | OPERATOR CLOSE_ANGLE
   | OPERATOR CLOSE_ANGLE CLOSE_ANGLE
+  | OPERATOR OPEN_PAREN CLOSE_PAREN
   ;
 
 functionModifier
@@ -299,7 +321,12 @@ functionModifier
   | VIRTUAL
   | FORCEINLINE
   | INLINE
+  | FRIEND
   | TEMPLATE contentWithNestedAngles
+  ;
+
+namespaceDeclaration
+  : NAMESPACE identifier contentWithNestedBraces
   ;
 
 // Macros

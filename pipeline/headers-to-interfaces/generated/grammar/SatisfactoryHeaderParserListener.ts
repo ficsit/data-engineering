@@ -13,7 +13,6 @@ import { NumericLiteralContext } from "./SatisfactoryHeaderParserParser";
 import { BooleanLiteralContext } from "./SatisfactoryHeaderParserParser";
 import { TypeDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { TemplateTypeContext } from "./SatisfactoryHeaderParserParser";
-import { TemplateTypeListContext } from "./SatisfactoryHeaderParserParser";
 import { TypeModifierContext } from "./SatisfactoryHeaderParserParser";
 import { TypeReferenceTypeContext } from "./SatisfactoryHeaderParserParser";
 import { ClassDeclarationContext } from "./SatisfactoryHeaderParserParser";
@@ -38,9 +37,10 @@ import { ClassInitializerListContext } from "./SatisfactoryHeaderParserParser";
 import { ClassInitializerContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyDefaultValueContext } from "./SatisfactoryHeaderParserParser";
-import { ClassPropertyArraySizeDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyArraySizeContext } from "./SatisfactoryHeaderParserParser";
-import { ClassEnumContext } from "./SatisfactoryHeaderParserParser";
+import { NestedEnumContext } from "./SatisfactoryHeaderParserParser";
+import { NestedClassContext } from "./SatisfactoryHeaderParserParser";
+import { NestedStructContext } from "./SatisfactoryHeaderParserParser";
 import { EnumDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { EnumHeaderContext } from "./SatisfactoryHeaderParserParser";
 import { EnumBodyContext } from "./SatisfactoryHeaderParserParser";
@@ -48,6 +48,7 @@ import { EnumEntryContext } from "./SatisfactoryHeaderParserParser";
 import { EnumValueContext } from "./SatisfactoryHeaderParserParser";
 import { StaticFunctionDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { StaticPropertyDeclarationContext } from "./SatisfactoryHeaderParserParser";
+import { StaticInlineFunctionDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { StaticMethodCallContext } from "./SatisfactoryHeaderParserParser";
 import { TypedefContext } from "./SatisfactoryHeaderParserParser";
 import { ContentWithNestedParensContext } from "./SatisfactoryHeaderParserParser";
@@ -56,8 +57,11 @@ import { ContentWithNestedBracesContext } from "./SatisfactoryHeaderParserParser
 import { ContentWithNestedBracesInnerContext } from "./SatisfactoryHeaderParserParser";
 import { ContentWithNestedAnglesContext } from "./SatisfactoryHeaderParserParser";
 import { ContentWithNestedAnglesInnerContext } from "./SatisfactoryHeaderParserParser";
+import { ContentWithNestedSquaresContext } from "./SatisfactoryHeaderParserParser";
+import { ContentWithNestedSquaresInnerContext } from "./SatisfactoryHeaderParserParser";
 import { FunctionNameContext } from "./SatisfactoryHeaderParserParser";
 import { FunctionModifierContext } from "./SatisfactoryHeaderParserParser";
+import { NamespaceDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { UclassMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UenumMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UfunctionMacroContext } from "./SatisfactoryHeaderParserParser";
@@ -188,17 +192,6 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitTemplateType?: (ctx: TemplateTypeContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.templateTypeList`.
-	 * @param ctx the parse tree
-	 */
-	enterTemplateTypeList?: (ctx: TemplateTypeListContext) => void;
-	/**
-	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.templateTypeList`.
-	 * @param ctx the parse tree
-	 */
-	exitTemplateTypeList?: (ctx: TemplateTypeListContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.typeModifier`.
@@ -465,17 +458,6 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	exitClassPropertyDefaultValue?: (ctx: ClassPropertyDefaultValueContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classPropertyArraySizeDeclaration`.
-	 * @param ctx the parse tree
-	 */
-	enterClassPropertyArraySizeDeclaration?: (ctx: ClassPropertyArraySizeDeclarationContext) => void;
-	/**
-	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.classPropertyArraySizeDeclaration`.
-	 * @param ctx the parse tree
-	 */
-	exitClassPropertyArraySizeDeclaration?: (ctx: ClassPropertyArraySizeDeclarationContext) => void;
-
-	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classPropertyArraySize`.
 	 * @param ctx the parse tree
 	 */
@@ -487,15 +469,37 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	exitClassPropertyArraySize?: (ctx: ClassPropertyArraySizeContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classEnum`.
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.nestedEnum`.
 	 * @param ctx the parse tree
 	 */
-	enterClassEnum?: (ctx: ClassEnumContext) => void;
+	enterNestedEnum?: (ctx: NestedEnumContext) => void;
 	/**
-	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.classEnum`.
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.nestedEnum`.
 	 * @param ctx the parse tree
 	 */
-	exitClassEnum?: (ctx: ClassEnumContext) => void;
+	exitNestedEnum?: (ctx: NestedEnumContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.nestedClass`.
+	 * @param ctx the parse tree
+	 */
+	enterNestedClass?: (ctx: NestedClassContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.nestedClass`.
+	 * @param ctx the parse tree
+	 */
+	exitNestedClass?: (ctx: NestedClassContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.nestedStruct`.
+	 * @param ctx the parse tree
+	 */
+	enterNestedStruct?: (ctx: NestedStructContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.nestedStruct`.
+	 * @param ctx the parse tree
+	 */
+	exitNestedStruct?: (ctx: NestedStructContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.enumDeclaration`.
@@ -573,6 +577,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitStaticPropertyDeclaration?: (ctx: StaticPropertyDeclarationContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.staticInlineFunctionDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	enterStaticInlineFunctionDeclaration?: (ctx: StaticInlineFunctionDeclarationContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.staticInlineFunctionDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	exitStaticInlineFunctionDeclaration?: (ctx: StaticInlineFunctionDeclarationContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.staticMethodCall`.
@@ -663,6 +678,28 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	exitContentWithNestedAnglesInner?: (ctx: ContentWithNestedAnglesInnerContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.contentWithNestedSquares`.
+	 * @param ctx the parse tree
+	 */
+	enterContentWithNestedSquares?: (ctx: ContentWithNestedSquaresContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.contentWithNestedSquares`.
+	 * @param ctx the parse tree
+	 */
+	exitContentWithNestedSquares?: (ctx: ContentWithNestedSquaresContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.contentWithNestedSquaresInner`.
+	 * @param ctx the parse tree
+	 */
+	enterContentWithNestedSquaresInner?: (ctx: ContentWithNestedSquaresInnerContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.contentWithNestedSquaresInner`.
+	 * @param ctx the parse tree
+	 */
+	exitContentWithNestedSquaresInner?: (ctx: ContentWithNestedSquaresInnerContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.functionName`.
 	 * @param ctx the parse tree
 	 */
@@ -683,6 +720,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitFunctionModifier?: (ctx: FunctionModifierContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.namespaceDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	enterNamespaceDeclaration?: (ctx: NamespaceDeclarationContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.namespaceDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	exitNamespaceDeclaration?: (ctx: NamespaceDeclarationContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.uclassMacro`.

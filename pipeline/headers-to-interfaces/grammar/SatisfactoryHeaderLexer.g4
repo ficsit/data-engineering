@@ -16,6 +16,7 @@ FORCEINLINE: 'FORCEINLINE';
 FRIEND: 'friend';
 INLINE: 'inline';
 MUTABLE: 'mutable';
+NAMESPACE: 'namespace';
 OPERATOR: 'operator';
 OVERRIDE: 'override';
 PRIVATE: 'private';
@@ -26,6 +27,7 @@ STRUCT: 'struct';
 TEMPLATE: 'template';
 TRUE: 'true';
 TYPEDEF: 'typedef';
+TYPENAME: 'typename';
 VIRTUAL: 'virtual';
 
 // Satisfactory Specifics
@@ -60,18 +62,21 @@ OPEN_ANGLE:   '<';
 OPEN_BRACE:   '{';
 OPEN_PAREN:   '(';
 OPEN_SQUARE:  '[';
+PERCENT:      '%';
 PERIOD:       '.';
 PIPE:         '|';
 PLUS:         '+';
 QUESTION:     '?';
 SEMICOLON:    ';';
+SLASH:        '\\';
 STAR:         '*';
+TILDE:        '~';
 
 // Generic
-IDENTIFIER: [a-zA-Z][a-zA-Z0-9_]*;
+IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*;
 STRING_LITERAL: '"' .*? '"';
-FLOAT_LITERAL: [0-9]+ '.' [0-9]* 'f'?;
-INTEGER_LITERAL: [0-9]+;
+FLOAT_LITERAL: '-'? [0-9]+ '.' [0-9]* 'f'?;
+INTEGER_LITERAL: '-'? [0-9]+;
 
 // Blocks
 
