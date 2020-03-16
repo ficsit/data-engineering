@@ -9,6 +9,7 @@ fragment Newline: '\r'? '\n';
 
 CLASS: 'class';
 CONST: 'const';
+CONSTEXPR: 'constexpr';
 ENUM: 'enum';
 FALSE: 'false';
 FORCEINLINE: 'FORCEINLINE';

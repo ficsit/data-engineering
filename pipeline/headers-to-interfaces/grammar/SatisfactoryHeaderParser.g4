@@ -53,7 +53,7 @@ booleanLiteral
 // Types
 
 typeDeclaration
-  : typeModifier* identifier templateType? typeReferenceType?
+  : typeModifier* identifier templateType? typeReferenceType? CONSTEXPR?
   ;
 
 templateType
@@ -68,6 +68,7 @@ templateTypeList
 typeModifier
   : CLASS
   | CONST
+  | CONSTEXPR
   | ENUM
   | STRUCT
   | MUTABLE
@@ -86,13 +87,17 @@ classDeclaration
   ;
 
 classHeader
-  : classMacro? classKeyword SF_CLASS_TAG? identifier classInheritance?
+  : classMacro? templateDeclaration? classKeyword SF_CLASS_TAG? identifier contentWithNestedAngles? classInheritance?
   ;
 
 classMacro
   : uclassMacro
   | uinterfaceMacro
   | ustructMacro
+  ;
+
+templateDeclaration
+  : TEMPLATE contentWithNestedAngles
   ;
 
 classKeyword
@@ -110,7 +115,7 @@ classExtensionList
   ;
 
 classExtension
-  : classVisibilityModifier identifier
+  : classVisibilityModifier identifier contentWithNestedAngles?
   ;
 
 classBody
@@ -127,6 +132,7 @@ classEntry
   | friendDeclaration
   | classProperty
   | statDeclaration
+  | classEnum
   | typedef
   | SEMICOLON
   ;
@@ -159,6 +165,7 @@ classMethodEnd
   : SEMICOLON
   | contentWithNestedBraces SEMICOLON?
   | COLON classInitializerList contentWithNestedBraces SEMICOLON?
+  | EQUALS numericLiteral SEMICOLON
   ;
 
 classMethodResultModifier
@@ -195,6 +202,12 @@ classPropertyArraySizeDeclaration
 classPropertyArraySize
   : identifier
   | numericLiteral
+  ;
+
+// Nested Enum
+
+classEnum
+  : ENUM contentWithNestedBraces
   ;
 
 // Enums
@@ -272,6 +285,7 @@ functionName
   : identifier
   | OPERATOR EQUALS
   | OPERATOR EQUALS EQUALS
+  | OPERATOR BANG EQUALS
   | OPERATOR OPEN_SQUARE CLOSE_SQUARE
   | OPERATOR OPEN_ANGLE
   | OPERATOR OPEN_ANGLE OPEN_ANGLE

@@ -19,6 +19,7 @@ import { TypeReferenceTypeContext } from "./SatisfactoryHeaderParserParser";
 import { ClassDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { ClassHeaderContext } from "./SatisfactoryHeaderParserParser";
 import { ClassMacroContext } from "./SatisfactoryHeaderParserParser";
+import { TemplateDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { ClassKeywordContext } from "./SatisfactoryHeaderParserParser";
 import { ClassInheritanceContext } from "./SatisfactoryHeaderParserParser";
 import { ClassExtensionListContext } from "./SatisfactoryHeaderParserParser";
@@ -39,6 +40,7 @@ import { ClassPropertyContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyDefaultValueContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyArraySizeDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyArraySizeContext } from "./SatisfactoryHeaderParserParser";
+import { ClassEnumContext } from "./SatisfactoryHeaderParserParser";
 import { EnumDeclarationContext } from "./SatisfactoryHeaderParserParser";
 import { EnumHeaderContext } from "./SatisfactoryHeaderParserParser";
 import { EnumBodyContext } from "./SatisfactoryHeaderParserParser";
@@ -252,6 +254,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitClassMacro?: (ctx: ClassMacroContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.templateDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	enterTemplateDeclaration?: (ctx: TemplateDeclarationContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.templateDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	exitTemplateDeclaration?: (ctx: TemplateDeclarationContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classKeyword`.
@@ -472,6 +485,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitClassPropertyArraySize?: (ctx: ClassPropertyArraySizeContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classEnum`.
+	 * @param ctx the parse tree
+	 */
+	enterClassEnum?: (ctx: ClassEnumContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.classEnum`.
+	 * @param ctx the parse tree
+	 */
+	exitClassEnum?: (ctx: ClassEnumContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.enumDeclaration`.
