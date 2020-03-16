@@ -37,6 +37,7 @@ import { ClassInitializerListContext } from "./SatisfactoryHeaderParserParser";
 import { ClassInitializerContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyDefaultValueContext } from "./SatisfactoryHeaderParserParser";
+import { LiteralExpressionContext } from "./SatisfactoryHeaderParserParser";
 import { ClassPropertyArraySizeContext } from "./SatisfactoryHeaderParserParser";
 import { NestedEnumContext } from "./SatisfactoryHeaderParserParser";
 import { NestedClassContext } from "./SatisfactoryHeaderParserParser";
@@ -62,6 +63,7 @@ import { ContentWithNestedSquaresInnerContext } from "./SatisfactoryHeaderParser
 import { FunctionNameContext } from "./SatisfactoryHeaderParserParser";
 import { FunctionModifierContext } from "./SatisfactoryHeaderParserParser";
 import { NamespaceDeclarationContext } from "./SatisfactoryHeaderParserParser";
+import { UsingNamespaceContext } from "./SatisfactoryHeaderParserParser";
 import { UclassMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UenumMacroContext } from "./SatisfactoryHeaderParserParser";
 import { UfunctionMacroContext } from "./SatisfactoryHeaderParserParser";
@@ -458,6 +460,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	exitClassPropertyDefaultValue?: (ctx: ClassPropertyDefaultValueContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.literalExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterLiteralExpression?: (ctx: LiteralExpressionContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.literalExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitLiteralExpression?: (ctx: LiteralExpressionContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.classPropertyArraySize`.
 	 * @param ctx the parse tree
 	 */
@@ -731,6 +744,17 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitNamespaceDeclaration?: (ctx: NamespaceDeclarationContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.usingNamespace`.
+	 * @param ctx the parse tree
+	 */
+	enterUsingNamespace?: (ctx: UsingNamespaceContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParserParser.usingNamespace`.
+	 * @param ctx the parse tree
+	 */
+	exitUsingNamespace?: (ctx: UsingNamespaceContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParserParser.uclassMacro`.

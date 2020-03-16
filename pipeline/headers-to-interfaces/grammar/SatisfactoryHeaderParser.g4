@@ -17,6 +17,7 @@ element
   | staticInlineFunctionDeclaration
   | staticPropertyDeclaration
   | typedef
+  | usingNamespace
   | SEMICOLON
   ;
 
@@ -113,7 +114,7 @@ classExtensionList
   ;
 
 classExtension
-  : classVisibilityModifier identifier contentWithNestedAngles?
+  : classVisibilityModifier? identifier contentWithNestedAngles?
   ;
 
 classBody
@@ -191,11 +192,18 @@ classProperty
 
 classPropertyDefaultValue
   : COLON literal
-  | EQUALS literal
-  | EQUALS identifier
+  | EQUALS literalExpression
   | EQUALS identifier contentWithNestedParens
   ;
 
+literalExpression
+  : literal
+  | identifier
+  | literalExpression PLUS literalExpression
+  | literalExpression MINUS literalExpression
+  | literalExpression STAR literalExpression
+  | literalExpression BACKSLASH literalExpression
+  ;
 
 classPropertyArraySize
   : identifier
@@ -243,8 +251,9 @@ enumValue
 // Statics
 
 staticFunctionDeclaration
-  : functionModifier* typeDeclaration? functionName contentWithNestedParens CONST? contentWithNestedBraces SEMICOLON?
+  : functionModifier* typeDeclaration? functionName contentWithNestedParens CONST? contentWithNestedBraces? SEMICOLON?
   ;
+
 
 staticPropertyDeclaration
   : STATIC typeDeclaration identifier EQUALS literal SEMICOLON;
@@ -313,11 +322,13 @@ functionName
   | OPERATOR CLOSE_ANGLE
   | OPERATOR CLOSE_ANGLE CLOSE_ANGLE
   | OPERATOR OPEN_PAREN CLOSE_PAREN
+  | OPERATOR MINUS CLOSE_ANGLE
   ;
 
 functionModifier
   : STATIC
   | CONST
+  | CONSTEXPR
   | VIRTUAL
   | FORCEINLINE
   | INLINE
@@ -328,6 +339,9 @@ functionModifier
 namespaceDeclaration
   : NAMESPACE identifier contentWithNestedBraces
   ;
+
+usingNamespace
+  : USING identifier EQUALS identifier;
 
 // Macros
 
@@ -340,7 +354,7 @@ uenumMacro
   ;
 
 ufunctionMacro
-  : UFUNCTION macroPropertyList
+  : FORCEINLINE? UFUNCTION macroPropertyList
   ;
 
 uinterfaceMacro

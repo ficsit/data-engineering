@@ -1,6 +1,20 @@
 import * as fs from 'fs';
+import * as glob from 'glob';
 
 import { parseHeader, printTokens } from './parse';
+
+parseAll(process.argv[2]);
+
+function parseAll(sourceDir: string) {
+  if (sourceDir.endsWith('.h')) {
+    parse(sourceDir);
+    return;
+  }
+
+  for (const header of glob.sync(`${sourceDir}/**/*.h`)) {
+    parse(header);
+  }
+}
 
 function parse(header: string) {
   process.stderr.write(`parsing: ${header}\n`);
@@ -13,5 +27,3 @@ function parse(header: string) {
   const result = parseHeader(contents);
   console.log(JSON.stringify(result, null, 2));
 }
-
-parse(process.argv[2]);
