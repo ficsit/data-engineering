@@ -36,11 +36,9 @@ export function printTokens(contents: string) {
 
   let token = lexer.nextToken();
   while (token.type !== Token.EOF) {
-    console.log(
-      SatisfactoryHeaderLexer.VOCABULARY.getDisplayName(token.type),
-      '::',
-      JSON.stringify(token.text),
-    );
+    const name = SatisfactoryHeaderLexer.VOCABULARY.getDisplayName(token.type);
+    const data = JSON.stringify(token.text);
+    process.stderr.write(`${name}::${data}\n`);
     token = lexer.nextToken();
   }
 }

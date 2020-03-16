@@ -8,7 +8,7 @@ parseAll(process.argv[2], process.argv[3]);
 
 function parseAll(sourceDir: string, destDir: string) {
   if (sourceDir.endsWith('.h')) {
-    parse(sourceDir);
+    console.log(JSON.stringify(parse(sourceDir), null, 2));
     return;
   }
 

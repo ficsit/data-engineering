@@ -97,8 +97,8 @@ LINE_COMMENT_OTHER: . -> skip;
 
 mode BLOCK_COMMENT;
 
-BLOCK_COMMENT_END: Space* '*'* '*/' -> skip, popMode;
-BLOCK_COMMENT_NEW_LINE: Newline Space* '*' ~'/' -> skip;
+BLOCK_COMMENT_END: Space* '*/' -> skip, popMode;
+BLOCK_COMMENT_NEW_LINE: Newline Space* '*'+ ~[/*] -> skip;
 BLOCK_COMMENT_TEXT: ~[*\r\n]+ -> channel(COMMENTS_CHANNEL);
 BLOCK_COMMENT_OTHER: . -> skip;
 
