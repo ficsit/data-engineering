@@ -82,7 +82,7 @@ INTEGER_LITERAL: '-'? [0-9]+;
 // Blocks
 
 PREPROCESSOR: '#' -> skip, pushMode(PREPROCESSOR_MACRO);
-LINE_COMMENT_START:  '//' Space? -> skip, pushMode(LINE_COMMENT);
+LINE_COMMENT_START:  '//' '*'* Space? -> skip, pushMode(LINE_COMMENT);
 BLOCK_COMMENT_START: '/*' '*'* Space? -> skip, pushMode(BLOCK_COMMENT);
 
 // Fallback

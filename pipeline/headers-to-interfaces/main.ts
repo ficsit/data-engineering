@@ -2,27 +2,31 @@ import * as fs from 'fs';
 import * as glob from 'glob';
 import * as path from 'path';
 
+import { EmitContext, EmittableCategory, EntryCategory } from './emit';
 import { parseHeader, printTokens } from './parse';
 
 parseAll(process.argv[2], process.argv[3]);
 
 function parseAll(sourceDir: string, destDir: string) {
-  if (sourceDir.endsWith('.h')) {
-    console.log(JSON.stringify(parse(sourceDir), null, 2));
-    return;
+  sourceDir = path.resolve(sourceDir);
+  destDir = path.resolve(destDir);
+
+  const context = new EmitContext(destDir);
+  const globExpression = sourceDir.endsWith('.h') ? sourceDir : `${sourceDir}/**/*.h`;
+
+  for (const header of glob.sync(globExpression)) {
+    context.addEntries(parse(header, sourceDir));
   }
 
-  fs.mkdirSync(destDir, { recursive: true });
-
-  for (const header of glob.sync(`${sourceDir}/**/*.h`)) {
-    const result = parse(header);
-    const destination = path.join(destDir, `${path.basename(header, '.h')}.json`);
-    fs.writeFileSync(destination, JSON.stringify(result, null, 2));
-  }
+  fs.rmdirSync(destDir, { recursive: true });
+  emitCategory(context, EntryCategory.CLASS);
+  emitCategory(context, EntryCategory.ENUM);
+  emitCategory(context, EntryCategory.INTERFACE);
+  emitCategory(context, EntryCategory.STRUCT);
 }
 
-function parse(header: string) {
-  process.stderr.write(`parsing: ${header}\n`);
+function parse(header: string, sourceDir: string) {
+  process.stderr.write(`\u001b[2Kparsing: ${path.relative(sourceDir, header)}\r`);
   const contents = fs.readFileSync(header, 'utf-8');
 
   if (process.env.DEBUG === 'tokens') {
@@ -30,4 +34,17 @@ function parse(header: string) {
   }
 
   return parseHeader(contents);
+}
+
+function emitCategory(context: EmitContext, category: EmittableCategory) {
+  fs.mkdirSync(context.destinations[category], { recursive: true });
+
+  for (const entry of context.entriesInCategory(category)) {
+    const content = context.emit(entry);
+    if (!content) continue;
+
+    process.stderr.write(`\u001b[2Kemitting: ${entry}\r`);
+    const destination = context.pathTo(entry);
+    fs.writeFileSync(destination, content);
+  }
 }

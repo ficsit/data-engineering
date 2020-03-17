@@ -16,7 +16,7 @@ import {
   MacroPropertyContext,
   LiteralContext,
 } from './generated/grammar/SatisfactoryHeaderParserParser';
-import { ClassMetadata, EnumMetadata } from './interface';
+import { ClassMetadata, EnumMetadata, EntryType } from './interface';
 
 export function parseHeader(contents: string) {
   const stream = new ANTLRInputStream(contents);
@@ -43,8 +43,6 @@ export function printTokens(contents: string) {
   }
 }
 
-type EntryType = ClassMetadata | EnumMetadata;
-
 class Listener implements SatisfactoryHeaderParserListener {
   public result = [] as EntryType[];
   _currentEntry: EntryType | undefined;
@@ -56,19 +54,19 @@ class Listener implements SatisfactoryHeaderParserListener {
   enterClassDeclaration(context: ClassDeclarationContext) {
     const header = context.classHeader();
     const macro = header.classMacro();
-    let category;
+    let engineAnnotation;
     if (macro?.uclassMacro()) {
-      category = 'UCLASS';
+      engineAnnotation = 'UCLASS';
     } else if (macro?.uinterfaceMacro()) {
-      category = 'UINTERFACE';
+      engineAnnotation = 'UINTERFACE';
     } else if (macro?.ustructMacro()) {
-      category = 'USTRUCT';
+      engineAnnotation = 'USTRUCT';
     }
 
     this._currentEntry = {
       kind: 'class',
       name: header.identifier().text,
-      category,
+      engineAnnotation,
       comment: this._getComment(context),
       extends: [],
       methods: [],
@@ -89,10 +87,16 @@ class Listener implements SatisfactoryHeaderParserListener {
   }
 
   enterClassProperty(context: ClassPropertyContext) {
+    let engineAnnotation;
+    if (context.upropertyMacro()) {
+      engineAnnotation = 'UPROPERTY';
+    }
+
     this._currentClass().properties.push({
       name: context.identifier().text,
       comment: this._getComment(context),
       type: context.typeDeclaration()?.text,
+      engineAnnotation,
     });
   }
 
@@ -114,16 +118,25 @@ class Listener implements SatisfactoryHeaderParserListener {
 
   enterEnumEntry(context: EnumEntryContext) {
     const meta = this._macroProperties(context.umetaMacro());
+    let displayName = meta['DisplayName'];
+    if (displayName && typeof displayName === 'object') {
+      // UMETA(DisplayName=Private) vs UMETA(DisplayName="Private")
+      displayName = Object.keys(displayName)[0];
+    }
 
     this._currentEnum().entries.push({
       name: context.identifier().text,
-      displayName: meta['DisplayName'],
+      displayName,
       comment: this._getComment(context),
     });
   }
 
   exitEnumDeclaration() {
-    this.result.push(this._currentEntry);
+    // Skip anonymous enums (aka a hack to set static values).
+    if (this._currentEntry.name) {
+      this.result.push(this._currentEntry);
+    }
+
     this._currentEntry = undefined;
   }
 
@@ -142,7 +155,7 @@ class Listener implements SatisfactoryHeaderParserListener {
       // return this._tokens.get(line.tokenIndex - 1).channel
     });
     if (linesBefore.length) {
-      let lineNumber = linesBefore[linesBefore.length - 1].line;
+      let lineNumber = start.line;
       linesBefore = linesBefore.filter(line => {
         // Is there a gap?
         if (line.line < lineNumber - 1) return false;
@@ -165,7 +178,8 @@ class Listener implements SatisfactoryHeaderParserListener {
     const comment = [...linesBefore, ...linesAfter]
       .map(t => t.text)
       .map(t => t.replace(/[ \t]+$/, ''))
-      .join('\n');
+      .join('\n')
+      .trim();
 
     return comment === '' ? undefined : comment;
   }

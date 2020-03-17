@@ -1,9 +1,11 @@
+export type EntryType = ClassMetadata | EnumMetadata;
+
 // Classes
 
 export interface ClassMetadata {
   kind: 'class';
   name: string;
-  category?: 'UCLASS' | 'UINTERFACE' | 'USTRUCT';
+  engineAnnotation?: 'UCLASS' | 'UINTERFACE' | 'USTRUCT';
   comment?: string;
   extends: string[];
   methods: ClassMethod[];
@@ -20,6 +22,7 @@ export interface ClassProperty {
   name: string;
   comment?: string;
   type: string;
+  engineAnnotation?: 'UPROPERTY';
 }
 
 // Enums
