@@ -3,6 +3,7 @@ import * as util from 'util';
 
 import { EntryType } from '../interface';
 
+import { ReferenceEmitContext } from './ReferenceEmitContext';
 import { emitClass } from './emitClass';
 import { emitEnum } from './emitEnum';
 
@@ -66,18 +67,39 @@ export class EmitContext {
   }
 
   emit(name: string) {
-    const { entry } = this._entries.get(name);
+    const { entry, category } = this._entries.get(name);
 
+    const referenceContext = new ReferenceEmitContext(this, this.destinations[category]);
+
+    let content;
     if (entry.kind === 'class') {
-      return emitClass(entry);
+      content = emitClass(referenceContext, entry);
     } else if (entry.kind === 'enum') {
-      return emitEnum(entry);
+      content = emitEnum(entry);
+    }
+
+    const imports = referenceContext.emitImports();
+    if (imports) {
+      return `${imports}\n\n${content}`;
+    } else {
+      return content;
     }
   }
 
   pathTo(name: string) {
-    const { category } = this._entries.get(name);
-    return path.join(this.destinations[category], `${name}.ts`);
+    const entry = this._entries.get(name);
+    if (!entry) return;
+    return path.join(this.destinations[entry.category], `${name}.ts`);
+  }
+
+  importPathTo(sourceDir: string, name: string) {
+    const fullPath = this.pathTo(name);
+    if (!fullPath) return;
+    let relativePath = path.relative(sourceDir, fullPath);
+    relativePath = relativePath.substr(0, relativePath.length - 3);
+    if (!relativePath.startsWith('.')) relativePath = `./${relativePath}`;
+
+    return relativePath;
   }
 
   private _categoryFor(entry: EntryType) {

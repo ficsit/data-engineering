@@ -11,3 +11,6 @@ overrides:
   - files: 'pipeline/ue4pak-cleaner/**/*.{ts,tsx}'
     parserOptions:
       project: 'pipeline/ue4pak-cleaner/tsconfig.json'
+  - files: 'pipeline/headers-to-interfaces/emit/native/**/*.{ts,tsx}'
+    rules:
+      '@typescript-eslint/no-empty-interface': 'off'

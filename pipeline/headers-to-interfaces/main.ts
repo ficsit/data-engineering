@@ -1,9 +1,11 @@
-import * as fs from 'fs';
+import * as fs from 'fs-extra';
 import * as glob from 'glob';
 import * as path from 'path';
 
 import { EmitContext, EmittableCategory, EntryCategory } from './emit';
 import { parseHeader, printTokens } from './parse';
+
+const natives = path.resolve(__dirname, 'emit', 'native');
 
 parseAll(process.argv[2], process.argv[3]);
 
@@ -19,6 +21,8 @@ function parseAll(sourceDir: string, destDir: string) {
   }
 
   fs.rmdirSync(destDir, { recursive: true });
+  fs.copySync(natives, path.join(destDir, 'native'));
+
   emitCategory(context, EntryCategory.CLASS);
   emitCategory(context, EntryCategory.ENUM);
   emitCategory(context, EntryCategory.INTERFACE);

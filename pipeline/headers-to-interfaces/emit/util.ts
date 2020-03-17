@@ -35,6 +35,7 @@ export function pretty(code: string) {
       filepath: '<any>.ts',
     });
   } catch (error) {
+    process.stderr.write(`\n\n${code}\n\n`);
     throw new Error(error.message);
   }
 }
