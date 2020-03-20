@@ -17,11 +17,15 @@ jobs:
         with:
           repository: ficsit/data-landing
           ref: ${{ github.event.client_payload.ref }}
+          token: ${{ secrets.PUSH_TOKEN }}
+
+      - run: cat ~/.gitconfig
 
       - name: Create working branch
-        run: |
-          git checkout -b working/${{ github.event.client_payload.sha }}/${{ github.sha }}
-          git push -u origin working/${{ github.event.client_payload.sha }}/${{ github.sha }}
+        run: git checkout -b working/${{ github.event.client_payload.sha }}/${{ github.sha }}
+
+      - name: Push working branch
+        run: git push https://${{ secrets.GITHUB_AUTH }}@github.com/ficsit/data-landing.git working/${{ github.event.client_payload.sha }}/${{ github.sha }}
 
   headers-to-interfaces:
     if: github.event.action == 'source-data-updated'
