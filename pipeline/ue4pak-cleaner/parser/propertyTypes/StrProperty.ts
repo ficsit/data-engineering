@@ -1,8 +1,8 @@
-import { cleanString } from '../../utils/textUtils';
-import { SatisfactoryPropertyType } from '../propertyParser';
+import {cleanString} from '../../utils/textUtils';
+import {SatisfactoryPropertyType} from '../propertyParser';
 import Ue4pakBasePropertyType from "./marker/ue4pakBasePropertyType";
 
-class NameProperty implements Ue4pakBasePropertyType  {
+class StrProperty implements Ue4pakBasePropertyType  {
   private name: string;
   private tag: string;
 
@@ -15,4 +15,4 @@ class NameProperty implements Ue4pakBasePropertyType  {
   }
 }
 
-export default NameProperty;
+export default StrProperty;

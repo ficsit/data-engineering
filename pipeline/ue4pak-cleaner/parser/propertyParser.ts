@@ -9,8 +9,11 @@ import Int8Property from './propertyTypes/Int8Property';
 import IntProperty from './propertyTypes/IntProperty';
 import NameProperty from './propertyTypes/NameProperty';
 import ObjectProperty from './propertyTypes/ObjectProperty';
+import SoftObjectProperty from './propertyTypes/SoftObjectProperty';
+import StrProperty from './propertyTypes/StrProperty';
 import StructProperty from './propertyTypes/StructProperty';
 import TextProperty from './propertyTypes/TextProperty';
+import UInt64Property from './propertyTypes/UInt64Property';
 
 export interface SatisfactoryPropertyType {
   name: string;
@@ -19,6 +22,11 @@ export interface SatisfactoryPropertyType {
   size: number;
   array_index: number;
   tag: any;
+}
+
+export interface SatisfactoryReferenceType {
+  class_name: string;
+  object_name: string;
 }
 
 const processProperty = (property: SatisfactoryPropertyType, overriddenPropertyType: string = null): any => {
@@ -50,6 +58,12 @@ const processProperty = (property: SatisfactoryPropertyType, overriddenPropertyT
       return new IntProperty(property);
     case 'Int8Property':
       return new Int8Property(property);
+    case 'UInt64Property':
+      return new UInt64Property(property);
+    case 'SoftObjectProperty':
+      return new SoftObjectProperty(property);
+    case 'StrProperty':
+      return new StrProperty(property);
     default:
       throw new Error(`Unimplemented property type: ${cleanedPropertyType}`);
   }

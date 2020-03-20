@@ -1,8 +1,8 @@
-import { cleanString } from '../../utils/textUtils';
-import { SatisfactoryPropertyType } from '../propertyParser';
+import {cleanString} from '../../utils/textUtils';
+import {SatisfactoryPropertyType} from '../propertyParser';
 import Ue4pakBasePropertyType from "./marker/ue4pakBasePropertyType";
 
-class FloatProperty implements Ue4pakBasePropertyType  {
+class UInt64Property implements Ue4pakBasePropertyType  {
   private name: string;
   private tag: number;
 
@@ -15,4 +15,4 @@ class FloatProperty implements Ue4pakBasePropertyType  {
   }
 }
 
-export default FloatProperty;
+export default UInt64Property;

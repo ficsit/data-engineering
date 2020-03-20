@@ -1,45 +1,71 @@
 import { cleanString } from '../../utils/textUtils';
-import { SatisfactoryPropertyType } from '../propertyParser';
+import processProperty, { SatisfactoryPropertyType } from '../propertyParser';
 
-class StructProperty {
+import Color from './structPropertyTypes/Color';
+import Guid from './structPropertyTypes/Guid';
+import IntPoint from './structPropertyTypes/IntPoint';
+import LinearColor from './structPropertyTypes/LinearColor';
+import PointerToUberGraphFrame from './structPropertyTypes/PointerToUberGraphFrame';
+import RichCurveKey from './structPropertyTypes/RichCurveKey';
+import Rotator from './structPropertyTypes/Rotator';
+import SoftClassPath from './structPropertyTypes/SoftClassPath';
+import Vector from './structPropertyTypes/Vector';
+import Vector2D from './structPropertyTypes/Vector2D';
+import Ue4pakBasePropertyType from "./marker/ue4pakBasePropertyType";
+
+class StructProperty implements Ue4pakBasePropertyType  {
   private name: string;
 
+  //TODO: make this inherit from some base class somewhere
+  private members: any;
   constructor(property: SatisfactoryPropertyType) {
-    const { name } = property;
 
-    // if (name === "mInventoryIcon\u0000") {
-    //   if (property.tag_data.type === 'SlateBrush\u0000') {
-    //     (property.tag || []).forEach((tag: any) => {
-    //       if (tag.name === "ResourceObject\u0000") {
-    //         I'm not sure why this exists. Only some objects
-    //        have an inventory icon that's a resourceObject.
-    //         console.log(JSON.stringify(property, null, 2));
-    //       }
-    //     })
-    //
-    //   }
-    // }
+    const { name, tag_data: tagData, tag } = property;
 
-    // TODO: These are the struct types.
-    //   'Guid',
-    //   'SlateBrush',
-    //   'ItemView',
-    //   'Vector',
-    //   'FoundationSideSelectionFlags',
-    //   'BodyInstance',
-    //   'Rotator',
-    //   'IntPoint',
-    //   'PointerToUberGraphFrame',
-    //   'SoftClassPath',
-    //   'ActorTickFunction',
-    //   'FactoryTickFunction',
-    //   'ActorComponentTickFunction',
-    //   'PostProcessSettings',
-    //   'TimerHandle',
-    //   'SplineCurves',
-    //   'RichCurve',
-    //   'SingleAnimationPlayData',
-    //   'Color'
+    if (tag.length !== undefined) {
+      // it's a list;
+      tag.forEach((tagItem: any) => {
+        const convertedTagItem = processProperty(tagItem);
+        // console.log(convertedTagItem);
+      });
+    } else {
+      // it's not a list, and there's always {type, value}. tagData.type === tag.type always in this scenario.
+      let parsedTagItem;
+      switch (cleanString(tag.type)) {
+        case 'Vector':
+          parsedTagItem = new Vector(property);
+          break;
+        case 'Vector2D':
+          parsedTagItem = new Vector2D(property);
+          break;
+        case 'Rotator':
+          parsedTagItem = new Rotator(property);
+          break;
+        case 'Guid':
+          parsedTagItem = new Guid(property);
+          break;
+        case 'Color':
+          parsedTagItem = new Color(property);
+          break;
+        case 'RichCurveKey':
+          parsedTagItem = new RichCurveKey(property);
+          break;
+        case 'IntPoint':
+          parsedTagItem = new IntPoint(property);
+          break;
+        case 'LinearColor':
+          parsedTagItem = new LinearColor(property);
+          break;
+        case 'PointerToUberGraphFrame':
+          parsedTagItem = new PointerToUberGraphFrame(property);
+          break;
+        case 'SoftClassPath':
+          parsedTagItem = new SoftClassPath(property);
+          break;
+        default:
+          throw new Error(`Unimplemented struct type ${tag.type}`);
+      }
+    }
 
     this.name = cleanString(name);
   }

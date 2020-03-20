@@ -9,8 +9,15 @@
     "ue4pak-clean": "../../node_modules/.bin/ts-node ./main"
   },
   "dependencies": {
+    "immer": "^6.0.2",
     "stream-chain": "^2.2.1",
     "stream-json": "^1.3.3"
+  },
+  "private": true,
+  "workspaces": {
+    "nohoist": [
+      "immer"
+    ]
   },
   "devDependencies": {}
 }
