@@ -45,13 +45,13 @@
 
   // Simplify the VS Code Explorer to just important files
   "files.exclude": {
-    "**/.*": true,
-    "**/node_modules/": true,
-    "typings/": true,
-    "**/*.config.*": true,
-    "**/tsconfig*.json": true,
-    "**/*.log*": true,
-    "*LICENSE*": true,
-    "yarn.lock": true
+    "**/.*": false,
+    "**/node_modules/": false,
+    "typings/": false,
+    "**/*.config.*": false,
+    "**/tsconfig*.json": false,
+    "**/*.log*": false,
+    "*LICENSE*": false,
+    "yarn.lock": false
   }
 }

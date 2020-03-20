@@ -13,12 +13,12 @@
     "checkout-source-data": "./scripts/checkout-source-data.sh",
     "checkout-community-resources": "./scripts/checkout-community-resources.sh",
     "checkout": "yarn run checkout-source-data && yarn run checkout-community-resources",
-    "fix-style": "git ls-tree -r --name-only HEAD | xargs eslint --no-error-on-unmatched-pattern --fix",
-    "test-style": "git ls-tree -r --name-only HEAD | xargs eslint --no-error-on-unmatched-pattern"
+    "fix-style": "code-style fix",
+    "test-style": "code-style test"
   },
   "dependencies": {},
   "devDependencies": {
-    "@ficsit/code-style": "^1.4.2",
+    "@ficsit/code-style": "^1.5.0",
     "@types/node": "^13.9.0",
     "eslint": "^6.8.0",
     "ts-node": "^8.6.2",

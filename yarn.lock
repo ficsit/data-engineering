@@ -31,10 +31,10 @@
   resolved "https://registry.yarnpkg.com/@blakeembrey/deque/-/deque-1.0.5.tgz#f4fa17fc5ee18317ec01a763d355782c7b395eaf"
   integrity sha512-6xnwtvp9DY1EINIKdTfvfeAtCYw4OqBZJhtiqkT3ivjnEfa25VQ3TsKvaFfKm8MyGIEfE95qLe+bNEt3nB0Ylg==
 
-"@ficsit/code-style@^1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@ficsit/code-style/-/code-style-1.4.2.tgz#197a235a8a4bea9a4a2cfcde5c04d11780aa0042"
-  integrity sha512-jnoYcJ75OS0DX2sIAhFK45eRp0Yeq6GHDVDNolKb0TWawGcvmCpDALFI5GLwKeMZO3M8q6jZ1omf/iSRAvE8GA==
+"@ficsit/code-style@^1.5.0":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@ficsit/code-style/-/code-style-1.5.1.tgz#6e3b3e555b0cf4973ec139461e2ddbdeb1c3d669"
+  integrity sha512-MfmFB1Xd/mcp3rWBOgh2PvWgsNxyKYL+fCC5ju2lfVNbm1UEFNCaNVabQlq7IcSMU3kjrhbdDva+Zkp0n8/HUQ==
   dependencies:
     "@ficsit/eslint-config-code-style" "^1.0.3"
     "@typescript-eslint/eslint-plugin" "^2.23.0"
@@ -43,6 +43,8 @@
     eslint-plugin-import "^2.20.1"
     eslint-plugin-prettier "^3.1.2"
     eslint-plugin-react "^7.19.0"
+    glob "^7.1.6"
+    ignore "^5.1.4"
     prettier "^1.19.1"
 
 "@ficsit/eslint-config-code-style@^1.0.3":

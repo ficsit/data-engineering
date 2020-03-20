@@ -18,7 +18,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: yarn test-style
-        run: yarn test-style --output-file eslint.json --format json
+        run: REPORT=json yarn test-style > eslint.json
         continue-on-error: true
 
       - name: Report Lint Failures
