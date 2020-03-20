@@ -9,3 +9,37 @@ jobs:
     steps:
       - run: env
       - run: echo '${{ toJson(github.event) }}'
+
+  setup:
+    if: github.event.action == 'source-data-updated'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Git Author
+        run: |
+          git config --global user.email "ficsit-bot@nevir.net"
+          git config --global user.name "Ficsit Bot"
+
+      - name: Checkout data-landing
+        uses: actions/checkout@v2
+        with:
+          ref: '${{ github.event.client_payload.ref }}'
+
+      - name: Create working branch
+        run: |
+          git checkout -b working/${{ github.event.client_payload.sha }}
+          git push -u origin working/${{ github.event.client_payload.sha }}
+
+  headers-to-interfaces:
+    if: github.event.action == 'source-data-updated'
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: data-engineering
+
+      - uses: actions/checkout@v2
+        with:
+          path: source-data
+          repository: 'ficsit/source-data'
+          ref: '${{ github.event.client_payload.sha }}'
