@@ -15,24 +15,34 @@ jobs:
       - name: Checkout data-landing
         uses: actions/checkout@v2
         with:
-          ref: '${{ github.event.client_payload.ref }}'
+          repository: ficsit/data-landing
+          ref: ${{ github.event.client_payload.ref }}
 
       - name: Create working branch
         run: |
-          git checkout -b working/${{ github.event.client_payload.sha }}
-          git push -u origin working/${{ github.event.client_payload.sha }}
+          git checkout -b working/${{ github.event.client_payload.sha }}/${{ github.sha }}
+          git push -u origin working/${{ github.event.client_payload.sha }}/${{ github.sha }}
 
   headers-to-interfaces:
     if: github.event.action == 'source-data-updated'
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout data-engineering
+        uses: actions/checkout@v2
         with:
           path: data-engineering
 
-      - uses: actions/checkout@v2
+      - name: Checkout source-data
+        uses: actions/checkout@v2
         with:
           path: source-data
-          repository: 'ficsit/source-data'
-          ref: '${{ github.event.client_payload.sha }}'
+          repository: ficsit/source-data
+          ref: ${{ github.event.client_payload.sha }}
+
+      - name: Checkout data-landing
+        uses: actions/checkout@v2
+        with:
+          path: source-data
+          repository: ficsit/data-landing
+          ref: working/${{ github.event.client_payload.sha }}/${{ github.sha }}
