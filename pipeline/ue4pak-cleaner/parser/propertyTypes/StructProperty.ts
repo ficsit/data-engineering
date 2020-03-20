@@ -1,6 +1,7 @@
 import { cleanString } from '../../utils/textUtils';
 import processProperty, { SatisfactoryPropertyType } from '../propertyParser';
 
+import Ue4pakBasePropertyType from './marker/ue4pakBasePropertyType';
 import Color from './structPropertyTypes/Color';
 import Guid from './structPropertyTypes/Guid';
 import IntPoint from './structPropertyTypes/IntPoint';
@@ -11,15 +12,13 @@ import Rotator from './structPropertyTypes/Rotator';
 import SoftClassPath from './structPropertyTypes/SoftClassPath';
 import Vector from './structPropertyTypes/Vector';
 import Vector2D from './structPropertyTypes/Vector2D';
-import Ue4pakBasePropertyType from "./marker/ue4pakBasePropertyType";
 
-class StructProperty implements Ue4pakBasePropertyType  {
+class StructProperty implements Ue4pakBasePropertyType {
   private name: string;
 
   //TODO: make this inherit from some base class somewhere
   private members: any;
   constructor(property: SatisfactoryPropertyType) {
-
     const { name, tag_data: tagData, tag } = property;
 
     if (tag.length !== undefined) {

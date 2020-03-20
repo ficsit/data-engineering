@@ -1,21 +1,19 @@
-import {SatisfactoryPropertyType} from "../../propertyParser";
-import {cleanString} from "../../../utils/textUtils";
-import Ue4pakBasePropertyType from "../marker/ue4pakBasePropertyType";
+import { cleanString } from '../../../utils/textUtils';
+import { SatisfactoryPropertyType } from '../../propertyParser';
+import Ue4pakBasePropertyType from '../marker/ue4pakBasePropertyType';
 
-class RichCurveKey  implements Ue4pakBasePropertyType {
+class RichCurveKey implements Ue4pakBasePropertyType {
   private name: string;
-  private interpMode:  number;
-  private tangentMode:  number;
-  private tangentWeightMode:  number;
-  private time:  number;
-  private arriveTangent:  number;
-  private arriveTangentWeight:  number;
-  private leaveTangent:  number;
+  private interpMode: number;
+  private tangentMode: number;
+  private tangentWeightMode: number;
+  private time: number;
+  private arriveTangent: number;
+  private arriveTangentWeight: number;
+  private leaveTangent: number;
   private leaveTangentWeight: number;
 
-
   constructor(property: SatisfactoryPropertyType) {
-
     const { name, tag } = property;
 
     this.name = cleanString(name);

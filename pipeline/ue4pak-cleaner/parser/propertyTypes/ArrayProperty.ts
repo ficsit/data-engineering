@@ -10,14 +10,13 @@ import NameProperty from './NameProperty';
 import ObjectProperty from './ObjectProperty';
 import SoftObjectProperty from './SoftObjectProperty';
 import StructProperty from './StructProperty';
-import Ue4pakBasePropertyType from "./marker/ue4pakBasePropertyType";
+import Ue4pakBasePropertyType from './marker/ue4pakBasePropertyType';
 
 class ArrayProperty implements Ue4pakBasePropertyType {
   private name: string;
   private items: any[];
 
   constructor(property: SatisfactoryPropertyType) {
-
     const { name, tag_data: tagData, tag } = property;
 
     // The subtypes of this object are typed according to tagData.
@@ -112,8 +111,6 @@ class ArrayProperty implements Ue4pakBasePropertyType {
         throw new Error(`New array sub-property: ${subTypes}`);
         break;
     }
-
-
 
     this.name = cleanString(name);
   }

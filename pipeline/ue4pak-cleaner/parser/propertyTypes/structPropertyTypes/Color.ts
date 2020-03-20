@@ -1,6 +1,6 @@
-import {SatisfactoryPropertyType} from "../../propertyParser";
-import {cleanString} from "../../../utils/textUtils";
-import Ue4pakBasePropertyType from "../marker/ue4pakBasePropertyType";
+import { cleanString } from '../../../utils/textUtils';
+import { SatisfactoryPropertyType } from '../../propertyParser';
+import Ue4pakBasePropertyType from '../marker/ue4pakBasePropertyType';
 
 class Color implements Ue4pakBasePropertyType {
   private name: string;
@@ -10,7 +10,6 @@ class Color implements Ue4pakBasePropertyType {
   private a: string;
 
   constructor(property: SatisfactoryPropertyType) {
-
     const { name, tag } = property;
 
     this.name = cleanString(name);

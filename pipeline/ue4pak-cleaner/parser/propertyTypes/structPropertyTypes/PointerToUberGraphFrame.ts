@@ -1,13 +1,12 @@
-import {SatisfactoryPropertyType} from "../../propertyParser";
-import {cleanString} from "../../../utils/textUtils";
-import Ue4pakBasePropertyType from "../marker/ue4pakBasePropertyType";
+import { cleanString } from '../../../utils/textUtils';
+import { SatisfactoryPropertyType } from '../../propertyParser';
+import Ue4pakBasePropertyType from '../marker/ue4pakBasePropertyType';
 
 class PointerToUberGraphFrame implements Ue4pakBasePropertyType {
   private name: string;
   private value: any;
 
   constructor(property: SatisfactoryPropertyType) {
-
     const { name, tag } = property;
 
     //TODO: figure out what the heck PointerToUberGraphFrame contains

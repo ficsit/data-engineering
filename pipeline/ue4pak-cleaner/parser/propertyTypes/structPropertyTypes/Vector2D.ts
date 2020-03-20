@@ -1,5 +1,5 @@
-import {SatisfactoryPropertyType} from "../../propertyParser";
-import {cleanString} from "../../../utils/textUtils";
+import { cleanString } from '../../../utils/textUtils';
+import { SatisfactoryPropertyType } from '../../propertyParser';
 
 class Vector2D {
   private name: string;
