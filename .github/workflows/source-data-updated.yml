@@ -3,13 +3,6 @@ name: 'Updated: source-data'
 on: repository_dispatch
 
 jobs:
-  info:
-    if: github.event.action == 'source-data-updated'
-    runs-on: ubuntu-latest
-    steps:
-      - run: env
-      - run: echo '${{ toJson(github.event) }}'
-
   setup:
     if: github.event.action == 'source-data-updated'
     runs-on: ubuntu-latest
