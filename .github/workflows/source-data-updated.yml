@@ -3,7 +3,8 @@ name: 'Updated: source-data'
 on: repository_dispatch
 
 jobs:
-  test-style:
+  info:
+    if: github.event.action == 'source-data-updated'
     runs-on: ubuntu-latest
     steps:
       - run: env
