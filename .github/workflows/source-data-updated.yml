@@ -14,8 +14,6 @@ jobs:
           ref: ${{ github.event.client_payload.ref }}
           token: ${{ secrets.PUSH_TOKEN }}
 
-      - run: cat ~/.gitconfig
-
       - name: Create working branch
         run: git checkout -b working/${{ github.event.client_payload.sha }}/${{ github.sha }}
 
@@ -61,12 +59,39 @@ jobs:
         run: |
           yarn headers-to-interfaces \
             "${GITHUB_WORKSPACE}"/source-data/headers \
-            "${GITHUB_WORKSPACE}"/data-landing/interfaces
+            "${GITHUB_WORKSPACE}"/data-landing/interface
 
       - name: Push to data-landing
         working-directory: ./data-landing
         run: |
           git config --global user.email "ficsit-bot@nevir.net"
           git config --global user.name "Ficsit Bot"
-          git commit -m "headers-to-interfaces"
+          git add .
+          git commit --allow-empty -m "headers-to-interfaces"
           git push
+
+  merge:
+    if: github.event.action == 'source-data-updated'
+    needs:
+      - headers-to-interfaces
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout data-landing
+        uses: actions/checkout@v2
+        with:
+          repository: ficsit/data-landing
+          ref: ${{ github.event.client_payload.ref }}
+          token: ${{ secrets.PUSH_TOKEN }}
+
+      - name: Merge
+        run: |
+          git config --global user.email "ficsit-bot@nevir.net"
+          git config --global user.name "Ficsit Bot"
+          git fetch origin working/${{ github.event.client_payload.sha }}/${{ github.sha }}
+          git merge --squash origin/working/${{ github.event.client_payload.sha }}/${{ github.sha }}
+          git commit --allow-empty -m "v?????? (ficsit/source-data@${{ github.event.client_payload.sha }})"
+          git push
+
+      - name: Cleanup
+        run: |
+          git push origin --delete working/${{ github.event.client_payload.sha }}/${{ github.sha }}
