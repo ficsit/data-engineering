@@ -32,6 +32,11 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Checkout data-engineering
         uses: actions/checkout@v2
         with:
@@ -50,3 +55,21 @@ jobs:
           path: source-data
           repository: ficsit/data-landing
           ref: working/${{ github.event.client_payload.sha }}/${{ github.sha }}
+          token: ${{ secrets.PUSH_TOKEN }}
+
+      - name: Install dependencies
+        working-directory: ./data-engineering
+        run: yarn install --frozen-lockfile
+
+      - name: headers-to-interfaces
+        working-directory: ./data-engineering
+        run: |
+          yarn workspaces run headers-to-interfaces \
+            "${GITHUB_WORKSPACE}"/source-data/headers \
+            "${GITHUB_WORKSPACE}"/data-landing/interfaces
+
+      - name: Push to data-landing
+        working-directory: ./data-landing
+        run: |
+          git commit -m "headers-to-interfaces"
+          git push
