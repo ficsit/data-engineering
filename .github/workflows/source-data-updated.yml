@@ -7,6 +7,20 @@ jobs:
     if: github.event.action == 'source-data-updated'
     runs-on: ubuntu-latest
     steps:
+      - name: Determine configuration
+        run: |
+          REF="${{ github.event.client_payload.ref }}"
+          echo "::set-env name=SOURCE_BRANCH::${REF#refs/head/}" >> env-vars
+          echo "::set-env name=SOURCE_SHA::${{ github.event.client_payload.sha }}" >> env-vars
+          echo "::set-env name=ENGINEERING_SHA::${{ github.sha }}" >> env-vars
+          echo "::set-env name=LANDING_BRANCH::working/${{ github.event.client_payload.sha }}/${{ github.sha }}" >> env-vars
+          cat env-vars
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: env-vars
+          path: env-vars
+
       - name: Checkout data-landing
         uses: actions/checkout@v2
         with:
@@ -15,10 +29,10 @@ jobs:
           token: ${{ secrets.PUSH_TOKEN }}
 
       - name: Create working branch
-        run: git checkout -b working/${{ github.event.client_payload.sha }}/${{ github.sha }}
+        run: git checkout -b ${LANDING_BRANCH}
 
       - name: Push working branch
-        run: git push origin working/${{ github.event.client_payload.sha }}/${{ github.sha }}
+        run: git push origin ${LANDING_BRANCH}
 
   headers-to-interfaces:
     if: github.event.action == 'source-data-updated'
