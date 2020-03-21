@@ -7,7 +7,7 @@ jobs:
     if: github.event.action == 'source-data-updated'
     runs-on: ubuntu-latest
     steps:
-      - name: Determine configuration
+      - name: Set repository configuration
         run: |
           REF="${{ github.event.client_payload.ref }}"
           echo "::set-env name=SOURCE_BRANCH::${REF#refs/head/}" >> env-vars
@@ -16,23 +16,39 @@ jobs:
           echo "::set-env name=LANDING_BRANCH::working/${{ github.event.client_payload.sha }}/${{ github.sha }}" >> env-vars
           cat env-vars
 
-      - uses: actions/upload-artifact@v1
-        with:
-          name: env-vars
-          path: env-vars
-
       - name: Checkout data-landing
         uses: actions/checkout@v2
         with:
+          path: data-landing
           repository: ficsit/data-landing
           ref: ${{ env.SOURCE_BRANCH }}
           token: ${{ secrets.PUSH_TOKEN }}
 
+      - name: Checkout source-data
+        uses: actions/checkout@v2
+        with:
+          path: source-data
+          repository: ficsit/source-data
+          ref: ${{ env.SOURCE_SHA }}
+
       - name: Create working branch
+        working-directory: ./data-landing
         run: git checkout -b ${LANDING_BRANCH}
 
       - name: Push working branch
+        working-directory: ./data-landing
         run: git push origin ${LANDING_BRANCH}
+
+      - name: Set game metadata configuration
+        working-directory: ./source-data
+        run: |
+          echo "::set-env name=GAME_VERSION::$(jq -r .version.public metadata.json)" >> ../env-vars
+          echo "::set-env name=GAME_BUILD::$(jq -r .version.build metadata.json)" >> ../env-vars
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: env-vars
+          path: env-vars
 
   headers-to-interfaces:
     if: github.event.action == 'source-data-updated'
@@ -115,8 +131,9 @@ jobs:
           git config --global user.name "Ficsit Bot"
           git fetch origin ${LANDING_BRANCH}
           git merge --squash origin/${LANDING_BRANCH}
-          git commit --allow-empty -m "v?????? (ficsit/source-data@${SOURCE_SHA} via ficsit/data-engineering@${ENGINEERING_SHA})"
-          git push
+          git commit --allow-empty -m "v${GAME_VERSION} (CL ${GAME_BUILD}) (ficsit/source-data@${SOURCE_SHA} via ficsit/data-engineering@${ENGINEERING_SHA})"
+          git tag -f v${GAME_VERSION}
+          git push --all
 
       - name: Cleanup
         run: |
