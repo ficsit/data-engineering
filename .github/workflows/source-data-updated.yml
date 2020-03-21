@@ -7,11 +7,6 @@ jobs:
     if: github.event.action == 'source-data-updated'
     runs-on: ubuntu-latest
     steps:
-      - name: Set Git Author
-        run: |
-          git config --global user.email "ficsit-bot@nevir.net"
-          git config --global user.name "Ficsit Bot"
-
       - name: Checkout data-landing
         uses: actions/checkout@v2
         with:
@@ -52,7 +47,7 @@ jobs:
       - name: Checkout data-landing
         uses: actions/checkout@v2
         with:
-          path: source-data
+          path: data-landing
           repository: ficsit/data-landing
           ref: working/${{ github.event.client_payload.sha }}/${{ github.sha }}
           token: ${{ secrets.PUSH_TOKEN }}
@@ -61,15 +56,17 @@ jobs:
         working-directory: ./data-engineering
         run: yarn install --frozen-lockfile
 
-      - name: headers-to-interfaces
+      - name: yarn headers-to-interfaces
         working-directory: ./data-engineering
         run: |
-          yarn workspaces run headers-to-interfaces \
+          yarn headers-to-interfaces \
             "${GITHUB_WORKSPACE}"/source-data/headers \
             "${GITHUB_WORKSPACE}"/data-landing/interfaces
 
       - name: Push to data-landing
         working-directory: ./data-landing
         run: |
+          git config --global user.email "ficsit-bot@nevir.net"
+          git config --global user.name "Ficsit Bot"
           git commit -m "headers-to-interfaces"
           git push

@@ -14,7 +14,8 @@
     "checkout-community-resources": "./scripts/checkout-community-resources.sh",
     "checkout": "yarn run checkout-source-data && yarn run checkout-community-resources",
     "fix-style": "code-style fix",
-    "test-style": "code-style test"
+    "test-style": "code-style test",
+    "headers-to-interfaces": "ts-node --project ./pipeline/headers-to-interfaces/tsconfig.json ./pipeline/headers-to-interfaces/main"
   },
   "dependencies": {},
   "devDependencies": {
