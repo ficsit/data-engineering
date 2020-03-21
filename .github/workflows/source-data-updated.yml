@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: ficsit/data-landing
-          ref: ${{ github.event.client_payload.ref }}
+          ref: ${{ env.SOURCE_BRANCH }}
           token: ${{ secrets.PUSH_TOKEN }}
 
       - name: Create working branch
@@ -39,6 +39,12 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: env-vars
+      - name: Load configuration
+        run: cat env-vars/env-vars
+
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -54,14 +60,14 @@ jobs:
         with:
           path: source-data
           repository: ficsit/source-data
-          ref: ${{ github.event.client_payload.sha }}
+          ref: ${{ env.SOURCE_SHA }}
 
       - name: Checkout data-landing
         uses: actions/checkout@v2
         with:
           path: data-landing
           repository: ficsit/data-landing
-          ref: working/${{ github.event.client_payload.sha }}/${{ github.sha }}
+          ref: ${{ env.LANDING_BRANCH }}
           token: ${{ secrets.PUSH_TOKEN }}
 
       - name: Install dependencies
@@ -90,22 +96,28 @@ jobs:
       - headers-to-interfaces
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: env-vars
+      - name: Load configuration
+        run: cat env-vars/env-vars
+
       - name: Checkout data-landing
         uses: actions/checkout@v2
         with:
           repository: ficsit/data-landing
-          ref: ${{ github.event.client_payload.ref }}
+          ref: ${{ env.SOURCE_BRANCH }}
           token: ${{ secrets.PUSH_TOKEN }}
 
       - name: Merge
         run: |
           git config --global user.email "ficsit-bot@nevir.net"
           git config --global user.name "Ficsit Bot"
-          git fetch origin working/${{ github.event.client_payload.sha }}/${{ github.sha }}
-          git merge --squash origin/working/${{ github.event.client_payload.sha }}/${{ github.sha }}
-          git commit --allow-empty -m "v?????? (ficsit/source-data@${{ github.event.client_payload.sha }})"
+          git fetch origin ${LANDING_BRANCH}
+          git merge --squash origin/${LANDING_BRANCH}
+          git commit --allow-empty -m "v?????? (ficsit/source-data@${SOURCE_SHA} via ficsit/data-engineering@${ENGINEERING_SHA})"
           git push
 
       - name: Cleanup
         run: |
-          git push origin --delete working/${{ github.event.client_payload.sha }}/${{ github.sha }}
+          git push origin --delete ${LANDING_BRANCH}
