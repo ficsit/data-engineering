@@ -1,5 +1,6 @@
-import fs from 'fs';
-import path from 'path';
+import { paths } from '@local/pipeline';
+import * as fs from 'fs';
+import * as path from 'path';
 import StreamArray from 'stream-json/streamers/StreamArray';
 
 import processProperty from './parser/propertyParser';
@@ -19,12 +20,15 @@ const jsonStream = StreamArray.withParser();
 
 jsonStream.on('data', ({ value }) => {
   // const { export_record: exportRecord, summary, exports } = value;
-  const { exports } = value;
+  const {
+    exports,
+    export_record: { file_name },
+  } = value;
 
-  // Process Export Record data
-  // const { file_name: fileName } = exportRecord;
-
-  // const filePath = fileName.split('/').map(stripNullTerminator);
+  // Place output data relative to the package path
+  const prettyPath = /^FactoryGame\/Content\/FactoryGame\/(.+)\.[^.]+$/.exec(file_name)[1];
+  const destDir = path.join(paths.dataLanding.data, prettyPath);
+  console.log(destDir);
 
   exports.forEach((item: any) => {
     if ((item.properties || []).length) {
@@ -44,5 +48,5 @@ jsonStream.on('end', () => {
 });
 
 // const filename = path.join(__dirname, 'fixtures/abridged_buildable.json');
-const filename = path.join(__dirname, '../../.source-data/ue4pak/buildable.json');
-fs.createReadStream(filename).pipe(jsonStream.input);
+const bulidables = path.join(paths.sourceData.ue4pak, 'buildable.json');
+fs.createReadStream(bulidables).pipe(jsonStream.input);

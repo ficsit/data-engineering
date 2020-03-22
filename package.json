@@ -17,7 +17,8 @@
     "checkout": "npm-run-all checkout-*",
     "fix-style": "code-style fix",
     "test-style": "code-style test",
-    "headers-to-interfaces": "ts-node --project ./pipeline/headers-to-interfaces/tsconfig.json ./pipeline/headers-to-interfaces/main"
+    "headers-to-interfaces": "ts-node --project ./pipeline/headers-to-interfaces/tsconfig.json ./pipeline/headers-to-interfaces/main",
+    "ue4pak-cleaner": "ts-node --project ./pipeline/ue4pak-cleaner/tsconfig.json ./pipeline/ue4pak-cleaner/main"
   },
   "dependencies": {},
   "devDependencies": {
