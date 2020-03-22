@@ -1,4 +1,4 @@
-name: 'Updated: source-data'
+name: 'source-data ⇨ data-landing'
 
 on: [push, repository_dispatch]
 
