@@ -1,8 +1,3 @@
 {
-  "compilerOptions": {
-    "moduleResolution": "node",
-    "lib": ["ES2020"],
-    "noEmit": true,
-    "target": "ES2015"
-  }
+  "extends": "../../tsconfig.base"
 }
