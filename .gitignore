@@ -1,6 +1,8 @@
-node_modules/
-/data-engineering.iml
+/.data-landing/
+/.data-warehouse/
 /.idea/
 /.source-data/
-/.community-resources/
+/data-engineering.iml
+
+node_modules/
 *.log*

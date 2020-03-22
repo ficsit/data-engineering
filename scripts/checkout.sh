@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
-DESTINATION=./.data-warehouse
-TARGET_REF="${1:-master}"
+REPOSITORY="${1}"
+TARGET_REF="${2:-master}"
+
+DESTINATION=./.${REPOSITORY}
 
 if [[ ! -d "${DESTINATION}" ]]; then
   git clone \
-    https://github.com/ficsit/data-warehouse \
+    https://github.com/ficsit/${REPOSITORY} \
     --quiet \
-    --reference-if-able ../data-warehouse \
+    --reference-if-able ../${REPOSITORY} \
     -n \
     "${DESTINATION}"
 fi

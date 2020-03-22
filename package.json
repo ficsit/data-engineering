@@ -10,9 +10,10 @@
     "pipeline/*"
   ],
   "scripts": {
-    "checkout-source-data": "./scripts/checkout-source-data.sh",
-    "checkout-community-resources": "./scripts/checkout-community-resources.sh",
-    "checkout": "yarn run checkout-source-data && yarn run checkout-community-resources",
+    "checkout-data-landing": "./scripts/checkout.sh data-landing",
+    "checkout-data-warehouse": "./scripts/checkout.sh data-warehouse",
+    "checkout-source-data": "./scripts/checkout.sh source-data",
+    "checkout": "npm-run-all checkout-*",
     "fix-style": "code-style fix",
     "test-style": "code-style test",
     "headers-to-interfaces": "ts-node --project ./pipeline/headers-to-interfaces/tsconfig.json ./pipeline/headers-to-interfaces/main"
@@ -23,6 +24,7 @@
     "@types/node": "^13.9.0",
     "eslint": "^6.8.0",
     "ts-node": "^8.6.2",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "yarn-run-all": "^3.1.1"
   }
 }
