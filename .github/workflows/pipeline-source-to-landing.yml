@@ -21,12 +21,12 @@ jobs:
       - name: Checkout source-data
         uses: actions/checkout@v2
         with:
-          path: source-data
+          path: ./.source-data
           repository: ficsit/source-data
           ref: ${{ env._SOURCE_REF }}
 
       - name: Set pipeline refs
-        working-directory: ./source-data
+        working-directory: ./.source-data
         run: |
           SOURCE_SHA=$(git rev-parse HEAD)
 
@@ -39,21 +39,21 @@ jobs:
       - name: Checkout data-landing
         uses: actions/checkout@v2
         with:
-          path: data-landing
+          path: ./.data-landing
           repository: ficsit/data-landing
           ref: ${{ env.GAME_BRANCH }}
           token: ${{ secrets.PUSH_TOKEN }}
 
       - name: Create working branch
-        working-directory: ./data-landing
+        working-directory: ./.data-landing
         run: git checkout -b ${LANDING_BRANCH}
 
       - name: Push working branch
-        working-directory: ./data-landing
+        working-directory: ./.data-landing
         run: git push origin ${LANDING_BRANCH}
 
       - name: Set game metadata
-        working-directory: ./source-data
+        working-directory: ./.source-data
         run: |
           echo "::set-env name=GAME_VERSION::$(jq -r .version.public metadata.json)" >> ../env-vars
           echo "::set-env name=GAME_BUILD::$(jq -r .version.build metadata.json)" >> ../env-vars
@@ -73,44 +73,36 @@ jobs:
       - name: Load configuration
         run: cat env-vars/env-vars
 
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-          registry-url: 'https://registry.npmjs.org'
-
       - name: Checkout data-engineering
         uses: actions/checkout@v2
-        with:
-          path: data-engineering
 
       - name: Checkout source-data
         uses: actions/checkout@v2
         with:
-          path: source-data
+          path: ./.source-data
           repository: ficsit/source-data
           ref: ${{ env.SOURCE_SHA }}
 
       - name: Checkout data-landing
         uses: actions/checkout@v2
         with:
-          path: data-landing
+          path: ./.data-landing
           repository: ficsit/data-landing
           ref: ${{ env.LANDING_BRANCH }}
           token: ${{ secrets.PUSH_TOKEN }}
 
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Install dependencies
-        working-directory: ./data-engineering
         run: yarn install --frozen-lockfile
 
-      - name: yarn headers-to-interfaces
-        working-directory: ./data-engineering
-        run: |
-          yarn headers-to-interfaces \
-            "${GITHUB_WORKSPACE}"/source-data/headers \
-            "${GITHUB_WORKSPACE}"/data-landing/interface
+      - run: yarn headers-to-interfaces
 
       - name: Push to data-landing
-        working-directory: ./data-landing
+        working-directory: ./.data-landing
         run: |
           git config --global user.email "ficsit-bot@nevir.net"
           git config --global user.name "Ficsit Bot"
