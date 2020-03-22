@@ -1,35 +1,48 @@
 name: 'Updated: source-data'
 
-on: repository_dispatch
+on: [push, repository_dispatch]
 
 jobs:
   setup:
-    if: github.event.action == 'source-data-updated'
+    if: github.event_name == 'push' || github.event.action == 'source-data-updated'
     runs-on: ubuntu-latest
     steps:
-      - name: Set repository configuration
+      - name: Determine source ref and game branch
         run: |
           REF="${{ github.event.client_payload.ref }}"
-          echo "::set-env name=SOURCE_BRANCH::${REF#refs/head/}" >> env-vars
-          echo "::set-env name=SOURCE_SHA::${{ github.event.client_payload.sha }}" >> env-vars
-          echo "::set-env name=ENGINEERING_SHA::${{ github.sha }}" >> env-vars
-          echo "::set-env name=LANDING_BRANCH::working/${{ github.event.client_payload.sha }}/${{ github.sha }}" >> env-vars
-          cat env-vars
-
-      - name: Checkout data-landing
-        uses: actions/checkout@v2
-        with:
-          path: data-landing
-          repository: ficsit/data-landing
-          ref: ${{ env.SOURCE_BRANCH }}
-          token: ${{ secrets.PUSH_TOKEN }}
+          if [[ "${REF}" != "" ]]; then
+            echo "::set-env name=GAME_BRANCH::${REF#refs/head/}" >> ./env-vars
+            echo "::set-env name=_SOURCE_REF::${{ github.event.client_payload.sha }}"
+          else
+            echo "::set-env name=GAME_BRANCH::master" >> ./env-vars
+            echo "::set-env name=_SOURCE_REF::master"
+          fi
 
       - name: Checkout source-data
         uses: actions/checkout@v2
         with:
           path: source-data
           repository: ficsit/source-data
-          ref: ${{ env.SOURCE_SHA }}
+          ref: ${{ env._SOURCE_REF }}
+
+      - name: Set pipeline refs
+        working-directory: ./source-data
+        run: |
+          SOURCE_SHA=$(git rev-parse HEAD)
+
+          echo "::set-env name=LANDING_BRANCH::working/${SOURCE_SHA}/${{ github.sha }}" >> ../env-vars
+          echo "::set-env name=ENGINEERING_SHA::${{ github.sha }}" >> ../env-vars
+          echo "::set-env name=SOURCE_SHA::${SOURCE_SHA}" >> ../env-vars
+
+          cat ../env-vars
+
+      - name: Checkout data-landing
+        uses: actions/checkout@v2
+        with:
+          path: data-landing
+          repository: ficsit/data-landing
+          ref: ${{ env.GAME_BRANCH }}
+          token: ${{ secrets.PUSH_TOKEN }}
 
       - name: Create working branch
         working-directory: ./data-landing
@@ -39,7 +52,7 @@ jobs:
         working-directory: ./data-landing
         run: git push origin ${LANDING_BRANCH}
 
-      - name: Set game metadata configuration
+      - name: Set game metadata
         working-directory: ./source-data
         run: |
           echo "::set-env name=GAME_VERSION::$(jq -r .version.public metadata.json)" >> ../env-vars
@@ -51,7 +64,6 @@ jobs:
           path: env-vars
 
   headers-to-interfaces:
-    if: github.event.action == 'source-data-updated'
     needs: setup
     runs-on: ubuntu-latest
     steps:
@@ -107,7 +119,6 @@ jobs:
           git push
 
   merge:
-    if: github.event.action == 'source-data-updated'
     needs:
       - headers-to-interfaces
     runs-on: ubuntu-latest
@@ -122,7 +133,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: ficsit/data-landing
-          ref: ${{ env.SOURCE_BRANCH }}
+          ref: ${{ env.GAME_BRANCH }}
           token: ${{ secrets.PUSH_TOKEN }}
 
       - name: Merge
