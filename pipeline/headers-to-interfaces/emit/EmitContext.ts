@@ -36,11 +36,11 @@ export interface EntryData {
 export class EmitContext {
   constructor(public destDir: string) {}
 
-  public destinations: Record<EmittableCategory, string> = {
-    [EntryCategory.CLASS]: path.join(this.destDir, 'classes'),
-    [EntryCategory.ENUM]: path.join(this.destDir, 'enums'),
-    [EntryCategory.INTERFACE]: path.join(this.destDir, 'interfaces'),
-    [EntryCategory.STRUCT]: path.join(this.destDir, 'structs'),
+  private _relativeDestinations: Record<EmittableCategory, string> = {
+    [EntryCategory.CLASS]: 'classes',
+    [EntryCategory.ENUM]: 'enums',
+    [EntryCategory.INTERFACE]: 'interfaces',
+    [EntryCategory.STRUCT]: 'structs',
   };
 
   private _entries = new Map<string, EntryData>();
@@ -66,12 +66,23 @@ export class EmitContext {
       .map(e => e.entry.name);
   }
 
+  relativeDestination(category: EmittableCategory) {
+    return this._relativeDestinations[category];
+  }
+
+  destination(category: EmittableCategory) {
+    return path.join(this.destDir, this._relativeDestinations[category]);
+  }
+
   emit(name: string) {
     const { entry, category } = this._entries.get(name);
+    if (!_isEmittable(category)) {
+      throw new Error(`${name} is not of an emittable category`);
+    }
 
-    const referenceContext = new ReferenceEmitContext(this, this.destinations[category]);
+    const referenceContext = new ReferenceEmitContext(this, this.destination(category));
 
-    let content;
+    let content: string;
     if (entry.kind === 'class') {
       content = emitClass(referenceContext, entry);
     } else if (entry.kind === 'enum') {
@@ -89,7 +100,8 @@ export class EmitContext {
   pathTo(name: string) {
     const entry = this._entries.get(name);
     if (!entry) return;
-    return path.join(this.destinations[entry.category], `${name}.ts`);
+    if (!_isEmittable(entry.category)) return;
+    return path.join(this.destination(entry.category), `${name}.ts`);
   }
 
   importPathTo(sourceDir: string, name: string) {

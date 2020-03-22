@@ -7,6 +7,13 @@ import { parseHeader, printTokens } from './parse';
 
 const natives = path.resolve(__dirname, 'emit', 'native');
 
+const categories = [
+  EntryCategory.CLASS,
+  EntryCategory.ENUM,
+  EntryCategory.INTERFACE,
+  EntryCategory.STRUCT,
+] as const;
+
 parseAll(process.argv[2], process.argv[3]);
 
 function parseAll(sourceDir: string, destDir: string) {
@@ -23,10 +30,14 @@ function parseAll(sourceDir: string, destDir: string) {
   fs.rmdirSync(destDir, { recursive: true });
   fs.copySync(natives, path.join(destDir, 'native'));
 
-  emitCategory(context, EntryCategory.CLASS);
-  emitCategory(context, EntryCategory.ENUM);
-  emitCategory(context, EntryCategory.INTERFACE);
-  emitCategory(context, EntryCategory.STRUCT);
+  const indexLines = [] as string[];
+  for (const category of categories) {
+    emitCategory(context, category);
+    indexLines.push(`export * from './${context.relativeDestination(category)}';`);
+  }
+  indexLines.push('');
+
+  fs.writeFileSync(path.join(destDir, 'index.ts'), indexLines.join('\n'), 'utf-8');
 }
 
 function parse(header: string, sourceDir: string) {
@@ -41,14 +52,17 @@ function parse(header: string, sourceDir: string) {
 }
 
 function emitCategory(context: EmitContext, category: EmittableCategory) {
-  fs.mkdirSync(context.destinations[category], { recursive: true });
+  const destDir = context.destination(category);
+  fs.mkdirSync(destDir, { recursive: true });
 
-  for (const entry of context.entriesInCategory(category)) {
+  const entries = context.entriesInCategory(category);
+  for (const entry of entries) {
     const content = context.emit(entry);
-    if (!content) continue;
-
     process.stderr.write(`\u001b[2Kemitting: ${entry}\r`);
     const destination = context.pathTo(entry);
     fs.writeFileSync(destination, content);
   }
+
+  const indexLines = [...entries.map(e => `export { ${e} } from './${e}';`), ''];
+  fs.writeFileSync(path.join(destDir, 'index.ts'), indexLines.join('\n'), 'utf-8');
 }
