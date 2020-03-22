@@ -1,3 +1,4 @@
+import { paths } from '@local/pipeline';
 import * as fs from 'fs-extra';
 import * as glob from 'glob';
 import * as path from 'path';
@@ -16,7 +17,7 @@ const categories = [
 
 parseAll(process.argv[2], process.argv[3]);
 
-function parseAll(sourceDir: string, destDir: string) {
+function parseAll(sourceDir = paths.sourceData.headers, destDir = paths.dataLanding.interfaces) {
   sourceDir = path.resolve(sourceDir);
   destDir = path.resolve(destDir);
 
