@@ -15,9 +15,10 @@
     "checkout-data-warehouse": "./scripts/checkout.sh data-warehouse",
     "checkout-source-data": "./scripts/checkout.sh source-data",
     "checkout": "npm-run-all checkout-*",
+    "extract-source": "ts-node --project ./pipeline/extract-source/tsconfig.json ./pipeline/extract-source/main",
     "fix-style": "code-style fix",
-    "test-style": "code-style test",
     "headers-to-interfaces": "ts-node --project ./pipeline/headers-to-interfaces/tsconfig.json ./pipeline/headers-to-interfaces/main",
+    "test-style": "code-style test",
     "ue4pak-cleaner": "ts-node --project ./pipeline/ue4pak-cleaner/tsconfig.json ./pipeline/ue4pak-cleaner/main"
   },
   "dependencies": {},
