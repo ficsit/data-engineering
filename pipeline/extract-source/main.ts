@@ -76,6 +76,7 @@ async function extractPakData(gameDir: string, destDir: string) {
       --assets "*" \
       --output "${dataDir}" \
       --split \
+      --compact \
       --pak ./FactoryGame-WindowsNoEditor.pak
   `, {
     cwd: path.join(gameDir, 'FactoryGame', 'Content', 'Paks') 
