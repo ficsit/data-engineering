@@ -1,3 +1,4 @@
+import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as util from 'util';
 
@@ -47,6 +48,21 @@ export class Reader {
 
   skip(length: number) {
     this.position += length;
+  }
+
+  async checkHash(context: string, size: number, hash: Buffer, algorithm = 'sha1') {
+    const position = this.position;
+
+    const dataHash = crypto
+      .createHash(algorithm)
+      .update(await this.readBytes(size))
+      .digest();
+
+    if (dataHash.compare(hash) !== 0) {
+      throw new Error(`Invalid ${context}, hash does not match!`);
+    }
+
+    this.seekTo(position);
   }
 
   async scan(bytes: Buffer, distance: number, start: number = this.position) {
