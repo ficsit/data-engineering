@@ -25,9 +25,9 @@ export const LatestPakVersion = PakVersion.FNameBasedCompressionMethod;
  * @see https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L485-L488
  */
 export class PakFile {
-  private info!: Shape<typeof PakInfo>;
-  private mountPoint!: string;
-  private entries = new Map<string, Shape<typeof PakEntry>>();
+  info!: Shape<typeof PakInfo>;
+  mountPoint!: string;
+  entries = new Map<string, Shape<typeof PakEntry>>();
 
   constructor(private reader: Reader) {}
 
@@ -76,7 +76,6 @@ export class PakFile {
     const numEntries = await this.reader.read(UInt32);
     for (let i = 0; i < numEntries; i++) {
       const filename = await this.reader.read(Utf8String);
-      console.log('reading entry:', filename);
       const entry = await this.reader.read(PakEntry);
 
       this.entries.set(filename, entry);

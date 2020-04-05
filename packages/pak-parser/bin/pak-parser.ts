@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import * as fs from 'fs';
+
 import { PakFile } from '../src/PakFile';
 import { Reader } from '../src/Reader';
 
@@ -11,4 +13,7 @@ async function main() {
 
   const pakFile = new PakFile(reader);
   await pakFile.initialize();
+
+  const fileSummary = Array.from(pakFile.entries.entries()).map(([name, entry]) => `${name} (${entry.size})`);
+  fs.writeFileSync('pak-files.txt', fileSummary.join('\n'));
 }
