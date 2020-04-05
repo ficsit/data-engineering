@@ -1,4 +1,4 @@
-import { Reader } from '../Reader';
+import { Reader } from '../readers';
 
 // Unsigned Integers
 

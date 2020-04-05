@@ -1,4 +1,4 @@
-import { Reader } from '../Reader';
+import { Reader } from '../readers';
 
 export interface Parser<TShape> {
   (reader: Reader): Promise<TShape>;

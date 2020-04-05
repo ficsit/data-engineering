@@ -1,8 +1,8 @@
 import * as util from 'util';
 
 import { PakVersion } from '../PakFile';
-import { Reader } from '../Reader';
 import { Int8, UInt32, Int32, Int64, FixedCString } from '../primitive';
+import { Reader } from '../readers';
 import { Shape } from '../util/parsers';
 
 import { Guid, GuidSize } from './Guid';

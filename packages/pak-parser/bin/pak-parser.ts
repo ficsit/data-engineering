@@ -2,13 +2,13 @@
 import * as fs from 'fs';
 
 import { PakFile } from '../src/PakFile';
-import { Reader } from '../src/Reader';
+import { FileReader } from '../src/readers';
 
 main();
 async function main() {
   const pakFilePath =
     '/Volumes/[C] Windows 10/Program Files/Epic Games/SatisfactoryEarlyAccess/FactoryGame/Content/Paks/FactoryGame-WindowsNoEditor.pak';
-  const reader = new Reader(pakFilePath);
+  const reader = new FileReader(pakFilePath);
   await reader.open();
 
   const pakFile = new PakFile(reader);

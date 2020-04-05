@@ -1,5 +1,5 @@
-import { Reader } from './Reader';
 import { Utf8String, UInt32 } from './primitive';
+import { Reader } from './readers';
 import { PakEntry } from './structs/PakEntry';
 import { PakInfoSize, PakInfo } from './structs/PakInfo';
 import { bigintToNumber } from './util';

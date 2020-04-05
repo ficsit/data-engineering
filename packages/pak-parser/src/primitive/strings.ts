@@ -1,4 +1,4 @@
-import { Reader } from '../Reader';
+import { Reader } from '../readers';
 
 import { Int32 } from './integers';
 

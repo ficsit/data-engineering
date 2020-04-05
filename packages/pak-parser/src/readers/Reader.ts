@@ -1,41 +1,27 @@
 import * as crypto from 'crypto';
-import * as fs from 'fs';
 import * as util from 'util';
 
-import { Parser } from './util/parsers';
+import { Parser } from '../util/parsers';
 
-const open = util.promisify(fs.open);
-const read = util.promisify(fs.read);
-const fstat = util.promisify(fs.fstat);
+export abstract class Reader {
+  abstract size: number;
+  abstract async readBytes(length: number): Promise<Buffer>;
 
-export class Reader {
-  private fd!: number;
-  private size!: number;
-  public position = 0;
+  private _position = 0;
 
-  constructor(private path: string) {}
+  get position() {
+    return this._position;
+  }
 
-  async open() {
-    this.fd = await open(this.path, fs.constants.O_RDONLY);
-    const stats = await fstat(this.fd);
-    this.size = stats.size;
+  set position(newPosition: number) {
+    if (newPosition > this.size) {
+      throw new Error(`Cannot seek to ${newPosition} - out of bounds (file size: ${this.size})`);
+    }
+    this._position = newPosition;
   }
 
   async read<TShape>(parser: Parser<TShape>) {
     return parser(this);
-  }
-
-  async readBytes(length: number) {
-    const buffer = Buffer.alloc(length);
-    const { bytesRead } = await read(this.fd, buffer, 0, length, this.position);
-    this.position += bytesRead;
-    if (bytesRead !== length) {
-      throw new Error(
-        `Expcted to read ${length} bytes, but only read ${bytesRead} (at position ${this.position})`,
-      );
-    }
-
-    return buffer;
   }
 
   seekTo(position: number) {

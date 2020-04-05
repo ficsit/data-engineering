@@ -1,6 +1,6 @@
-import { Reader } from '../Reader';
 import { Array } from '../containers';
 import { Int64, UInt8, UInt32 } from '../primitive';
+import { Reader } from '../readers';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L392-L447
 export async function PakEntry(reader: Reader) {
