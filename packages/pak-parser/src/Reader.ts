@@ -1,17 +1,15 @@
 import * as fs from 'fs';
 import * as util from 'util';
 
+import { Parser } from './util/parsers';
+
 const open = util.promisify(fs.open);
 const read = util.promisify(fs.read);
 const fstat = util.promisify(fs.fstat);
 
-export interface Parser<TShape> {
-  (reader: Reader): Promise<TShape>;
-}
-
 export class Reader {
-  private fd: number;
-  private size: number;
+  private fd!: number;
+  private size!: number;
   public position = 0;
 
   constructor(private path: string) {}

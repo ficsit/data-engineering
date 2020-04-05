@@ -1,40 +1,66 @@
 import * as util from 'util';
 
+import { PakVersion } from '../PakFile';
 import { Reader } from '../Reader';
 import { Int8, UInt32, Int32, Int64, FixedCString } from '../primitive';
+import { Shape } from '../util/parsers';
 
-import { Guid } from './Guid';
+import { Guid, GuidSize } from './Guid';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L66-L67
 const MAGIC_NUMBER = Buffer.from([0xe1, 0x12, 0x6f, 0x5a]).readUInt32LE(0);
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L147-L228
-export async function PakInfo(reader: Reader) {
-  const info = {
-    encryptionKeyGuid: await reader.read(Guid),
-    isEncryptedIndex: await reader.read(Int8),
-    magic: await reader.read(UInt32),
-    version: await reader.read(Int32),
-    indexOffset: await reader.read(Int64),
-    indexSize: await reader.read(Int64),
-    indexHash: await reader.readBytes(20),
+export function PakInfo(version: PakVersion) {
+  return async function PakInfo(reader: Reader) {
+    let encryptionKeyGuid: Shape<typeof Guid> | undefined;
+    if (version >= PakVersion.EncryptionKeyGuid) {
+      encryptionKeyGuid = await reader.read(Guid);
+    }
+
+    const info = {
+      encryptionKeyGuid,
+      isEncryptedIndex: await reader.read(Int8),
+      magic: await reader.read(UInt32),
+      version: await reader.read(Int32),
+      indexOffset: await reader.read(Int64),
+      indexSize: await reader.read(Int64),
+      indexHash: await reader.readBytes(20),
+    };
+
+    const compressionMethods = [] as (string | null)[];
     // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L70-L73
-    compressionMethods: [
-      await reader.read(FixedCString(32)),
-      await reader.read(FixedCString(32)),
-      await reader.read(FixedCString(32)),
-      await reader.read(FixedCString(32)),
-    ],
+    if (version >= PakVersion.FNameBasedCompressionMethod) {
+      compressionMethods.push(await reader.read(FixedCString(32)));
+      compressionMethods.push(await reader.read(FixedCString(32)));
+      compressionMethods.push(await reader.read(FixedCString(32)));
+      compressionMethods.push(await reader.read(FixedCString(32)));
+    }
+
+    if (info.magic !== MAGIC_NUMBER) {
+      throw new Error(`Expected magic number to be ${MAGIC_NUMBER}, got ${util.format(info)}`);
+    }
+
+    if (info.version < 0 || info.version > version) {
+      throw new Error(`Expected version to be within 0:${version}, but instead got ${info.version}`);
+    }
+
+    return { ...info, compressionMethods };
   };
-
-  if (info.magic !== MAGIC_NUMBER) {
-    throw new Error(`Expected magic number to be ${MAGIC_NUMBER}, got ${util.format(info)}`);
-  }
-
-  return info;
 }
 
-export async function seekToPakInfo(reader: Reader) {
-  // It's at the very end of the file.
-  reader.seekTo(-16 - 1 - 4 - 4 - 8 - 8 - 20 - 32 * 4);
+// https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L126-L138
+export function PakInfoSize(version: PakVersion) {
+  let size =
+      1 /* isEncryptedIndex */ +
+      4 /* magic */ +
+      4 /* version */ +
+      8 /* indexOffset */ +
+      8 /* indexSize */ +
+      20 /* indexHash */;
+
+  if (version >= PakVersion.EncryptionKeyGuid) size += GuidSize;
+  if (version >= PakVersion.FNameBasedCompressionMethod) size += 32 * 4;
+
+  return size;
 }

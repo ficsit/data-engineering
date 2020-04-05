@@ -10,3 +10,5 @@ export async function Guid(reader: Reader) {
     d: await reader.read(UInt32),
   };
 }
+
+export const GuidSize = 4 + 4 + 4 + 4;
