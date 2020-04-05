@@ -69,14 +69,14 @@ export class PakFile {
     const { indexOffset, indexSize, indexHash } = this.info;
 
     this.reader.seekTo(bigintToNumber(indexOffset));
-    this.reader.checkHash('index', bigintToNumber(indexSize), indexHash);
+    await this.reader.checkHash('index', bigintToNumber(indexSize), indexHash);
 
     this.mountPoint = await this.reader.read(Utf8String);
 
     const numEntries = await this.reader.read(UInt32);
     for (let i = 0; i < numEntries; i++) {
       const filename = await this.reader.read(Utf8String);
-      console.log('reading', filename);
+      console.log('reading entry:', filename);
       const entry = await this.reader.read(PakEntry);
 
       this.entries.set(filename, entry);
