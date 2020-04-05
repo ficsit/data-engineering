@@ -5,6 +5,18 @@ ignorePatterns:
   - 'pipeline/ue4pak-cleaner/fixtures/'
 
 overrides:
+  - files: 'packages/pak-parser/**/*.{ts,tsx}'
+    parserOptions:
+      project: 'packages/pak-parser/tsconfig.json'
+
+  - files: 'packages/pipeline/**/*.{ts,tsx}'
+    parserOptions:
+      project: 'packages/pipeline/tsconfig.json'
+
+  - files: 'pipeline/extract-source/**/*.{ts,tsx}'
+    parserOptions:
+      project: 'pipeline/extract-source/tsconfig.json'
+
   - files: 'pipeline/headers-to-interfaces/**/*.{ts,tsx}'
     parserOptions:
       project: 'pipeline/headers-to-interfaces/tsconfig.json'
