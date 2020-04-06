@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import * as fs from 'fs';
-import * as path from 'path';
 
 import { PakFile } from '../src/PakFile';
 import { FileReader } from '../src/readers';
+import { PackageFileSummary } from '../src/structs/PackageFileSummary';
 
 main();
 async function main() {
@@ -19,14 +19,17 @@ async function main() {
   fs.writeFileSync('pak-files.txt', fileSummary.join('\n'));
 
   const files = [
-    'Engine/Content/Slate/Checkerboard.png',
-    'Engine/Content/Slate/Common/DropZoneIndicator_Above.png',
-    'Engine/Content/Slate/Testing/Wireframe.png',
-    'Engine/Plugins/Compositing/Composure/Config/BaseComposure.ini',
+    'FactoryGame/Content/FactoryGame/Recipes/AlternateRecipes/New_Update3/Recipe_Alternate_AdheredIronPlate.uasset',
+    // 'FactoryGame/Content/FactoryGame/Recipes/AlternateRecipes/New_Update3/Recipe_Alternate_AdheredIronPlate.uexp',
+    'FactoryGame/Content/FactoryGame/Recipes/AlternateRecipes/New_Update3/Recipe_Alternate_WetConcrete.uasset',
+    // 'FactoryGame/Content/FactoryGame/Recipes/AlternateRecipes/New_Update3/Recipe_Alternate_WetConcrete.uexp',
   ];
   for (const file of files) {
+    console.log();
+    console.log(file);
     const child = (await pakFile.getFile(file))!;
-    const destination = path.join('files', path.basename(file));
-    fs.writeFileSync(destination, await child.reader.readAll());
+
+    const summary = await child.reader.read(PackageFileSummary);
+    console.log(summary);
   }
 }

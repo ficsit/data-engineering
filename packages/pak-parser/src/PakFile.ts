@@ -96,7 +96,7 @@ export class PakFile {
     const reader = new ChildReader(this.reader, this.reader.position, entry.size);
     await reader.checkHash(filename, entry.size, entry.hash);
 
-    return { entry, reader };
+    return { filename, entry, reader };
   }
 
   /**
