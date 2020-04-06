@@ -6,10 +6,6 @@ import { Parser } from '../util/parsers';
 export function Array<TShape>(parser: Parser<TShape>): Parser<TShape[]> {
   return async function ArrayParser(reader: Reader) {
     const length = await reader.read(UInt32);
-    const result = [] as TShape[];
-    for (let i = 0; i < length; i++) {
-      result.push(await reader.read(parser));
-    }
-    return result;
+    return await reader.readList(length, parser);
   };
 }

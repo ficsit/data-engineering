@@ -24,9 +24,6 @@ export class ObjectFile {
   async loadNames() {
     const { nameOffset, nameCount } = this.summary;
     this.reader.seekTo(nameOffset);
-    this.names = [];
-    for (let i = 0; i < nameCount; i++) {
-      this.names.push(await this.reader.read(Name));
-    }
+    this.names = await this.reader.readList(nameCount, Name);
   }
 }

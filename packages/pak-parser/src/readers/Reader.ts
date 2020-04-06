@@ -24,6 +24,14 @@ export abstract class Reader {
     return parser(this);
   }
 
+  async readList<TShape>(count: number, parser: Parser<TShape>): Promise<TShape[]> {
+    const result = [] as TShape[];
+    for (let i = 0; i < count; i++) {
+      result.push(await this.read(parser));
+    }
+    return result;
+  }
+
   async readBytes(length: number) {
     const buffer = await this.readBytesAt(this.position, length);
     this.position += length;
