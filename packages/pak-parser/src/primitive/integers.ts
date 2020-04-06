@@ -43,3 +43,12 @@ export async function Int64(reader: Reader) {
   const data = await reader.readBytes(8);
   return data.readBigInt64LE(0);
 }
+
+// Misc
+
+export async function Boolean(reader: Reader) {
+  const value = await reader.read(UInt32);
+  if (value === 0) return false;
+  if (value === 1) return true;
+  throw new Error(`Invalid boolean. Expected 0 or 1, got ${value}`);
+}
