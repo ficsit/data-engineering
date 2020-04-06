@@ -1,6 +1,7 @@
 import { Array } from '../containers';
-import { Int32, Utf8String, UInt32 } from '../primitive';
+import { Int32, Utf8String, UInt32, Int64 } from '../primitive';
 import { Reader } from '../readers';
+import { bigintToNumber } from '../util';
 
 import { CustomVersion } from './CustomVersion';
 import { EngineVersion } from './EngineVersion';
@@ -40,6 +41,16 @@ export async function PackageFileSummary(reader: Reader) {
     generations: await reader.read(Array(GenerationInfo)),
     savedByEngineVersion: await reader.read(EngineVersion),
     compatibleWithEngineVersion: await reader.read(EngineVersion),
+    compressionFlags: await reader.read(UInt32),
+    compressedChunks: await reader.read(Array(CompressedChunk)),
+    packageSource: await reader.read(UInt32),
+    additionalPackagesToCook: await reader.read(Array(Utf8String)),
+    assetRegistryDataOffset: await reader.read(Int32),
+    bulkDataStartOffset: bigintToNumber(await reader.read(Int64)),
+    worldTileInfoDataOffset: await reader.read(Int32),
+    chunkIds: await reader.read(Array(Int32)),
+    preloadDependencyCount: await reader.read(Int32),
+    preloadDependencyOffset: await reader.read(Int32),
   };
 }
 
@@ -48,5 +59,15 @@ export async function GenerationInfo(reader: Reader) {
   return {
     exportCount: await reader.read(Int32),
     nameCount: await reader.read(Int32),
+  };
+}
+
+// https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Public/UObject/Linker.h#L15-L38
+export async function CompressedChunk(reader: Reader) {
+  return {
+    uncompressedOffset: await reader.read(Int32),
+    uncompressedSize: await reader.read(Int32),
+    compressedOffset: await reader.read(Int32),
+    compressedSize: await reader.read(Int32),
   };
 }
