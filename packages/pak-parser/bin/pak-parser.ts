@@ -3,7 +3,6 @@ import * as fs from 'fs';
 
 import { PakFile } from '../src/PakFile';
 import { FileReader } from '../src/readers';
-import { PackageFileSummary } from '../src/structs/PackageFileSummary';
 
 main();
 async function main() {
@@ -25,11 +24,7 @@ async function main() {
     // 'FactoryGame/Content/FactoryGame/Recipes/AlternateRecipes/New_Update3/Recipe_Alternate_WetConcrete.uexp',
   ];
   for (const file of files) {
-    console.log();
-    console.log(file);
-    const child = (await pakFile.getFile(file))!;
-
-    const summary = await child.reader.read(PackageFileSummary);
-    console.log(summary);
+    const objectFile = await pakFile.getObjectFile(file);
+    console.log(objectFile);
   }
 }

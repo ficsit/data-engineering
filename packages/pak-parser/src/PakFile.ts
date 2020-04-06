@@ -1,3 +1,4 @@
+import { ObjectFile } from './ObjectFile';
 import { Utf8String, UInt32 } from './primitive';
 import { Reader, ChildReader } from './readers';
 import { PakEntry } from './structs/PakEntry';
@@ -97,6 +98,19 @@ export class PakFile {
     await reader.checkHash(filename, entry.size, entry.hash);
 
     return { filename, entry, reader };
+  }
+
+  /**
+   * Look up a serialized UObject
+   */
+  async getObjectFile(filename: string) {
+    const result = await this.getFile(filename);
+    if (!result) return null;
+
+    const objectFile = new ObjectFile(filename, result.reader, result.entry);
+    await objectFile.initialize();
+
+    return objectFile;
   }
 
   /**
