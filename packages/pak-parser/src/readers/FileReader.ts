@@ -21,16 +21,16 @@ export class FileReader extends Reader {
     this.size = stats.size;
   }
 
-  async readBytes(length: number) {
+  async readBytesAt(position: number, length: number) {
     const buffer = Buffer.alloc(length);
-    const { bytesRead } = await read(this.fd, buffer, 0, length, this.position);
+    const { bytesRead } = await read(this.fd, buffer, 0, length, position);
     if (bytesRead !== length) {
       throw new Error(
-        `Expcted to read ${length} bytes, but only read ${bytesRead} (at position ${this.position})`,
+        `Expcted to read ${length} bytes, but only read ${bytesRead} (at position ${position})`,
       );
     }
 
-    this.position += bytesRead;
+    position += bytesRead;
 
     return buffer;
   }

@@ -3,6 +3,7 @@ import * as util from 'util';
 import { PakVersion } from '../PakFile';
 import { Int8, UInt32, Int32, Int64, FixedCString } from '../primitive';
 import { Reader } from '../readers';
+import { bigintToNumber } from '../util';
 import { Shape } from '../util/parsers';
 
 import { Guid, GuidSize } from './Guid';
@@ -23,8 +24,8 @@ export function PakInfo(version: PakVersion) {
       isEncryptedIndex: await reader.read(Int8),
       magic: await reader.read(UInt32),
       version: await reader.read(Int32),
-      indexOffset: await reader.read(Int64),
-      indexSize: await reader.read(Int64),
+      indexOffset: bigintToNumber(await reader.read(Int64)),
+      indexSize: bigintToNumber(await reader.read(Int64)),
       indexHash: await reader.readBytes(20),
     };
 

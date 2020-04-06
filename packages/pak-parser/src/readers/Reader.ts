@@ -5,7 +5,7 @@ import { Parser } from '../util/parsers';
 
 export abstract class Reader {
   abstract size: number;
-  abstract async readBytes(length: number): Promise<Buffer>;
+  abstract async readBytesAt(position: number, length: number): Promise<Buffer>;
 
   private _position = 0;
 
@@ -22,6 +22,16 @@ export abstract class Reader {
 
   async read<TShape>(parser: Parser<TShape>) {
     return parser(this);
+  }
+
+  async readBytes(length: number) {
+    const buffer = await this.readBytesAt(this.position, length);
+    this.position += length;
+    return buffer;
+  }
+
+  async readAll() {
+    return await this.readBytes(this.size);
   }
 
   seekTo(position: number) {
