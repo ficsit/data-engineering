@@ -1,8 +1,8 @@
 import { ObjectFile } from './ObjectFile';
 import { Utf8String, UInt32 } from './primitive';
 import { Reader, ChildReader } from './readers';
-import { PakEntry } from './structs/PakEntry';
-import { PakInfoSize, PakInfo } from './structs/PakInfo';
+import { FPakEntry } from './structs/FPakEntry';
+import { FPakInfoSize, FPakInfo } from './structs/FPakInfo';
 import { Shape } from './util/parsers';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
@@ -25,9 +25,9 @@ export const LatestPakVersion = PakVersion.FNameBasedCompressionMethod;
  * @see https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L485-L488
  */
 export class PakFile {
-  info!: Shape<typeof PakInfo>;
+  info!: Shape<typeof FPakInfo>;
   mountPoint!: string;
-  entries = new Map<string, Shape<typeof PakEntry>>();
+  entries = new Map<string, Shape<typeof FPakEntry>>();
 
   constructor(private reader: Reader) {}
 
@@ -47,9 +47,9 @@ export class PakFile {
   async loadInfo() {
     let version = LatestPakVersion;
     while (version > 0) {
-      this.reader.seekTo(-PakInfoSize(version));
+      this.reader.seekTo(-FPakInfoSize(version));
       try {
-        return await this.reader.read(PakInfo(version));
+        return await this.reader.read(FPakInfo(version));
       } catch (error) {
         console.warn(`Failed loading PakInfo version ${version}:`, error);
       }
@@ -76,7 +76,7 @@ export class PakFile {
     const numEntries = await this.reader.read(UInt32);
     for (let i = 0; i < numEntries; i++) {
       const filename = await this.reader.read(Utf8String);
-      const entry = await this.reader.read(PakEntry);
+      const entry = await this.reader.read(FPakEntry);
 
       this.entries.set(filename, entry);
     }
@@ -91,7 +91,7 @@ export class PakFile {
 
     // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L1251-L1284
     this.reader.seekTo(entry.offset);
-    const header = await this.reader.read(PakEntry);
+    const header = await this.reader.read(FPakEntry);
     this.checkEntries(filename, entry, header);
 
     const reader = new ChildReader(this.reader, this.reader.position, entry.size);
@@ -118,7 +118,7 @@ export class PakFile {
    *
    * @see https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Private/IPlatformFilePak.cpp#L4042-L4066
    */
-  checkEntries(context: string, indexEntry: Shape<typeof PakEntry>, inlineEntry: Shape<typeof PakEntry>) {
+  checkEntries(context: string, indexEntry: Shape<typeof FPakEntry>, inlineEntry: Shape<typeof FPakEntry>) {
     if (indexEntry.size !== inlineEntry.size) {
       throw new Error(`${context} is corrupt: size mismatch ${indexEntry.size} vs ${inlineEntry.size}`);
     }

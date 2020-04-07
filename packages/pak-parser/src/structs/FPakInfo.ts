@@ -6,17 +6,17 @@ import { Reader } from '../readers';
 import { bigintToNumber } from '../util';
 import { Shape } from '../util/parsers';
 
-import { Guid, GuidSize } from './Guid';
+import { FGuid, GuidSize } from './FGuid';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L66-L67
 const MAGIC_NUMBER = Buffer.from([0xe1, 0x12, 0x6f, 0x5a]).readUInt32LE(0);
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L147-L228
-export function PakInfo(version: PakVersion) {
-  return async function PakInfo(reader: Reader) {
-    let encryptionKeyGuid: Shape<typeof Guid> | undefined;
+export function FPakInfo(version: PakVersion) {
+  return async function FPakInfoParser(reader: Reader) {
+    let encryptionKeyGuid: Shape<typeof FGuid> | undefined;
     if (version >= PakVersion.EncryptionKeyGuid) {
-      encryptionKeyGuid = await reader.read(Guid);
+      encryptionKeyGuid = await reader.read(FGuid);
     }
 
     const info = {
@@ -51,7 +51,7 @@ export function PakInfo(version: PakVersion) {
 }
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L126-L138
-export function PakInfoSize(version: PakVersion) {
+export function FPakInfoSize(version: PakVersion) {
   let size =
       1 /* isEncryptedIndex */ +
       4 /* magic */ +

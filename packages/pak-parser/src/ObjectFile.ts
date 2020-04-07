@@ -1,11 +1,11 @@
 import { Int32 } from './primitive';
 import { Reader } from './readers';
-import { AssetData } from './structs/AssetData';
-import { SerializedName, NameMap, Name } from './structs/Name';
-import { ObjectExport } from './structs/ObjectExport';
-import { ObjectImport } from './structs/ObjectImport';
-import { PackageFileSummary } from './structs/PackageFileSummary';
-import { PakEntry } from './structs/PakEntry';
+import { FAssetData } from './structs/FAssetData';
+import { FNameEntrySerialized, NameMap, FName } from './structs/FName';
+import { FObjectExport } from './structs/FObjectExport';
+import { FObjectImport } from './structs/FObjectImport';
+import { FPackageFileSummary } from './structs/FPackageFileSummary';
+import { FPakEntry } from './structs/FPakEntry';
 import { Shape } from './util/parsers';
 
 /**
@@ -16,14 +16,14 @@ import { Shape } from './util/parsers';
  * @see https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Editor/UnrealEd/Private/Commandlets/PackageUtilities.cpp#L916-L1398
  */
 export class ObjectFile {
-  summary!: Shape<typeof PackageFileSummary>;
+  summary!: Shape<typeof FPackageFileSummary>;
   names!: NameMap;
-  imports!: Shape<typeof ObjectImport>[];
-  exports!: Shape<typeof ObjectExport>[];
+  imports!: Shape<typeof FObjectImport>[];
+  exports!: Shape<typeof FObjectExport>[];
   softPackageReferences!: string[];
-  assetData?: Shape<typeof AssetData>;
+  assetData?: Shape<typeof FAssetData>;
 
-  constructor(public filename: string, private reader: Reader, public entry: Shape<typeof PakEntry>) {}
+  constructor(public filename: string, private reader: Reader, public entry: Shape<typeof FPakEntry>) {}
 
   async initialize() {
     // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/LinkerLoad.cpp#L652-L797
@@ -37,31 +37,31 @@ export class ObjectFile {
   }
 
   async loadSummary() {
-    this.summary = await this.reader.read(PackageFileSummary);
+    this.summary = await this.reader.read(FPackageFileSummary);
   }
 
   async loadNameMap() {
     const { nameOffset, nameCount } = this.summary;
     this.reader.seekTo(nameOffset);
-    this.names = await this.reader.readList(nameCount, SerializedName);
+    this.names = await this.reader.readList(nameCount, FNameEntrySerialized);
   }
 
   async loadImports() {
     const { importOffset, importCount } = this.summary;
     this.reader.seekTo(importOffset);
-    this.imports = await this.reader.readList(importCount, ObjectImport(this.names));
+    this.imports = await this.reader.readList(importCount, FObjectImport(this.names));
   }
 
   async loadExports() {
     const { exportOffset, exportCount } = this.summary;
     this.reader.seekTo(exportOffset);
-    this.exports = await this.reader.readList(exportCount, ObjectExport(this.names));
+    this.exports = await this.reader.readList(exportCount, FObjectExport(this.names));
   }
 
   async loadSoftPackageReferences() {
     const { softPackageReferencesOffset, softPackageReferencesCount } = this.summary;
     this.reader.seekTo(softPackageReferencesOffset);
-    this.softPackageReferences = await this.reader.readList(softPackageReferencesCount, Name(this.names));
+    this.softPackageReferences = await this.reader.readList(softPackageReferencesCount, FName(this.names));
   }
 
   async loadSearchableNames() {

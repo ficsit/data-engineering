@@ -1,10 +1,10 @@
-import { Array } from '../containers';
+import { TArray } from '../containers';
 import { Int64, UInt8, UInt32 } from '../primitive';
 import { Reader } from '../readers';
 import { bigintToNumber } from '../util';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L392-L447
-export async function PakEntry(reader: Reader) {
+export async function FPakEntry(reader: Reader) {
   const offset = bigintToNumber(await reader.read(Int64));
   const size = bigintToNumber(await reader.read(Int64));
   const uncompressedSize = bigintToNumber(await reader.read(Int64));
@@ -13,7 +13,7 @@ export async function PakEntry(reader: Reader) {
 
   let compressionBlocks = [] as { compressedStart: bigint; compressedEnd: bigint }[];
   if (compressionMethod > 0) {
-    compressionBlocks = await reader.read(Array(PakCompressedBlock));
+    compressionBlocks = await reader.read(TArray(FPakCompressedBlock));
   }
 
   return {
@@ -29,7 +29,7 @@ export async function PakEntry(reader: Reader) {
 }
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L255-L274
-export async function PakCompressedBlock(reader: Reader) {
+export async function FPakCompressedBlock(reader: Reader) {
   return {
     compressedStart: await reader.read(Int64),
     compressedEnd: await reader.read(Int64),

@@ -2,7 +2,7 @@ import { Int32 } from '../primitive';
 import { Reader } from '../readers';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/Core/Private/Containers/String.cpp#L1390-L1498
-export async function String(reader: Reader) {
+export async function FString(reader: Reader) {
   const length = await reader.read(Int32);
 
   let value: string;

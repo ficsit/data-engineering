@@ -1,2 +1,2 @@
-export * from './Array';
-export * from './String';
+export * from './TArray';
+export * from './FString';

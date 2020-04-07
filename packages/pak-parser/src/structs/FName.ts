@@ -2,10 +2,10 @@ import { Int32, UInt16 } from '../primitive';
 import { Reader } from '../readers';
 import { Shape } from '../util/parsers';
 
-export type NameMap = Shape<typeof SerializedName>[];
+export type NameMap = Shape<typeof FNameEntrySerialized>[];
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/Core/Private/UObject/UnrealNames.cpp#L1247-L1335
-export async function SerializedName(reader: Reader) {
+export async function FNameEntrySerialized(reader: Reader) {
   const length = await reader.read(Int32);
 
   let name: string;
@@ -28,7 +28,7 @@ export async function SerializedName(reader: Reader) {
 }
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/AssetRegistry/Private/PackageReader.cpp#L462-L491
-export function Name(names: NameMap) {
+export function FName(names: NameMap) {
   return async function NameParser(reader: Reader) {
     const index = await reader.read(Int32);
     if (index < 0 || index >= names.length) {
