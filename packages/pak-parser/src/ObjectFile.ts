@@ -13,6 +13,7 @@ import { Shape } from './util/parsers';
  *
  * @see https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/AssetRegistry/Private/PackageReader.h
  * @see https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/AssetRegistry/Private/PackageReader.cpp
+ * @see https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Editor/UnrealEd/Private/Commandlets/PackageUtilities.cpp#L916-L1398
  */
 export class ObjectFile {
   summary!: Shape<typeof PackageFileSummary>;
@@ -25,8 +26,9 @@ export class ObjectFile {
   constructor(public filename: string, private reader: Reader, public entry: Shape<typeof PakEntry>) {}
 
   async initialize() {
-    this.summary = await this.reader.read(PackageFileSummary);
-    await this.loadNames();
+    // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/LinkerLoad.cpp#L652-L797
+    await this.loadSummary();
+    await this.loadNameMap();
     await this.loadImports();
     await this.loadExports();
     await this.loadSoftPackageReferences();
@@ -34,7 +36,11 @@ export class ObjectFile {
     await this.loadAssetRegistryData();
   }
 
-  async loadNames() {
+  async loadSummary() {
+    this.summary = await this.reader.read(PackageFileSummary);
+  }
+
+  async loadNameMap() {
     const { nameOffset, nameCount } = this.summary;
     this.reader.seekTo(nameOffset);
     this.names = await this.reader.readList(nameCount, SerializedName);
