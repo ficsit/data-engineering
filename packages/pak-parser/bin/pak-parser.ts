@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import * as fs from 'fs';
+import * as path from 'path';
 
 import { PakFile } from '../src/PakFile';
 import { FileReader } from '../src/readers';
@@ -19,12 +20,15 @@ async function main() {
 
   const files = [
     'FactoryGame/Content/FactoryGame/Recipes/AlternateRecipes/New_Update3/Recipe_Alternate_AdheredIronPlate.uasset',
-    // 'FactoryGame/Content/FactoryGame/Recipes/AlternateRecipes/New_Update3/Recipe_Alternate_AdheredIronPlate.uexp',
     'FactoryGame/Content/FactoryGame/Recipes/AlternateRecipes/New_Update3/Recipe_Alternate_WetConcrete.uasset',
-    // 'FactoryGame/Content/FactoryGame/Recipes/AlternateRecipes/New_Update3/Recipe_Alternate_WetConcrete.uexp',
+    'FactoryGame/Content/FactoryGame/Buildable/Factory/AssemblerMk1/Desc_AssemblerMk1.uasset',
+    'FactoryGame/Content/FactoryGame/Buildable/Factory/AssemblerMk1/Build_AssemblerMk1.uasset',
+    'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uasset',
   ];
+  fs.mkdirSync('dump', { recursive: true });
   for (const file of files) {
     const objectFile = await pakFile.getObjectFile(file);
-    console.log(objectFile);
+    const dest = path.join('dump', path.basename(file) + '.json');
+    fs.writeFileSync(dest, JSON.stringify(objectFile, null, 2));
   }
 }

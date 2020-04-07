@@ -1,5 +1,7 @@
+import { Int32 } from './primitive';
 import { Reader } from './readers';
-import { SerializedName, NameMap } from './structs/Name';
+import { AssetData } from './structs/AssetData';
+import { SerializedName, NameMap, Name } from './structs/Name';
 import { ObjectExport } from './structs/ObjectExport';
 import { ObjectImport } from './structs/ObjectImport';
 import { PackageFileSummary } from './structs/PackageFileSummary';
@@ -17,6 +19,8 @@ export class ObjectFile {
   names!: NameMap;
   imports!: Shape<typeof ObjectImport>[];
   exports!: Shape<typeof ObjectExport>[];
+  softPackageReferences!: string[];
+  assetData?: Shape<typeof AssetData>;
 
   constructor(public filename: string, private reader: Reader, public entry: Shape<typeof PakEntry>) {}
 
@@ -25,6 +29,9 @@ export class ObjectFile {
     await this.loadNames();
     await this.loadImports();
     await this.loadExports();
+    await this.loadSoftPackageReferences();
+    await this.loadSearchableNames();
+    await this.loadAssetRegistryData();
   }
 
   async loadNames() {
@@ -43,5 +50,29 @@ export class ObjectFile {
     const { exportOffset, exportCount } = this.summary;
     this.reader.seekTo(exportOffset);
     this.exports = await this.reader.readList(exportCount, ObjectExport(this.names));
+  }
+
+  async loadSoftPackageReferences() {
+    const { softPackageReferencesOffset, softPackageReferencesCount } = this.summary;
+    this.reader.seekTo(softPackageReferencesOffset);
+    this.softPackageReferences = await this.reader.readList(softPackageReferencesCount, Name(this.names));
+  }
+
+  async loadSearchableNames() {
+    const { searchableNamesOffset } = this.summary;
+    if (!searchableNamesOffset) return;
+
+    throw new Error(`Please implement ObjectFile#loadSearchableNames`);
+  }
+
+  async loadAssetRegistryData() {
+    const { assetRegistryDataOffset } = this.summary;
+    if (!assetRegistryDataOffset) return;
+
+    this.reader.seekTo(assetRegistryDataOffset);
+    const numEntries = await this.reader.read(Int32);
+    if (numEntries > 0) {
+      throw new Error(`Please implement AssetData reading`);
+    }
   }
 }
