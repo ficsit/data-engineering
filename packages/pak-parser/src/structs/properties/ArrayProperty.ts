@@ -3,7 +3,7 @@ import {FName, NameMap} from "../FName";
 import {FPropertyTag, TagMetaData} from "../FPropertyTag";
 import {Shape} from "../../util/parsers";
 import {Int32} from "../../primitive";
-import {FPackageFileSummary} from "../FPackageFileSummary";
+import {ObjectFile} from "../../ObjectFile";
 
 export function ArrayPropertyTagMetaData(names: NameMap) {
   return async function ArrayPropertyParser(reader: Reader) {
@@ -13,7 +13,7 @@ export function ArrayPropertyTagMetaData(names: NameMap) {
   };
 }
 
-export function ArrayProperty(assetSummary: Shape<typeof FPackageFileSummary>, names: NameMap, tagMetaData: TagMetaData) {
+export function ArrayProperty(asset: ObjectFile, names: NameMap, tagMetaData: TagMetaData) {
   return async function ArrayPropertyParser(reader: Reader) {
     const innerType = (tagMetaData as Shape<typeof ArrayPropertyTagMetaData>).innerType;
 
@@ -22,7 +22,7 @@ export function ArrayProperty(assetSummary: Shape<typeof FPackageFileSummary>, n
     let innerTagMetaData;
 
     if (innerType === 'StructProperty') {
-      innerTagMetaData = await reader.read(FPropertyTag(assetSummary, names, false, 1))
+      innerTagMetaData = await reader.read(FPropertyTag(asset, false, 1))
     }
 
     return {

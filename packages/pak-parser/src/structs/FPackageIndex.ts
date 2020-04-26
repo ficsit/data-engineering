@@ -2,12 +2,13 @@ import {Shape} from "../util/parsers";
 import {FObjectExport} from "./FObjectExport";
 import {FObjectImport} from "./FObjectImport";
 import {Reader} from "../readers";
+import {Int32} from "../primitive";
 
 // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectResource.h#L19
 // Deviates from the source because it also includes a reference to the javascript object
 
-export function FPackageIndex(imports: Shape<typeof FObjectImport>[], exports: Shape<typeof FObjectExport>[], index: number) {
-  return async function (reader: Reader) {
+export function FPackageIndexInt(index: number, imports: Shape<typeof FObjectImport>[], exports: Shape<typeof FObjectExport>[], ) {
+  return async function (reader: Reader = null) {
     let processedIndex = 0;
     let reference = null;
     if (index === 0) {
@@ -39,6 +40,15 @@ export function FPackageIndex(imports: Shape<typeof FObjectImport>[], exports: S
       processedIndex,
       reference
     }
+  }
+}
+
+export function FPackageIndex(imports: Shape<typeof FObjectImport>[], exports: Shape<typeof FObjectExport>[]) {
+  return async function (reader: Reader) {
+    const index = await reader.read(Int32);
+
+    const functionSetup = FPackageIndexInt(index, imports, exports);
+    return await functionSetup();
   }
 }
 

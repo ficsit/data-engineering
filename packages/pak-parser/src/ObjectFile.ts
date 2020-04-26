@@ -1,17 +1,16 @@
-import { TArray } from './containers';
-import { Int32 } from './primitive';
-import { Reader } from './readers';
-import { FAssetData } from './structs/FAssetData';
-import { FNameEntrySerialized, NameMap, FName } from './structs/FName';
-import { FObjectExport } from './structs/FObjectExport';
-import { FObjectImport } from './structs/FObjectImport';
-import { FPackageFileSummary } from './structs/FPackageFileSummary';
-import { FPakEntry } from './structs/FPakEntry';
-import { Shape } from './util/parsers';
-import {FPackageIndex} from "./structs/FPackageIndex";
+import {TArray} from './containers';
+import {Int32} from './primitive';
+import {Reader} from './readers';
+import {FAssetData} from './structs/FAssetData';
+import {FName, FNameEntrySerialized, NameMap} from './structs/FName';
+import {FObjectExport} from './structs/FObjectExport';
+import {FObjectImport} from './structs/FObjectImport';
+import {FPackageFileSummary} from './structs/FPackageFileSummary';
+import {FPakEntry} from './structs/FPakEntry';
+import {Shape} from './util/parsers';
+import {FPackageIndex, FPackageIndexInt} from "./structs/FPackageIndex";
 import {asyncForEach} from "./util/asyncForEach";
 import {PakFile} from "./PakFile";
-import {FPropertyTag} from "./structs/FPropertyTag";
 
 /**
  * Parser and content of a .uasset file (serialized UObject).
@@ -108,7 +107,7 @@ export class ObjectFile {
 
   async populateFPackageIndexes(key: number) {
     if (!this.packageIndexLookupTable.has(key)) {
-      const packageIndex = await FPackageIndex(this.imports, this.exports, key)(null);
+      const packageIndex = await FPackageIndexInt(key, this.imports, this.exports)();
       this.packageIndexLookupTable.set(key, packageIndex);
     }
   }
@@ -225,6 +224,10 @@ export class ObjectFile {
     if (numEntries > 0) {
       throw new Error(`Please implement AssetData reading`);
     }
+  }
+
+  getClassNameFromExport(exp: Shape<typeof FObjectExport>) {
+    return this.packageIndexLookupTable.get(exp.templateIndex)?.reference?.className as string || null;
   }
 
   async loadSpecialTypes() {

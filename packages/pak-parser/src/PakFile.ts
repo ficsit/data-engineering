@@ -1,9 +1,9 @@
-import { ObjectFile } from './ObjectFile';
-import { Utf8String, UInt32 } from './primitive';
-import { Reader, ChildReader } from './readers';
-import { FPakEntry } from './structs/FPakEntry';
-import { FPakInfoSize, FPakInfo } from './structs/FPakInfo';
-import { Shape } from './util/parsers';
+import {ObjectFile} from './ObjectFile';
+import {UInt32, Utf8String} from './primitive';
+import {ChildReader, Reader} from './readers';
+import {FPakEntry} from './structs/FPakEntry';
+import {FPakInfo, FPakInfoSize} from './structs/FPakInfo';
+import {Shape} from './util/parsers';
 import {ObjectExportsFile} from "./ObjectExportsFile";
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
@@ -163,10 +163,19 @@ export class PakFile {
     // Since we need the object file for its summary, we cache the objectFiles in case it's been loaded already.
     const asset = await this.getObjectFile(assetFilename);
 
-    const objectExportsFile = new ObjectExportsFile(filename, result.reader, result.entry, this, asset);
-    await objectExportsFile.initialize();
+    const exports = [];
 
-    return objectExportsFile;
+    for(const exp of asset.exports) {
+      this.reader.seekTo(exp.serialOffset - asset.summary.totalHeaderSize);
+      const className = asset.getClassNameFromExport(exp);
+      const objectExportsFile = new ObjectExportsFile(filename, result.reader, result.entry, this, asset, className);
+      await objectExportsFile.initialize();
+      exports.push(objectExportsFile);
+    }
+
+    return exports;
+
+    // return objectExportsFile;
   }
 
   /**

@@ -12,13 +12,18 @@ import {ArrayProperty, ArrayPropertyTagMetaData} from "./properties/ArrayPropert
 import {SetPropertyTagMetaData} from "./properties/SetProperty";
 import {MapPropertyTagMetaData} from "./properties/MapProperty";
 import {Double, Float} from "../primitive/decimals";
+import {FPackageIndex} from "./FPackageIndex";
+import {ObjectFile} from "../ObjectFile";
 
 export type TagMetaData = Shape<typeof StructPropertyTagMetaData> | Shape<typeof BytePropertyTagMetaData> | Shape<typeof EnumPropertyTagMetaData> |
   Shape<typeof ArrayPropertyTagMetaData> | Shape<typeof SetPropertyTagMetaData> | Shape<typeof MapPropertyTagMetaData> | Shape<typeof ByteBoolean>;
 
 // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L80-L169
-export function FPropertyTag(assetSummary: Shape<typeof FPackageFileSummary>, names: NameMap, shouldRead: boolean, depth: number) {
+export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: number) {
   return async function (reader: Reader) {
+    const assetSummary: Shape<typeof FPackageFileSummary> = asset.summary;
+    const names: NameMap = asset.names;
+
     let name = await reader.read(FName(names));
 
     // https://docs.unrealengine.com/en-US/API/Runtime/Core/UObject/EName/index.html
@@ -26,7 +31,6 @@ export function FPropertyTag(assetSummary: Shape<typeof FPackageFileSummary>, na
     if (name === 'None') {
       return null;
     }
-
 
     const baseTag = {
       name,
@@ -84,7 +88,7 @@ export function FPropertyTag(assetSummary: Shape<typeof FPackageFileSummary>, na
 
     if (shouldRead && baseTag.size > 0) {
       reader.trackReads();
-      tag = await reader.read(Tag(baseTag.size, assetSummary, baseTag.propertyType, tagMetaData, baseTag.name, depth, names));
+      tag = await reader.read(Tag(baseTag.size, asset, baseTag.propertyType, tagMetaData, baseTag.name, depth, names));
 
       if (reader.getTrackedBytesRead() !== baseTag.size) {
         console.error(`${baseTag.name} (${baseTag.propertyType}) property not read fully, ${reader.getTrackedBytesRead()}/${baseTag.size} bytes read.`);
@@ -105,8 +109,6 @@ export function FPropertyTag(assetSummary: Shape<typeof FPackageFileSummary>, na
       tagMetaData = null;
     }
 
-    console.log("THIS INDEX IS", baseTag.arrayIndex);
-
     return {
       ...baseTag,
       tagMetaData,
@@ -116,7 +118,7 @@ export function FPropertyTag(assetSummary: Shape<typeof FPackageFileSummary>, na
   }
 }
 
-function Tag(size: number, assetSummary: Shape<typeof FPackageFileSummary>, propertyType: string, tagMetaData: TagMetaData, name: string, depth: number, names: NameMap) {
+function Tag(size: number, asset: ObjectFile, propertyType: string, tagMetaData: TagMetaData, name: string, depth: number, names: NameMap) {
   return async function (reader: Reader) {
     let tag = null;
     switch(propertyType) {
@@ -187,11 +189,18 @@ function Tag(size: number, assetSummary: Shape<typeof FPackageFileSummary>, prop
         break;
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyArray.cpp#L61-L243
       case 'ArrayProperty':
-        tag = await reader.read(ArrayProperty(assetSummary, names, tagMetaData));
+        //TODO: Finish this
+        tag = await reader.read(ArrayProperty(asset, names, tagMetaData));
+        break;
+      case 'ObjectProperty':
+        tag = await reader.read(FPackageIndex(asset.imports, asset.exports));
+        console.log(tag);
         break;
       default:
         throw new Error(`Unparsed Property type ${propertyType}`);
     }
+
+    return tag;
   }
 }
 
