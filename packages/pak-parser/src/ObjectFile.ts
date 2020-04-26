@@ -8,6 +8,10 @@ import { FObjectImport } from './structs/FObjectImport';
 import { FPackageFileSummary } from './structs/FPackageFileSummary';
 import { FPakEntry } from './structs/FPakEntry';
 import { Shape } from './util/parsers';
+import {FPackageIndex} from "./structs/FPackageIndex";
+import {asyncForEach} from "./util/asyncForEach";
+import {PakFile} from "./PakFile";
+import {FPropertyTag} from "./structs/FPropertyTag";
 
 /**
  * Parser and content of a .uasset file (serialized UObject).
@@ -23,10 +27,11 @@ export class ObjectFile {
   exports = [] as Shape<typeof FObjectExport>[];
   depends = [] as number[][];
   preloadDependencies = [] as number[];
+  packageIndexLookupTable = new Map<number, Shape<typeof FPackageIndex>>();
   softPackageReferences?: string[];
   assetData?: Shape<typeof FAssetData>;
 
-  constructor(public filename: string, private reader: Reader, public entry: Shape<typeof FPakEntry>) {}
+  constructor(public filename: string, private reader: Reader, public entry: Shape<typeof FPakEntry>, public pak: PakFile) {}
 
   async initialize() {
     // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/LinkerLoad.cpp#L652-L797
@@ -36,12 +41,15 @@ export class ObjectFile {
     await this.loadExports();
     await this.fixupImports();
     await this.fixupExports();
+    await this.resolvePackageIndexes();
     await this.loadDepends();
     await this.loadPreloadDependencies();
     await this.loadThumbnails();
     await this.loadSoftPackageReferences();
     await this.loadSearchableNames();
     await this.loadAssetRegistryData();
+    // await this.loadProperties();
+    // await this.loadSpecialTypes();
   }
 
   // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/LinkerLoad.cpp#L1130-L1379
@@ -62,6 +70,10 @@ export class ObjectFile {
   async loadGatherableTextData() {
     const { gatherableTextDataOffset, gatherableTextDataCount } = this.summary;
     if (!gatherableTextDataOffset || !gatherableTextDataCount) return;
+
+    if (gatherableTextDataOffset) {
+      this.reader.seekTo(gatherableTextDataOffset);
+    }
 
     throw new Error(`Please implement ObjectFile#loadGatherableTextData`);
   }
@@ -92,6 +104,76 @@ export class ObjectFile {
   // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/LinkerLoad.cpp#L5209-L5347
   async fixupExports() {
     // TODO: Do we need to do anything here?
+  }
+
+  async populateFPackageIndexes(key: number) {
+    if (!this.packageIndexLookupTable.has(key)) {
+      const packageIndex = await FPackageIndex(this.imports, this.exports, key)(null);
+      this.packageIndexLookupTable.set(key, packageIndex);
+    }
+  }
+
+  async resolvePackageIndexes() {
+    const exportClobberedFields = ["classIndex", "superIndex", "templateIndex", "outerIndex"];
+    const importClobberedFields = ["outerIndex"];
+
+    await asyncForEach(this.exports, async (exp: Shape<typeof FObjectExport>) => {
+
+      await asyncForEach(exportClobberedFields, async (field: string) => {
+        await this.populateFPackageIndexes(exp[field]);
+      });
+    });
+
+    await asyncForEach(this.imports, async (exp: Shape<typeof FObjectImport>) => {
+      await asyncForEach(importClobberedFields, async (field: string) => {
+        await this.populateFPackageIndexes(exp[field]);
+      })
+    });
+
+  }
+
+  // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp
+  async loadProperties() {
+    await asyncForEach(this.exports, async (exp: Shape<typeof FObjectExport>) => {
+      // console.log(exp.serialOffset, this.summary.totalHeaderSize);
+      // let offset = 6
+      //   // (exp.serialOffset - this.summary.totalHeaderSize + this.pak.headerSize);
+      // console.log(exp, this.summary);
+      // while(true) {
+      //   console.log(offset)
+      //   offset++;
+      //   this.reader.seekTo(offset);
+      //
+      //   try {
+      //     const name = await this.reader.read(FName(this.names));
+      //     console.log(name);
+      //     break;
+      //   } catch (e) {
+      //   }
+      // }
+
+      // console.log(this.pak.headerSize, this.entry.offset, exp.serialOffset, this.summary.totalHeaderSize)
+      // console.debug(`Reading export [${offset}]: ${JSON.stringify(this.packageIndexLookupTable.get(exp.templateIndex)?.reference)}`);
+
+      //
+      // const properties = [] as Shape<typeof FPropertyTag>[];
+      // let property;
+      //
+      // while(true) {
+      //   property = null;
+      //
+      //   const name = await this.reader.read(FName(this.names));
+      //
+      //   console.log(name);
+      //
+      //   if (property === null) {
+      //     break;
+      //   }
+      //
+      //   properties.push(property);
+      // }
+
+    });
   }
 
   // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/LinkerLoad.cpp#L1709-L1752
@@ -143,5 +225,13 @@ export class ObjectFile {
     if (numEntries > 0) {
       throw new Error(`Please implement AssetData reading`);
     }
+  }
+
+  async loadSpecialTypes() {
+    await asyncForEach(this.exports,(exp: Shape<typeof FObjectExport>) => {
+      if (this.packageIndexLookupTable.get(exp.templateIndex)?.reference?.className === 'DataTable') {
+        // TODO: dataTable?
+      }
+    });
   }
 }

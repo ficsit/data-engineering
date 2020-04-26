@@ -3,9 +3,18 @@ import * as util from 'util';
 
 import { Parser } from '../util/parsers';
 
+type ReadTracker = {
+  read: number
+  child: ReadTracker | null
+}
+
 export abstract class Reader {
   abstract size: number;
   abstract async readBytesAt(position: number, length: number): Promise<Buffer>;
+
+
+
+  private readTracker: ReadTracker = {read: 0, child: null};
 
   private _position = 0;
 
@@ -15,7 +24,8 @@ export abstract class Reader {
 
   set position(newPosition: number) {
     if (newPosition > this.size) {
-      throw new Error(`Cannot seek to ${newPosition} - out of bounds (file size: ${this.size})`);
+      throw new Error(`Cannot 
+      seek to ${newPosition} - out of bounds (file size: ${this.size})`);
     }
     this._position = newPosition;
   }
@@ -35,7 +45,32 @@ export abstract class Reader {
   async readBytes(length: number) {
     const buffer = await this.readBytesAt(this.position, length);
     this.position += length;
+    this.incrementTracker(length, this.readTracker);
     return buffer;
+  }
+
+  private incrementTracker(length: number, tracker: ReadTracker) {
+    tracker.read += length;
+    if (tracker.child) {
+      this.incrementTracker(length, tracker.child);
+    }
+  }
+
+  trackReads() {
+    this.readTracker = {
+      read: 0,
+      child: this.readTracker
+    }
+  }
+
+  getTrackedBytesRead() {
+    return this.readTracker.read;
+  }
+
+  untrackReads() {
+    if (this.readTracker.child !== null) {
+      this.readTracker = this.readTracker.child;
+    }
   }
 
   async readAll() {

@@ -4,6 +4,7 @@ import { Reader, ChildReader } from './readers';
 import { FPakEntry } from './structs/FPakEntry';
 import { FPakInfoSize, FPakInfo } from './structs/FPakInfo';
 import { Shape } from './util/parsers';
+import {ObjectExportsFile} from "./ObjectExportsFile";
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
 export enum PakVersion {
@@ -28,6 +29,8 @@ export class PakFile {
   info!: Shape<typeof FPakInfo>;
   mountPoint!: string;
   entries = new Map<string, Shape<typeof FPakEntry>>();
+  objectFiles = new Map<string, ObjectFile>();
+  headerSize: number;
 
   constructor(private reader: Reader) {}
 
@@ -37,6 +40,7 @@ export class PakFile {
   async initialize() {
     this.info = await this.loadInfo();
     await this.loadIndex();
+    await this.loadHeaderSize();
   }
 
   /**
@@ -58,6 +62,16 @@ export class PakFile {
     }
 
     throw new Error(`Malformed .pak trailer (did not match any known PakInfo version)`);
+  }
+
+
+  /** Loads the header size **/
+  async loadHeaderSize() {
+    if (this.info.version < 8) {
+      this.headerSize = 53;
+    } else {
+      this.headerSize = 50;
+    }
   }
 
   /**
@@ -85,7 +99,7 @@ export class PakFile {
   /**
    * Look up a specific file within the pak.
    */
-  async getFile(filename: string) {
+  async getPakFile(filename: string) {
     const entry = this.entries.get(filename);
     if (!entry) return null;
 
@@ -101,16 +115,58 @@ export class PakFile {
   }
 
   /**
+   * Look up a type of file
+   */
+  async getFile(filename: string) {
+    const extension = filename.split('.').pop();
+    if (extension === "uexp") {
+      return await this.getExportsFile(filename);
+    } else if (extension === "uasset") {
+      return await this.getObjectFile(filename);
+    } else {
+      throw new Error(`File extension ${extension} is not yet supported for ${filename}`);
+    }
+  }
+
+  /**
    * Look up a serialized UObject
    */
   async getObjectFile(filename: string) {
-    const result = await this.getFile(filename);
+    if (this.objectFiles.has(filename)) {
+      return this.objectFiles.get(filename)!
+    }
+
+    const result = await this.getPakFile(filename);
     if (!result) return null;
 
-    const objectFile = new ObjectFile(filename, result.reader, result.entry);
+    const objectFile = new ObjectFile(filename, result.reader, result.entry, this);
     await objectFile.initialize();
 
+    this.objectFiles.set(filename, objectFile);
+
     return objectFile;
+  }
+
+  /**
+   * Look up a serialized UExp
+   * https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/SavePackage.cpp#L6426-L6431
+   */
+  async getExportsFile(filename: string) {
+    const filenameParts = filename.split('.');
+    filenameParts.pop();
+    filenameParts.push("uasset");
+    const assetFilename = filenameParts.join('.');
+
+    const result = await this.getPakFile(filename);
+    if (!result) return null;
+
+    // Since we need the object file for its summary, we cache the objectFiles in case it's been loaded already.
+    const asset = await this.getObjectFile(assetFilename);
+
+    const objectExportsFile = new ObjectExportsFile(filename, result.reader, result.entry, this, asset);
+    await objectExportsFile.initialize();
+
+    return objectExportsFile;
   }
 
   /**

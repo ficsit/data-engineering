@@ -52,3 +52,9 @@ export async function Boolean(reader: Reader) {
   if (value === 1) return true;
   throw new Error(`Invalid boolean. Expected 0 or 1, got ${value}`);
 }
+
+export async function ByteBoolean(reader: Reader) {
+  const value = await reader.read(UInt8);
+  return value !== 0;
+
+}
