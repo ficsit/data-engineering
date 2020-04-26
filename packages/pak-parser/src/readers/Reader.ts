@@ -1,20 +1,18 @@
 import * as crypto from 'crypto';
 import * as util from 'util';
 
-import { Parser } from '../util/parsers';
+import {Parser} from '../util/parsers';
 
 type ReadTracker = {
-  read: number
-  child: ReadTracker | null
-}
+  read: number;
+  child: ReadTracker | null;
+};
 
 export abstract class Reader {
   abstract size: number;
   abstract async readBytesAt(position: number, length: number): Promise<Buffer>;
 
-
-
-  private readTracker: ReadTracker = {read: 0, child: null};
+  private readTracker: ReadTracker = { read: 0, child: null };
 
   private _position = 0;
 
@@ -59,8 +57,8 @@ export abstract class Reader {
   trackReads() {
     this.readTracker = {
       read: 0,
-      child: this.readTracker
-    }
+      child: this.readTracker,
+    };
   }
 
   getTrackedBytesRead() {

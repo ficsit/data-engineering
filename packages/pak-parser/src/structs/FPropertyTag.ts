@@ -1,30 +1,37 @@
-import {Reader} from "../readers";
-import {Shape} from "../util/parsers";
-import {FPackageFileSummary} from "./FPackageFileSummary";
-import {FName, NameMap} from "./FName";
-import {ByteBoolean, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64} from "../primitive";
-import {FGuid} from "./FGuid";
-import {StructPropertyTagMetaData} from "./properties/StructProperty";
-import {BoolProperty} from "./properties/BoolProperry";
-import {ByteProperty, BytePropertyTagMetaData} from "./properties/ByteProperty";
-import {EnumProperty, EnumPropertyTagMetaData} from "./properties/EnumProperty";
-import {ArrayProperty, ArrayPropertyTagMetaData} from "./properties/ArrayProperty";
-import {SetPropertyTagMetaData} from "./properties/SetProperty";
-import {MapPropertyTagMetaData} from "./properties/MapProperty";
-import {Double, Float} from "../primitive/decimals";
-import {FPackageIndex} from "./FPackageIndex";
-import {ObjectFile} from "../ObjectFile";
+import {ObjectFile} from '../ObjectFile';
+import {ByteBoolean, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64} from '../primitive';
+import {Double, Float} from '../primitive/decimals';
+import {Reader} from '../readers';
+import {Shape} from '../util/parsers';
 
-export type TagMetaData = Shape<typeof StructPropertyTagMetaData> | Shape<typeof BytePropertyTagMetaData> | Shape<typeof EnumPropertyTagMetaData> |
-  Shape<typeof ArrayPropertyTagMetaData> | Shape<typeof SetPropertyTagMetaData> | Shape<typeof MapPropertyTagMetaData> | Shape<typeof ByteBoolean>;
+import {FGuid} from './FGuid';
+import {FName, NameMap} from './FName';
+import {FPackageFileSummary} from './FPackageFileSummary';
+import {FPackageIndex} from './FPackageIndex';
+import {ArrayProperty, ArrayPropertyTagMetaData} from './properties/ArrayProperty';
+import {BoolProperty} from './properties/BoolProperry';
+import {ByteProperty, BytePropertyTagMetaData} from './properties/ByteProperty';
+import {EnumProperty, EnumPropertyTagMetaData} from './properties/EnumProperty';
+import {MapPropertyTagMetaData} from './properties/MapProperty';
+import {SetPropertyTagMetaData} from './properties/SetProperty';
+import {StructPropertyTagMetaData} from './properties/StructProperty';
+
+export type TagMetaData =
+  | Shape<typeof StructPropertyTagMetaData>
+  | Shape<typeof BytePropertyTagMetaData>
+  | Shape<typeof EnumPropertyTagMetaData>
+  | Shape<typeof ArrayPropertyTagMetaData>
+  | Shape<typeof SetPropertyTagMetaData>
+  | Shape<typeof MapPropertyTagMetaData>
+  | Shape<typeof ByteBoolean>;
 
 // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L80-L169
 export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: number) {
-  return async function (reader: Reader) {
+  return async function(reader: Reader) {
     const assetSummary: Shape<typeof FPackageFileSummary> = asset.summary;
     const names: NameMap = asset.names;
 
-    let name = await reader.read(FName(names));
+    const name = await reader.read(FName(names));
 
     // https://docs.unrealengine.com/en-US/API/Runtime/Core/UObject/EName/index.html
     // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L90
@@ -36,19 +43,18 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
       name,
       propertyType: await reader.read(FName(names)),
       size: await reader.read(Int32),
-      arrayIndex: await reader.read(Int32)
+      arrayIndex: await reader.read(Int32),
     };
 
     let tagMetaData: TagMetaData = null;
 
-    switch(baseTag.propertyType) {
-
+    switch (baseTag.propertyType) {
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L112-L119
-      case "StructProperty":
+      case 'StructProperty':
         tagMetaData = await reader.read(StructPropertyTagMetaData(names));
         break;
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L121-L132
-      case "BoolProperty":
+      case 'BoolProperty':
         // This should actually be switched with the tag itself.
         tagMetaData = await reader.read(ByteBoolean);
         break;
@@ -85,16 +91,21 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
 
     let tag = null;
 
-
     if (shouldRead && baseTag.size > 0) {
       reader.trackReads();
-      tag = await reader.read(Tag(baseTag.size, asset, baseTag.propertyType, tagMetaData, baseTag.name, depth, names));
+      tag = await reader.read(
+        Tag(baseTag.size, asset, baseTag.propertyType, tagMetaData, baseTag.name, depth, names),
+      );
 
       if (reader.getTrackedBytesRead() !== baseTag.size) {
-        console.error(`${baseTag.name} (${baseTag.propertyType}) property not read fully, ${reader.getTrackedBytesRead()}/${baseTag.size} bytes read.`);
+        console.error(
+          `${baseTag.name} (${
+            baseTag.propertyType
+          }) property not read fully, ${reader.getTrackedBytesRead()}/${baseTag.size} bytes read.`,
+        );
 
         if (reader.getTrackedBytesRead() > baseTag.size) {
-          throw new Error("More bytes were read than available!")
+          throw new Error('More bytes were read than available!');
         } else {
           await reader.readBytes(baseTag.size - reader.getTrackedBytesRead());
         }
@@ -113,15 +124,23 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
       ...baseTag,
       tagMetaData,
       propertyGuid,
-      tag
-    }
-  }
+      tag,
+    };
+  };
 }
 
-function Tag(size: number, asset: ObjectFile, propertyType: string, tagMetaData: TagMetaData, name: string, depth: number, names: NameMap) {
-  return async function (reader: Reader) {
+function Tag(
+  size: number,
+  asset: ObjectFile,
+  propertyType: string,
+  tagMetaData: TagMetaData,
+  name: string,
+  depth: number,
+  names: NameMap,
+) {
+  return async function(reader: Reader) {
     let tag = null;
-    switch(propertyType) {
+    switch (propertyType) {
       case 'BooleanProperty':
         break;
       // return null since it was already parsed above.
@@ -201,6 +220,5 @@ function Tag(size: number, asset: ObjectFile, propertyType: string, tagMetaData:
     }
 
     return tag;
-  }
+  };
 }
-

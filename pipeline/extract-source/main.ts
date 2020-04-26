@@ -47,7 +47,7 @@ async function extractMetadata(_gameDir: string, destDir: string) {
       validate(value) {
         if (/^\d+\.\d+\.\d+\.\d+$/.test(value)) return true;
         return `Must be #.#.#.#`;
-      }
+      },
     },
     {
       name: 'build',
@@ -61,7 +61,7 @@ async function extractMetadata(_gameDir: string, destDir: string) {
       branch,
       public: version,
       build,
-    }
+    },
   });
 
   return { branch, version, build };
@@ -71,16 +71,19 @@ async function extractPakData(gameDir: string, destDir: string) {
   const dataDir = path.join(destDir, 'data');
   shell.rm('-rf', dataDir);
 
-  await run(`"${ue4pak}" extract \
+  await run(
+    `"${ue4pak}" extract \
       --pretty \
       --assets "*" \
       --output "${dataDir}" \
       --split \
       --compact \
       --pak ./FactoryGame-WindowsNoEditor.pak
-  `, {
-    cwd: path.join(gameDir, 'FactoryGame', 'Content', 'Paks') 
-  });
+  `,
+    {
+      cwd: path.join(gameDir, 'FactoryGame', 'Content', 'Paks'),
+    },
+  );
 }
 
 async function extractHeaders(gameDir: string, destDir: string) {
@@ -137,7 +140,7 @@ async function run(command: string, options: shell.ExecOptions = {}) {
         resolve();
       }
     });
-  })
+  });
 }
 
 function writeJSON(filePath: string, content: any) {

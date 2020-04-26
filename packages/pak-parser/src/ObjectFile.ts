@@ -1,3 +1,4 @@
+import {PakFile} from './PakFile';
 import {TArray} from './containers';
 import {Int32} from './primitive';
 import {Reader} from './readers';
@@ -6,11 +7,10 @@ import {FName, FNameEntrySerialized, NameMap} from './structs/FName';
 import {FObjectExport} from './structs/FObjectExport';
 import {FObjectImport} from './structs/FObjectImport';
 import {FPackageFileSummary} from './structs/FPackageFileSummary';
+import {FPackageIndex, FPackageIndexInt} from './structs/FPackageIndex';
 import {FPakEntry} from './structs/FPakEntry';
+import {asyncForEach} from './util/asyncForEach';
 import {Shape} from './util/parsers';
-import {FPackageIndex, FPackageIndexInt} from "./structs/FPackageIndex";
-import {asyncForEach} from "./util/asyncForEach";
-import {PakFile} from "./PakFile";
 
 /**
  * Parser and content of a .uasset file (serialized UObject).
@@ -30,7 +30,12 @@ export class ObjectFile {
   softPackageReferences?: string[];
   assetData?: Shape<typeof FAssetData>;
 
-  constructor(public filename: string, private reader: Reader, public entry: Shape<typeof FPakEntry>, public pak: PakFile) {}
+  constructor(
+    public filename: string,
+    private reader: Reader,
+    public entry: Shape<typeof FPakEntry>,
+    public pak: PakFile,
+  ) {}
 
   async initialize() {
     // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/LinkerLoad.cpp#L652-L797
@@ -113,11 +118,10 @@ export class ObjectFile {
   }
 
   async resolvePackageIndexes() {
-    const exportClobberedFields = ["classIndex", "superIndex", "templateIndex", "outerIndex"];
-    const importClobberedFields = ["outerIndex"];
+    const exportClobberedFields = ['classIndex', 'superIndex', 'templateIndex', 'outerIndex'];
+    const importClobberedFields = ['outerIndex'];
 
     await asyncForEach(this.exports, async (exp: Shape<typeof FObjectExport>) => {
-
       await asyncForEach(exportClobberedFields, async (field: string) => {
         await this.populateFPackageIndexes(exp[field]);
       });
@@ -126,9 +130,8 @@ export class ObjectFile {
     await asyncForEach(this.imports, async (exp: Shape<typeof FObjectImport>) => {
       await asyncForEach(importClobberedFields, async (field: string) => {
         await this.populateFPackageIndexes(exp[field]);
-      })
+      });
     });
-
   }
 
   // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp
@@ -150,10 +153,8 @@ export class ObjectFile {
       //   } catch (e) {
       //   }
       // }
-
       // console.log(this.pak.headerSize, this.entry.offset, exp.serialOffset, this.summary.totalHeaderSize)
       // console.debug(`Reading export [${offset}]: ${JSON.stringify(this.packageIndexLookupTable.get(exp.templateIndex)?.reference)}`);
-
       //
       // const properties = [] as Shape<typeof FPropertyTag>[];
       // let property;
@@ -171,7 +172,6 @@ export class ObjectFile {
       //
       //   properties.push(property);
       // }
-
     });
   }
 
@@ -227,11 +227,11 @@ export class ObjectFile {
   }
 
   getClassNameFromExport(exp: Shape<typeof FObjectExport>) {
-    return this.packageIndexLookupTable.get(exp.templateIndex)?.reference?.className as string || null;
+    return (this.packageIndexLookupTable.get(exp.templateIndex)?.reference?.className as string) || null;
   }
 
   async loadSpecialTypes() {
-    await asyncForEach(this.exports,(exp: Shape<typeof FObjectExport>) => {
+    await asyncForEach(this.exports, (exp: Shape<typeof FObjectExport>) => {
       if (this.packageIndexLookupTable.get(exp.templateIndex)?.reference?.className === 'DataTable') {
         // TODO: dataTable?
       }

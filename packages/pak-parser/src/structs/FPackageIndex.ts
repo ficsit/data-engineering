@@ -1,14 +1,19 @@
-import {Shape} from "../util/parsers";
-import {FObjectExport} from "./FObjectExport";
-import {FObjectImport} from "./FObjectImport";
-import {Reader} from "../readers";
-import {Int32} from "../primitive";
+import {Int32} from '../primitive';
+import {Reader} from '../readers';
+import {Shape} from '../util/parsers';
+
+import {FObjectExport} from './FObjectExport';
+import {FObjectImport} from './FObjectImport';
 
 // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectResource.h#L19
 // Deviates from the source because it also includes a reference to the javascript object
 
-export function FPackageIndexInt(index: number, imports: Shape<typeof FObjectImport>[], exports: Shape<typeof FObjectExport>[], ) {
-  return async function (reader: Reader = null) {
+export function FPackageIndexInt(
+  index: number,
+  imports: Shape<typeof FObjectImport>[],
+  exports: Shape<typeof FObjectExport>[],
+) {
+  return async function(reader: Reader = null) {
     let processedIndex = 0;
     let reference = null;
     if (index === 0) {
@@ -32,23 +37,24 @@ export function FPackageIndexInt(index: number, imports: Shape<typeof FObjectImp
       processedIndex = index - 1;
       reference = exports[index - 1];
     } else {
-      if (index !== 0)
-        throw new Error(`FPackageIndex did not get a valid index.`);
+      if (index !== 0) throw new Error(`FPackageIndex did not get a valid index.`);
     }
 
     return {
       processedIndex,
-      reference
-    }
-  }
+      reference,
+    };
+  };
 }
 
-export function FPackageIndex(imports: Shape<typeof FObjectImport>[], exports: Shape<typeof FObjectExport>[]) {
-  return async function (reader: Reader) {
+export function FPackageIndex(
+  imports: Shape<typeof FObjectImport>[],
+  exports: Shape<typeof FObjectExport>[],
+) {
+  return async function(reader: Reader) {
     const index = await reader.read(Int32);
 
     const functionSetup = FPackageIndexInt(index, imports, exports);
     return await functionSetup();
-  }
+  };
 }
-

@@ -1,4 +1,4 @@
-import { Reader } from '../readers';
+import {Reader} from '../readers';
 
 // Unsigned Integers
 
@@ -56,5 +56,4 @@ export async function Boolean(reader: Reader) {
 export async function ByteBoolean(reader: Reader) {
   const value = await reader.read(UInt8);
   return value !== 0;
-
 }

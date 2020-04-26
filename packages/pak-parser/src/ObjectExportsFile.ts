@@ -1,22 +1,29 @@
+import {ObjectFile} from './ObjectFile';
+import {PakFile} from './PakFile';
+import {UInt32} from './primitive';
 import {Reader} from './readers';
+import {FName} from './structs/FName';
 import {FPakEntry} from './structs/FPakEntry';
+import {FPropertyTag} from './structs/FPropertyTag';
 import {Shape} from './util/parsers';
-import {PakFile} from "./PakFile";
-import {ObjectFile} from "./ObjectFile";
-import {FPropertyTag} from "./structs/FPropertyTag";
-import {UInt32} from "./primitive";
-import {FName} from "./structs/FName";
 
 /**
  * Parser and content of a .uexp file (serialized UObject exports).
  */
 export class ObjectExportsFile {
-  constructor(public filename: string, private reader: Reader, public entry: Shape<typeof FPakEntry>, public pak: PakFile, public asset: ObjectFile, public className: string) {}
+  constructor(
+    public filename: string,
+    private reader: Reader,
+    public entry: Shape<typeof FPakEntry>,
+    public pak: PakFile,
+    public asset: ObjectFile,
+    public className: string,
+  ) {}
 
   async readFPropertyTagLoop() {
     const propertyList = [] as Shape<typeof FPropertyTag>[];
 
-    while(true) {
+    while (true) {
       const property = await this.reader.read(FPropertyTag(this.asset, true, 0));
 
       if (!property) {
@@ -48,7 +55,6 @@ export class ObjectExportsFile {
 
         // TODO: fix dataTable output
       }
-
     }
   }
 

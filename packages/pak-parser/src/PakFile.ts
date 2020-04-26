@@ -1,10 +1,10 @@
+import {ObjectExportsFile} from './ObjectExportsFile';
 import {ObjectFile} from './ObjectFile';
 import {UInt32, Utf8String} from './primitive';
 import {ChildReader, Reader} from './readers';
 import {FPakEntry} from './structs/FPakEntry';
 import {FPakInfo, FPakInfoSize} from './structs/FPakInfo';
 import {Shape} from './util/parsers';
-import {ObjectExportsFile} from "./ObjectExportsFile";
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
 export enum PakVersion {
@@ -64,7 +64,6 @@ export class PakFile {
     throw new Error(`Malformed .pak trailer (did not match any known PakInfo version)`);
   }
 
-
   /** Loads the header size **/
   async loadHeaderSize() {
     if (this.info.version < 8) {
@@ -119,9 +118,9 @@ export class PakFile {
    */
   async getFile(filename: string) {
     const extension = filename.split('.').pop();
-    if (extension === "uexp") {
+    if (extension === 'uexp') {
       return await this.getExportsFile(filename);
-    } else if (extension === "uasset") {
+    } else if (extension === 'uasset') {
       return await this.getObjectFile(filename);
     } else {
       throw new Error(`File extension ${extension} is not yet supported for ${filename}`);
@@ -133,7 +132,7 @@ export class PakFile {
    */
   async getObjectFile(filename: string) {
     if (this.objectFiles.has(filename)) {
-      return this.objectFiles.get(filename)!
+      return this.objectFiles.get(filename)!;
     }
 
     const result = await this.getPakFile(filename);
@@ -154,7 +153,7 @@ export class PakFile {
   async getExportsFile(filename: string) {
     const filenameParts = filename.split('.');
     filenameParts.pop();
-    filenameParts.push("uasset");
+    filenameParts.push('uasset');
     const assetFilename = filenameParts.join('.');
 
     const result = await this.getPakFile(filename);
@@ -165,10 +164,17 @@ export class PakFile {
 
     const exports = [];
 
-    for(const exp of asset.exports) {
+    for (const exp of asset.exports) {
       this.reader.seekTo(exp.serialOffset - asset.summary.totalHeaderSize);
       const className = asset.getClassNameFromExport(exp);
-      const objectExportsFile = new ObjectExportsFile(filename, result.reader, result.entry, this, asset, className);
+      const objectExportsFile = new ObjectExportsFile(
+        filename,
+        result.reader,
+        result.entry,
+        this,
+        asset,
+        className,
+      );
       await objectExportsFile.initialize();
       exports.push(objectExportsFile);
     }
