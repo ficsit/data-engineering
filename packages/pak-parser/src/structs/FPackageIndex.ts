@@ -1,9 +1,9 @@
-import {Int32} from '../primitive';
-import {Reader} from '../readers';
-import {Shape} from '../util/parsers';
+import { Int32 } from '../primitive';
+import { Reader } from '../readers';
+import { Shape } from '../util/parsers';
 
-import {FObjectExport} from './FObjectExport';
-import {FObjectImport} from './FObjectImport';
+import { FObjectExport } from './FObjectExport';
+import { FObjectImport } from './FObjectImport';
 
 // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectResource.h#L19
 // Deviates from the source because it also includes a reference to the javascript object

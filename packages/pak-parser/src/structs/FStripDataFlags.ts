@@ -1,6 +1,5 @@
+import { UInt8 } from '../primitive';
 import { Reader } from '../readers';
-import {UInt8} from "../primitive";
-
 
 export async function FStripDataFlags(reader: Reader) {
   const globalStripFlags = await reader.read(UInt8);
@@ -11,6 +10,6 @@ export async function FStripDataFlags(reader: Reader) {
 
   return {
     globalStripFlags,
-    classStripFlags
+    classStripFlags,
   };
 }

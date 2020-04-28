@@ -1,11 +1,11 @@
-import {ObjectFile} from './ObjectFile';
-import {PakFile} from './PakFile';
-import {Int32, UInt32, UInt8} from './primitive';
-import {Reader} from './readers';
-import {FName} from './structs/FName';
-import {FPakEntry} from './structs/FPakEntry';
-import {FPropertyTag, readFPropertyTagLoop} from './structs/FPropertyTag';
-import {Shape} from './util/parsers';
+import { ObjectFile } from './ObjectFile';
+import { PakFile } from './PakFile';
+import { Int32, UInt32, UInt8 } from './primitive';
+import { Reader } from './readers';
+import { FName } from './structs/FName';
+import { FPakEntry } from './structs/FPakEntry';
+import { FPropertyTag, readFPropertyTagLoop } from './structs/FPropertyTag';
+import { Shape } from './util/parsers';
 
 /**
  * Parser and content of a .uexp file (serialized UObject exports).
@@ -40,8 +40,8 @@ export class ObjectExportsFile {
 
         // TODO: fix dataTable output
       }
-    } else if (this.className === "Texture2D") {
-      let offset = this.reader.position;
+    } else if (this.className === 'Texture2D') {
+      const offset = this.reader.position;
 
       //
       // const num1 = await this.reader.read(Int32);
@@ -86,7 +86,6 @@ export class ObjectExportsFile {
       // for(let i = 0; i < 100; i++) {
       //   console.log(await this.reader.read(Int32));
       // }
-
 
       // console.log(this.className, propertyList);
     }

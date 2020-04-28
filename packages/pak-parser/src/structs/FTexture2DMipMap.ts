@@ -1,11 +1,11 @@
+import { FString } from '../containers';
+import { Int32, UInt32 } from '../primitive';
 import { Reader } from '../readers';
-import {Int32, UInt32} from "../primitive";
-import {FString} from "../containers";
-import {FByteBulkData} from "./FByteBulkData";
+
+import { FByteBulkData } from './FByteBulkData';
 
 export function FTexture2DMipMap(ubulkReader: Reader, bulkOffset: number) {
   return async function FTexture2DMipMapParser(reader: Reader) {
-
     const cooked = await reader.read(Int32);
     const bulkData = await reader.read(FByteBulkData(ubulkReader, bulkOffset));
     const sizeX = await reader.read(Int32);
@@ -20,8 +20,7 @@ export function FTexture2DMipMap(ubulkReader: Reader, bulkOffset: number) {
       sizeX,
       sizeY,
       sizeZ,
-      bulkData
+      bulkData,
     };
   };
 }
-

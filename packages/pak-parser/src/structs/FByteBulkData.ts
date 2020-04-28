@@ -1,9 +1,9 @@
 import { Reader } from '../readers';
-import {FByteBulkDataHeader} from "./FByteBulkDataHeader";
+
+import { FByteBulkDataHeader } from './FByteBulkDataHeader';
 
 export function FByteBulkData(ubulkReader: Reader, bulkOffset: number) {
   return async function FByteBulkDataReader(reader: Reader) {
-
     const header = await reader.read(FByteBulkDataHeader);
 
     let data = null;
@@ -11,9 +11,9 @@ export function FByteBulkData(ubulkReader: Reader, bulkOffset: number) {
       data = await reader.readBytes(header.elementCount);
     }
 
-    if ((header.bulkDataFlags  & 0x0100) !== 0) {
+    if ((header.bulkDataFlags & 0x0100) !== 0) {
       if (ubulkReader === null) {
-        throw new Error("Need ubulk file but none provided");
+        throw new Error('Need ubulk file but none provided');
       }
 
       const seekingTo = header.offsetInFile + bulkOffset;
@@ -23,14 +23,13 @@ export function FByteBulkData(ubulkReader: Reader, bulkOffset: number) {
     }
 
     if (!(data instanceof Buffer)) {
-      throw new Error("Could not read data");
+      throw new Error('Could not read data');
     }
 
     return {
       header,
       data,
-      dataLength: header.elementCount
+      dataLength: header.elementCount,
     };
   };
 }
-

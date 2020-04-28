@@ -1,6 +1,6 @@
+import { Int32, Int64 } from '../primitive';
 import { Reader } from '../readers';
-import {Int32, Int64} from "../primitive";
-import {bigintToNumber} from "../util";
+import { bigintToNumber } from '../util';
 
 export async function FByteBulkDataHeader(reader: Reader) {
   return {
@@ -10,4 +10,3 @@ export async function FByteBulkDataHeader(reader: Reader) {
     offsetInFile: bigintToNumber(await reader.read(Int64)),
   };
 }
-

@@ -1,24 +1,25 @@
-import {Reader} from '../../readers';
-import {FGuid} from './structs/FGuid';
-import {FName, NameMap} from '../FName';
-import {FPropertyTag, readFPropertyTagLoop, TagMetaData} from "../FPropertyTag";
-import {Shape} from "../../util/parsers";
-import {ObjectFile} from "../../ObjectFile";
-import {FPackageFileSummary} from "../FPackageFileSummary";
-import {IntPoint} from "./structs/IntPoint";
-import Guid from "../../../../../pipeline/ue4pak-cleaner/parser/propertyTypes/structPropertyTypes/Guid";
+import Guid from '../../../../../pipeline/ue4pak-cleaner/parser/propertyTypes/structPropertyTypes/Guid';
+import { ObjectFile } from '../../ObjectFile';
+import { Reader } from '../../readers';
+import { Shape } from '../../util/parsers';
+import { FName, NameMap } from '../FName';
+import { FPackageFileSummary } from '../FPackageFileSummary';
+import { FPropertyTag, readFPropertyTagLoop, TagMetaData } from '../FPropertyTag';
+
+import { FGuid } from './structs/FGuid';
+import { IntPoint } from './structs/IntPoint';
 
 export function StructPropertyTagMetaData(names: NameMap) {
   return async function StructParser(reader: Reader) {
     let result = {
       structName: '',
-      structGuid: {}
+      structGuid: {},
     };
     try {
       result.structName = await reader.read(FName(names));
       result.structGuid = await reader.read(FGuid);
-    } catch(e) {
-      console.debug("StructPropertyMetaData could not be properly read");
+    } catch (e) {
+      console.debug('StructPropertyMetaData could not be properly read');
       result = null;
     }
 
@@ -26,9 +27,13 @@ export function StructPropertyTagMetaData(names: NameMap) {
   };
 }
 
-export function StructProperty(tagMetaData: Shape<typeof StructPropertyTagMetaData>, size: number, asset: ObjectFile, depth: number) {
+export function StructProperty(
+  tagMetaData: Shape<typeof StructPropertyTagMetaData>,
+  size: number,
+  asset: ObjectFile,
+  depth: number,
+) {
   return async function StructParser(reader: Reader) {
-
     // Not generic StructProperty
     if (tagMetaData) {
       // Deviates from source, no success chck.
@@ -39,28 +44,32 @@ export function StructProperty(tagMetaData: Shape<typeof StructPropertyTagMetaDa
   };
 }
 
-function readStructData(tagMetaData: Shape<typeof StructPropertyTagMetaData>, size: number, asset: ObjectFile, depth: number) {
+function readStructData(
+  tagMetaData: Shape<typeof StructPropertyTagMetaData>,
+  size: number,
+  asset: ObjectFile,
+  depth: number,
+) {
   return async function StructParser(reader: Reader) {
-
     // Not generic StructProperty
     let tag = null;
     if (tagMetaData) {
-      switch(tagMetaData.structName) {
-        case "IntPoint":
+      switch (tagMetaData.structName) {
+        case 'IntPoint':
           tag = await reader.read(IntPoint);
           break;
-        case "Guid":
+        case 'Guid':
           if (size == 16) {
             tag = await reader.read(FGuid);
           } else {
-            throw new Error("GUID is not of size 16");
+            throw new Error('GUID is not of size 16');
           }
           break;
         default:
-          throw new Error("Unknown struct type " + tagMetaData.structName)
+          throw new Error('Unknown struct type ' + tagMetaData.structName);
       }
     } else {
-      throw new Error("No tagMetaData")
+      throw new Error('No tagMetaData');
     }
 
     return tag;

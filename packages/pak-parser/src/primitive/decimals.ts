@@ -1,4 +1,4 @@
-import {Reader} from '../readers';
+import { Reader } from '../readers';
 
 // Floats and doubles (decimals)
 

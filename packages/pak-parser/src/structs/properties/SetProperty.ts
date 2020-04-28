@@ -1,5 +1,5 @@
-import {Reader} from '../../readers';
-import {FName, NameMap} from '../FName';
+import { Reader } from '../../readers';
+import { FName, NameMap } from '../FName';
 
 export function SetPropertyTagMetaData(names: NameMap) {
   return async function SetPropertyParser(reader: Reader) {

@@ -1,8 +1,9 @@
+import { FString } from '../containers';
+import { Int32, UInt32 } from '../primitive';
 import { Reader } from '../readers';
-import {Int32, UInt32} from "../primitive";
-import {FString} from "../containers";
-import {Shape} from "../util/parsers";
-import {FTexture2DMipMap} from "./FTexture2DMipMap";
+import { Shape } from '../util/parsers';
+
+import { FTexture2DMipMap } from './FTexture2DMipMap';
 
 export function FTexturePlatformData(ubulkReader: Reader, bulkOffset: number) {
   return async function FTexturePlatformDataParser(reader: Reader) {
@@ -31,8 +32,7 @@ export function FTexturePlatformData(ubulkReader: Reader, bulkOffset: number) {
       numSlices,
       pixelFormat,
       firstMip,
-      mips
+      mips,
     };
   };
 }
-

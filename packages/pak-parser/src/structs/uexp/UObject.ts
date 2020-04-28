@@ -1,9 +1,9 @@
-import {Reader} from "../../readers";
-import {Shape} from "../../util/parsers";
-import {ObjectFile} from "../../ObjectFile";
-import {FPropertyTag, readFPropertyTagLoop} from "../FPropertyTag";
-import {UInt32} from "../../primitive";
-import {FGuid} from "../properties/structs/FGuid";
+import { ObjectFile } from '../../ObjectFile';
+import { UInt32 } from '../../primitive';
+import { Reader } from '../../readers';
+import { Shape } from '../../util/parsers';
+import { FPropertyTag, readFPropertyTagLoop } from '../FPropertyTag';
+import { FGuid } from '../properties/structs/FGuid';
 
 /**
  * Parser and content of a .uexp file (serialized UObject exports).
@@ -16,7 +16,7 @@ export class UObject {
     private reader: Reader,
     public asset: ObjectFile,
     public exportTypes: string,
-    private readGuid: boolean
+    private readGuid: boolean,
   ) {}
 
   async initialize() {

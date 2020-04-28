@@ -1,21 +1,21 @@
-import {ObjectFile} from '../ObjectFile';
-import {ByteBoolean, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64} from '../primitive';
-import {Double, Float} from '../primitive/decimals';
-import {Reader} from '../readers';
-import {Shape} from '../util/parsers';
+import { ObjectFile } from '../ObjectFile';
+import { ByteBoolean, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64 } from '../primitive';
+import { Double, Float } from '../primitive/decimals';
+import { Reader } from '../readers';
+import { bigintToNumber } from '../util';
+import { Shape } from '../util/parsers';
 
-import {FGuid} from './properties/structs/FGuid';
-import {FName, NameMap} from './FName';
-import {FPackageFileSummary} from './FPackageFileSummary';
-import {FPackageIndex} from './FPackageIndex';
-import {ArrayProperty, ArrayPropertyTagMetaData} from './properties/ArrayProperty';
-import {BoolProperty} from './properties/BoolProperry';
-import {ByteProperty, BytePropertyTagMetaData} from './properties/ByteProperty';
-import {EnumProperty, EnumPropertyTagMetaData} from './properties/EnumProperty';
-import {MapPropertyTagMetaData} from './properties/MapProperty';
-import {SetPropertyTagMetaData} from './properties/SetProperty';
-import {StructProperty, StructPropertyTagMetaData} from './properties/StructProperty';
-import {bigintToNumber} from "../util";
+import { FName, NameMap } from './FName';
+import { FPackageFileSummary } from './FPackageFileSummary';
+import { FPackageIndex } from './FPackageIndex';
+import { ArrayProperty, ArrayPropertyTagMetaData } from './properties/ArrayProperty';
+import { BoolProperty } from './properties/BoolProperry';
+import { ByteProperty, BytePropertyTagMetaData } from './properties/ByteProperty';
+import { EnumProperty, EnumPropertyTagMetaData } from './properties/EnumProperty';
+import { MapPropertyTagMetaData } from './properties/MapProperty';
+import { SetPropertyTagMetaData } from './properties/SetProperty';
+import { StructProperty, StructPropertyTagMetaData } from './properties/StructProperty';
+import { FGuid } from './properties/structs/FGuid';
 
 export type TagMetaData =
   | Shape<typeof StructPropertyTagMetaData>
@@ -49,7 +49,7 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
 
     let tagMetaData: TagMetaData = null;
 
-    console.log("Used:" +  baseTag.propertyType);
+    console.log('Used:' + baseTag.propertyType);
 
     switch (baseTag.propertyType) {
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L112-L119
@@ -146,8 +146,8 @@ function Tag(
 ) {
   return async function(reader: Reader) {
     let tag = null;
-    console.log("  >", propertyType, tagMetaData);
-    Label:if (propertyType === 'BooleanProperty') {
+    console.log('  >', propertyType, tagMetaData);
+    Label: if (propertyType === 'BooleanProperty') {
     } else if (propertyType === 'Int8Property') {
       tag = await reader.read(Int8);
     } else if (propertyType === 'Int16Property') {
@@ -156,7 +156,8 @@ function Tag(
       tag = await reader.read(Int32);
     } else if (propertyType === 'Int64Property') {
       tag = bigintToNumber(await reader.read(Int64));
-    } else if (propertyType === 'ByteProperty') {// if (size === 4 || size === -4) {
+    } else if (propertyType === 'ByteProperty') {
+      // if (size === 4 || size === -4) {
       //   tag = await reader.read(UInt32);
       // } else if (size == 8) {
       //   // Is this actually an enum?
@@ -172,7 +173,7 @@ function Tag(
       } else {
         throw new Error(`ByteProperty cannot be read with size ${size}`);
       }
-      console.log("Byte property is using ", tag);
+      console.log('Byte property is using ', tag);
     } else if (propertyType === 'EnumProperty') {
       if (size === 0) {
         {
@@ -201,12 +202,15 @@ function Tag(
       tag = await reader.read(Float);
     } else if (propertyType === 'DoubleProperty') {
       tag = await reader.read(Double);
-    } else if (propertyType === 'ArrayProperty') {//TODO: Finish this
+    } else if (propertyType === 'ArrayProperty') {
+      //TODO: Finish this
       tag = await reader.read(ArrayProperty(asset, names, tagMetaData));
     } else if (propertyType === 'ObjectProperty') {
       tag = await reader.read(FPackageIndex(asset.imports, asset.exports));
     } else if (propertyType === 'StructProperty') {
-      tag = await reader.read(StructProperty(tagMetaData as Shape<typeof StructPropertyTagMetaData>, size, asset, depth));
+      tag = await reader.read(
+        StructProperty(tagMetaData as Shape<typeof StructPropertyTagMetaData>, size, asset, depth),
+      );
     } else {
       throw new Error(`Unparsed Property type ${propertyType}`);
     }

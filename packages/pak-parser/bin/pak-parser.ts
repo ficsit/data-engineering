@@ -2,8 +2,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import {PakFile} from '../src/PakFile';
-import {FileReader} from '../src/readers';
+import { PakFile } from '../src/PakFile';
+import { FileReader } from '../src/readers';
 
 main();
 async function main() {
@@ -24,9 +24,10 @@ async function main() {
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/AssemblerMk1/Desc_AssemblerMk1.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uexp',
-    'FactoryGame/Content/FactoryGame/Resource/Environment/Berry/UI/Berry_256.ubulk'
-    // 'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/UI/Jetpack_64.uasset',
-    // 'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/UI/Jetpack_64.uexp',
+    'FactoryGame/Content/FactoryGame/Resource/Environment/Berry/UI/Berry_256.ubulk',
+    'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/UI/Jetpack_64.uasset',
+    'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/UI/Jetpack_64.uexp',
+    // 'FactoryGame/Content/FactoryGame/Resource/Environment/Crystal/UI/PowerSlugPurple_256.uexp',
     // 'FactoryGame/Content/FactoryGame/Buildable/Vehicle/Tractor/BP_Tractor.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Vehicle/Train/Locomotive/BP_Locomotive.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Vehicle/Train/Locomotive/Desc_Locomotive.uasset',
@@ -38,6 +39,7 @@ async function main() {
     // 'FactoryGame/Content/FactoryGame/Recipes/Vehicle/Recipe_Truck.uasset',
     // 'FactoryGame/Content/FactoryGame/Resource/Environment/Crystal/BP_Crystal.uasset',
     // 'FactoryGame/Content/FactoryGame/Resource/Environment/Crystal/UI/PowerShard_256.uasset',
+    // 'FactoryGame/Content/FactoryGame/Resource/Environment/Crystal/UI/PowerShard_256.uexp',
     // 'FactoryGame/Content/FactoryGame/Resource/Environment/Nut/Desc_Nut.uasset',
     // 'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/BP_EquipmentDescriptorJetPack.uasset',
     // 'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/BP_EquipmentDescriptorJetPackMk2.uasset',
@@ -57,7 +59,7 @@ async function main() {
     // 'FactoryGame/Content/FactoryGame/Schematics/ResourceSink/ResourceSink_DoorWalls_Normal.uasset',
     // 'FactoryGame/Content/FactoryGame/Schematics/Tutorial/Schematic_Tutorial4.uasset',
   ];
-  fs.mkdirSync('dump', { recursive: true });
+  fs.mkdirSync('dump/images', { recursive: true });
   for (const file of files) {
     const objectFile = await pakFile.getFile(file);
     const dest = path.join('dump', path.basename(file) + '.json');

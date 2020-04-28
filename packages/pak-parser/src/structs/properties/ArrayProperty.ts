@@ -1,9 +1,9 @@
-import {ObjectFile} from '../../ObjectFile';
-import {Int32} from '../../primitive';
-import {Reader} from '../../readers';
-import {Shape} from '../../util/parsers';
-import {FName, NameMap} from '../FName';
-import {FPropertyTag, TagMetaData} from '../FPropertyTag';
+import { ObjectFile } from '../../ObjectFile';
+import { Int32 } from '../../primitive';
+import { Reader } from '../../readers';
+import { Shape } from '../../util/parsers';
+import { FName, NameMap } from '../FName';
+import { FPropertyTag, TagMetaData } from '../FPropertyTag';
 
 export function ArrayPropertyTagMetaData(names: NameMap) {
   return async function ArrayPropertyParser(reader: Reader) {

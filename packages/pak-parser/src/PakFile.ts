@@ -1,13 +1,14 @@
-import {ObjectExportsFile} from './ObjectExportsFile';
-import {ObjectFile} from './ObjectFile';
-import {UInt32, Utf8String} from './primitive';
-import {ChildReader, Reader} from './readers';
-import {FPakEntry} from './structs/FPakEntry';
-import {FPakInfo, FPakInfoSize} from './structs/FPakInfo';
-import {Shape} from './util/parsers';
-import {Texture2D} from "./structs/uexp/Texture2D";
-import {readFPropertyTagLoop} from "./structs/FPropertyTag";
-import {ImageExporter} from "./image/ImageExporter";
+import * as fs from 'fs';
+
+import { ObjectExportsFile } from './ObjectExportsFile';
+import { ObjectFile } from './ObjectFile';
+import { UInt32, Utf8String } from './primitive';
+import { ChildReader, Reader } from './readers';
+import { FPakEntry } from './structs/FPakEntry';
+import { FPakInfo, FPakInfoSize } from './structs/FPakInfo';
+import { Texture2D } from './structs/uexp/Texture2D';
+import { Shape } from './util/parsers';
+import * as path from "path";
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
 export enum PakVersion {
@@ -176,14 +177,12 @@ export class PakFile {
     //
     // return PakFile.unguardedGetUBulkFile(result, asset, data)
 
-
     // We should filter out uBulk?? since it's already being used as part of the exports file.
     return null;
   }
 
-
   private static unguardedGetUBulkFile(result: any, asset: ObjectFile, data: ObjectExportsFile[]) {
-    const exportSize = asset.exports.map(item => item.serialSize).reduce((a,b) => a + b, 0)
+    const exportSize = asset.exports.map(item => item.serialSize).reduce((a, b) => a + b, 0);
   }
 
   /**
@@ -191,7 +190,6 @@ export class PakFile {
    * https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/SavePackage.cpp#L6426-L6431
    */
   async getExportsFile(filename: string) {
-
     if (this.dataFiles.has(filename)) {
       return this.dataFiles.get(filename)!;
     }
@@ -212,7 +210,7 @@ export class PakFile {
     filenameParts.push('ubulk');
     const bulkFile = filenameParts.join('.');
 
-    const bulkResult = await this.getPakFile(bulkFile) || null;
+    const bulkResult = (await this.getPakFile(bulkFile)) || null;
     const bulkReader = bulkResult ? bulkResult.reader : null;
 
     const exports = [];
@@ -249,11 +247,13 @@ export class PakFile {
 
       const className = asset.getClassNameFromExport(exp);
 
-      if (className === "Texture2D") {
+      if (className === 'Texture2D') {
         const texture2DFile = new Texture2D(result.reader, bulkReader, asset);
         await texture2DFile.initialize();
 
-        const image = ImageExporter.getImage(texture2DFile.textures[0].mips[0], texture2DFile.textures[0].pixelFormat);
+        const baseName = path.basename(asset.filename).split('.')[0];
+        const dest = path.join('dump', 'images', baseName + '.png');
+        fs.writeFileSync(dest, texture2DFile.getImage());
 
         exports.push(texture2DFile);
       } else {
