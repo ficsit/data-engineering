@@ -2,7 +2,7 @@ import { Int32, UInt32, Int64, Boolean } from '../primitive';
 import { Reader } from '../readers';
 import { bigintToNumber } from '../util';
 
-import { FGuid } from './FGuid';
+import { FGuid } from './properties/structs/FGuid';
 import { NameMap, FName } from './FName';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/ObjectResource.cpp#L107-L172

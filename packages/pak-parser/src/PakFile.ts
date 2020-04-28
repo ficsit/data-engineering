@@ -5,6 +5,9 @@ import {ChildReader, Reader} from './readers';
 import {FPakEntry} from './structs/FPakEntry';
 import {FPakInfo, FPakInfoSize} from './structs/FPakInfo';
 import {Shape} from './util/parsers';
+import {Texture2D} from "./structs/uexp/Texture2D";
+import {readFPropertyTagLoop} from "./structs/FPropertyTag";
+import {ImageExporter} from "./image/ImageExporter";
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
 export enum PakVersion {
@@ -30,6 +33,7 @@ export class PakFile {
   mountPoint!: string;
   entries = new Map<string, Shape<typeof FPakEntry>>();
   objectFiles = new Map<string, ObjectFile>();
+  dataFiles = new Map<string, ObjectExportsFile[]>();
   headerSize: number;
 
   constructor(private reader: Reader) {}
@@ -87,6 +91,7 @@ export class PakFile {
     this.mountPoint = await this.reader.read(Utf8String);
 
     const numEntries = await this.reader.read(UInt32);
+
     for (let i = 0; i < numEntries; i++) {
       const filename = await this.reader.read(Utf8String);
       const entry = await this.reader.read(FPakEntry);
@@ -122,6 +127,8 @@ export class PakFile {
       return await this.getExportsFile(filename);
     } else if (extension === 'uasset') {
       return await this.getObjectFile(filename);
+    } else if (extension === 'ubulk') {
+      return await this.getUBulkFile(filename);
     } else {
       throw new Error(`File extension ${extension} is not yet supported for ${filename}`);
     }
@@ -146,42 +153,126 @@ export class PakFile {
     return objectFile;
   }
 
-  /**
-   * Look up a serialized UExp
-   * https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/SavePackage.cpp#L6426-L6431
-   */
-  async getExportsFile(filename: string) {
+  async getUBulkFile(filename: string) {
     const filenameParts = filename.split('.');
     filenameParts.pop();
     filenameParts.push('uasset');
     const assetFilename = filenameParts.join('.');
 
+    filenameParts.pop();
+    filenameParts.push('uexp');
+    const dataFileName = filenameParts.join('.');
+
+    // Since we need the uasset for its headers
+    const asset = await this.getObjectFile(assetFilename);
+
+    // We also need the uexp for the data.
+    const data = await this.getExportsFile(dataFileName);
+
+    //
+    // // get ubulk
+    // const result = await this.getPakFile(filename);
+    // if (!result) return null;
+    //
+    // return PakFile.unguardedGetUBulkFile(result, asset, data)
+
+
+    // We should filter out uBulk?? since it's already being used as part of the exports file.
+    return null;
+  }
+
+
+  private static unguardedGetUBulkFile(result: any, asset: ObjectFile, data: ObjectExportsFile[]) {
+    const exportSize = asset.exports.map(item => item.serialSize).reduce((a,b) => a + b, 0)
+  }
+
+  /**
+   * Look up a serialized UExp
+   * https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/SavePackage.cpp#L6426-L6431
+   */
+  async getExportsFile(filename: string) {
+
+    if (this.dataFiles.has(filename)) {
+      return this.dataFiles.get(filename)!;
+    }
+
+    const filenameParts = filename.split('.');
+    filenameParts.pop();
+    filenameParts.push('uasset');
+    const assetFilename = filenameParts.join('.');
+
+    // get uexp
     const result = await this.getPakFile(filename);
     if (!result) return null;
 
     // Since we need the object file for its summary, we cache the objectFiles in case it's been loaded already.
     const asset = await this.getObjectFile(assetFilename);
 
+    filenameParts.pop();
+    filenameParts.push('ubulk');
+    const bulkFile = filenameParts.join('.');
+
+    const bulkResult = await this.getPakFile(bulkFile) || null;
+    const bulkReader = bulkResult ? bulkResult.reader : null;
+
     const exports = [];
 
     for (const exp of asset.exports) {
+      // class_index.import = objectName
+      // const exportType = asset.packageIndexLookupTable.get(exp.classIndex).reference.objectName;
+      // const position = exp.serialOffset -
       this.reader.seekTo(exp.serialOffset - asset.summary.totalHeaderSize);
+
+      // ?.reference?.className
+      // console.log(asset.packageIndexLookupTable.get(exp.templateIndex));
+      // {
+      //   processedIndex: -3,
+      //     reference: {
+      //       classPackage: '/Script/Engine',
+      //       className: 'Texture2D',
+      //       outerIndex: -2,
+      //       objectName: 'Default__Texture2D'
+      //     }
+      // }
+
+      // .reference.objectName; This is actually the wrong way to access this I think.
+      // console.log(asset.packageIndexLookupTable.get(exp.classIndex));
+      // {
+      //   processedIndex: -1,
+      //     reference: {
+      //       classPackage: '/Script/CoreUObject',
+      //       className: 'Class',
+      //       outerIndex: -2,
+      //       objectName: 'Texture2D'
+      //   }
+      // }
+
       const className = asset.getClassNameFromExport(exp);
-      const objectExportsFile = new ObjectExportsFile(
-        filename,
-        result.reader,
-        result.entry,
-        this,
-        asset,
-        className,
-      );
-      await objectExportsFile.initialize();
-      exports.push(objectExportsFile);
+
+      if (className === "Texture2D") {
+        const texture2DFile = new Texture2D(result.reader, bulkReader, asset);
+        await texture2DFile.initialize();
+
+        const image = ImageExporter.getImage(texture2DFile.textures[0].mips[0], texture2DFile.textures[0].pixelFormat);
+
+        exports.push(texture2DFile);
+      } else {
+        const objectExportsFile = new ObjectExportsFile(
+          filename,
+          result.reader,
+          result.entry,
+          this,
+          asset,
+          className,
+        );
+        await objectExportsFile.initialize();
+        exports.push(objectExportsFile);
+      }
     }
 
-    return exports;
+    this.dataFiles.set(filename, exports);
 
-    // return objectExportsFile;
+    return exports;
   }
 
   /**

@@ -1,6 +1,7 @@
 {
   "name": "@local/pak-parser",
   "version": "1.0.0",
+  "license": "Apache-2.0",
   "bin": {
     "pak-parser": "./bin/pak-parser.js"
   },
@@ -11,5 +12,11 @@
     "@types/node": "^13.11.0",
     "ts-node": "^8.9.0",
     "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "decode-dxt": "^1.0.1",
+    "dxt-js": "0.0.3",
+    "jimp": "^0.10.3",
+    "pngjs": "^5.0.0"
   }
 }

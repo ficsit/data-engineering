@@ -4,7 +4,7 @@ import {Double, Float} from '../primitive/decimals';
 import {Reader} from '../readers';
 import {Shape} from '../util/parsers';
 
-import {FGuid} from './FGuid';
+import {FGuid} from './properties/structs/FGuid';
 import {FName, NameMap} from './FName';
 import {FPackageFileSummary} from './FPackageFileSummary';
 import {FPackageIndex} from './FPackageIndex';
@@ -14,7 +14,8 @@ import {ByteProperty, BytePropertyTagMetaData} from './properties/ByteProperty';
 import {EnumProperty, EnumPropertyTagMetaData} from './properties/EnumProperty';
 import {MapPropertyTagMetaData} from './properties/MapProperty';
 import {SetPropertyTagMetaData} from './properties/SetProperty';
-import {StructPropertyTagMetaData} from './properties/StructProperty';
+import {StructProperty, StructPropertyTagMetaData} from './properties/StructProperty';
+import {bigintToNumber} from "../util";
 
 export type TagMetaData =
   | Shape<typeof StructPropertyTagMetaData>
@@ -47,6 +48,8 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
     };
 
     let tagMetaData: TagMetaData = null;
+
+    console.log("Used:" +  baseTag.propertyType);
 
     switch (baseTag.propertyType) {
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L112-L119
@@ -81,6 +84,9 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
       default:
         break;
     }
+
+    // ???
+    // https://github.com/iAmAsval/FModel/blob/05e7b0a6dae81c3a7769ed68add0dbfd49b02745/FModel/Methods/PakReader/ExportObject/AssetReader.cs#L275
 
     const hasGuid = await reader.read(ByteBoolean);
     let propertyGuid = null;
@@ -140,85 +146,86 @@ function Tag(
 ) {
   return async function(reader: Reader) {
     let tag = null;
-    switch (propertyType) {
-      case 'BooleanProperty':
-        break;
-      // return null since it was already parsed above.
-      // https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1336-L1338
-      case 'Int8Property':
-        tag = await reader.read(Int8);
-        break;
-      // https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1340-L1342
-      case 'Int16Property':
-        tag = await reader.read(Int16);
-        break;
-      // https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1344-L1346
-      case 'IntProperty':
-        tag = await reader.read(Int32);
-        break;
-      // https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1348-L1350
-      case 'Int64Property':
-        tag = await reader.read(Int64);
-        break;
-      // Deviates from this: https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1352-L1362
-      case 'ByteProperty':
-        if (size === 4 || size === -4) {
-          tag = await reader.read(UInt32);
-        } else if (size == 8) {
-          // Is this actually an enum?
-          // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyByte.cpp#L70-L79
-          tag = await reader.read(EnumProperty(names));
-        } else if (size === 1) {
-          tag = await reader.read(ByteProperty);
-        } else {
-          throw new Error(`ByteProperty cannot be read with size ${size}`);
-        }
-        break;
-      // https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1364-L1369
-      case 'EnumProperty':
-        if (size === 0) {
+    console.log("  >", propertyType, tagMetaData);
+    Label:if (propertyType === 'BooleanProperty') {
+    } else if (propertyType === 'Int8Property') {
+      tag = await reader.read(Int8);
+    } else if (propertyType === 'Int16Property') {
+      tag = await reader.read(Int16);
+    } else if (propertyType === 'IntProperty') {
+      tag = await reader.read(Int32);
+    } else if (propertyType === 'Int64Property') {
+      tag = bigintToNumber(await reader.read(Int64));
+    } else if (propertyType === 'ByteProperty') {// if (size === 4 || size === -4) {
+      //   tag = await reader.read(UInt32);
+      // } else if (size == 8) {
+      //   // Is this actually an enum?
+      //   // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyByte.cpp#L70-L79
+      //   tag = await reader.read(EnumProperty(names));
+      // }
+      if (tagMetaData) {
+        // https://github.com/iAmAsval/FModel/blob/05e7b0a6dae81c3a7769ed68add0dbfd49b02745/FModel/Methods/PakReader/ExportObject/AssetReader.cs#L350
+        // ??? looks same as above
+        tag = await reader.read(FName(names));
+      } else if (size === 1) {
+        tag = await reader.read(ByteProperty);
+      } else {
+        throw new Error(`ByteProperty cannot be read with size ${size}`);
+      }
+      console.log("Byte property is using ", tag);
+    } else if (propertyType === 'EnumProperty') {
+      if (size === 0) {
+        {
           // It's "None" which isn't serialized
-          break;
-        } else if (size == 8) {
-          // Is actually an enum
-          tag = await reader.read(EnumProperty(names));
-        } else {
-          throw new Error(`EnumProperty cannot be read with size ${size}`);
+          break Label;
         }
-        break;
-      // https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1371-L1373
-      case 'UInt16Property':
-        tag = await reader.read(UInt16);
-        break;
-      // https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1375-L1377
-      case 'UInt32Property':
-        tag = await reader.read(UInt32);
-        break;
-      // https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1379-L1381
-      case 'UInt64Property':
-        tag = await reader.read(UInt64);
-        break;
-      // https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1383-L1385
-      case 'FloatProperty':
-        tag = await reader.read(Float);
-        break;
-      // https://github.com/EpicGames/UnrealEngine/blob/4f421ab90c6e9ff4f0b5c9ec4de6dcd3297ad488/Engine/Source/Runtime/CoreUObject/Public/UObject/UnrealType.h#L1387-L1389
-      case 'DoubleProperty':
-        tag = await reader.read(Double);
-        break;
-      // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyArray.cpp#L61-L243
-      case 'ArrayProperty':
-        //TODO: Finish this
-        tag = await reader.read(ArrayProperty(asset, names, tagMetaData));
-        break;
-      case 'ObjectProperty':
-        tag = await reader.read(FPackageIndex(asset.imports, asset.exports));
-        console.log(tag);
-        break;
-      default:
-        throw new Error(`Unparsed Property type ${propertyType}`);
+      } else {
+        if (size == 8) {
+          {
+            // Is actually an enum
+            tag = await reader.read(EnumProperty(names));
+          }
+        } else {
+          {
+            throw new Error(`EnumProperty cannot be read with size ${size}`);
+          }
+        }
+      }
+    } else if (propertyType === 'UInt16Property') {
+      tag = await reader.read(UInt16);
+    } else if (propertyType === 'UInt32Property') {
+      tag = await reader.read(UInt32);
+    } else if (propertyType === 'UInt64Property') {
+      tag = await reader.read(UInt64);
+    } else if (propertyType === 'FloatProperty') {
+      tag = await reader.read(Float);
+    } else if (propertyType === 'DoubleProperty') {
+      tag = await reader.read(Double);
+    } else if (propertyType === 'ArrayProperty') {//TODO: Finish this
+      tag = await reader.read(ArrayProperty(asset, names, tagMetaData));
+    } else if (propertyType === 'ObjectProperty') {
+      tag = await reader.read(FPackageIndex(asset.imports, asset.exports));
+    } else if (propertyType === 'StructProperty') {
+      tag = await reader.read(StructProperty(tagMetaData as Shape<typeof StructPropertyTagMetaData>, size, asset, depth));
+    } else {
+      throw new Error(`Unparsed Property type ${propertyType}`);
     }
 
     return tag;
   };
+}
+
+export async function readFPropertyTagLoop(reader: Reader, asset: ObjectFile) {
+  const propertyList = [] as Shape<typeof FPropertyTag>[];
+
+  while (true) {
+    const property = await reader.read(FPropertyTag(asset, true, 0));
+
+    if (!property) {
+      break;
+    }
+    propertyList.push(property);
+  }
+
+  return propertyList;
 }

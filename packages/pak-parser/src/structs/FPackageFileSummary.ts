@@ -5,7 +5,7 @@ import { bigintToNumber } from '../util';
 
 import { FCustomVersion } from './FCustomVersion';
 import { FEngineVersion } from './FEngineVersion';
-import { FGuid } from './FGuid';
+import { FGuid } from './properties/structs/FGuid';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/Core/Public/UObject/ObjectVersion.h#L9-L10
 export const PackageFileTag = Buffer.from([0x9e, 0x2a, 0x83, 0xc1]).readInt32LE();

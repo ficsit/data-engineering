@@ -52,6 +52,9 @@ export class ObjectFile {
     await this.loadSoftPackageReferences();
     await this.loadSearchableNames();
     await this.loadAssetRegistryData();
+
+    // Might need to do some processing like this
+    // https://github.com/gildor2/UEViewer/blob/d488d14af1ea9da4eb78a17497e1ee36c819968b/Unreal/UnPackage.cpp#L1392-L1420
     // await this.loadProperties();
     // await this.loadSpecialTypes();
   }

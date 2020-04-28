@@ -20,6 +20,10 @@ export abstract class Reader {
     return this._position;
   }
 
+  getSize() {
+    return this.size;
+  }
+
   set position(newPosition: number) {
     if (newPosition > this.size) {
       throw new Error(`Cannot 

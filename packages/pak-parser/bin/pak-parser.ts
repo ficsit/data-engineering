@@ -22,8 +22,11 @@ async function main() {
   const files = [
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/AssemblerMk1/Build_AssemblerMk1.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/AssemblerMk1/Desc_AssemblerMk1.uasset',
-    'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uasset',
-    'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uexp',
+    // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uasset',
+    // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uexp',
+    'FactoryGame/Content/FactoryGame/Resource/Environment/Berry/UI/Berry_256.ubulk'
+    // 'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/UI/Jetpack_64.uasset',
+    // 'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/UI/Jetpack_64.uexp',
     // 'FactoryGame/Content/FactoryGame/Buildable/Vehicle/Tractor/BP_Tractor.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Vehicle/Train/Locomotive/BP_Locomotive.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Vehicle/Train/Locomotive/Desc_Locomotive.uasset',

@@ -1,5 +1,5 @@
-import { UInt32 } from '../primitive';
-import { Reader } from '../readers';
+import { UInt32 } from '../../../primitive';
+import { Reader } from '../../../readers';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/Core/Private/Misc/Guid.cpp#L264-L267
 export async function FGuid(reader: Reader) {
