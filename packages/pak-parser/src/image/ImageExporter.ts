@@ -1,6 +1,7 @@
 import {FTexture2DMipMap} from "../structs/FTexture2DMipMap";
 import {Shape} from "../util/parsers";
 const PNG = require('pngjs').PNG;
+const fs = require('fs');
 
 const decodeDXT = require('decode-dxt');
 var dxtJs = require('dxt-js');
@@ -8,6 +9,23 @@ const Jimp = require('jimp')
 
 export class ImageExporter {
   constructor() {
+  }
+
+  /**
+   * Converts Texture2D into PNG
+   * @param {Number} width
+   * @param {Number} height
+   * @param {Buffer} buffer
+   * @returns {Buffer}
+   */
+  private static toPNG (width, height, buffer) {
+    // create an instance of PNG
+    const png = new PNG({ width, height, inputHasAlpha: true });
+    // set the data to the buffer
+    png.data = buffer;
+
+    // return the PNG buffer
+    return PNG.sync.write(png);
   }
 
   public static getImage(tex: Shape<typeof FTexture2DMipMap>, pixelFormat: string) {
@@ -31,6 +49,10 @@ export class ImageExporter {
     // const pixelData = [];
 
     for (let i = 0; i < rgbData.length; i += 4) {
+      let inverseAlpha = 255 / rgbData[i + 3];
+      rgbData[i    ] = Math.min(Math.ceil(rgbData[i    ] * inverseAlpha), 255);
+      rgbData[i + 1] = Math.min(Math.ceil(rgbData[i + 1] * inverseAlpha), 255);
+      rgbData[i + 2] = Math.min(Math.ceil(rgbData[i + 2] * inverseAlpha), 255);
       // const a = ((rgbData[i + 3] as number) / 255).toString(16);
       // const b = (rgbData[i + 2] as number).toString(16);
       // const g = (rgbData[i + 1] as number).toString(16);
@@ -45,23 +67,25 @@ export class ImageExporter {
       // pixelData.push(rgba);
     }
 
-    const pngBuffer = toPNG(
+    const pngBuffer = ImageExporter.toPNG(
       tex.sizeX,
       tex.sizeY,
-      exported.data
+      rgbData
     );
 
-    console.log(pixelData.length);
+    fs.writeFileSync("berry.png", pngBuffer);
 
-    let i = 0;
-    for (let x = 0; x < tex.sizeX; x++) {
-      for (let y = 0; y < tex.sizeY; y++) {
-        // console.log(pixelData[i++], x, y)
-        jimg.setPixelColor(pixelData[i++], x, y);
-      }
-    }
-
-    jimg.write("test.png");
+    // console.log(pixelData.length);
+    //
+    // let i = 0;
+    // for (let x = 0; x < tex.sizeX; x++) {
+    //   for (let y = 0; y < tex.sizeY; y++) {
+    //     // console.log(pixelData[i++], x, y)
+    //     jimg.setPixelColor(pixelData[i++], x, y);
+    //   }
+    // }
+    //
+    // jimg.write("test.png");
 
 
     switch(pixelFormat) {
@@ -72,6 +96,7 @@ export class ImageExporter {
         break;
     }
   }
+
 
   public static decompressDXT5() {
 
