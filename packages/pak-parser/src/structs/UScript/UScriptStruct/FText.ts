@@ -1,6 +1,6 @@
-import {FString} from '../../../containers';
-import {UInt32, UInt8} from '../../../primitive';
-import {Reader} from '../../../readers';
+import { FString } from '../../../containers';
+import { UInt32, UInt8 } from '../../../primitive';
+import { Reader } from '../../../readers';
 
 export async function FText(reader: Reader) {
   const flags = await reader.read(UInt32);

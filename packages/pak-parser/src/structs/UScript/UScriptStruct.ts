@@ -1,14 +1,14 @@
-import {UAssetFile} from '../../UAssetFile';
-import {Reader} from '../../readers';
-import {Shape} from '../../util/parsers';
-import {FName, NameMap} from '../FName';
+import { UAssetFile } from '../../UAssetFile';
+import { Reader } from '../../readers';
+import { Shape } from '../../util/parsers';
+import { FName, NameMap } from '../FName';
 
-import {FGuid} from './UScriptStruct/FGuid';
-import {FIntPoint} from './UScriptStruct/FIntPoint';
-import {FRotator} from './UScriptStruct/FRotator';
-import {FStructFallback} from './UScriptStruct/FStructFallback';
-import {FVector} from './UScriptStruct/FVector';
-import {FVector2D} from './UScriptStruct/FVector2D';
+import { FGuid } from './UScriptStruct/FGuid';
+import { FIntPoint } from './UScriptStruct/FIntPoint';
+import { FRotator } from './UScriptStruct/FRotator';
+import { FStructFallback } from './UScriptStruct/FStructFallback';
+import { FVector } from './UScriptStruct/FVector';
+import { FVector2D } from './UScriptStruct/FVector2D';
 
 export function StructPropertyTagMetaData(names: NameMap) {
   return async function StructParser(reader: Reader) {

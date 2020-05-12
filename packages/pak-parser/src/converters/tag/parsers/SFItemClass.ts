@@ -5,12 +5,14 @@ export default class SFItemClass {
   constructor(public name: string, public objectPath: string) {}
 }
 
-export function tagToItemClass(tag: { reference: {objectName: string, outerImport: {reference: {objectName: string}}}}) {
+export function tagToItemClass(tag: {
+  reference: { objectName: string; outerImport: { reference: { objectName: string } } };
+}) {
   const tmpReturn = new SFItemClass(tag.reference.objectName, tag.reference.outerImport.reference.objectName);
 
-  if (tmpReturn.objectPath.indexOf('/Desc_') === -1 && tmpReturn.objectPath.indexOf('/BP_') === -1) {
-    throw new Error("The tag is not correct!")
+  if (!tmpReturn.objectPath.includes('/Desc_') && !tmpReturn.objectPath.includes('/BP_')) {
+    throw new Error('The tag is not correct!');
   }
 
-  return tmpReturn
+  return tmpReturn;
 }

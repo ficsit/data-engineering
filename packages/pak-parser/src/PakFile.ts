@@ -1,18 +1,18 @@
-import {UAssetFile} from './UAssetFile';
-import {UBaseFile} from './UBaseFile';
-import {UExpFile} from './UExpFile';
-import {ULocalizationResource} from './ULocalizationResource';
-import {UObject} from './UObject';
-import {UInt32, UnrealString} from './primitive';
-import {ChildReader, Reader} from './readers';
-import {BlacklistSerializer} from './serializers/BlacklistSerializer';
-import {FPakEntry} from './structs/FPakEntry';
-import {FPakInfo, FPakInfoSize} from './structs/FPakInfo';
-import {Texture2D} from './structs/uexp/Texture2D';
-import {UObjectBase} from './structs/uexp/UObjectBase';
-import {asyncSetForEach} from './util/asyncArrayForEach';
-import {Shape} from './util/parsers';
-import {FGRecipe} from "./structs/uexp/FGRecipe";
+import { UAssetFile } from './UAssetFile';
+import { UBaseFile } from './UBaseFile';
+import { UExpFile } from './UExpFile';
+import { ULocalizationResource } from './ULocalizationResource';
+import { UObject } from './UObject';
+import { UInt32, UnrealString } from './primitive';
+import { ChildReader, Reader } from './readers';
+import { BlacklistSerializer } from './serializers/BlacklistSerializer';
+import { FPakEntry } from './structs/FPakEntry';
+import { FPakInfo, FPakInfoSize } from './structs/FPakInfo';
+import { FGRecipe } from './structs/uexp/FGRecipe';
+import { Texture2D } from './structs/uexp/Texture2D';
+import { UObjectBase } from './structs/uexp/UObjectBase';
+import { asyncSetForEach } from './util/asyncArrayForEach';
+import { Shape } from './util/parsers';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
 export enum PakVersion {

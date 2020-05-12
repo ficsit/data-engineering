@@ -1,14 +1,14 @@
-import {UAssetFile} from '../../UAssetFile';
-import {ImageExporter} from '../../image/ImageExporter';
-import {Int64, UInt32} from '../../primitive';
-import {Reader} from '../../readers';
-import {bigintToNumber} from '../../util';
-import {Shape} from '../../util/parsers';
-import {FName} from '../FName';
-import {FStripDataFlags} from '../FStripDataFlags';
-import {FTexturePlatformData} from '../FTexturePlatformData';
+import { UAssetFile } from '../../UAssetFile';
+import { ImageExporter } from '../../image/ImageExporter';
+import { Int64, UInt32 } from '../../primitive';
+import { Reader } from '../../readers';
+import { bigintToNumber } from '../../util';
+import { Shape } from '../../util/parsers';
+import { FName } from '../FName';
+import { FStripDataFlags } from '../FStripDataFlags';
+import { FTexturePlatformData } from '../FTexturePlatformData';
 
-import {UObjectBase} from './UObjectBase';
+import { UObjectBase } from './UObjectBase';
 
 export class Texture2D extends UObjectBase {
   cooked = 0;

@@ -1,11 +1,11 @@
-import {UAssetFile} from '../../../UAssetFile';
-import {ByteBoolean, UInt32, UInt8} from '../../../primitive';
-import {Reader} from '../../../readers';
-import {Shape} from '../../../util/parsers';
-import {FName, NameMap} from '../../FName';
-import {FPropertyTag, Tag} from '../../FPropertyTag';
-import {FPackageIndex} from "../../FPackageIndex";
-import {SoftObjectProperty} from "../SoftObjectProperty";
+import { UAssetFile } from '../../../UAssetFile';
+import { ByteBoolean, UInt32, UInt8 } from '../../../primitive';
+import { Reader } from '../../../readers';
+import { Shape } from '../../../util/parsers';
+import { FName, NameMap } from '../../FName';
+import { FPackageIndex } from '../../FPackageIndex';
+import { FPropertyTag, Tag } from '../../FPropertyTag';
+import { SoftObjectProperty } from '../SoftObjectProperty';
 
 export function UScriptArrayMetaData(names: NameMap) {
   return async function UScriptArrayMetaData(reader: Reader) {
@@ -50,7 +50,7 @@ export function UScriptArray(metaData: Shape<typeof UScriptArrayMetaData>, asset
           data.push(innerTag);
         }
       } else {
-        throw new Error("Unhandled UScriptArrayType")
+        throw new Error('Unhandled UScriptArrayType');
         //
         // const innerTag = await reader.read(Tag(asset, metaData.innerType, innerTagData, depth + 1));
         // // https://github.com/iAmAsval/FModel/blob/92ab3521ca27bd31cd29d165e7346a7bf78c52ff/FModel/Methods/PakReader/ExportObject/UScript/UScriptArray.cs#L40

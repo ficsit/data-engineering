@@ -1,13 +1,13 @@
-import {FGRecipe} from "../../structs/uexp/FGRecipe";
-import SFString, {tagToSFString} from "../tag/parsers/primitive/SFString";
-import {BlacklistSerializer} from "../../serializers/BlacklistSerializer";
-import {tagToItemClass} from "../tag/parsers/SFItemClass";
-import {tagToSFInt} from "../tag/parsers/primitive/SFInt";
-import SFItemPacket from "../tag/parsers/SFItemPacket";
-import {tagToSFFloat} from "../tag/parsers/primitive/SFFoat";
-import {UObjectBase} from "../../structs/uexp/UObjectBase";
-import SFRecipeProducer from "../tag/parsers/SFRecipeProducer";
-import {UAssetFile} from "../../UAssetFile";
+import { UAssetFile } from '../../UAssetFile';
+import { BlacklistSerializer } from '../../serializers/BlacklistSerializer';
+import { FGRecipe } from '../../structs/uexp/FGRecipe';
+import { UObjectBase } from '../../structs/uexp/UObjectBase';
+import { tagToItemClass } from '../tag/parsers/SFItemClass';
+import SFItemPacket from '../tag/parsers/SFItemPacket';
+import SFRecipeProducer from '../tag/parsers/SFRecipeProducer';
+import { tagToSFFloat } from '../tag/parsers/primitive/SFFoat';
+import { tagToSFInt } from '../tag/parsers/primitive/SFInt';
+import SFString, { tagToSFString } from '../tag/parsers/primitive/SFString';
 
 export default class SFRecipe extends BlacklistSerializer {
   displayName: SFString;
@@ -25,8 +25,8 @@ export default class SFRecipe extends BlacklistSerializer {
 
   constructor(public fgRecipe: FGRecipe, additionalExports: UObjectBase[] = [], public asset: UAssetFile) {
     super();
-    for(let prop of fgRecipe.propertyList) {
-      switch(prop.name) {
+    for (const prop of fgRecipe.propertyList) {
+      switch (prop.name) {
         case 'mDisplayName':
           this.displayName = tagToSFString(prop.tag);
           break;
@@ -39,7 +39,7 @@ export default class SFRecipe extends BlacklistSerializer {
             this.ingredients.push(sfItemPacket);
 
             // LAZY LOADER REQUIRED FILES:
-            this.requiredFiles.push(sfItemPacket.itemClass.objectPath)
+            this.requiredFiles.push(sfItemPacket.itemClass.objectPath);
           }
           break;
         case 'mProduct':
@@ -51,31 +51,31 @@ export default class SFRecipe extends BlacklistSerializer {
             this.products.push(sfItemPacket);
 
             // LAZY LOADER REQUIRED FILES:
-            this.requiredFiles.push(sfItemPacket.itemClass.objectPath)
+            this.requiredFiles.push(sfItemPacket.itemClass.objectPath);
           }
           break;
-        case "mManufactoringDuration":
+        case 'mManufactoringDuration':
           this.manufacturingDuration = tagToSFFloat(prop.tag);
           break;
-        case "mManualManufacturingMultiplier":
+        case 'mManualManufacturingMultiplier':
           this.manualManufacturingMultiplier = tagToSFFloat(prop.tag);
           break;
-        case "mProducedIn":
+        case 'mProducedIn':
           for (const producerRaw of prop.tag) {
             const pathParts = producerRaw.assetPathName.split('.');
             const producer = pathParts.pop();
-            const assetPath = pathParts.join(".");
+            const assetPath = pathParts.join('.');
 
             if (assetPath.startsWith('/Game/')) {
               this.producedIn.push(new SFRecipeProducer(producer));
 
               // LAZY LOADER REQUIRED FILES:
-              this.requiredFiles.push(assetPath)
+              this.requiredFiles.push(assetPath);
             }
           }
 
           break;
-        case "mDisplayNameOverride":
+        case 'mDisplayNameOverride':
           this.displayNameOverride = prop.tag;
           break;
         default:

@@ -1,9 +1,9 @@
-import {Boolean, Int32, Int64, UInt32} from '../primitive';
-import {Reader} from '../readers';
-import {bigintToNumber} from '../util';
+import { Boolean, Int32, Int64, UInt32 } from '../primitive';
+import { Reader } from '../readers';
+import { bigintToNumber } from '../util';
 
-import {FName, NameMap} from './FName';
-import {FGuid} from './UScript/UScriptStruct/FGuid';
+import { FName, NameMap } from './FName';
+import { FGuid } from './UScript/UScriptStruct/FGuid';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/ObjectResource.cpp#L107-L172
 export function FObjectExport(names: NameMap) {

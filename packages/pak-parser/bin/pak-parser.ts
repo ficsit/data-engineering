@@ -2,8 +2,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import {PakFile} from '../src/PakFile';
-import {FileReader} from '../src/readers';
+import { PakFile } from '../src/PakFile';
+import { FileReader } from '../src/readers';
 
 main();
 async function main() {
@@ -32,10 +32,7 @@ async function main() {
     'FactoryGame/Content/FactoryGame/Recipes/Smelter/Recipe_IngotIron.uexp',
     'FactoryGame/Content/FactoryGame/Resource/Equipment/Beacon/BP_EquipmentDescriptorBeacon.uexp',
     'FactoryGame/Content/FactoryGame/Recipes/Equipment/Recipe_MedicinalInhalerAlienOrgans.uasset',
-    'FactoryGame/Content/FactoryGame/Buildable/Factory/Train/Station/Recipe_TrainDockingStation.uasset'
-
-
-
+    'FactoryGame/Content/FactoryGame/Buildable/Factory/Train/Station/Recipe_TrainDockingStation.uasset',
 
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/WaterPump/Desc_WaterPump.uasset'
 

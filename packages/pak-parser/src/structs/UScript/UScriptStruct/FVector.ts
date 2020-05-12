@@ -1,5 +1,5 @@
-import {Float} from '../../../primitive/decimals';
-import {Reader} from '../../../readers';
+import { Float } from '../../../primitive/decimals';
+import { Reader } from '../../../readers';
 
 export async function FVector(reader: Reader) {
   return {

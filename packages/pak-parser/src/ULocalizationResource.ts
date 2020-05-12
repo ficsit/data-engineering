@@ -2,18 +2,18 @@
  * Wrapper file containing the content of a .uasset + .uexp file. Has utilities to help with extraction
  *
  */
-import {PakFile} from './PakFile';
-import {UBaseFile} from './UBaseFile';
-import {TArray} from './containers';
-import {Int32, Int64, UInt32, UInt8, UnrealString} from './primitive';
-import {Reader} from './readers';
-import {FPakEntry} from './structs/FPakEntry';
-import {compareFGuid, FGuid} from './structs/UScript/UScriptStruct/FGuid';
-import {FEntry} from './structs/localization/FEntry';
-import {FTextKey} from './structs/localization/FTextKey';
-import {FTextLocalizationResourceString} from './structs/localization/FTextLocalizationResourceString';
-import {bigintToNumber} from './util';
-import {Shape} from './util/parsers';
+import { PakFile } from './PakFile';
+import { UBaseFile } from './UBaseFile';
+import { TArray } from './containers';
+import { Int32, Int64, UInt32, UInt8, UnrealString } from './primitive';
+import { Reader } from './readers';
+import { FPakEntry } from './structs/FPakEntry';
+import { compareFGuid, FGuid } from './structs/UScript/UScriptStruct/FGuid';
+import { FEntry } from './structs/localization/FEntry';
+import { FTextKey } from './structs/localization/FTextKey';
+import { FTextLocalizationResourceString } from './structs/localization/FTextLocalizationResourceString';
+import { bigintToNumber } from './util';
+import { Shape } from './util/parsers';
 
 const LocResMagic = {
   a: 0x7574140e,

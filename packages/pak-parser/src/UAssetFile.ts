@@ -1,17 +1,17 @@
-import {PakFile} from './PakFile';
-import {TArray} from './containers';
-import {Int32} from './primitive';
-import {Reader} from './readers';
-import {BlacklistSerializer} from './serializers/BlacklistSerializer';
-import {FAssetData} from './structs/FAssetData';
-import {FName, FNameEntrySerialized, NameMap} from './structs/FName';
-import {FObjectExport} from './structs/FObjectExport';
-import {FObjectImport} from './structs/FObjectImport';
-import {FPackageFileSummary} from './structs/FPackageFileSummary';
-import {FPackageIndex, FPackageIndexInt} from './structs/FPackageIndex';
-import {FPakEntry} from './structs/FPakEntry';
-import {asyncArrayForEach} from './util/asyncArrayForEach';
-import {Shape} from './util/parsers';
+import { PakFile } from './PakFile';
+import { TArray } from './containers';
+import { Int32 } from './primitive';
+import { Reader } from './readers';
+import { BlacklistSerializer } from './serializers/BlacklistSerializer';
+import { FAssetData } from './structs/FAssetData';
+import { FName, FNameEntrySerialized, NameMap } from './structs/FName';
+import { FObjectExport } from './structs/FObjectExport';
+import { FObjectImport } from './structs/FObjectImport';
+import { FPackageFileSummary } from './structs/FPackageFileSummary';
+import { FPackageIndex, FPackageIndexInt } from './structs/FPackageIndex';
+import { FPakEntry } from './structs/FPakEntry';
+import { asyncArrayForEach } from './util/asyncArrayForEach';
+import { Shape } from './util/parsers';
 
 /**
  * Parser and content of a .uasset file (serialized UObjectBase).

@@ -1,11 +1,11 @@
-import {TArray} from '../containers';
-import {Int32, Int64, UInt32, UnrealString} from '../primitive';
-import {Reader} from '../readers';
-import {bigintToNumber} from '../util';
+import { TArray } from '../containers';
+import { Int32, Int64, UInt32, UnrealString } from '../primitive';
+import { Reader } from '../readers';
+import { bigintToNumber } from '../util';
 
-import {FCustomVersion} from './FCustomVersion';
-import {FEngineVersion} from './FEngineVersion';
-import {FGuid} from './UScript/UScriptStruct/FGuid';
+import { FCustomVersion } from './FCustomVersion';
+import { FEngineVersion } from './FEngineVersion';
+import { FGuid } from './UScript/UScriptStruct/FGuid';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/Core/Public/UObject/ObjectVersion.h#L9-L10
 export const PackageFileTag = Buffer.from([0x9e, 0x2a, 0x83, 0xc1]).readInt32LE();

@@ -1,12 +1,12 @@
 import * as util from 'util';
 
-import {PakVersion} from '../PakFile';
-import {FixedCString, Int32, Int64, Int8, UInt32} from '../primitive';
-import {Reader} from '../readers';
-import {bigintToNumber} from '../util';
-import {Shape} from '../util/parsers';
+import { PakVersion } from '../PakFile';
+import { FixedCString, Int32, Int64, Int8, UInt32 } from '../primitive';
+import { Reader } from '../readers';
+import { bigintToNumber } from '../util';
+import { Shape } from '../util/parsers';
 
-import {FGuid, GuidSize} from './UScript/UScriptStruct/FGuid';
+import { FGuid, GuidSize } from './UScript/UScriptStruct/FGuid';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L66-L67
 const MAGIC_NUMBER = Buffer.from([0xe1, 0x12, 0x6f, 0x5a]).readUInt32LE(0);

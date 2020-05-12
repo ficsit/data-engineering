@@ -1,5 +1,5 @@
-import {UInt32, UnrealString} from '../../primitive';
-import {Reader} from '../../readers';
+import { UInt32, UnrealString } from '../../primitive';
+import { Reader } from '../../readers';
 
 export async function FEntry(reader: Reader) {
   return {

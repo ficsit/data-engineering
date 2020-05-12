@@ -1,6 +1,6 @@
-import {UInt8} from '../../primitive';
-import {Reader} from '../../readers';
-import {FName, NameMap} from '../FName';
+import { UInt8 } from '../../primitive';
+import { Reader } from '../../readers';
+import { FName, NameMap } from '../FName';
 
 export function BytePropertyTagMetaData(names: NameMap) {
   return async function BytePropertyParser(reader: Reader) {

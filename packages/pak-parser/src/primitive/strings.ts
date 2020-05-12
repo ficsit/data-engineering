@@ -1,6 +1,6 @@
-import {Reader} from '../readers';
+import { Reader } from '../readers';
 
-import {Int32} from './integers';
+import { Int32 } from './integers';
 
 const NULL = Buffer.from([0x00]);
 
