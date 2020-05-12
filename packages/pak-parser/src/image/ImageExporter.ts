@@ -1,11 +1,11 @@
-import {FTexture2DMipMap} from '../structs/FTexture2DMipMap';
-import {Shape} from '../util/parsers';
 import * as dxtJs from 'dxt-js';
+
+import { FTexture2DMipMap } from '../structs/FTexture2DMipMap';
+import { Shape } from '../util/parsers';
 
 const PNG = require('pngjs').PNG;
 
 export class ImageExporter {
-
   /**
    * Converts Texture2D into PNG
    * @param {Number} width
@@ -23,7 +23,6 @@ export class ImageExporter {
     return PNG.sync.write(png);
   }
 
-
   public static getImage(tex: Shape<typeof FTexture2DMipMap>, pixelFormat: string) {
     const data: Buffer = tex.bulkData.data;
     let rgbData;
@@ -39,16 +38,12 @@ export class ImageExporter {
     }
 
     for (let i = 0; i < rgbData.length; i += 4) {
-      let inverseAlpha = 255 / rgbData[i + 3];
-      rgbData[i    ] = Math.min(Math.ceil(rgbData[i    ] * inverseAlpha), 255);
+      const inverseAlpha = 255 / rgbData[i + 3];
+      rgbData[i] = Math.min(Math.ceil(rgbData[i] * inverseAlpha), 255);
       rgbData[i + 1] = Math.min(Math.ceil(rgbData[i + 1] * inverseAlpha), 255);
       rgbData[i + 2] = Math.min(Math.ceil(rgbData[i + 2] * inverseAlpha), 255);
     }
 
-    return ImageExporter.toPNG(
-      tex.sizeX,
-      tex.sizeY,
-      rgbData
-    );
+    return ImageExporter.toPNG(tex.sizeX, tex.sizeY, rgbData);
   }
 }

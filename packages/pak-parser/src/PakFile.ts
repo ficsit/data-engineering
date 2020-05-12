@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as path from 'path';
 
 import { ObjectExportsFile } from './ObjectExportsFile';
 import { ObjectFile } from './ObjectFile';
@@ -8,7 +9,6 @@ import { FPakEntry } from './structs/FPakEntry';
 import { FPakInfo, FPakInfoSize } from './structs/FPakInfo';
 import { Texture2D } from './structs/uexp/Texture2D';
 import { Shape } from './util/parsers';
-import * as path from "path";
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
 export enum PakVersion {
