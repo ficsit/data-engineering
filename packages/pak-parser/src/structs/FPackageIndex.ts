@@ -1,9 +1,9 @@
-import { Int32 } from '../primitive';
-import { Reader } from '../readers';
-import { Shape } from '../util/parsers';
+import {Int32} from '../primitive';
+import {Reader} from '../readers';
+import {Shape} from '../util/parsers';
 
-import { FObjectExport } from './FObjectExport';
-import { FObjectImport } from './FObjectImport';
+import {FObjectExport} from './FObjectExport';
+import {FObjectImport} from './FObjectImport';
 
 // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectResource.h#L19
 // Deviates from the source because it also includes a reference to the javascript object
@@ -13,21 +13,21 @@ export function FPackageIndexInt(
   imports: Shape<typeof FObjectImport>[],
   exports: Shape<typeof FObjectExport>[],
 ) {
-  return async function(reader: Reader = null) {
+  return async function(reader: Reader) {
     let processedIndex = 0;
     let reference = null;
-    if (index === 0) {
+    if (index === undefined || index === 0) {
       //TODO: gather all top level linker packages
       processedIndex = null;
-    }
-
-    if (index < 0) {
+    } else if (index < 0) {
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectResource.h#L76-L81
       // < 0 refers to imports
       const normalizedIndex = -1 * index - 1;
       if (normalizedIndex >= 0 && normalizedIndex < imports.length) {
         processedIndex = index;
         reference = imports[normalizedIndex];
+        // TODO: put this somewhere else maybe?
+        reference.outerImport = await reader.read(FPackageIndexInt(reference.outerIndex, imports, exports));
       }
     } else if (index !== 0 && index - 1 < exports.length) {
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectResource.h#L83-L87
@@ -36,6 +36,7 @@ export function FPackageIndexInt(
       // TODO: Actually modifies the index, should we preserve?
       processedIndex = index - 1;
       reference = exports[index - 1];
+      reference.outerImport = await reader.read(FPackageIndexInt(reference.outerIndex, imports, exports));
     } else {
       if (index !== 0) throw new Error(`FPackageIndex did not get a valid index.`);
     }
@@ -54,7 +55,6 @@ export function FPackageIndex(
   return async function(reader: Reader) {
     const index = await reader.read(Int32);
 
-    const functionSetup = FPackageIndexInt(index, imports, exports);
-    return await functionSetup();
+    return await reader.read(FPackageIndexInt(index, imports, exports));
   };
 }

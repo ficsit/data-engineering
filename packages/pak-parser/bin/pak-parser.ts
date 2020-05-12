@@ -2,8 +2,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { PakFile } from '../src/PakFile';
-import { FileReader } from '../src/readers';
+import {PakFile} from '../src/PakFile';
+import {FileReader} from '../src/readers';
 
 main();
 async function main() {
@@ -22,11 +22,29 @@ async function main() {
   const files = [
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/AssemblerMk1/Build_AssemblerMk1.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/AssemblerMk1/Desc_AssemblerMk1.uasset',
+    // 'FactoryGame/Content/FactoryGame/Interface/UI/Assets/BuildMenu/ResIcon_Production.uasset',
+    // 'FactoryGame/Content/FactoryGame/Interface/UI/InGame/BuildMenu/BuildCategories/BC_Production.uexp',
+    // 'FactoryGame/Content/Localization/Game/es-ES/Game.locres',
+    // 'FactoryGame/Content/FactoryGame/Prototype/WAT/Desc_WAT1.uasset',
+    // 'FactoryGame/Content/FactoryGame/Recipes/Equipment/Recipe_PortableMiner.uexp',
+    // 'FactoryGame/Content/FactoryGame/Buildable/Factory/MinerMK1/Build_MinerMk1.uasset',
+    'FactoryGame/Content/FactoryGame/Buildable/Factory/OilPump/Build_OilPump.uasset',
+    'FactoryGame/Content/FactoryGame/Recipes/Smelter/Recipe_IngotIron.uexp',
+    'FactoryGame/Content/FactoryGame/Resource/Equipment/Beacon/BP_EquipmentDescriptorBeacon.uexp',
+    'FactoryGame/Content/FactoryGame/Recipes/Equipment/Recipe_MedicinalInhalerAlienOrgans.uasset',
+    'FactoryGame/Content/FactoryGame/Buildable/Factory/Train/Station/Recipe_TrainDockingStation.uasset'
+
+
+
+
+    // 'FactoryGame/Content/FactoryGame/Buildable/Factory/WaterPump/Desc_WaterPump.uasset'
+
+    // 'FactoryGame/Content/Localization/Game/en-GB/Game.locres'
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uexp',
-    'FactoryGame/Content/FactoryGame/Resource/Environment/Berry/UI/Berry_256.ubulk',
-    'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/UI/Jetpack_64.uasset',
-    'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/UI/Jetpack_64.uexp',
+    // 'FactoryGame/Content/FactoryGame/Resource/Environment/Berry/UI/Berry_256.ubulk',
+    // 'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/UI/Jetpack_64.uasset',
+    // 'FactoryGame/Content/FactoryGame/Resource/Equipment/JetPack/UI/Jetpack_64.uexp',
     // 'FactoryGame/Content/FactoryGame/Resource/Environment/Crystal/UI/PowerSlugPurple_256.uexp',
     // 'FactoryGame/Content/FactoryGame/Buildable/Vehicle/Tractor/BP_Tractor.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Vehicle/Train/Locomotive/BP_Locomotive.uasset',
@@ -60,9 +78,10 @@ async function main() {
     // 'FactoryGame/Content/FactoryGame/Schematics/Tutorial/Schematic_Tutorial4.uasset',
   ];
   fs.mkdirSync('dump/images', { recursive: true });
-  for (const file of files) {
-    const objectFile = await pakFile.getFile(file);
-    const dest = path.join('dump', path.basename(file) + '.json');
-    fs.writeFileSync(dest, JSON.stringify(objectFile, null, 2));
+  const retrievedFiles = await pakFile.getFiles(files);
+
+  for (const file of retrievedFiles) {
+    const dest = path.join('dump', path.basename(file.getName()) + '.json');
+    fs.writeFileSync(dest, JSON.stringify(file, null, 2));
   }
 }

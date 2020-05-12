@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "license": "Apache-2.0",
   "bin": {
-    "pak-parser": "./bin/pak-parser.js"
+    "pak-parser": "./bin/pak-parser.js",
+    "pak-converter": "./bin/pak-converter.js"
   },
   "scripts": {
-    "pak-parser": "../../node_modules/.bin/ts-node ./bin/pak-parser"
+    "pak-parser": "../../node_modules/.bin/ts-node ./bin/pak-parser",
+    "pak-converter": "../../node_modules/.bin/ts-node ./bin/pak-converter"
   },
   "devDependencies": {
     "@types/node": "^13.11.0",

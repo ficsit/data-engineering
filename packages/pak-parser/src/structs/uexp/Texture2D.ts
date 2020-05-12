@@ -1,32 +1,35 @@
-import { ObjectFile } from '../../ObjectFile';
-import { ImageExporter } from '../../image/ImageExporter';
-import { Int64, UInt32 } from '../../primitive';
-import { Reader } from '../../readers';
-import { bigintToNumber } from '../../util';
-import { Shape } from '../../util/parsers';
-import { FName } from '../FName';
-import { FStripDataFlags } from '../FStripDataFlags';
-import { FTexturePlatformData } from '../FTexturePlatformData';
+import {UAssetFile} from '../../UAssetFile';
+import {ImageExporter} from '../../image/ImageExporter';
+import {Int64, UInt32} from '../../primitive';
+import {Reader} from '../../readers';
+import {bigintToNumber} from '../../util';
+import {Shape} from '../../util/parsers';
+import {FName} from '../FName';
+import {FStripDataFlags} from '../FStripDataFlags';
+import {FTexturePlatformData} from '../FTexturePlatformData';
 
-import { UObject } from './UObject';
+import {UObjectBase} from './UObjectBase';
 
-export class Texture2D {
+export class Texture2D extends UObjectBase {
   cooked = 0;
   textures = [] as Shape<typeof FTexturePlatformData>[];
-  baseObject: UObject = null;
+  baseObject: UObjectBase = null;
 
-  constructor(private reader: Reader, public ubulkReader: Reader, public asset: ObjectFile) {}
+  blacklistedPropertyNames = ['reader', 'ubulkReader', 'asset'];
+
+  constructor(reader: Reader, public ubulkReader: Reader, public asset: UAssetFile) {
+    super(reader, asset, 'Texture2D', true);
+  }
 
   getImage() {
     return ImageExporter.getImage(this.textures[0].mips[0], this.textures[0].pixelFormat);
   }
 
   async initialize() {
+    await super.initialize();
+
     const assetLength = this.asset.summary.totalHeaderSize;
     const exportSize = this.asset.exports.map(item => item.serialSize).reduce((a, b) => a + b, 0);
-
-    this.baseObject = new UObject(this.reader, this.asset, 'Texture2D', true);
-    await this.baseObject.initialize();
 
     // There's two because of byte padding?
     await this.reader.read(FStripDataFlags);

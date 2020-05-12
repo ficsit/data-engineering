@@ -1,33 +1,35 @@
-import { ObjectFile } from '../ObjectFile';
-import { ByteBoolean, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64 } from '../primitive';
-import { Double, Float } from '../primitive/decimals';
-import { Reader } from '../readers';
-import { bigintToNumber } from '../util';
-import { Shape } from '../util/parsers';
+import {UAssetFile} from '../UAssetFile';
+import {ByteBoolean, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64} from '../primitive';
+import {Double, Float} from '../primitive/decimals';
+import {Reader} from '../readers';
+import {bigintToNumber} from '../util';
+import {Shape} from '../util/parsers';
 
-import { FName, NameMap } from './FName';
-import { FPackageFileSummary } from './FPackageFileSummary';
-import { FPackageIndex } from './FPackageIndex';
-import { ArrayProperty, ArrayPropertyTagMetaData } from './properties/ArrayProperty';
-import { BoolProperty } from './properties/BoolProperry';
-import { ByteProperty, BytePropertyTagMetaData } from './properties/ByteProperty';
-import { EnumProperty, EnumPropertyTagMetaData } from './properties/EnumProperty';
-import { MapPropertyTagMetaData } from './properties/MapProperty';
-import { SetPropertyTagMetaData } from './properties/SetProperty';
-import { StructProperty, StructPropertyTagMetaData } from './properties/StructProperty';
-import { FGuid } from './properties/structs/FGuid';
+import {FName, NameMap} from './FName';
+import {FPackageFileSummary} from './FPackageFileSummary';
+import {FPackageIndex} from './FPackageIndex';
+import {BoolProperty} from './UScript/BoolProperry';
+import {ByteProperty, BytePropertyTagMetaData} from './UScript/ByteProperty';
+import {EnumProperty, EnumPropertyTagMetaData} from './UScript/EnumProperty';
+import {MapPropertyTagMetaData} from './UScript/MapProperty';
+import {SetPropertyTagMetaData} from './UScript/SetProperty';
+import {StructPropertyTagMetaData, UScriptStruct} from './UScript/UScriptStruct';
+import {FGuid} from './UScript/UScriptStruct/FGuid';
+import {FText} from './UScript/UScriptStruct/FText';
+import {UScriptArray, UScriptArrayMetaData} from './UScript/UScriptStruct/UScriptArray';
+import {FSoftObjectPath} from "./FSoftObjectPath";
 
 export type TagMetaData =
   | Shape<typeof StructPropertyTagMetaData>
   | Shape<typeof BytePropertyTagMetaData>
   | Shape<typeof EnumPropertyTagMetaData>
-  | Shape<typeof ArrayPropertyTagMetaData>
+  | Shape<typeof UScriptArrayMetaData>
   | Shape<typeof SetPropertyTagMetaData>
   | Shape<typeof MapPropertyTagMetaData>
   | Shape<typeof ByteBoolean>;
 
 // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L80-L169
-export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: number) {
+export function FPropertyTag(asset: UAssetFile, shouldRead: boolean, depth: number) {
   return async function(reader: Reader) {
     const assetSummary: Shape<typeof FPackageFileSummary> = asset.summary;
     const names: NameMap = asset.names;
@@ -49,7 +51,7 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
 
     let tagMetaData: TagMetaData = null;
 
-    console.log('Used:' + baseTag.propertyType);
+    //WHEN I GET BACK: fix all the reads on property types :(
 
     switch (baseTag.propertyType) {
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L112-L119
@@ -71,7 +73,7 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
         break;
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L139-L145
       case 'ArrayProperty':
-        tagMetaData = await reader.read(ArrayPropertyTagMetaData(names));
+        tagMetaData = await reader.read(UScriptArrayMetaData(names));
         break;
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp#L148-L151
       case 'SetProperty':
@@ -86,6 +88,13 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
     }
 
     // ???
+    //
+    // if (property_type == "MapProperty")
+    // {
+    //   tag_data = tag_data_overrides(name) ?? tag_data;
+    // }
+    //
+    // ???
     // https://github.com/iAmAsval/FModel/blob/05e7b0a6dae81c3a7769ed68add0dbfd49b02745/FModel/Methods/PakReader/ExportObject/AssetReader.cs#L275
 
     const hasGuid = await reader.read(ByteBoolean);
@@ -99,9 +108,7 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
 
     if (shouldRead && baseTag.size > 0) {
       reader.trackReads();
-      tag = await reader.read(
-        Tag(baseTag.size, asset, baseTag.propertyType, tagMetaData, baseTag.name, depth, names),
-      );
+      tag = await reader.read(Tag(asset, baseTag.propertyType, tagMetaData, depth + 1));
 
       if (reader.getTrackedBytesRead() !== baseTag.size) {
         console.error(
@@ -121,7 +128,7 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
     }
 
     // Swap the meta and the data fields for boolean
-    if (baseTag.propertyType === 'Boolean') {
+    if (baseTag.propertyType === 'BoolProperty') {
       tag = tagMetaData;
       tagMetaData = null;
     }
@@ -130,24 +137,19 @@ export function FPropertyTag(asset: ObjectFile, shouldRead: boolean, depth: numb
       ...baseTag,
       tagMetaData,
       propertyGuid,
-      tag,
+      tag: shouldRead ? tag : tagMetaData,
     };
   };
 }
 
-function Tag(
-  size: number,
-  asset: ObjectFile,
-  propertyType: string,
-  tagMetaData: TagMetaData,
-  name: string,
-  depth: number,
-  names: NameMap,
-) {
+export function Tag(asset: UAssetFile, propertyType: string, tagMetaData: TagMetaData, depth: number) {
   return async function(reader: Reader) {
     let tag = null;
-    console.log('  >', propertyType, tagMetaData);
-    Label: if (propertyType === 'BooleanProperty') {
+
+    if (propertyType === 'BooleanProperty') {
+      // Should we return the metadata?
+    } else if (propertyType === 'BoolProperty') {
+      // TODO: should we return the metadata?
     } else if (propertyType === 'Int8Property') {
       tag = await reader.read(Int8);
     } else if (propertyType === 'Int16Property') {
@@ -164,33 +166,21 @@ function Tag(
       //   // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyByte.cpp#L70-L79
       //   tag = await reader.read(EnumProperty(names));
       // }
+
       if (tagMetaData) {
         // https://github.com/iAmAsval/FModel/blob/05e7b0a6dae81c3a7769ed68add0dbfd49b02745/FModel/Methods/PakReader/ExportObject/AssetReader.cs#L350
         // ??? looks same as above
-        tag = await reader.read(FName(names));
-      } else if (size === 1) {
+        tag = await reader.read(FName(asset.names));
+      } else {
         tag = await reader.read(ByteProperty);
-      } else {
-        throw new Error(`ByteProperty cannot be read with size ${size}`);
       }
-      console.log('Byte property is using ', tag);
     } else if (propertyType === 'EnumProperty') {
-      if (size === 0) {
-        {
-          // It's "None" which isn't serialized
-          break Label;
-        }
+      if (tagMetaData) {
+        // Is actually an enum
+        tag = await reader.read(EnumProperty(asset.names));
       } else {
-        if (size == 8) {
-          {
-            // Is actually an enum
-            tag = await reader.read(EnumProperty(names));
-          }
-        } else {
-          {
-            throw new Error(`EnumProperty cannot be read with size ${size}`);
-          }
-        }
+        // It's "None" which isn't serialized
+        return tag;
       }
     } else if (propertyType === 'UInt16Property') {
       tag = await reader.read(UInt16);
@@ -203,14 +193,27 @@ function Tag(
     } else if (propertyType === 'DoubleProperty') {
       tag = await reader.read(Double);
     } else if (propertyType === 'ArrayProperty') {
-      //TODO: Finish this
-      tag = await reader.read(ArrayProperty(asset, names, tagMetaData));
+      tag = await reader.read(UScriptArray(tagMetaData as Shape<typeof UScriptArrayMetaData>, asset, depth));
     } else if (propertyType === 'ObjectProperty') {
       tag = await reader.read(FPackageIndex(asset.imports, asset.exports));
     } else if (propertyType === 'StructProperty') {
       tag = await reader.read(
-        StructProperty(tagMetaData as Shape<typeof StructPropertyTagMetaData>, size, asset, depth),
+        UScriptStruct(tagMetaData as Shape<typeof StructPropertyTagMetaData>, asset, depth),
       );
+    } else if (propertyType === 'InterfaceProperty') {
+      throw new Error('Unimplemented');
+    } else if (propertyType === 'TextProperty') {
+      tag = await reader.read(FText);
+    } else if (propertyType === 'StrProperty') {
+      throw new Error('Unimplemented');
+    } else if (propertyType === 'NameProperty') {
+      tag = await reader.read(FName(asset.names));
+    } else if (propertyType === 'MapProperty') {
+      throw new Error('Unimplemented');
+    } else if (propertyType === 'DelegateProperty') {
+      throw new Error('Unimplemented');
+    } else if (propertyType === 'SoftObjectProperty') {
+      tag = await reader.read(FSoftObjectPath(asset.names))
     } else {
       throw new Error(`Unparsed Property type ${propertyType}`);
     }
@@ -219,7 +222,7 @@ function Tag(
   };
 }
 
-export async function readFPropertyTagLoop(reader: Reader, asset: ObjectFile) {
+export async function readFPropertyTagLoop(reader: Reader, asset: UAssetFile) {
   const propertyList = [] as Shape<typeof FPropertyTag>[];
 
   while (true) {

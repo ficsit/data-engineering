@@ -1,11 +1,11 @@
-import { TArray } from '../containers';
-import { Int32, Utf8String, UInt32, Int64 } from '../primitive';
-import { Reader } from '../readers';
-import { bigintToNumber } from '../util';
+import {TArray} from '../containers';
+import {Int32, Int64, UInt32, UnrealString} from '../primitive';
+import {Reader} from '../readers';
+import {bigintToNumber} from '../util';
 
-import { FCustomVersion } from './FCustomVersion';
-import { FEngineVersion } from './FEngineVersion';
-import { FGuid } from './properties/structs/FGuid';
+import {FCustomVersion} from './FCustomVersion';
+import {FEngineVersion} from './FEngineVersion';
+import {FGuid} from './UScript/UScriptStruct/FGuid';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/Core/Public/UObject/ObjectVersion.h#L9-L10
 export const PackageFileTag = Buffer.from([0x9e, 0x2a, 0x83, 0xc1]).readInt32LE();
@@ -22,7 +22,7 @@ export async function FPackageFileSummary(reader: Reader) {
     fileVersionLicensee: await reader.read(Int32),
     customVersions: await reader.read(TArray(FCustomVersion)),
     totalHeaderSize: await reader.read(Int32),
-    folderName: await reader.read(Utf8String),
+    folderName: await reader.read(UnrealString),
     packageFlags: await reader.read(UInt32),
     nameCount: await reader.read(Int32),
     nameOffset: await reader.read(Int32),
@@ -44,7 +44,7 @@ export async function FPackageFileSummary(reader: Reader) {
     compressionFlags: await reader.read(UInt32),
     compressedChunks: await reader.read(TArray(FCompressedChunk)),
     packageSource: await reader.read(UInt32),
-    additionalPackagesToCook: await reader.read(TArray(Utf8String)),
+    additionalPackagesToCook: await reader.read(TArray(UnrealString)),
     assetRegistryDataOffset: await reader.read(Int32),
     bulkDataStartOffset: bigintToNumber(await reader.read(Int64)),
     worldTileInfoDataOffset: await reader.read(Int32),

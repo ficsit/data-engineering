@@ -1,14 +1,18 @@
-import * as fs from 'fs';
-import * as path from 'path';
-
-import { ObjectExportsFile } from './ObjectExportsFile';
-import { ObjectFile } from './ObjectFile';
-import { UInt32, Utf8String } from './primitive';
-import { ChildReader, Reader } from './readers';
-import { FPakEntry } from './structs/FPakEntry';
-import { FPakInfo, FPakInfoSize } from './structs/FPakInfo';
-import { Texture2D } from './structs/uexp/Texture2D';
-import { Shape } from './util/parsers';
+import {UAssetFile} from './UAssetFile';
+import {UBaseFile} from './UBaseFile';
+import {UExpFile} from './UExpFile';
+import {ULocalizationResource} from './ULocalizationResource';
+import {UObject} from './UObject';
+import {UInt32, UnrealString} from './primitive';
+import {ChildReader, Reader} from './readers';
+import {BlacklistSerializer} from './serializers/BlacklistSerializer';
+import {FPakEntry} from './structs/FPakEntry';
+import {FPakInfo, FPakInfoSize} from './structs/FPakInfo';
+import {Texture2D} from './structs/uexp/Texture2D';
+import {UObjectBase} from './structs/uexp/UObjectBase';
+import {asyncSetForEach} from './util/asyncArrayForEach';
+import {Shape} from './util/parsers';
+import {FGRecipe} from "./structs/uexp/FGRecipe";
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
 export enum PakVersion {
@@ -29,15 +33,19 @@ export const LatestPakVersion = PakVersion.FNameBasedCompressionMethod;
  *
  * @see https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L485-L488
  */
-export class PakFile {
+export class PakFile extends BlacklistSerializer {
   info!: Shape<typeof FPakInfo>;
   mountPoint!: string;
   entries = new Map<string, Shape<typeof FPakEntry>>();
-  objectFiles = new Map<string, ObjectFile>();
-  dataFiles = new Map<string, ObjectExportsFile[]>();
+  assetFiles = new Map<string, UAssetFile>();
+  expFiles = new Map<string, UExpFile>();
   headerSize: number;
 
-  constructor(private reader: Reader) {}
+  constructor(private reader: Reader) {
+    super();
+  }
+
+  blacklistedPropertyNames = ['reader', 'pak'];
 
   /**
    * Reads the file's info and index.
@@ -89,12 +97,12 @@ export class PakFile {
     this.reader.seekTo(indexOffset);
     await this.reader.checkHash('index', indexSize, indexHash);
 
-    this.mountPoint = await this.reader.read(Utf8String);
+    this.mountPoint = await this.reader.read(UnrealString);
 
     const numEntries = await this.reader.read(UInt32);
 
     for (let i = 0; i < numEntries; i++) {
-      const filename = await this.reader.read(Utf8String);
+      const filename = await this.reader.read(UnrealString);
       const entry = await this.reader.read(FPakEntry);
 
       this.entries.set(filename, entry);
@@ -119,79 +127,104 @@ export class PakFile {
     return { filename, entry, reader };
   }
 
-  /**
-   * Look up a type of file
-   */
-  async getFile(filename: string) {
-    const extension = filename.split('.').pop();
-    if (extension === 'uexp') {
-      return await this.getExportsFile(filename);
-    } else if (extension === 'uasset') {
-      return await this.getObjectFile(filename);
-    } else if (extension === 'ubulk') {
-      return await this.getUBulkFile(filename);
-    } else {
-      throw new Error(`File extension ${extension} is not yet supported for ${filename}`);
+  async getFiles(files: string[]) {
+    const basicFileSet = new Set<string>();
+    const objectFileSet = new Set<string>();
+    for (const file of files) {
+      const splitFilename = file.split('.');
+      const extension = splitFilename.pop();
+      switch (extension) {
+        case 'locmeta':
+          break;
+        case 'locres':
+          basicFileSet.add(`${splitFilename.join('.')}.${extension}`);
+          break;
+        case 'udic':
+          break;
+        case 'bin':
+          break;
+        case 'uasset':
+        case 'uexp':
+        case 'ubulk':
+          objectFileSet.add(splitFilename.join('.'));
+          break;
+        default:
+          break;
+      }
     }
+
+    const returnedAssets = [] as UBaseFile[];
+
+    // Bad serialization (for now). Eventually should generate a manifest.
+    await asyncSetForEach(new Set([...basicFileSet, ...objectFileSet]), async (file: string) => {
+      const asset = await this.getUObject(file);
+      returnedAssets.push(asset);
+    });
+
+    return returnedAssets;
+  }
+
+  async getULocalizationResourceFile(filename: string) {
+    const result = await this.getPakFile(filename);
+    if (!result) return null;
+
+    const assetFile = new ULocalizationResource(filename, result.reader, result.entry, this);
+    await assetFile.initialize();
+
+    return assetFile;
   }
 
   /**
-   * Look up a serialized UObject
+   * Look up a type of file
    */
-  async getObjectFile(filename: string) {
-    if (this.objectFiles.has(filename)) {
-      return this.objectFiles.get(filename)!;
+  async getUObject(filename: string): Promise<UBaseFile> {
+    if (this.entries.get(filename) && filename.endsWith('locres')) {
+      return await this.getULocalizationResourceFile(filename);
+    }
+
+    // headers, could possibly not exist?
+    const uassetFilename = filename + '.uasset';
+
+    // actual export, must exist
+    const uexpFilename = filename + '.uexp';
+
+    // If uexpFilename doesn't exist, we can't read this asset.
+    if (!this.entries.get(uexpFilename)) {
+      throw new Error('UObjectBase at ' + filename + ' does not use uasset or uexp and is unsupported.');
+    }
+
+    const uasset = await this.getUAssetFile(uassetFilename);
+    const uexp = await this.getUExpFile(uexpFilename);
+
+    return new UObject(uasset, uexp, this);
+  }
+
+  /**
+   * Look up a serialized Uasset
+   */
+  async getUAssetFile(filename: string) {
+    if (this.assetFiles.has(filename)) {
+      return this.assetFiles.get(filename)!;
     }
 
     const result = await this.getPakFile(filename);
     if (!result) return null;
 
-    const objectFile = new ObjectFile(filename, result.reader, result.entry, this);
-    await objectFile.initialize();
+    const assetFile = new UAssetFile(filename, result.reader, result.entry, this);
+    await assetFile.initialize();
 
-    this.objectFiles.set(filename, objectFile);
+    this.assetFiles.set(filename, assetFile);
 
-    return objectFile;
-  }
-
-  async getUBulkFile(filename: string) {
-    const filenameParts = filename.split('.');
-    filenameParts.pop();
-    filenameParts.push('uasset');
-    const assetFilename = filenameParts.join('.');
-
-    filenameParts.pop();
-    filenameParts.push('uexp');
-    const dataFileName = filenameParts.join('.');
-
-    // Since we need the uasset for its headers
-    const asset = await this.getObjectFile(assetFilename);
-
-    // We also need the uexp for the data.
-    const data = await this.getExportsFile(dataFileName);
-
-    //
-    // // get ubulk
-    // const result = await this.getPakFile(filename);
-    // if (!result) return null;
-    //
-    // return PakFile.unguardedGetUBulkFile(result, asset, data)
-
-    // We should filter out uBulk?? since it's already being used as part of the exports file.
-    return null;
-  }
-
-  private static unguardedGetUBulkFile(result: any, asset: ObjectFile, data: ObjectExportsFile[]) {
-    const exportSize = asset.exports.map(item => item.serialSize).reduce((a, b) => a + b, 0);
+    return assetFile;
   }
 
   /**
    * Look up a serialized UExp
    * https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/SavePackage.cpp#L6426-L6431
    */
-  async getExportsFile(filename: string) {
-    if (this.dataFiles.has(filename)) {
-      return this.dataFiles.get(filename)!;
+  async getUExpFile(filename: string) {
+    if (this.expFiles.has(filename)) {
+      return this.expFiles.get(filename)!;
     }
 
     const filenameParts = filename.split('.');
@@ -203,8 +236,8 @@ export class PakFile {
     const result = await this.getPakFile(filename);
     if (!result) return null;
 
-    // Since we need the object file for its summary, we cache the objectFiles in case it's been loaded already.
-    const asset = await this.getObjectFile(assetFilename);
+    // Since we need the object file for its summary, we cache the assetFiles in case it's been loaded already.
+    const asset = await this.getUAssetFile(assetFilename);
 
     filenameParts.pop();
     filenameParts.push('ubulk');
@@ -214,65 +247,52 @@ export class PakFile {
     const bulkReader = bulkResult ? bulkResult.reader : null;
 
     const exports = [];
-
     for (const exp of asset.exports) {
-      // class_index.import = objectName
-      // const exportType = asset.packageIndexLookupTable.get(exp.classIndex).reference.objectName;
-      // const position = exp.serialOffset -
-      this.reader.seekTo(exp.serialOffset - asset.summary.totalHeaderSize);
-
-      // ?.reference?.className
-      // console.log(asset.packageIndexLookupTable.get(exp.templateIndex));
-      // {
-      //   processedIndex: -3,
-      //     reference: {
-      //       classPackage: '/Script/Engine',
-      //       className: 'Texture2D',
-      //       outerIndex: -2,
-      //       objectName: 'Default__Texture2D'
-      //     }
-      // }
-
-      // .reference.objectName; This is actually the wrong way to access this I think.
-      // console.log(asset.packageIndexLookupTable.get(exp.classIndex));
-      // {
-      //   processedIndex: -1,
-      //     reference: {
-      //       classPackage: '/Script/CoreUObject',
-      //       className: 'Class',
-      //       outerIndex: -2,
-      //       objectName: 'Texture2D'
-      //   }
-      // }
+      result.reader.seekTo(exp.serialOffset - asset.summary.totalHeaderSize);
 
       const className = asset.getClassNameFromExport(exp);
-
+      let itemToPush: UObjectBase;
       if (className === 'Texture2D') {
         const texture2DFile = new Texture2D(result.reader, bulkReader, asset);
         await texture2DFile.initialize();
 
-        const baseName = path.basename(asset.filename).split('.')[0];
-        const dest = path.join('dump', 'images', baseName + '.png');
-        fs.writeFileSync(dest, texture2DFile.getImage());
-
-        exports.push(texture2DFile);
+        // Testing
+        // const baseName = path.basename(asset.filename).split('.')[0];
+        // const dest = path.join('dump', 'images', baseName + '.png');
+        // fs.writeFileSync(dest, texture2DFile.getImage());
+        itemToPush = texture2DFile;
+      } else if (className === 'FGRecipe') {
+        // Recipe object
+        const fgRecipeFile = new FGRecipe(result.reader, asset, exports);
+        await fgRecipeFile.initialize();
+        itemToPush = fgRecipeFile;
       } else {
-        const objectExportsFile = new ObjectExportsFile(
-          filename,
-          result.reader,
-          result.entry,
-          this,
-          asset,
-          className,
-        );
-        await objectExportsFile.initialize();
-        exports.push(objectExportsFile);
+        const baseObject = new UObjectBase(result.reader, asset, className, true);
+        await baseObject.initialize();
+        itemToPush = baseObject;
+
+        // Old invocation
+        // const objectExportsFile = new UExpFile(
+        //   filename,
+        //   result.reader,
+        //   result.entry,
+        //   this,
+        //   asset,
+        //   className,
+        // );
+      }
+
+      // TODO: fix this with a flag maybe? This is basically to remove all the freaking empty properties.
+      if (itemToPush.propertyList.length) {
+        exports.push(itemToPush);
       }
     }
 
-    this.dataFiles.set(filename, exports);
+    const object = new UExpFile(exports);
 
-    return exports;
+    this.expFiles.set(filename, object);
+
+    return object;
   }
 
   /**
