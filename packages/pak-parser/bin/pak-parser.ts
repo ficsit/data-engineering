@@ -7,8 +7,8 @@ import { FileReader } from '../src/readers';
 
 main();
 async function main() {
-  //'/Volumes/[C] Windows 10/Program Files/Epic Games/SatisfactoryEarlyAccess/FactoryGame/Content/Paks/FactoryGame-WindowsNoEditor.pak';
   const pakFilePath =
+    process.env.PAK_PATH ||
     '/mnt/a/Games/Epic/SatisfactoryExperimental/FactoryGame/Content/Paks/FactoryGame-WindowsNoEditor.pak';
   const reader = new FileReader(pakFilePath);
   await reader.open();
