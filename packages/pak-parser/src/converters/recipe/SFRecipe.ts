@@ -10,7 +10,6 @@ import {tagToSFInt} from '../tag/parsers/primitive/SFInt';
 import SFString, {tagToSFString} from '../tag/parsers/primitive/SFString';
 
 export default class SFRecipe extends BlacklistSerializer {
-
   // should take these from https://github.com/ficsit/data-landing/blob/master/interface/classes/UFGRecipe.ts ?
   displayName: SFString;
   manualManufacturingMultiplier = 1.0;

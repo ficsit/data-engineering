@@ -1,9 +1,9 @@
 /**
  * Parser and content of a .uexp file (serialized UObjectBase export).
  */
-import {UExpFile} from "../UExpFile";
-import {UObjectBase} from "../structs/uexp/UObjectBase";
-import {Texture2D} from "../structs/uexp/Texture2D";
+import {UExpFile} from '../UExpFile';
+import {Texture2D} from '../structs/uexp/Texture2D';
+import {UObjectBase} from '../structs/uexp/UObjectBase';
 
 export class Texture2DExp extends UExpFile {
   constructor(public exports: UObjectBase[]) {
@@ -11,13 +11,13 @@ export class Texture2DExp extends UExpFile {
   }
 
   getImage() {
-    for (let exp of exports) {
+    for (const exp of exports) {
       if (exp instanceof Texture2D) {
         return exp.getImage();
       }
     }
 
-    throw new Error("No image data found in Texture2D")
+    throw new Error('No image data found in Texture2D');
   }
   //
   // //Deprecated

@@ -1,4 +1,4 @@
-import {UAssetFile} from '../UAssetFile'
+import {UAssetFile} from '../UAssetFile';
 import {ByteBoolean, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64} from '../primitive';
 import {Double, Float} from '../primitive/decimals';
 import {Reader} from '../readers';

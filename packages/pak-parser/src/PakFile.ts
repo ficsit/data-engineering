@@ -11,10 +11,10 @@ import {FPakInfo, FPakInfoSize} from './structs/FPakInfo';
 import {FGRecipe} from './structs/uexp/FGRecipe';
 import {Texture2D} from './structs/uexp/Texture2D';
 import {UObjectBase} from './structs/uexp/UObjectBase';
+import {FGRecipeExp} from './uexpTypes/FGRecipeExp';
+import {Texture2DExp} from './uexpTypes/Texture2DExp';
 import {asyncSetForEach} from './util/asyncArrayForEach';
 import {Shape} from './util/parsers';
-import {FGRecipeExp} from "./uexpTypes/FGRecipeExp";
-import {Texture2DExp} from "./uexpTypes/Texture2DExp";
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
 export enum PakVersion {
@@ -287,7 +287,7 @@ export class PakFile extends BlacklistSerializer {
 
     let object;
 
-    switch(fileType) {
+    switch (fileType) {
       case 'FGRecipe':
         object = new FGRecipeExp(exports);
         break;

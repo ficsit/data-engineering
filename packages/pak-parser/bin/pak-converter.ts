@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import {PakFile} from '../src/PakFile';
 import {UObject} from '../src/UObject';
 import {FileReader} from '../src/readers';
-import {FGRecipeExp} from "../src/uexpTypes/FGRecipeExp";
+import {FGRecipeExp} from '../src/uexpTypes/FGRecipeExp';
 
 main();
 async function main() {

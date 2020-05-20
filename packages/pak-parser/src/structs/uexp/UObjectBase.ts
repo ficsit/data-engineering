@@ -1,4 +1,4 @@
-import {UAssetFile} from '../../UAssetFile'
+import {UAssetFile} from '../../UAssetFile';
 import {UInt32} from '../../primitive';
 import {Reader} from '../../readers';
 import {BlacklistSerializer} from '../../serializers/BlacklistSerializer';
