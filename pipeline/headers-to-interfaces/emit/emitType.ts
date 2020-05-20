@@ -38,7 +38,7 @@ function _emitSet(context: ReferenceEmitContext, [type]: string[], rootType: str
 
 // https://docs.unrealengine.com/en-US/API/Runtime/Core/Containers/TMap/index.html
 function _emitMap(context: ReferenceEmitContext, [key, value]: string[], rootType: string) {
-  return `Record<${emitType(context, key, rootType)}, ${emitType(context, value, rootType)}>`;
+  return `Map<${emitType(context, key, rootType)}, ${emitType(context, value, rootType)}>`;
 }
 
 // https://docs.unrealengine.com/en-US/API/Plugins/ReplicationGraph/TClassMap/index.html
