@@ -101,6 +101,10 @@ jobs:
 
       - run: yarn headers-to-interfaces
 
+      - name: Remove old data-landing interface folder
+        working-directory: ./.data-landing
+        run: rm -rf interface
+
       - name: Push to data-landing
         working-directory: ./.data-landing
         run: |
