@@ -1,4 +1,4 @@
-import { EmitContext } from './EmitContext';
+import {EmitContext} from './EmitContext';
 
 const primitiveTypes = {
   'bool': 'boolean',
@@ -37,7 +37,7 @@ const nativeTypes = {
 export class ReferenceEmitContext {
   private _dependencies = new Map<string, Set<string>>();
 
-  constructor(private _context: EmitContext, private _sourceDir: string) {}
+  constructor(private _context: EmitContext, private _sourceDir: string, private entryName: string) {}
 
   emit(type: string, rootType = type) {
     if (!/^[a-z0-9_:]+$/i.test(type)) {
@@ -76,6 +76,10 @@ export class ReferenceEmitContext {
     const sortedImports = Array.from(this._dependencies.entries()).sort((a, b) => a[0].localeCompare(b[0]));
 
     for (const [module, names] of sortedImports) {
+      if (module === './' + this.entryName) {
+        continue;
+      }
+
       if (module.startsWith('./') && lines[lines.length - 1]?.includes("'../")) {
         lines.push('');
       }

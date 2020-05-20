@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 import * as fs from 'fs';
-import * as path from 'path';
 
-import { PakFile } from '../src/PakFile';
-import { UBaseFile } from '../src/UBaseFile';
-import { UObject } from '../src/UObject';
-import { FileReader } from '../src/readers';
+import {PakFile} from '../src/PakFile';
+import {UObject} from '../src/UObject';
+import {FileReader} from '../src/readers';
+import {FGRecipeExp} from "../src/uexpTypes/FGRecipeExp";
 
 main();
 async function main() {
   //'/Volumes/[C] Windows 10/Program Files/Epic Games/SatisfactoryEarlyAccess/FactoryGame/Content/Paks/FactoryGame-WindowsNoEditor.pak';
   const pakFilePath =
+    process.env.PAK_PATH ||
     '/mnt/a/Games/Epic/SatisfactoryExperimental/FactoryGame/Content/Paks/FactoryGame-WindowsNoEditor.pak';
   const reader = new FileReader(pakFilePath);
   await reader.open();
@@ -39,19 +39,15 @@ async function main() {
   // Only use UObjects that aren't Texture2D.
   const retrievedRecipeFiles = (await pakFile.getFiles([...dummyRecipeFile]))
     .filter(item => {
-      // if (item instanceof UObject) {
-      //   console.log(item.uexp, !item.uexp.isFGRecipe())
-      // }
-
-      return item instanceof UObject && item.uexp.isFGRecipe();
+      return item instanceof UObject && item.uexp instanceof FGRecipeExp;
     })
-    .map((item: UBaseFile) => {
-      if (!(item instanceof UObject)) throw new Error('Recipe is not of type UObject');
-      return item.uexp.convert();
+    .map((item: UObject) => {
+      if (!(item.uexp instanceof FGRecipeExp)) throw new Error('Recipe is not of type UObject');
+      return item.uexp.data();
     });
 
-  for (const file of retrievedRecipeFiles) {
-    const dest = path.join('dump', 'converted', path.basename(file.asset.filename) + '.json');
-    fs.writeFileSync(dest, JSON.stringify(file, null, 2));
-  }
+  // for (const file of retrievedRecipeFiles) {
+  //   const dest = path.join('dump', 'converted', path.basename(file.asset.filename) + '.json');
+  //   fs.writeFileSync(dest, JSON.stringify(file, null, 2));
+  // }
 }

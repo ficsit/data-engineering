@@ -1,10 +1,10 @@
-import { UAssetFile } from '../../UAssetFile';
-import { UInt32 } from '../../primitive';
-import { Reader } from '../../readers';
-import { BlacklistSerializer } from '../../serializers/BlacklistSerializer';
-import { Shape } from '../../util/parsers';
-import { FPropertyTag, readFPropertyTagLoop } from '../FPropertyTag';
-import { FGuid } from '../UScript/UScriptStruct/FGuid';
+import {UAssetFile} from '../../UAssetFile'
+import {UInt32} from '../../primitive';
+import {Reader} from '../../readers';
+import {BlacklistSerializer} from '../../serializers/BlacklistSerializer';
+import {Shape} from '../../util/parsers';
+import {FPropertyTag, readFPropertyTagLoop} from '../FPropertyTag';
+import {FGuid} from '../UScript/UScriptStruct/FGuid';
 
 /**
  * Parser and content of a .uexp file (serialized UObjectBase exports).

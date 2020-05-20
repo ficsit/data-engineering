@@ -1,4 +1,4 @@
-import { ReferenceEmitContext } from './ReferenceEmitContext';
+import {ReferenceEmitContext} from './ReferenceEmitContext';
 
 export function emitType(context: ReferenceEmitContext, type: string, rootType = type): string {
   const { templateType, templateParams } = _parseTemplateType(type);
@@ -44,7 +44,7 @@ function _emitMap(context: ReferenceEmitContext, [key, value]: string[], rootTyp
 // https://docs.unrealengine.com/en-US/API/Plugins/ReplicationGraph/TClassMap/index.html
 function _emitClassMap(context: ReferenceEmitContext, [value]: string[], rootType: string) {
   context.addNativeDependency('classReference');
-  return `Record<classReference, ${emitType(context, value, rootType)}>`;
+  return `Map<classReference, ${emitType(context, value, rootType)}>`;
 }
 
 //docs.unrealengine.com/en-US/API/Runtime/CoreUObject/Templates/TSubclassOf/index.html

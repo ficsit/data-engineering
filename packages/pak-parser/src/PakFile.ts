@@ -1,18 +1,20 @@
-import { UAssetFile } from './UAssetFile';
-import { UBaseFile } from './UBaseFile';
-import { UExpFile } from './UExpFile';
-import { ULocalizationResource } from './ULocalizationResource';
-import { UObject } from './UObject';
-import { UInt32, UnrealString } from './primitive';
-import { ChildReader, Reader } from './readers';
-import { BlacklistSerializer } from './serializers/BlacklistSerializer';
-import { FPakEntry } from './structs/FPakEntry';
-import { FPakInfo, FPakInfoSize } from './structs/FPakInfo';
-import { FGRecipe } from './structs/uexp/FGRecipe';
-import { Texture2D } from './structs/uexp/Texture2D';
-import { UObjectBase } from './structs/uexp/UObjectBase';
-import { asyncSetForEach } from './util/asyncArrayForEach';
-import { Shape } from './util/parsers';
+import {UAssetFile} from './UAssetFile';
+import {UBaseFile} from './UBaseFile';
+import {UExpFile} from './UExpFile';
+import {ULocalizationResource} from './ULocalizationResource';
+import {UObject} from './UObject';
+import {UInt32, UnrealString} from './primitive';
+import {ChildReader, Reader} from './readers';
+import {BlacklistSerializer} from './serializers/BlacklistSerializer';
+import {FPakEntry} from './structs/FPakEntry';
+import {FPakInfo, FPakInfoSize} from './structs/FPakInfo';
+import {FGRecipe} from './structs/uexp/FGRecipe';
+import {Texture2D} from './structs/uexp/Texture2D';
+import {UObjectBase} from './structs/uexp/UObjectBase';
+import {asyncSetForEach} from './util/asyncArrayForEach';
+import {Shape} from './util/parsers';
+import {FGRecipeExp} from "./uexpTypes/FGRecipeExp";
+import {Texture2DExp} from "./uexpTypes/Texture2DExp";
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/PakFile/Public/IPlatformFilePak.h#L76-L92
 export enum PakVersion {
@@ -247,6 +249,9 @@ export class PakFile extends BlacklistSerializer {
     const bulkReader = bulkResult ? bulkResult.reader : null;
 
     const exports = [];
+
+    let fileType = null;
+
     for (const exp of asset.exports) {
       result.reader.seekTo(exp.serialOffset - asset.summary.totalHeaderSize);
 
@@ -261,25 +266,17 @@ export class PakFile extends BlacklistSerializer {
         // const dest = path.join('dump', 'images', baseName + '.png');
         // fs.writeFileSync(dest, texture2DFile.getImage());
         itemToPush = texture2DFile;
+        fileType = 'Texture2D';
       } else if (className === 'FGRecipe') {
         // Recipe object
         const fgRecipeFile = new FGRecipe(result.reader, asset, exports);
         await fgRecipeFile.initialize();
         itemToPush = fgRecipeFile;
+        fileType = 'FGRecipe';
       } else {
         const baseObject = new UObjectBase(result.reader, asset, className, true);
         await baseObject.initialize();
         itemToPush = baseObject;
-
-        // Old invocation
-        // const objectExportsFile = new UExpFile(
-        //   filename,
-        //   result.reader,
-        //   result.entry,
-        //   this,
-        //   asset,
-        //   className,
-        // );
       }
 
       // TODO: fix this with a flag maybe? This is basically to remove all the freaking empty properties.
@@ -288,7 +285,19 @@ export class PakFile extends BlacklistSerializer {
       }
     }
 
-    const object = new UExpFile(exports);
+    let object;
+
+    switch(fileType) {
+      case 'FGRecipe':
+        object = new FGRecipeExp(exports);
+        break;
+      case 'Texture2D':
+        object = new Texture2DExp(exports);
+        break;
+      default:
+        object = new UExpFile(exports);
+        break;
+    }
 
     this.expFiles.set(filename, object);
 

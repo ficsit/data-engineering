@@ -19,8 +19,7 @@
     "fix-style": "code-style fix",
     "headers-to-interfaces": "ts-node --project ./pipeline/headers-to-interfaces/tsconfig.json ./pipeline/headers-to-interfaces/main",
     "pak-parser": "ts-node --project ./packages/pak-parser/tsconfig.json ./packages/pak-parser/bin/pak-parser",
-    "test-style": "code-style test",
-    "ue4pak-cleaner": "ts-node --project ./pipeline/ue4pak-cleaner/tsconfig.json ./pipeline/ue4pak-cleaner/main"
+    "test-style": "code-style test"
   },
   "dependencies": {},
   "devDependencies": {

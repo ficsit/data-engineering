@@ -6,7 +6,7 @@ export class BlacklistSerializer {
     const copy = {} as any;
 
     for (const prop in this) {
-      if (this.hasOwnProperty(prop) && !blacklistedPropertySet.has(prop)) {
+      if (!blacklistedPropertySet.has(prop)) {
         copy[prop] = this[prop];
       }
     }

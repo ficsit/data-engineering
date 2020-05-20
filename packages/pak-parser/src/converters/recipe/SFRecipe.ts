@@ -1,15 +1,17 @@
-import { UAssetFile } from '../../UAssetFile';
-import { BlacklistSerializer } from '../../serializers/BlacklistSerializer';
-import { FGRecipe } from '../../structs/uexp/FGRecipe';
-import { UObjectBase } from '../../structs/uexp/UObjectBase';
-import { tagToItemClass } from '../tag/parsers/SFItemClass';
+import {UAssetFile} from '../../UAssetFile';
+import {BlacklistSerializer} from '../../serializers/BlacklistSerializer';
+import {FGRecipe} from '../../structs/uexp/FGRecipe';
+import {UObjectBase} from '../../structs/uexp/UObjectBase';
+import {tagToItemClass} from '../tag/parsers/SFItemClass';
 import SFItemPacket from '../tag/parsers/SFItemPacket';
 import SFRecipeProducer from '../tag/parsers/SFRecipeProducer';
-import { tagToSFFloat } from '../tag/parsers/primitive/SFFoat';
-import { tagToSFInt } from '../tag/parsers/primitive/SFInt';
-import SFString, { tagToSFString } from '../tag/parsers/primitive/SFString';
+import {tagToSFFloat} from '../tag/parsers/primitive/SFFoat';
+import {tagToSFInt} from '../tag/parsers/primitive/SFInt';
+import SFString, {tagToSFString} from '../tag/parsers/primitive/SFString';
 
 export default class SFRecipe extends BlacklistSerializer {
+
+  // should take these from https://github.com/ficsit/data-landing/blob/master/interface/classes/UFGRecipe.ts ?
   displayName: SFString;
   manualManufacturingMultiplier = 1.0;
   manufacturingDuration = 1.0;
@@ -80,6 +82,9 @@ export default class SFRecipe extends BlacklistSerializer {
           break;
         default:
           console.error(`New unused property name: ${prop.name}`);
+
+          // TODO: needed? We may need the additional exports to find certain data
+          console.log(additionalExports);
       }
     }
 

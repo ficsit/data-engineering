@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import * as util from 'util';
 
-import { Parser } from '../util/parsers';
+import {Parser} from '../util/parsers';
 
 type ReadTracker = {
   read: number;
@@ -20,9 +20,6 @@ export abstract class Reader {
     return this._position;
   }
 
-  getSize() {
-    return this.size;
-  }
 
   set position(newPosition: number) {
     if (newPosition > this.size) {
@@ -30,6 +27,10 @@ export abstract class Reader {
       seek to ${newPosition} - out of bounds (file size: ${this.size})`);
     }
     this._position = newPosition;
+  }
+
+  getSize() {
+    return this.size;
   }
 
   async read<TShape>(parser: Parser<TShape>) {
