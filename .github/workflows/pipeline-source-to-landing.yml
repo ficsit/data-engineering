@@ -101,10 +101,6 @@ jobs:
 
       - run: yarn headers-to-interfaces
 
-      - name: Remove old data-landing interface folder
-        working-directory: ./.data-landing
-        run: rm -rf interface
-
       - name: Push to data-landing
         working-directory: ./.data-landing
         run: |
@@ -132,6 +128,7 @@ jobs:
           ref: ${{ env.GAME_BRANCH }}
           token: ${{ secrets.PUSH_TOKEN }}
 
+
       - name: Merge
         run: |
           git config --global user.email "ficsit-bot@nevir.net"
@@ -142,13 +139,14 @@ jobs:
           if [[ "$(git status --porcelain)" != "" ]]; then
             git commit --allow-empty -m "v${GAME_VERSION} (CL ${GAME_BUILD}) (ficsit/source-data@${SOURCE_SHA} via ficsit/data-engineering@${ENGINEERING_SHA})"
             git push
-            git tag -d v${GAME_VERSION};
-            git push origin :v${GAME_VERSION}
-            git tag -f -a v${GAME_VERSION}
-            git push --tags
           else
             echo No changes to data-landing. Skipping commit.
           fi
+#          Removing tagging until the interfaces are guaranteed to be correct.
+#          git tag -d v${GAME_VERSION};
+#          git push origin :v${GAME_VERSION}
+#          git tag -f v${GAME_VERSION}
+#          git push --tags
 
       - name: Cleanup
         run: |
