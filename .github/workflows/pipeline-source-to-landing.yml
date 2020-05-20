@@ -138,7 +138,9 @@ jobs:
           if [[ "$(git status --porcelain)" != "" ]]; then
             git commit --allow-empty -m "v${GAME_VERSION} (CL ${GAME_BUILD}) (ficsit/source-data@${SOURCE_SHA} via ficsit/data-engineering@${ENGINEERING_SHA})"
             git push
-            git tag -f v${GAME_VERSION}
+            git tag -d v${GAME_VERSION}
+            git push origin :v${GAME_VERSION}
+            git tag -f -a v${GAME_VERSION}
             git push --tags
           else
             echo No changes to data-landing. Skipping commit.
