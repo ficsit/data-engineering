@@ -2,8 +2,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import {PakFile} from '../src/PakFile';
-import {FileReader} from '../src/readers';
+import { PakFile } from '../src/PakFile';
+import { FileReader } from '../src/readers';
 
 main();
 async function main() {

@@ -1,7 +1,7 @@
-import {UAssetFile} from '../../UAssetFile';
-import {Reader} from '../../readers';
+import { UAssetFile } from '../../UAssetFile';
+import { Reader } from '../../readers';
 
-import {UObjectBase} from './UObjectBase';
+import { UObjectBase } from './UObjectBase';
 
 export class FGRecipe extends UObjectBase {
   blacklistedPropertyNames = ['reader', 'asset'];

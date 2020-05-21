@@ -23,12 +23,12 @@ overrides:
     rules:
       'import/namespace': 'off'
 
+  - files: 'pipeline/interfaces-to-json/**/*.{ts,tsx}'
+    parserOptions:
+      project: 'pipeline/interfaces-to-json/tsconfig.json'
+    rules:
+      'import/namespace': 'off'
+
   - files: 'pipeline/headers-to-interfaces/emit/native/**/*.{ts,tsx}'
     rules:
       '@typescript-eslint/no-empty-interface': 'off'
-
-  - files: 'pipeline/ue4pak-cleaner/**/*.{ts,tsx}'
-    parserOptions:
-      project: 'pipeline/ue4pak-cleaner/tsconfig.json'
-    rules:
-      '@typescript-eslint/camelcase': 'off'

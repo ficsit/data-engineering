@@ -1,22 +1,22 @@
-import {UAssetFile} from '../UAssetFile';
-import {ByteBoolean, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64} from '../primitive';
-import {Double, Float} from '../primitive/decimals';
-import {Reader} from '../readers';
-import {bigintToNumber} from '../util';
-import {Shape} from '../util/parsers';
+import { UAssetFile } from '../UAssetFile';
+import { ByteBoolean, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64 } from '../primitive';
+import { Double, Float } from '../primitive/decimals';
+import { Reader } from '../readers';
+import { bigintToNumber } from '../util';
+import { Shape } from '../util/parsers';
 
-import {FName, NameMap} from './FName';
-import {FPackageIndex} from './FPackageIndex';
-import {FSoftObjectPath} from './FSoftObjectPath';
-import {BoolProperty} from './UScript/BoolProperry';
-import {ByteProperty, BytePropertyTagMetaData} from './UScript/ByteProperty';
-import {EnumProperty, EnumPropertyTagMetaData} from './UScript/EnumProperty';
-import {MapPropertyTagMetaData} from './UScript/MapProperty';
-import {SetPropertyTagMetaData} from './UScript/SetProperty';
-import {StructPropertyTagMetaData, UScriptStruct} from './UScript/UScriptStruct';
-import {FGuid} from './UScript/UScriptStruct/FGuid';
-import {FText} from './UScript/UScriptStruct/FText';
-import {UScriptArray, UScriptArrayMetaData} from './UScript/UScriptStruct/UScriptArray';
+import { FName, NameMap } from './FName';
+import { FPackageIndex } from './FPackageIndex';
+import { FSoftObjectPath } from './FSoftObjectPath';
+import { BoolProperty } from './UScript/BoolProperry';
+import { ByteProperty, BytePropertyTagMetaData } from './UScript/ByteProperty';
+import { EnumProperty, EnumPropertyTagMetaData } from './UScript/EnumProperty';
+import { MapPropertyTagMetaData } from './UScript/MapProperty';
+import { SetPropertyTagMetaData } from './UScript/SetProperty';
+import { StructPropertyTagMetaData, UScriptStruct } from './UScript/UScriptStruct';
+import { FGuid } from './UScript/UScriptStruct/FGuid';
+import { FText } from './UScript/UScriptStruct/FText';
+import { UScriptArray, UScriptArrayMetaData } from './UScript/UScriptStruct/UScriptArray';
 
 export type TagMetaData =
   | Shape<typeof StructPropertyTagMetaData>

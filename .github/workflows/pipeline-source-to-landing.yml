@@ -100,6 +100,11 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - run: yarn headers-to-interfaces
+  interfaces-to-json:
+    needs: headers-to-interfaces
+    runs-on: ubuntu-latest
+    steps:
+      - run: yarn interfaces-to-json
 
       - name: Push to data-landing
         working-directory: ./.data-landing
@@ -109,10 +114,9 @@ jobs:
           git add .
           git commit --allow-empty -m "headers-to-interfaces"
           git push
-
   merge:
     needs:
-      - headers-to-interfaces
+      - interfaces-to-json
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v1
@@ -128,7 +132,6 @@ jobs:
           ref: ${{ env.GAME_BRANCH }}
           token: ${{ secrets.PUSH_TOKEN }}
 
-
       - name: Merge
         run: |
           git config --global user.email "ficsit-bot@nevir.net"
@@ -142,11 +145,11 @@ jobs:
           else
             echo No changes to data-landing. Skipping commit.
           fi
-#          Removing tagging until the interfaces are guaranteed to be correct.
-#          git tag -d v${GAME_VERSION};
-#          git push origin :v${GAME_VERSION}
-#          git tag -f v${GAME_VERSION}
-#          git push --tags
+      #          Removing tagging until the interfaces are guaranteed to be correct.
+      #          git tag -d v${GAME_VERSION};
+      #          git push origin :v${GAME_VERSION}
+      #          git tag -f v${GAME_VERSION}
+      #          git push --tags
 
       - name: Cleanup
         run: |

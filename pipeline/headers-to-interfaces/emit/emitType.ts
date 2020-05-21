@@ -1,4 +1,4 @@
-import {ReferenceEmitContext} from './ReferenceEmitContext';
+import { ReferenceEmitContext } from './ReferenceEmitContext';
 
 export function emitType(context: ReferenceEmitContext, type: string, rootType = type): string {
   const { templateType, templateParams } = _parseTemplateType(type);

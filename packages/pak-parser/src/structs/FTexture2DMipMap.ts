@@ -1,8 +1,8 @@
-import {FString} from '../containers';
-import {Int32} from '../primitive';
-import {Reader} from '../readers';
+import { FString } from '../containers';
+import { Int32 } from '../primitive';
+import { Reader } from '../readers';
 
-import {FByteBulkData} from './FByteBulkData';
+import { FByteBulkData } from './FByteBulkData';
 
 export function FTexture2DMipMap(ubulkReader: Reader, bulkOffset: number) {
   return async function FTexture2DMipMapParser(reader: Reader) {

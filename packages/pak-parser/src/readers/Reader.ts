@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 import * as util from 'util';
 
-import {Parser} from '../util/parsers';
+import { Parser } from '../util/parsers';
 
 type ReadTracker = {
   read: number;

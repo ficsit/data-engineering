@@ -1,11 +1,11 @@
 import * as path from 'path';
 import * as util from 'util';
 
-import {EntryType} from '../interface';
+import { EntryType } from '../interface';
 
-import {ReferenceEmitContext} from './ReferenceEmitContext';
-import {emitClass} from './emitClass';
-import {emitEnum} from './emitEnum';
+import { ReferenceEmitContext } from './ReferenceEmitContext';
+import { emitClass } from './emitClass';
+import { emitEnum } from './emitEnum';
 
 export const enum EntryCategory {
   UNKNOWN,

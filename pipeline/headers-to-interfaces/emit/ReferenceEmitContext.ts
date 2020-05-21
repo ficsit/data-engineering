@@ -1,4 +1,4 @@
-import {EmitContext} from './EmitContext';
+import { EmitContext } from './EmitContext';
 
 const primitiveTypes = {
   'bool': 'boolean',

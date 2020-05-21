@@ -18,6 +18,7 @@
     "extract-source": "ts-node --project ./pipeline/extract-source/tsconfig.json ./pipeline/extract-source/main",
     "fix-style": "code-style fix",
     "headers-to-interfaces": "ts-node --project ./pipeline/headers-to-interfaces/tsconfig.json ./pipeline/headers-to-interfaces/main",
+    "interfaces-to-json": "ts-node --project ./pipeline/interfaces-to-json/tsconfig.json ./pipeline/interfaces-to-json/main",
     "pak-parser": "ts-node --project ./packages/pak-parser/tsconfig.json ./packages/pak-parser/bin/pak-parser",
     "test-style": "code-style test"
   },

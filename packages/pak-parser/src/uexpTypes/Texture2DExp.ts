@@ -1,9 +1,9 @@
 /**
  * Parser and content of a .uexp file (serialized UObjectBase export).
  */
-import {UExpFile} from '../UExpFile';
-import {Texture2D} from '../structs/uexp/Texture2D';
-import {UObjectBase} from '../structs/uexp/UObjectBase';
+import { UExpFile } from '../UExpFile';
+import { Texture2D } from '../structs/uexp/Texture2D';
+import { UObjectBase } from '../structs/uexp/UObjectBase';
 
 export class Texture2DExp extends UExpFile {
   constructor(public exports: UObjectBase[]) {
