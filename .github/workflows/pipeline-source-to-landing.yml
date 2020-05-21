@@ -100,10 +100,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - run: yarn headers-to-interfaces
-  interfaces-to-json:
-    needs: headers-to-interfaces
-    runs-on: ubuntu-latest
-    steps:
+
       - run: yarn interfaces-to-json
 
       - name: Push to data-landing
@@ -116,7 +113,7 @@ jobs:
           git push
   merge:
     needs:
-      - interfaces-to-json
+      - headers-to-interfaces
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v1
