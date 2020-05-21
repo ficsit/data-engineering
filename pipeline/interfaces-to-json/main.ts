@@ -6,6 +6,18 @@ import * as TJS from 'typescript-json-schema';
 
 parseAll(process.argv[2], process.argv[3]);
 
+function shallowClone(sourceDict) {
+  const returnDict = {};
+  const blacklistedAttribute = new Set(['$schema', 'definitions']);
+  Object.keys(sourceDict).forEach(key => {
+    if (!blacklistedAttribute.has(key)) {
+      returnDict[key] = sourceDict[key];
+    }
+  });
+
+  return returnDict;
+}
+
 function parseAll(sourceDir = paths.dataLanding.interfaces, destDir = paths.dataLanding.json) {
   sourceDir = path.resolve(sourceDir);
   destDir = path.resolve(destDir);
@@ -46,7 +58,7 @@ function parseAll(sourceDir = paths.dataLanding.interfaces, destDir = paths.data
     }
 
     const schema = generator.getSchemaForSymbol(path.basename(portedPath).replace(/\.ts$/g, ''));
-    const schemaString = JSON.stringify(schema, null, 2);
+    const schemaString = JSON.stringify(shallowClone(schema), null, 2);
 
     process.stderr.write(`\u001b[2Kconverting: ${fullPath}\r`);
     fs.writeFileSync(fullPath, schemaString);
@@ -63,7 +75,8 @@ function parseAll(sourceDir = paths.dataLanding.interfaces, destDir = paths.data
     const newPath = path.join(destDir, 'native', `${symbol}.json`);
     try {
       const schema = generator.getSchemaForSymbol(symbol);
-      const schemaString = JSON.stringify(schema, null, 2);
+      const schemaString = JSON.stringify(shallowClone(schema), null, 2);
+
       process.stderr.write(`\u001b[2Kconverting: ${newPath}\r`);
       fs.writeFileSync(newPath, schemaString);
     } catch (e) {
