@@ -12,6 +12,7 @@ export function FObjectImport(names: NameMap) {
       // TODO: Special type for package indexes?
       outerIndex: await reader.read(Int32),
       objectName: await reader.read(FName(names)),
+      outerImport: null as any
     };
   };
 }

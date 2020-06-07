@@ -4,6 +4,7 @@ import * as path from 'path';
 
 import { PakFile } from '../src/PakFile';
 import { FileReader } from '../src/readers';
+import {bUnknowns, unknowns} from "../src/structs/UScript/UScriptStruct";
 
 main();
 async function main() {
@@ -28,14 +29,18 @@ async function main() {
     // 'FactoryGame/Content/FactoryGame/Prototype/WAT/Desc_WAT1.uasset',
     // 'FactoryGame/Content/FactoryGame/Recipes/Equipment/Recipe_PortableMiner.uexp',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/MinerMK1/Build_MinerMk1.uasset',
-    'FactoryGame/Content/FactoryGame/Buildable/Factory/OilPump/Build_OilPump.uasset',
+    // 'FactoryGame/Content/FactoryGame/Buildable/Factory/OilPump/Build_OilPump.uasset',
     // 'FactoryGame/Content/FactoryGame/Recipes/Smelter/Recipe_IngotIron.uexp',
+    // 'FactoryGame/Content/FactoryGame/Resource/Environment/Berry/Desc_Berry.uexp',
+    // 'FactoryGame/Content/FactoryGame/Resource/BP_HealthGainDescriptor.uexp',
+    // 'FactoryGame/Content/FactoryGame/Buildable/Factory/PipeHyperStart/Build_PipeHyperStart.uasset'
     // 'FactoryGame/Content/FactoryGame/Resource/Equipment/Beacon/BP_EquipmentDescriptorBeacon.uexp',
+  // 'FactoryGame/Content/FactoryGame/Buildable/Building/Foundation/Build_PillarBase.uasset'
     // 'FactoryGame/Content/FactoryGame/Recipes/Equipment/Recipe_MedicinalInhalerAlienOrgans.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/Train/Station/Recipe_TrainDockingStation.uasset',
 
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/WaterPump/Desc_WaterPump.uasset'
-
+    ...pakFile.entries.keys()
     // 'FactoryGame/Content/Localization/Game/en-GB/Game.locres'
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uexp',
@@ -77,8 +82,31 @@ async function main() {
   fs.mkdirSync('dump/images', { recursive: true });
   const retrievedFiles = await pakFile.getFiles(files);
 
-  for (const file of retrievedFiles) {
-    const dest = path.join('dump', path.basename(file.getName()) + '.json');
-    fs.writeFileSync(dest, JSON.stringify(file, null, 2));
-  }
+  console.log("DONE 2");
+  console.log(unknowns);
+  console.log(bUnknowns);
+  console.log("DONE");
+
+  // function safeStringify(obj: any, indent = 2){
+  //   let cache = [] as any;
+  //   const retVal = JSON.stringify(
+  //     obj,
+  //     (key, value) =>
+  //       typeof value === 'bigint'
+  //         ? Number(value)
+  //         : (typeof value === "object" && value !== null
+  //           ? cache.includes(value)
+  //           ? undefined // Duplicate reference found, discard key
+  //           : cache.push(value) && value // Store value in our collection
+  //           : value),
+  //     indent
+  //   );
+  //   cache = null;
+  //   return retVal;
+  // }
+  //
+  // for (const file of retrievedFiles) {
+  //   const dest = path.join('dump', path.basename(file.getName()) + '.json');
+  //   fs.writeFileSync(dest, safeStringify(file, 2));
+  // }
 }

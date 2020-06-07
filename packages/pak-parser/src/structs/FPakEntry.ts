@@ -17,6 +17,8 @@ export async function FPakEntry(reader: Reader) {
   }
 
   return {
+    // Workaround for adding type
+    type: null,
     offset,
     size,
     uncompressedSize,

@@ -18,7 +18,7 @@ export function FPackageIndexInt(
     let reference = null;
     if (index === undefined || index === 0) {
       //TODO: gather all top level linker packages
-      processedIndex = null;
+      processedIndex = Infinity;
     } else if (index < 0) {
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectResource.h#L76-L81
       // < 0 refers to imports
@@ -26,8 +26,8 @@ export function FPackageIndexInt(
       if (normalizedIndex >= 0 && normalizedIndex < imports.length) {
         processedIndex = index;
         reference = imports[normalizedIndex];
-        // TODO: put this somewhere else maybe?
-        reference.outerImport = await reader.read(FPackageIndexInt(reference.outerIndex, imports, exports));
+        // TODO: put this somewhere else maybe?  (This makes a cyclic json)
+        reference.outerImport = JSON.parse(JSON.stringify(await reader.read(FPackageIndexInt(reference.outerIndex, imports, exports))));
       }
     } else if (index !== 0 && index - 1 < exports.length) {
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectResource.h#L83-L87
@@ -36,9 +36,10 @@ export function FPackageIndexInt(
       // TODO: Actually modifies the index, should we preserve?
       processedIndex = index - 1;
       reference = exports[index - 1];
-      reference.outerImport = await reader.read(FPackageIndexInt(reference.outerIndex, imports, exports));
+      // TODO: put this somewhere else maybe? (This makes a cyclic json)
+      reference.outerImport = JSON.parse(JSON.stringify(await reader.read(FPackageIndexInt(reference.outerIndex, imports, exports))));
     } else {
-      if (index !== 0) throw new Error(`FPackageIndex did not get a valid index.`);
+      if (index !== 0) throw new Error(`FPackageIndex did not get a valid index: ` + index);
     }
 
     return {

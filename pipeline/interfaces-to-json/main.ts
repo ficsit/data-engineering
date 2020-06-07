@@ -61,6 +61,7 @@ function parseAll(sourceDir = paths.dataLanding.interfaces, destDir = paths.data
     filesByDir.get(path.dirname(fullPath)).push(newFilePath);
 
     const schema = generator.getSchemaForSymbol(path.basename(portedPath).replace(/\.ts$/g, ''));
+
     const schemaString = JSON.stringify(shallowClone(schema), null, 2);
 
     process.stderr.write(`\u001b[2Kconverting: ${fullPath}\r`);
@@ -77,7 +78,7 @@ function parseAll(sourceDir = paths.dataLanding.interfaces, destDir = paths.data
         throw new Error('Filename has an illegal character: ' + child);
       }
 
-      indexLines.push(`export * as ${path.parse(child).name + 'JSON'} from './${path.basename(child)}';`);
+      indexLines.push(`import ${path.parse(child).name + 'JSON'} from './${path.basename(child)}';\nexport { ${path.parse(child).name + 'JSON'} };`);
     }
 
     fs.writeFileSync(path.join(parentDir, 'index.ts'), indexLines.join('\n'));
@@ -101,7 +102,7 @@ function parseAll(sourceDir = paths.dataLanding.interfaces, destDir = paths.data
       const schemaString = JSON.stringify(shallowClone(schema), null, 2);
 
       nativeIndexLines.push(
-        `export * as ${path.parse(newPath).name + 'JSON'} from './${path.basename(newPath)}';`,
+        `import ${path.parse(newPath).name + 'JSON'} from './${path.basename(newPath)}';\nexport { ${path.parse(newPath).name + 'JSON'} };`,
       );
 
       process.stderr.write(`\u001b[2Kconverting: ${newPath}\r`);

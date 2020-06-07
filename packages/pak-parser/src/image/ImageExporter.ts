@@ -1,4 +1,5 @@
-import * as dxtJs from 'dxt-js';
+// @ts-ignore
+import * as dxtJs from "dxt-js"
 
 import { FTexture2DMipMap } from '../structs/FTexture2DMipMap';
 import { Shape } from '../util/parsers';
@@ -13,7 +14,7 @@ export class ImageExporter {
    * @param {Buffer} buffer
    * @returns {Buffer}
    */
-  private static toPNG(width, height, buffer) {
+  private static toPNG(width: number, height: number, buffer: any) {
     // create an instance of PNG
     const png = new PNG({ width, height, inputHasAlpha: true });
     // set the data to the buffer

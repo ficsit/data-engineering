@@ -13,7 +13,6 @@ import { UObjectBase } from './UObjectBase';
 export class Texture2D extends UObjectBase {
   cooked = 0;
   textures = [] as Shape<typeof FTexturePlatformData>[];
-  baseObject: UObjectBase = null;
 
   blacklistedPropertyNames = ['reader', 'ubulkReader', 'asset'];
 

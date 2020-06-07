@@ -1,3 +1,16 @@
 {
-  "extends": "../../tsconfig.base"
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
+    "resolveJsonModule": true
+  },
+  "compileOnSave": true,
+  "include": [
+    "src",
+    "bin"
+  ]
 }

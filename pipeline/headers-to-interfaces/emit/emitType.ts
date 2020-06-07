@@ -47,7 +47,7 @@ function _emitClassMap(context: ReferenceEmitContext, [value]: string[], rootTyp
   return `Map<classReference, ${emitType(context, value, rootType)}>`;
 }
 
-//docs.unrealengine.com/en-US/API/Runtime/CoreUObject/Templates/TSubclassOf/index.html
+// https://docs.unrealengine.com/en-US/API/Runtime/CoreUObject/Templates/TSubclassOf/index.html
 function _emitSubclassOf(context: ReferenceEmitContext, [type]: string[], rootType: string) {
   context.addNativeDependency('classReference');
   return `classReference<${emitType(context, type, rootType)}>`;
@@ -61,8 +61,8 @@ function _emitScriptInterface(context: ReferenceEmitContext, [type]: string[], r
 
 // https://docs.unrealengine.com/en-US/API/Runtime/CoreUObject/UObject/TSoftClassPtr/index.html
 function _emitSoftClassPtr(context: ReferenceEmitContext, [type]: string[], rootType: string) {
-  context.addNativeDependency('classReference');
-  return `classReference<${emitType(context, type, rootType)}>`;
+  context.addNativeDependency('softClassReference');
+  return `softClassReference<${emitType(context, type, rootType)}>`;
 }
 
 // https://docs.unrealengine.com/en-US/API/Runtime/Core/UObject/TWeakObjectPtr/index.html

@@ -8,17 +8,25 @@
   },
   "scripts": {
     "pak-parser": "../../node_modules/.bin/ts-node ./bin/pak-parser",
-    "pak-converter": "../../node_modules/.bin/ts-node ./bin/pak-converter"
+    "pak-parser-full": "node --max-old-space-size=16192 -- ../../node_modules/.bin/ts-node -P tsconfig.json ./bin/pak-parser",
+    "pak-converter": "tsc --build tsconfig.json && ../../node_modules/.bin/ts-node ./dist/packages/pak-parser/bin/pak-converter",
+    "dev-pak-converter": "../../node_modules/.bin/ts-node ./dist/packages/pak-parser/bin/pak-converter",
+    "dev-watch": "tsc --build tsconfig.json --watch"
   },
   "devDependencies": {
     "@types/node": "^13.11.0",
+    "express": "^4.17.1",
     "ts-node": "^8.9.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.3"
   },
   "dependencies": {
+    "class-transformer": "^0.2.3",
     "decode-dxt": "^1.0.1",
-    "dxt-js": "0.0.3",
+    "dxt-js": "^0.0.3",
+    "express": "^4.17.1",
+    "hot-import": "^0.2.14",
     "jimp": "^0.10.3",
-    "pngjs": "^5.0.0"
+    "pngjs": "^5.0.0",
+    "reflect-metadata": "^0.1.13"
   }
 }

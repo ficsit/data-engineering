@@ -30,6 +30,7 @@ export function FObjectExport(names: NameMap) {
       createBeforeSerializationDependencies: await reader.read(Int32),
       serializationBeforeCreateDependencies: await reader.read(Int32),
       createBeforeCreateDependencies: await reader.read(Int32),
+      outerImport: null as any,
     };
   };
 }

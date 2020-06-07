@@ -11,7 +11,7 @@ import { FGuid } from '../UScript/UScriptStruct/FGuid';
  */
 export class UObjectBase extends BlacklistSerializer {
   propertyList = [] as Shape<typeof FPropertyTag>[];
-  guid = null;
+  guid = null as any;
   reader: Reader;
 
   blacklistedPropertyNames = ['reader', 'asset'];

@@ -19,11 +19,21 @@ const nativeTypes = {
   'FVector': { name: 'Vector', module: '../native/structs' },
   'FLinearColor': { name: 'LinearColor', module: '../native/structs' },
   'FColor': { name: 'Color', module: '../native/structs' },
+  'FRotator': { name: 'Rotator', module: '../native/structs' },
+  'BlueprintGeneratedClass': { name: 'BlueprintGeneratedClass', module: '../native/structs' },
+  'BoxComponent': { name: 'BoxComponent', module: '../native/structs' },
+  'SCS_Node': { name: 'SCS_Node', module: '../native/structs' },
+  'SimpleConstructionScript': { name: 'SimpleConstructionScript', module: '../native/structs' },
+  'SkeletalMeshComponent': { name: 'SkeletalMeshComponent', module: '../native/structs' },
+  'StaticMeshComponent': { name: 'StaticMeshComponent', module: '../native/structs' },
+
 
   'set': { name: 'set', module: '../native/collections' },
 
   'classReference': { name: 'classReference', module: '../native/references' },
   'objectReference': { name: 'objectReference', module: '../native/references' },
+  'softClassReference': { name: 'softClassReference', module: '../native/references' },
+
   'ScriptInterface': { name: 'ScriptInterface', module: '../native/references' },
 
   'UObject': { name: 'UObject', module: '../native/classes' },
@@ -32,6 +42,14 @@ const nativeTypes = {
   'UStaticMesh': { name: 'UStaticMesh', module: '../native/assets' },
   'UTexture2D': { name: 'UTexture2D', module: '../native/assets' },
   'FSlateBrush': { name: 'FSlateBrush', module: '../native/assets' },
+
+  'UMaterialInstance': { name: 'UMaterialInstance', module: '../native/assets' },
+  'UParticleSystem': { name: 'UParticleSystem', module: '../native/assets' },
+  'UMaterial': { name: 'UMaterial', module: '../native/assets' },
+  'UAkAudioEvent': { name: 'UAkAudioEvent', module: '../native/assets' },
+  'USkeletalMesh': { name: 'USkeletalMesh', module: '../native/assets' },
+
+  'TextProperty': { name: 'TextProperty', module: '../native/structs' },
 };
 
 export class ReferenceEmitContext {

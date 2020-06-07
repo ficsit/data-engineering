@@ -131,13 +131,17 @@ export class UAssetFile extends BlacklistSerializer {
 
     await asyncArrayForEach(this.exports, async (exp: Shape<typeof FObjectExport>) => {
       await asyncArrayForEach(exportClobberedFields, async (field: string) => {
-        await this.populateFPackageIndexes(exp[field]);
+        // @ts-ignore
+        const innerField = exp[field];
+        await this.populateFPackageIndexes(innerField);
       });
     });
 
     await asyncArrayForEach(this.imports, async (exp: Shape<typeof FObjectImport>) => {
       await asyncArrayForEach(importClobberedFields, async (field: string) => {
-        await this.populateFPackageIndexes(exp[field]);
+        // @ts-ignore
+        const innerField = exp[field];
+        await this.populateFPackageIndexes(innerField);
       });
     });
   }
@@ -235,12 +239,14 @@ export class UAssetFile extends BlacklistSerializer {
   }
 
   getClassNameFromExport(exp: Shape<typeof FObjectExport>) {
-    return (this.packageIndexLookupTable.get(exp.templateIndex)?.reference?.className as string) || null;
+    const retrieval = this.packageIndexLookupTable.get(exp.templateIndex)?.reference as Shape<typeof FObjectImport>;
+    return (retrieval?.className as string) || null;
   }
 
   async loadSpecialTypes() {
     await asyncArrayForEach(this.exports, (exp: Shape<typeof FObjectExport>) => {
-      if (this.packageIndexLookupTable.get(exp.templateIndex)?.reference?.className === 'DataTable') {
+      const retrieval = this.packageIndexLookupTable.get(exp.templateIndex)?.reference as Shape<typeof FObjectImport>;
+      if (retrieval?.className === 'DataTable') {
         // TODO: dataTable?
       }
     });
