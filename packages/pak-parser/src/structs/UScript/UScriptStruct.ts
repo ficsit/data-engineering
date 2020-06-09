@@ -52,6 +52,7 @@ export function StructPropertyTagMetaData(names: NameMap) {
   };
 }
 
+//TODO: remove these
 export const unknowns = new Set();
 
 export const bUnknowns = new Set();
@@ -289,10 +290,10 @@ export function UScriptStruct(
           try {
             ret = await reader.read(FStructFallback(asset));
             unknowns.add(tagMetaData.structName);
-            console.error("Error 1:", tagMetaData.structName, asset.filename);
+            // console.error("Error 1:", tagMetaData.structName, asset.filename);
           } catch(e) {
             bUnknowns.add(tagMetaData.structName);
-            console.error("Error 2:", tagMetaData.structName, asset.filename);
+            // console.error("Error 2:", tagMetaData.structName, asset.filename);
           }
           // console.log("Unknowns: ", unknowns, bUnknowns, tagMetaData.structName, asset.filename);
           return ret;

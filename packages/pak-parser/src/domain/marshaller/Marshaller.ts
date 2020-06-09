@@ -73,10 +73,13 @@ export class Marshaller {
     };
   }
 
-  marshalClassReference(property: Shape<typeof FPropertyTag>): classReference<any> {
+  marshalClassReference(property: Shape<typeof FPropertyTag>): null | classReference<any> {
     // It's a classReference
     let previousTraversalNode = null as any;
     let traversalNode = property!.tag ? (property?.tag as any).reference : (property as any).reference;
+    if (!traversalNode) {
+      return null;
+    }
     while(traversalNode.outerImport.reference) {
       previousTraversalNode = traversalNode;
       traversalNode = traversalNode.outerImport.reference;
@@ -155,6 +158,18 @@ export class Marshaller {
               returnValue.push(this.marshalClassReference(arrayProperty));
               break;
             default:
+              if ((/^E[A-Z].*/g).test(innerObject)) {
+                // Maybe it's an enum?
+                try {
+                  findJsonObject(innerObject);
+                  const dummyProp = {
+                    tag: arrayProperty
+                  } as any;
+                  returnValue.push(this.marshalEnumProperty(dummyProp, innerObject));
+                  continue;
+                } catch(e) {
+                }
+              }
               try {
                 returnValue.push(this.marshalClassReference(arrayProperty));
                 continue;
@@ -201,15 +216,14 @@ export class Marshaller {
     } else if (property.type) {
       typeName = property.type;
     } else {
-      console.log("Could not resolve property: " + property);
+      // This used to throw an error but it just means that this doesn't have a defined type.
+      // console.log("Could not resolve property: ", property);
     }
 
     return [typeName, isRef, templateType];
   }
 
   marshalEnumProperty(property: Shape<typeof FPropertyTag>, enumName: string) {
-    const propertyMeta = getJsonForObject(enumName);
-
     // @ts-ignore
     const loadedEnum = interfaces[enumName] as any;
     const data = (/^.*::(.*)$/g).exec(property!.tag as string)![1]
@@ -241,13 +255,13 @@ export class Marshaller {
     const classMeta = getJsonForObject(`${className}`);
 
     //TODO: finish the impl of this?
-    const namesToProcess = new Set(Object.keys(classMeta.properties));
+    const namesToProcess = new Set(Object.keys(classMeta.properties || {}));
 
     const returnValue = {} as any;
 
     for(const prop of propertyList) {
       const propName = prop?.name as string;
-      const propertyMeta = classMeta.properties[propName];
+      const propertyMeta = (classMeta?.properties || {})[propName];
 
       namesToProcess.delete(propName);
 
@@ -263,13 +277,15 @@ export class Marshaller {
           this.populateByInferredType(prop, returnValue, propName);
         }
       } else {
-        console.log(propertyList);
-        console.log(JSON.stringify(prop, null, 2))
-        if (propName !== 'RootComponent') {
-          throw new Error(`Unknown propertyType of name ${propName} in ${className}`)
-        } else {
-          // TODO: Find out when this exists and why we care
-        }
+        // console.log(propertyList);
+        // console.log(JSON.stringify(prop, null, 2))
+        // this.populateByInferredType(prop, returnValue, propName);
+        // if (propName !== 'RootComponent') {
+        //
+        //   throw new Error(`Unknown propertyType of name ${propName} in ${className}`)
+        // } else {
+        //   // TODO: Find out when this exists and why we care
+        // }
 
       }
     }
@@ -319,6 +335,9 @@ export class Marshaller {
     const [typeName] = this.getType(propertyMeta);
 
     switch(typeName) {
+      case 'string':
+        returnObject[propName] = property?.tag as string;
+        break;
       case 'localized':
         returnObject[propName] = this.marshalTextProperty(property);
         break;
@@ -355,15 +374,11 @@ export class Marshaller {
         try {
           returnObject[propName] = this.marshalPropertyFromProperty(property, typeName)
           return;
-        } catch(e) {
-          console.log(property, typeName)
-          console.log(e);
-        }
+        } catch(e) {}
 
         try {
           // We will treat it as a reference
           if (property?.tag?.reference) {
-            console.log("WAHOOOOO");
             let previousTraversalNode = null as any;
             let traversalNode = property!.tag ? (property?.tag as any).reference : (property as any).reference;
             while(traversalNode.outerImport.reference) {
@@ -371,25 +386,19 @@ export class Marshaller {
               traversalNode = traversalNode.outerImport.reference;
             }
 
-            console.log("WAHOO2", traversalNode);
-
+            // TODO: Simplify this section. Right now it was meant for debugging.
             if (traversalNode.objectName.startsWith('Default__')) {
-              console.log("BBBB")
               if (traversalNode.objectName === 'Default__Build_TrainDockingStation_C') {
-                console.log("AAAAA")
                 return;
               }
               if (traversalNode.objectName === 'Default__Build_TrainDockingStationLiquid_C') {
-                console.log("AAAAA")
                 return;
               }
               if (traversalNode.objectName === 'Default__Build_TrainPlatformEmpty_C') {
-                console.log("AAAAA")
                 return;
               }
-              console.log("ANOTHER DEFAULT");
             } else {
-              console.log(traversalNode);
+              console.log("Unhandled default:", traversalNode);
             }
 
           }
@@ -422,6 +431,10 @@ export class Marshaller {
   }
 
   marshalPropertyFromProperty(property: Shape<typeof FPropertyTag>, typeName: string) {
+    if (typeName === undefined) {
+      return null;
+    }
+
     const classMeta = getJsonForObject(typeName);
     if (this.typeIsPackageReference(classMeta)) {
       return this.marshalClassReference(property);

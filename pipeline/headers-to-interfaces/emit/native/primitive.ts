@@ -49,3 +49,4 @@ export interface localized {
   /** The source of this string */
   sourceString: string;
 }
+

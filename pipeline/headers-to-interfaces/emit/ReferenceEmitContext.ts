@@ -26,6 +26,9 @@ const nativeTypes = {
   'SimpleConstructionScript': { name: 'SimpleConstructionScript', module: '../native/structs' },
   'SkeletalMeshComponent': { name: 'SkeletalMeshComponent', module: '../native/structs' },
   'StaticMeshComponent': { name: 'StaticMeshComponent', module: '../native/structs' },
+  'UTextRenderComponent': { name: 'TextRenderComponent', module: '../native/structs' },
+
+
 
 
   'set': { name: 'set', module: '../native/collections' },

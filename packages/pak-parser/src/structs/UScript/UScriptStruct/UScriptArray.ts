@@ -64,7 +64,6 @@ export function UScriptArray(metaData: Shape<typeof UScriptArrayMetaData>, asset
       } else if (metaData.innerType === 'DelegateProperty') {
         data.push(await reader.read(DelegateProperty(asset.names)));
       } else {
-        console.log(metaData)
         throw new Error('Unhandled UScriptArrayType ' + metaData.innerType);
         //
         // const innerTag = await reader.read(Tag(asset, metaData.innerType, innerTagData, depth + 1));

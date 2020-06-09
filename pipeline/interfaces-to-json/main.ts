@@ -3,9 +3,6 @@ import * as fs from 'fs-extra';
 import * as glob from 'glob';
 import * as path from 'path';
 import * as TJS from 'typescript-json-schema';
-// import * as jsonImportTest from '../../.data-landing/json';
-//
-// console.log(Object.keys(jsonImportTest));
 parseAll(process.argv[2], process.argv[3]);
 
 function shallowClone(sourceDict) {

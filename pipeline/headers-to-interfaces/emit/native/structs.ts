@@ -154,3 +154,28 @@ export interface StaticMeshComponent {
   RelativeScale3D: Vector,
   Mobility: EComponentMobility
 }
+
+export enum EHorizTextAligment {
+  EHTA_Left,
+  EHTA_Center,
+  EHTA_Right,
+}
+
+export namespace EHorizTextAligment {
+  export const DisplayName = {
+    [EHorizTextAligment.EHTA_Left]: 'EHTA_Left',
+    [EHorizTextAligment.EHTA_Center]: 'EHTA_Center',
+    [EHorizTextAligment.EHTA_Right]: 'EHTA_Right'
+  };
+}
+
+export interface TextRenderComponent {
+  Text: TextProperty,
+  TextMaterial: classReference<any>,
+  Font: classReference<any>,
+  HorizontalAlignment: EHorizTextAligment
+  TextRenderColor: Color,
+  WorldSize: number,
+  RelativeLocation: Vector,
+  RelativeRotation: Rotator,
+}

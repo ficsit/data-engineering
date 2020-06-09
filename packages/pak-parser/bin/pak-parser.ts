@@ -82,11 +82,6 @@ async function main() {
   fs.mkdirSync('dump/images', { recursive: true });
   const retrievedFiles = await pakFile.getFiles(files);
 
-  console.log("DONE 2");
-  console.log(unknowns);
-  console.log(bUnknowns);
-  console.log("DONE");
-
   // function safeStringify(obj: any, indent = 2){
   //   let cache = [] as any;
   //   const retVal = JSON.stringify(
