@@ -27,7 +27,9 @@ export function FPackageIndexInt(
         processedIndex = index;
         reference = imports[normalizedIndex];
         // TODO: put this somewhere else maybe?  (This makes a cyclic json)
-        reference.outerImport = JSON.parse(JSON.stringify(await reader.read(FPackageIndexInt(reference.outerIndex, imports, exports))));
+        reference.outerImport = JSON.parse(
+          JSON.stringify(await reader.read(FPackageIndexInt(reference.outerIndex, imports, exports))),
+        );
       }
     } else if (index !== 0 && index - 1 < exports.length) {
       // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectResource.h#L83-L87
@@ -37,7 +39,9 @@ export function FPackageIndexInt(
       processedIndex = index - 1;
       reference = exports[index - 1];
       // TODO: put this somewhere else maybe? (This makes a cyclic json)
-      reference.outerImport = JSON.parse(JSON.stringify(await reader.read(FPackageIndexInt(reference.outerIndex, imports, exports))));
+      reference.outerImport = JSON.parse(
+        JSON.stringify(await reader.read(FPackageIndexInt(reference.outerIndex, imports, exports))),
+      );
     } else {
       if (index !== 0) throw new Error(`FPackageIndex did not get a valid index: ` + index);
     }

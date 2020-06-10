@@ -1,4 +1,5 @@
 import { UAssetFile } from '../UAssetFile';
+import { FString } from '../containers';
 import { ByteBoolean, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64 } from '../primitive';
 import { Double, Float } from '../primitive/decimals';
 import { Reader } from '../readers';
@@ -10,17 +11,15 @@ import { FPackageIndex } from './FPackageIndex';
 import { FSoftObjectPath } from './FSoftObjectPath';
 import { BoolProperty } from './UScript/BoolProperry';
 import { ByteProperty, BytePropertyTagMetaData } from './UScript/ByteProperty';
+import { DelegateProperty } from './UScript/DelegateProperty';
 import { EnumProperty, EnumPropertyTagMetaData } from './UScript/EnumProperty';
-import {MapProperty, MapPropertyTagMetaData} from './UScript/MapProperty';
+import { InterfaceProperty } from './UScript/InterfaceProperty';
+import { MapProperty, MapPropertyTagMetaData } from './UScript/MapProperty';
 import { SetPropertyTagMetaData } from './UScript/SetProperty';
 import { StructPropertyTagMetaData, UScriptStruct } from './UScript/UScriptStruct';
 import { FGuid } from './UScript/UScriptStruct/FGuid';
 import { FText } from './UScript/UScriptStruct/FText';
 import { UScriptArray, UScriptArrayMetaData } from './UScript/UScriptStruct/UScriptArray';
-import {FString} from "../containers";
-import {InterfaceProperty} from "./UScript/InterfaceProperty";
-import {DelegateProperty} from "./UScript/DelegateProperty";
-import {FStructFallback} from "./UScript/UScriptStruct/FStructFallback";
 
 export type TagMetaData =
   | Shape<typeof StructPropertyTagMetaData>
@@ -211,10 +210,7 @@ export function Tag(asset: UAssetFile, propertyType: string, tagMetaData: TagMet
         tag = await reader.read(
           MapProperty(tagMetaData as Shape<typeof MapPropertyTagMetaData>, asset, depth),
         );
-      } catch(e) {
-
-      }
-
+      } catch (e) {}
     } else if (propertyType === 'DelegateProperty') {
       tag = await reader.read(DelegateProperty(asset.names));
     } else if (propertyType === 'SoftObjectProperty') {

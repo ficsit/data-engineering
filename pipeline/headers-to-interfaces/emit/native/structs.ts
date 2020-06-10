@@ -1,5 +1,5 @@
 import { float, uint8 } from './primitive';
-import {classReference} from "./references";
+import { classReference } from './references';
 
 /**
  * A linear, 32-bit/component floating point RGBA color.
@@ -62,9 +62,9 @@ export interface TextProperty {
 }
 
 export interface Rotator {
-  pitch: number
-  yaw: number,
-  roll: number
+  pitch: number;
+  yaw: number;
+  roll: number;
 }
 
 export interface BlueprintGeneratedClass {
@@ -76,14 +76,14 @@ export interface BlueprintGeneratedClass {
 export enum EComponentMobility {
   Static,
   Stationary,
-  Movable
+  Movable,
 }
 
 export namespace EComponentMobility {
   export const DisplayName = {
     [EComponentMobility.Static]: 'Static',
     [EComponentMobility.Stationary]: 'Small',
-    [EComponentMobility.Movable]: 'Movable'
+    [EComponentMobility.Movable]: 'Movable',
   };
 }
 
@@ -95,17 +95,17 @@ export interface BoxComponent {
 }
 
 export interface Guid {
-  a: number,
-  b: number,
-  c: number,
-  d: number
+  a: number;
+  b: number;
+  c: number;
+  d: number;
 }
 
 export interface SCS_Node {
   ComponentClass: classReference<any>;
   ComponentTemplate: classReference<any>;
-  VariableGuid: Guid,
-  InternalVariableName: string
+  VariableGuid: Guid;
+  InternalVariableName: string;
 }
 
 export interface SimpleConstructionScript {
@@ -126,7 +126,7 @@ export namespace EVisibilityBasedAnimTickOption {
     [EVisibilityBasedAnimTickOption.AlwaysTickPoseAndRefreshBones]: 'AlwaysTickPoseAndRefreshBones',
     [EVisibilityBasedAnimTickOption.AlwaysTickPose]: 'AlwaysTickPose',
     [EVisibilityBasedAnimTickOption.OnlyTickMontagesWhenNotRendered]: 'OnlyTickMontagesWhenNotRendered',
-    [EVisibilityBasedAnimTickOption.OnlyTickPoseWhenRendered]: 'OnlyTickPoseWhenRendered'
+    [EVisibilityBasedAnimTickOption.OnlyTickPoseWhenRendered]: 'OnlyTickPoseWhenRendered',
   };
 }
 
@@ -134,25 +134,25 @@ export interface SkeletalMeshComponent {
   AnimClass: classReference<any>;
   ClothingSimulationFactory: classReference<any>;
   SkeletalMesh: classReference<any>;
-  VisibilityBasedAnimTickOption: EVisibilityBasedAnimTickOption,
-  bPerBoneMotionBlur: boolean,
-  bComponentUseFixedSkelBounds: boolean,
-  LDMaxDrawDistance: number,
-  CachedMaxDrawDistance: number,
-  bAllowCullDistanceVolume: boolean
+  VisibilityBasedAnimTickOption: EVisibilityBasedAnimTickOption;
+  bPerBoneMotionBlur: boolean;
+  bComponentUseFixedSkelBounds: boolean;
+  LDMaxDrawDistance: number;
+  CachedMaxDrawDistance: number;
+  bAllowCullDistanceVolume: boolean;
 }
 
 export interface BodyInstance {
-  ObjectType: any
-  CollisionProfileName: string
+  ObjectType: any;
+  CollisionProfileName: string;
 }
 
 export interface StaticMeshComponent {
   StaticMesh: classReference<any>;
-  BodyInstance: BodyInstance,
-  RelativeLocation: Vector,
-  RelativeScale3D: Vector,
-  Mobility: EComponentMobility
+  BodyInstance: BodyInstance;
+  RelativeLocation: Vector;
+  RelativeScale3D: Vector;
+  Mobility: EComponentMobility;
 }
 
 export enum EHorizTextAligment {
@@ -165,17 +165,17 @@ export namespace EHorizTextAligment {
   export const DisplayName = {
     [EHorizTextAligment.EHTA_Left]: 'EHTA_Left',
     [EHorizTextAligment.EHTA_Center]: 'EHTA_Center',
-    [EHorizTextAligment.EHTA_Right]: 'EHTA_Right'
+    [EHorizTextAligment.EHTA_Right]: 'EHTA_Right',
   };
 }
 
 export interface TextRenderComponent {
-  Text: TextProperty,
-  TextMaterial: classReference<any>,
-  Font: classReference<any>,
-  HorizontalAlignment: EHorizTextAligment
-  TextRenderColor: Color,
-  WorldSize: number,
-  RelativeLocation: Vector,
-  RelativeRotation: Rotator,
+  Text: TextProperty;
+  TextMaterial: classReference<any>;
+  Font: classReference<any>;
+  HorizontalAlignment: EHorizTextAligment;
+  TextRenderColor: Color;
+  WorldSize: number;
+  RelativeLocation: Vector;
+  RelativeRotation: Rotator;
 }

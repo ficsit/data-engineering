@@ -10,7 +10,7 @@ import { FTexturePlatformData } from '../FTexturePlatformData';
 
 import { UObjectBase } from './UObjectBase';
 
-export class Texture2D extends UObjectBase {
+export class UTexture2D extends UObjectBase {
   cooked = 0;
   textures = [] as Shape<typeof FTexturePlatformData>[];
 

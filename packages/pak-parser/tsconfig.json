@@ -9,8 +9,5 @@
     "resolveJsonModule": true
   },
   "compileOnSave": true,
-  "include": [
-    "src",
-    "bin"
-  ]
+  "include": ["src", "bin"]
 }

@@ -2,8 +2,8 @@
  * Parser and content of a .uexp file (serialized UObjectBase export).
  */
 import { UExpFile } from '../UExpFile';
-import { Texture2D } from '../structs/uexp/Texture2D';
 import { UObjectBase } from '../structs/uexp/UObjectBase';
+import { UTexture2D } from '../structs/uexp/UTexture2D';
 
 export class Texture2DExp extends UExpFile {
   constructor(public exports: UObjectBase[]) {
@@ -12,12 +12,12 @@ export class Texture2DExp extends UExpFile {
 
   getImage() {
     for (const exp of exports) {
-      if (exp instanceof Texture2D) {
+      if (exp instanceof UTexture2D) {
         return exp.getImage();
       }
     }
 
-    throw new Error('No image data found in Texture2D');
+    throw new Error('No image data found in UTexture2D');
   }
   //
   // //Deprecated
@@ -26,15 +26,15 @@ export class Texture2DExp extends UExpFile {
   //
   //   //TODO: fix this parsing
   //   for (const exp of this.exports) {
-  //     if (exp instanceof Texture2D) {
+  //     if (exp instanceof UTexture2D) {
   //       if (isClassified) {
-  //         throw new Error('UExp file is already classified as Texture2D!');
+  //         throw new Error('UExp file is already classified as UTexture2D!');
   //       }
   //
-  //       if (this.classifiedClass === 'Texture2D') continue;
+  //       if (this.classifiedClass === 'UTexture2D') continue;
   //
   //       isClassified = true;
-  //       this.classifiedClass = 'Texture2D';
+  //       this.classifiedClass = 'UTexture2D';
   //       this.classifiedInstance = exp;
   //     } else if (exp instanceof FGRecipe) {
   //       if (isClassified) {
@@ -51,7 +51,7 @@ export class Texture2DExp extends UExpFile {
   // }
   //
   // isTexture2D() {
-  //   return this.classifiedClass === 'Texture2D';
+  //   return this.classifiedClass === 'UTexture2D';
   // }
   //
   // isFGRecipe() {

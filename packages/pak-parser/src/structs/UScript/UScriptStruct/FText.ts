@@ -1,9 +1,8 @@
 import { FString } from '../../../containers';
-import {Int32, Int64, UInt32, UInt8} from '../../../primitive';
+import { Int32, Int64, UInt32, UInt8 } from '../../../primitive';
 import { Reader } from '../../../readers';
-import {FFormatArgumentValue} from "../FFormatArgumentValue";
-import {Shape} from "../../../util/parsers";
-import {FName, NameMap} from "../../FName";
+import { FName, NameMap } from '../../FName';
+import { FFormatArgumentValue } from '../FFormatArgumentValue';
 
 enum ETextHistoryType {
   None = -1,
@@ -27,24 +26,23 @@ export function FText(names: NameMap) {
   return async function FTextParser(reader: Reader): Promise<any> {
     const flags = await reader.read(UInt32);
     const historyType = await reader.read(UInt8);
-    switch (historyType)
-    {
+    switch (historyType) {
       case ETextHistoryType.Base:
         return {
-          namespace: await reader.read(FString) || '',
+          namespace: (await reader.read(FString)) || '',
           key: await reader.read(FString),
-          sourceString: await reader.read(FString)
+          sourceString: await reader.read(FString),
         };
       case ETextHistoryType.AsDateTime:
         return {
           SourceDateTime: {
-            Ticks: await reader.read(Int64)
+            Ticks: await reader.read(Int64),
           },
           DateStyle: await reader.read(UInt8),
           TimeStyle: await reader.read(UInt8),
           TimeZone: await reader.read(FString),
-          TargetCulture: await reader.read(FString)
-        }
+          TargetCulture: await reader.read(FString),
+        };
       // https://github.com/EpicGames/UnrealEngine/blob/bf95c2cbc703123e08ab54e3ceccdd47e48d224a/Engine/Source/Runtime/Core/Private/Internationalization/TextHistory.cpp
       // https://github.com/EpicGames/UnrealEngine/blob/bf95c2cbc703123e08ab54e3ceccdd47e48d224a/Engine/Source/Runtime/Core/Private/Internationalization/TextData.h
       case ETextHistoryType.NamedFormat:
@@ -53,31 +51,31 @@ export function FText(names: NameMap) {
         const numEntries = await reader.read(Int32);
         const Arguments: any[] = [];
         for (let i = 0; i < numEntries; i++) {
-          Arguments.push(await reader.read(FFormatArgumentValue(names)))
+          Arguments.push(await reader.read(FFormatArgumentValue(names)));
         }
         return {
           SourceFmt,
-          Arguments
-        }
+          Arguments,
+        };
       case ETextHistoryType.AsNumber:
       case ETextHistoryType.AsPercent:
       case ETextHistoryType.AsCurrency:
         return {
           SourceValue: await reader.read(FFormatArgumentValue(names)),
           TimeZone: await reader.read(FString),
-          TargetCulture: await reader.read(FString)
-        }
+          TargetCulture: await reader.read(FString),
+        };
       case ETextHistoryType.StringTableEntry:
         return {
-          TableId : await reader.read(FName(names)),
-          Key : await reader.read(FString)
-        }
+          TableId: await reader.read(FName(names)),
+          Key: await reader.read(FString),
+        };
       case ETextHistoryType.ArgumentFormat:
       case ETextHistoryType.AsDate:
       case ETextHistoryType.AsTime:
       case ETextHistoryType.Transform:
       case ETextHistoryType.TextGenerator:
-        throw new Error("History type " + historyType + " not supported");
+        throw new Error('History type ' + historyType + ' not supported');
       default:
         return null;
     }

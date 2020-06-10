@@ -1,8 +1,10 @@
-import {UInt8} from '../../../primitive';
+import { UInt8 } from '../../../primitive';
+import { Float } from '../../../primitive/decimals';
 import { Reader } from '../../../readers';
-import {Float} from "../../../primitive/decimals";
 
 export async function FPerPlatformFloat(reader: Reader) {
-  const bCooked = await reader.read(UInt8) !== 0;
-  return await reader.read(Float)
+  // !== 0 for bCooked
+  await reader.read(UInt8);
+
+  return await reader.read(Float);
 }

@@ -1,5 +1,5 @@
 // @ts-ignore
-import * as dxtJs from "dxt-js"
+import * as dxtJs from 'dxt-js';
 
 import { FTexture2DMipMap } from '../structs/FTexture2DMipMap';
 import { Shape } from '../util/parsers';
@@ -8,7 +8,7 @@ const PNG = require('pngjs').PNG;
 
 export class ImageExporter {
   /**
-   * Converts Texture2D into PNG
+   * Converts UTexture2D into PNG
    * @param {Number} width
    * @param {Number} height
    * @param {Buffer} buffer

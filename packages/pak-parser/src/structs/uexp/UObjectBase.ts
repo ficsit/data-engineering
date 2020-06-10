@@ -26,10 +26,6 @@ export class UObjectBase extends BlacklistSerializer {
     this.reader = reader;
   }
 
-  convert(exports: UObjectBase[]): any {
-    throw new Error('Conversion unimplemented for UObjectBase');
-  }
-
   async initialize() {
     this.propertyList = await readFPropertyTagLoop(this.reader, this.asset);
 

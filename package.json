@@ -7,8 +7,14 @@
   "license": "Apache-2.0",
   "private": true,
   "workspaces": {
-    "packages": ["packages/*", "pipeline/*"],
-    "nohoist": ["**/pak-parser", "**/pak-parser/**"]
+    "packages": [
+      "packages/*",
+      "pipeline/*"
+    ],
+    "nohoist": [
+      "**/pak-parser",
+      "**/pak-parser/**"
+    ]
   },
   "scripts": {
     "checkout-data-landing": "./scripts/checkout.sh data-landing",

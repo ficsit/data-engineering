@@ -1,6 +1,5 @@
-import { Float } from '../../../primitive/decimals';
+import { Int8 } from '../../../primitive';
 import { Reader } from '../../../readers';
-import {Int8} from "../../../primitive";
 
 enum ERangeBoundType {
   RangeExclusive,
@@ -10,6 +9,6 @@ enum ERangeBoundType {
 
 export async function TRangeBound(reader: Reader) {
   return {
-    BoundType:(await reader.read(Int8)) as ERangeBoundType,
+    BoundType: (await reader.read(Int8)) as ERangeBoundType,
   };
 }

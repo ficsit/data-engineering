@@ -3,7 +3,6 @@ import { TArray } from './containers';
 import { Int32 } from './primitive';
 import { Reader } from './readers';
 import { BlacklistSerializer } from './serializers/BlacklistSerializer';
-import { FAssetData } from './structs/FAssetData';
 import { FName, FNameEntrySerialized, NameMap } from './structs/FName';
 import { FObjectExport } from './structs/FObjectExport';
 import { FObjectImport } from './structs/FObjectImport';
@@ -29,7 +28,6 @@ export class UAssetFile extends BlacklistSerializer {
   preloadDependencies = [] as number[];
   packageIndexLookupTable = new Map<number, Shape<typeof FPackageIndex>>();
   softPackageReferences?: string[];
-  assetData?: Shape<typeof FAssetData>;
 
   blacklistedPropertyNames = ['reader', 'pak'];
 
@@ -61,7 +59,7 @@ export class UAssetFile extends BlacklistSerializer {
     // Might need to do some processing like this
     // https://github.com/gildor2/UEViewer/blob/d488d14af1ea9da4eb78a17497e1ee36c819968b/Unreal/UnPackage.cpp#L1392-L1420
     // await this.loadProperties();
-    // await this.loadSpecialTypes();
+    await this.loadSpecialTypes();
   }
 
   // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/LinkerLoad.cpp#L1130-L1379
@@ -239,15 +237,20 @@ export class UAssetFile extends BlacklistSerializer {
   }
 
   getClassNameFromExport(exp: Shape<typeof FObjectExport>) {
-    const retrieval = this.packageIndexLookupTable.get(exp.templateIndex)?.reference as Shape<typeof FObjectImport>;
-    return (retrieval?.className as string) || null;
+    const retrieval = this.packageIndexLookupTable.get(exp.templateIndex)?.reference as Shape<
+      typeof FObjectImport
+    >;
+    return retrieval?.className || null;
   }
 
   async loadSpecialTypes() {
     await asyncArrayForEach(this.exports, (exp: Shape<typeof FObjectExport>) => {
-      const retrieval = this.packageIndexLookupTable.get(exp.templateIndex)?.reference as Shape<typeof FObjectImport>;
+      const retrieval = this.packageIndexLookupTable.get(exp.templateIndex)?.reference as Shape<
+        typeof FObjectImport
+      >;
       if (retrieval?.className === 'DataTable') {
         // TODO: dataTable?
+        console.log('DATATABLE?');
       }
     });
   }

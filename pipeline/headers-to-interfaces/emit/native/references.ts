@@ -30,5 +30,5 @@ export interface softClassReference<TClass> {
   package: string;
   name: string;
   subPath: string;
-  member: string
+  member: string;
 }

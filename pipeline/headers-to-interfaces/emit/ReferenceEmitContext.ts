@@ -28,9 +28,6 @@ const nativeTypes = {
   'StaticMeshComponent': { name: 'StaticMeshComponent', module: '../native/structs' },
   'UTextRenderComponent': { name: 'TextRenderComponent', module: '../native/structs' },
 
-
-
-
   'set': { name: 'set', module: '../native/collections' },
 
   'classReference': { name: 'classReference', module: '../native/references' },

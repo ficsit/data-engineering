@@ -6,6 +6,6 @@ export async function FVector4(reader: Reader) {
     X: await reader.read(Float),
     Y: await reader.read(Float),
     Z: await reader.read(Float),
-    W: await reader.read(Float)
+    W: await reader.read(Float),
   };
 }

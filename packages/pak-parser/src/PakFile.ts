@@ -8,10 +8,10 @@ import { ChildReader, Reader } from './readers';
 import { BlacklistSerializer } from './serializers/BlacklistSerializer';
 import { FPakEntry } from './structs/FPakEntry';
 import { FPakInfo, FPakInfoSize } from './structs/FPakInfo';
-import { FGRecipe } from './structs/uexp/FGRecipe';
-import { Texture2D } from './structs/uexp/Texture2D';
+import { UDataTable } from './structs/uexp/UDataTable';
 import { UObjectBase } from './structs/uexp/UObjectBase';
-import { FGRecipeExp } from './uexpTypes/FGRecipeExp';
+import { UTexture2D } from './structs/uexp/UTexture2D';
+import { DataTableExp } from './uexpTypes/DataTableExp';
 import { Texture2DExp } from './uexpTypes/Texture2DExp';
 import { asyncSetForEach } from './util/asyncArrayForEach';
 import { Shape } from './util/parsers';
@@ -41,7 +41,7 @@ export class PakFile extends BlacklistSerializer {
   entries = new Map<string, Shape<typeof FPakEntry>>();
   assetFiles = new Map<string, UAssetFile>();
   expFiles = new Map<string, UExpFile>();
-  headerSize: number = Infinity;
+  headerSize = Infinity;
 
   constructor(private reader: Reader) {
     super();
@@ -105,8 +105,8 @@ export class PakFile extends BlacklistSerializer {
 
     for (let i = 0; i < numEntries; i++) {
       const filename = await this.reader.read(UnrealString);
-      const entry = await this.reader.read(FPakEntry);
 
+      const entry = await this.reader.read(FPakEntry);
       this.entries.set(filename, entry);
     }
   }
@@ -134,7 +134,7 @@ export class PakFile extends BlacklistSerializer {
     const objectFileSet = new Set<string>();
     for (const file of files) {
       // If we were called without a specific extension, just assume it is an object.
-      if (file.indexOf('.') === -1) {
+      if (!file.includes('.')) {
         objectFileSet.add(file);
         continue;
       }
@@ -162,16 +162,16 @@ export class PakFile extends BlacklistSerializer {
 
     const returnedAssets = [] as UBaseFile[];
 
-    // Bad serialization (for now). Eventually should generate a manifest.
     let i = 1;
     const setLength = [...basicFileSet, ...objectFileSet].length;
     await asyncSetForEach(new Set([...basicFileSet, ...objectFileSet]), async (file: string) => {
-      process.stderr.write(`Processing: ${Math.round(i/setLength * 10000) / 100}% (${i++}/${setLength}) ${file}\n `);
+      process.stderr.write(
+        `Processing: ${Math.round((i / setLength) * 10000) / 100}% (${i++}/${setLength}) ${file}\n `,
+      );
       const asset = await this.getUObject(file);
       if (asset) {
         returnedAssets.push(asset);
       }
-
     });
 
     return returnedAssets;
@@ -190,11 +190,11 @@ export class PakFile extends BlacklistSerializer {
   /**
    * Look up a type of file
    */
-  async getUObject(filename: string): Promise<UBaseFile | null>{
+  async getUObject(filename: string): Promise<UBaseFile | null> {
     if (this.entries.get(filename) && filename.endsWith('locres')) {
       const resourceFile = await this.getULocalizationResourceFile(filename);
       if (!resourceFile) {
-        throw new Error("Could not get locres file");
+        throw new Error('Could not get locres file');
       }
       return resourceFile;
     }
@@ -207,19 +207,19 @@ export class PakFile extends BlacklistSerializer {
 
     // If uexpFilename doesn't exist, we can't read this asset.
     if (!this.entries.get(uexpFilename)) {
-      throw new Error('UObjectBase at ' + filename + ' does not use uasset or uexp and is unsupported.');
+      throw new Error('UObjectBase at ' + uexpFilename + ' does not use uasset or uexp and is unsupported.');
     }
 
     const uasset = await this.getUAssetFile(uassetFilename);
     const uexp = await this.getUExpFile(uexpFilename);
 
     if (!uasset) {
-      console.log("UAsset is null: " + uassetFilename);
+      console.log('UAsset is null: ' + uassetFilename);
       return null;
     }
 
     if (!uexp) {
-      console.log("UObject is null" + uexpFilename);
+      console.log('UObject is null' + uexpFilename);
       return null;
     }
 
@@ -230,9 +230,9 @@ export class PakFile extends BlacklistSerializer {
    * Look up a serialized Uasset
    */
   async getUAssetFile(filename: string) {
-    // if (this.assetFiles.has(filename)) {
-    //   return this.assetFiles.get(filename)!;
-    // }
+    if (this.assetFiles.has(filename)) {
+      return this.assetFiles.get(filename)!;
+    }
 
     const result = await this.getPakFile(filename);
     if (!result) return null;
@@ -250,9 +250,9 @@ export class PakFile extends BlacklistSerializer {
    * https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/SavePackage.cpp#L6426-L6431
    */
   async getUExpFile(filename: string) {
-    // if (this.expFiles.has(filename)) {
-    //   return this.expFiles.get(filename)!;
-    // }
+    if (this.expFiles.has(filename)) {
+      return this.expFiles.get(filename)!;
+    }
 
     const filenameParts = filename.split('.');
     filenameParts.pop();
@@ -267,7 +267,7 @@ export class PakFile extends BlacklistSerializer {
     const asset = await this.getUAssetFile(assetFilename);
 
     if (!asset) {
-      console.log("Asset is null for the uexpFile: " + assetFilename);
+      console.log('Asset is null for the uexpFile: ' + assetFilename);
       return null;
     }
 
@@ -288,17 +288,16 @@ export class PakFile extends BlacklistSerializer {
       const className = asset.getClassNameFromExport(exp) || '';
       let itemToPush: UObjectBase;
       if (className === 'Texture2D') {
-        const texture2DFile = new Texture2D(result.reader, bulkReader as ChildReader, asset);
+        const texture2DFile = new UTexture2D(result.reader, bulkReader as ChildReader, asset);
         await texture2DFile.initialize();
-
         itemToPush = texture2DFile;
         fileType = 'Texture2D';
-      } else if (className === 'FGRecipe') {
-        // Recipe object
-        const fgRecipeFile = new FGRecipe(result.reader, asset, exports);
-        await fgRecipeFile.initialize();
-        itemToPush = fgRecipeFile;
-        fileType = 'FGRecipe';
+      } else if (className === 'DataTable') {
+        //Data Table
+        const DataTableFile = new UDataTable(result.reader, asset);
+        await DataTableFile.initialize();
+        itemToPush = DataTableFile;
+        fileType = 'DataTable';
       } else {
         const baseObject = new UObjectBase(result.reader, asset, className, true);
         // console.log(asset.filename);
@@ -315,11 +314,11 @@ export class PakFile extends BlacklistSerializer {
     let object;
 
     switch (fileType) {
-      case 'FGRecipe':
-        object = new FGRecipeExp(exports);
-        break;
       case 'Texture2D':
         object = new Texture2DExp(exports);
+        break;
+      case 'DataTable':
+        object = new DataTableExp(exports);
         break;
       default:
         object = new UExpFile(exports);

@@ -1,38 +1,38 @@
-import {UAssetFile} from '../../UAssetFile';
-import {Reader} from '../../readers';
-import {Shape} from '../../util/parsers';
-import {FName, NameMap} from '../FName';
+import { UAssetFile } from '../../UAssetFile';
+import { FString } from '../../containers';
+import { Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64 } from '../../primitive';
+import { Double, Float } from '../../primitive/decimals';
+import { Reader } from '../../readers';
+import { bigintToNumber } from '../../util';
+import { Shape } from '../../util/parsers';
+import { FName, NameMap } from '../FName';
+import { FPackageIndex } from '../FPackageIndex';
+import { FSoftObjectPath } from '../FSoftObjectPath';
 
-import {FGuid} from './UScriptStruct/FGuid';
-import {FIntPoint} from './UScriptStruct/FIntPoint';
-import {FRotator} from './UScriptStruct/FRotator';
-import {FStructFallback} from './UScriptStruct/FStructFallback';
-import {FVector} from './UScriptStruct/FVector';
-import {FVector2D} from './UScriptStruct/FVector2D';
-import {FColor} from "./UScriptStruct/FColor";
-import {FLinearColor} from "./UScriptStruct/FLinearColor";
-import {FRichCurveKey} from "./UScriptStruct/FRichCurveKey";
-import {FSoftObjectPath} from "../FSoftObjectPath";
-import {FMaterialInput} from "./UScriptStruct/FMaterialInput";
-import {VectorMaterialInput} from "./UScriptStruct/FVectorMaterialInput";
-import {ColorMaterialInput} from "./UScriptStruct/ColorMaterialInput";
-import {FBox2D} from "./UScriptStruct/FBox2D";
-import {FQuat} from "./UScriptStruct/FQuat";
-import {FVector4} from "./UScriptStruct/FVector4";
-import {FMovieSceneFrameRange} from "./UScriptStruct/FMovieSceneFrameRange";
-import {FFrameNumber} from "./UScriptStruct/FFrameNumber";
-import {FMovieSceneEvaluationTemplate} from "./UScriptStruct/FMovieSceneEvaluationTemplate";
-import {FText} from "./UScriptStruct/FText";
-import {Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64} from "../../primitive";
-import {bigintToNumber} from "../../util";
-import {EnumProperty} from "./EnumProperty";
-import {Double, Float} from "../../primitive/decimals";
-import {FPackageIndex} from "../FPackageIndex";
-import {InterfaceProperty} from "./InterfaceProperty";
-import {FString} from "../../containers";
-import {DelegateProperty} from "./DelegateProperty";
-import {FPerPlatformFloat} from "./UScriptStruct/FPerPlatformFloat";
-import {FPerPlatformInt} from "./UScriptStruct/FPerPlatformInt";
+import { DelegateProperty } from './DelegateProperty';
+import { EnumProperty } from './EnumProperty';
+import { InterfaceProperty } from './InterfaceProperty';
+import { ColorMaterialInput } from './UScriptStruct/ColorMaterialInput';
+import { FBox2D } from './UScriptStruct/FBox2D';
+import { FColor } from './UScriptStruct/FColor';
+import { FFrameNumber } from './UScriptStruct/FFrameNumber';
+import { FGuid } from './UScriptStruct/FGuid';
+import { FIntPoint } from './UScriptStruct/FIntPoint';
+import { FLinearColor } from './UScriptStruct/FLinearColor';
+import { FMaterialInput } from './UScriptStruct/FMaterialInput';
+import { FMovieSceneEvaluationTemplate } from './UScriptStruct/FMovieSceneEvaluationTemplate';
+import { FMovieSceneFrameRange } from './UScriptStruct/FMovieSceneFrameRange';
+import { FPerPlatformFloat } from './UScriptStruct/FPerPlatformFloat';
+import { FPerPlatformInt } from './UScriptStruct/FPerPlatformInt';
+import { FQuat } from './UScriptStruct/FQuat';
+import { FRichCurveKey } from './UScriptStruct/FRichCurveKey';
+import { FRotator } from './UScriptStruct/FRotator';
+import { FStructFallback } from './UScriptStruct/FStructFallback';
+import { FText } from './UScriptStruct/FText';
+import { FVector } from './UScriptStruct/FVector';
+import { FVector2D } from './UScriptStruct/FVector2D';
+import { FVector4 } from './UScriptStruct/FVector4';
+import { VectorMaterialInput } from './UScriptStruct/FVectorMaterialInput';
 
 export function StructPropertyTagMetaData(names: NameMap) {
   return async function StructParser(reader: Reader) {
@@ -148,10 +148,10 @@ export function UScriptStruct(
           tag = await reader.read(FMaterialInput(asset.names));
           break;
         case 'VectorMaterialInput':
-          tag = await reader.read(await VectorMaterialInput(asset.names));
+          tag = await reader.read(VectorMaterialInput(asset.names));
           break;
         case 'ColorMaterialInput':
-          tag = await reader.read(await ColorMaterialInput(asset.names));
+          tag = await reader.read(ColorMaterialInput(asset.names));
           break;
         case 'Box2D':
           tag = await reader.read(FBox2D);
@@ -187,9 +187,7 @@ export function UScriptStruct(
           tag = await reader.read(FPerPlatformInt);
           break;
         case 'StructProperty':
-          tag = await reader.read(
-            UScriptStruct(tagMetaData as Shape<typeof StructPropertyTagMetaData>, asset, depth + 1),
-          );
+          tag = await reader.read(UScriptStruct(tagMetaData, asset, depth + 1));
           break;
         //Whitelisted fallback entries. TODO: fix these? :(
         // case 'BodyInstance':
@@ -285,13 +283,12 @@ export function UScriptStruct(
           // // https://github.com/EpicGames/UnrealEngine/blob/4.22/Engine/Source/Runtime/MovieScene/Public/Channels/MovieSceneFloatChannel.h#L299
           return null;
         default:
-
           let ret = null;
           try {
             ret = await reader.read(FStructFallback(asset));
             unknowns.add(tagMetaData.structName);
             // console.error("Error 1:", tagMetaData.structName, asset.filename);
-          } catch(e) {
+          } catch (e) {
             bUnknowns.add(tagMetaData.structName);
             // console.error("Error 2:", tagMetaData.structName, asset.filename);
           }

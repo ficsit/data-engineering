@@ -3,6 +3,6 @@ import { Reader } from '../../../readers';
 
 export async function FFrameNumber(reader: Reader) {
   return {
-    Value: await reader.read(Float)
+    Value: await reader.read(Float),
   };
 }

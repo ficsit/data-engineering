@@ -1,7 +1,7 @@
 import { Int32 } from '../primitive';
 import { Reader } from '../readers';
 
-import { NameMap, FName } from './FName';
+import { FName, NameMap } from './FName';
 
 // https://github.com/SatisfactoryModdingUE/UnrealEngine/blob/4.22-CSS/Engine/Source/Runtime/CoreUObject/Private/UObject/ObjectResource.cpp#L218-L233
 export function FObjectImport(names: NameMap) {
@@ -12,7 +12,7 @@ export function FObjectImport(names: NameMap) {
       // TODO: Special type for package indexes?
       outerIndex: await reader.read(Int32),
       objectName: await reader.read(FName(names)),
-      outerImport: null as any
+      outerImport: null as any,
     };
   };
 }

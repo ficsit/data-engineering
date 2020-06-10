@@ -25,6 +25,7 @@
     "dxt-js": "^0.0.3",
     "express": "^4.17.1",
     "hot-import": "^0.2.14",
+    "immer": "^6.0.9",
     "jimp": "^0.10.3",
     "pngjs": "^5.0.0",
     "reflect-metadata": "^0.1.13"

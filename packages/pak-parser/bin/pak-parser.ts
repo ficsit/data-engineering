@@ -4,7 +4,7 @@ import * as path from 'path';
 
 import { PakFile } from '../src/PakFile';
 import { FileReader } from '../src/readers';
-import {bUnknowns, unknowns} from "../src/structs/UScript/UScriptStruct";
+import { bUnknowns, unknowns } from '../src/structs/UScript/UScriptStruct';
 
 main();
 async function main() {
@@ -35,12 +35,16 @@ async function main() {
     // 'FactoryGame/Content/FactoryGame/Resource/BP_HealthGainDescriptor.uexp',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/PipeHyperStart/Build_PipeHyperStart.uasset'
     // 'FactoryGame/Content/FactoryGame/Resource/Equipment/Beacon/BP_EquipmentDescriptorBeacon.uexp',
-  // 'FactoryGame/Content/FactoryGame/Buildable/Building/Foundation/Build_PillarBase.uasset'
+    // 'FactoryGame/Content/FactoryGame/Buildable/Building/Foundation/Build_PillarBase.uasset'
     // 'FactoryGame/Content/FactoryGame/Recipes/Equipment/Recipe_MedicinalInhalerAlienOrgans.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/Train/Station/Recipe_TrainDockingStation.uasset',
 
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/WaterPump/Desc_WaterPump.uasset'
-    ...pakFile.entries.keys()
+    // ...pakFile.entries.keys()
+    // 'FactoryGame/Content/FactoryGame/Buildable/-Shared/Ladder/BP_LadderComponent.uexp'
+    // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ConveyorLiftMk1/Build_ConveyorLiftMk1.uasset'
+    // 'FactoryGame/Content/FactoryGame/Buildable/Factory/TruckStation/Mesh/Truckstation_static.uasset',
+    // 'FactoryGame/Content/FactoryGame/Buildable/Factory/TruckStation/Mesh/Truckstation_static.uexp'
     // 'FactoryGame/Content/Localization/Game/en-GB/Game.locres'
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uasset',
     // 'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkPoints.uexp',
@@ -78,8 +82,9 @@ async function main() {
     // 'FactoryGame/Content/FactoryGame/Schematics/ResourceSink/Parts/Tier6/ResourceSink_PackagedBiofuel.uasset',
     // 'FactoryGame/Content/FactoryGame/Schematics/ResourceSink/ResourceSink_DoorWalls_Normal.uasset',
     // 'FactoryGame/Content/FactoryGame/Schematics/Tutorial/Schematic_Tutorial4.uasset',
+    'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkRewardLevels.uexp',
   ];
-  fs.mkdirSync('dump/images', { recursive: true });
+  // fs.mkdirSync('dump/images', { recursive: true });
   const retrievedFiles = await pakFile.getFiles(files);
 
   // function safeStringify(obj: any, indent = 2){

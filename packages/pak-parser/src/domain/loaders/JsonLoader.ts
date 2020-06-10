@@ -8,27 +8,35 @@ export function findJsonObject(classSearch: string) {
 
   try {
     jsonRetriever(`U${classSearch}`);
-    UObject =  `U${classSearch}`
+    UObject = `U${classSearch}`;
     retrievalCount++;
-  } catch(e) {}
+  } catch (e) {
+    console.debug('No U found in classSearch', classSearch);
+  }
   try {
     jsonRetriever(`A${classSearch}`);
-    AObject =  `A${classSearch}`
+    AObject = `A${classSearch}`;
     retrievalCount++;
-  } catch(e) {}
+  } catch (e) {
+    console.debug('No A found in classSearch', classSearch);
+  }
   try {
     jsonRetriever(`${classSearch}`);
-    baseObject =  `${classSearch}`
+    baseObject = `${classSearch}`;
     retrievalCount++;
-  } catch(e) {}
+  } catch (e) {
+    console.debug('No name found in classSearch', classSearch);
+  }
 
   if (retrievalCount === 0) {
     throw new Error(`No data found for ${classSearch}`);
   } else if (retrievalCount === 1) {
-    return [UObject, AObject, baseObject].filter(item => item)![0]
+    return [UObject, AObject, baseObject].filter(item => item)![0];
   } else {
     // Too many
-    throw new Error(`Too many classes found: ${[UObject, AObject, baseObject].filter(item => item).join(', ')}`);
+    throw new Error(
+      `Too many classes found: ${[UObject, AObject, baseObject].filter(item => item).join(', ')}`,
+    );
   }
 }
 
@@ -39,11 +47,10 @@ export function getJsonForObject(className: string) {
 const jsonRetriever = (className: string) => {
   const JSONClassName = className.endsWith('JSON') ? className : `${className}JSON`;
 
-  // @ts-ignore
-  const data = JSONFiles[JSONClassName];
+  const data = (JSONFiles as any)[JSONClassName];
   if (!data) {
     throw new Error(`No data found for ${JSONClassName}`);
   }
 
   return data;
-}
+};

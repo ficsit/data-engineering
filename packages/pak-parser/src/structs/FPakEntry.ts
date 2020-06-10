@@ -1,5 +1,5 @@
 import { TArray } from '../containers';
-import { Int64, UInt8, UInt32 } from '../primitive';
+import { Int64, UInt32, UInt8 } from '../primitive';
 import { Reader } from '../readers';
 import { bigintToNumber } from '../util';
 

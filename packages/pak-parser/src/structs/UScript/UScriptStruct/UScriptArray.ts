@@ -1,15 +1,16 @@
 import { UAssetFile } from '../../../UAssetFile';
-import {ByteBoolean, Int32, UInt32, UInt8} from '../../../primitive';
+import { FString } from '../../../containers';
+import { ByteBoolean, Int32, UInt32, UInt8 } from '../../../primitive';
+import { Float } from '../../../primitive/decimals';
 import { Reader } from '../../../readers';
 import { Shape } from '../../../util/parsers';
 import { FName, NameMap } from '../../FName';
 import { FPackageIndex } from '../../FPackageIndex';
 import { FPropertyTag, Tag } from '../../FPropertyTag';
+import { DelegateProperty } from '../DelegateProperty';
 import { SoftObjectProperty } from '../SoftObjectProperty';
-import {FText} from "./FText";
-import {FString} from "../../../containers";
-import {Float} from "../../../primitive/decimals";
-import {DelegateProperty} from "../DelegateProperty";
+
+import { FText } from './FText';
 
 export function UScriptArrayMetaData(names: NameMap) {
   return async function UScriptArrayMetaData(reader: Reader) {

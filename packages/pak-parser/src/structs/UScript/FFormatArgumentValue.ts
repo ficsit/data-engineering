@@ -1,11 +1,11 @@
-import {Reader} from "../../readers";
-import {Int64, UInt64, UInt8} from "../../primitive";
-import {FText} from "./UScriptStruct/FText";
-import {Double, Float} from "../../primitive/decimals";
-import {NameMap} from "../FName";
+import { Int64, UInt64, UInt8 } from '../../primitive';
+import { Double, Float } from '../../primitive/decimals';
+import { Reader } from '../../readers';
+import { NameMap } from '../FName';
 
-enum EFormatArgumentType
-{
+import { FText } from './UScriptStruct/FText';
+
+enum EFormatArgumentType {
   Int,
   UInt,
   Float,
@@ -18,7 +18,7 @@ enum EFormatArgumentType
 export function FFormatArgumentValue(names: NameMap) {
   return async function FFormatArgumentValueParser(reader: Reader) {
     const Type = await reader.read(UInt8);
-    switch(Type) {
+    switch (Type) {
       case EFormatArgumentType.Text:
         return await reader.read(FText(names));
       case EFormatArgumentType.Int:
@@ -30,7 +30,7 @@ export function FFormatArgumentValue(names: NameMap) {
       case EFormatArgumentType.Float:
         return await reader.read(Float);
       default:
-        throw new Error("Unimplemented FFormatArgumentValue type: " + Type);
+        throw new Error('Unimplemented FFormatArgumentValue type: ' + Type);
     }
-  }
+  };
 }
