@@ -129,59 +129,16 @@ export class UAssetFile extends BlacklistSerializer {
 
     await asyncArrayForEach(this.exports, async (exp: Shape<typeof FObjectExport>) => {
       await asyncArrayForEach(exportClobberedFields, async (field: string) => {
-        // @ts-ignore
-        const innerField = exp[field];
+        const innerField = (exp as any)[field];
         await this.populateFPackageIndexes(innerField);
       });
     });
 
     await asyncArrayForEach(this.imports, async (exp: Shape<typeof FObjectImport>) => {
       await asyncArrayForEach(importClobberedFields, async (field: string) => {
-        // @ts-ignore
-        const innerField = exp[field];
+        const innerField = (exp as any)[field];
         await this.populateFPackageIndexes(innerField);
       });
-    });
-  }
-
-  // https://github.com/EpicGames/UnrealEngine/blob/6c20d9831a968ad3cb156442bebb41a883e62152/Engine/Source/Runtime/CoreUObject/Private/UObject/PropertyTag.cpp
-  async loadProperties() {
-    await asyncArrayForEach(this.exports, async (exp: Shape<typeof FObjectExport>) => {
-      // console.log(exp.serialOffset, this.summary.totalHeaderSize);
-      // let offset = 6
-      //   // (exp.serialOffset - this.summary.totalHeaderSize + this.pak.headerSize);
-      // console.log(exp, this.summary);
-      // while(true) {
-      //   console.log(offset)
-      //   offset++;
-      //   this.reader.seekTo(offset);
-      //
-      //   try {
-      //     const name = await this.reader.read(FName(this.names));
-      //     console.log(name);
-      //     break;
-      //   } catch (e) {
-      //   }
-      // }
-      // console.log(this.pak.headerSize, this.entry.offset, exp.serialOffset, this.summary.totalHeaderSize)
-      // console.debug(`Reading export [${offset}]: ${JSON.stringify(this.packageIndexLookupTable.get(exp.templateIndex)?.reference)}`);
-      //
-      // const properties = [] as Shape<typeof FPropertyTag>[];
-      // let property;
-      //
-      // while(true) {
-      //   property = null;
-      //
-      //   const name = await this.reader.read(FName(this.names));
-      //
-      //   console.log(name);
-      //
-      //   if (property === null) {
-      //     break;
-      //   }
-      //
-      //   properties.push(property);
-      // }
     });
   }
 

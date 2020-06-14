@@ -1,4 +1,3 @@
-// @ts-ignore
 import * as dxtJs from 'dxt-js';
 
 import { FTexture2DMipMap } from '../structs/FTexture2DMipMap';

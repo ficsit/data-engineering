@@ -166,7 +166,7 @@ export class PakFile extends BlacklistSerializer {
     const setLength = [...basicFileSet, ...objectFileSet].length;
     await asyncSetForEach(new Set([...basicFileSet, ...objectFileSet]), async (file: string) => {
       process.stderr.write(
-        `Processing: ${Math.round((i / setLength) * 10000) / 100}% (${i++}/${setLength}) ${file}\n `,
+        `Processing: ${Math.round((i / setLength) * 10000) / 100}% (${i++}/${setLength}) ${file}\n`,
       );
       const asset = await this.getUObject(file);
       if (asset) {

@@ -1,5 +1,13 @@
 import * as path from 'path';
 
+export function itemToImage(str: string) {
+  if (/^item-(.*)/g.test(str)) {
+    return str.replace(/^item-/, 'image-');
+  } else {
+    throw new Error('No item prefix: ' + str);
+  }
+}
+
 export function toItem(str: string) {
   if (/^Desc_(.*)/g.test(str)) {
     return str.replace(/^Desc_/, 'item');
@@ -29,9 +37,9 @@ export function toBuilding(str: string, member = '') {
   } else if (str === 'FactoryGame') {
     switch (member) {
       case 'FGBuildableAutomatedWorkBench':
-        return 'workbench';
+        return 'building-work-bench-component';
       case 'FGBuildGun':
-        return 'buildgun';
+        return 'building-build-gun';
       default:
         throw new Error(`No Unhandled building: ${str} ${member}`);
     }

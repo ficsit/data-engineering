@@ -147,6 +147,20 @@ export interface BodyInstance {
   CollisionProfileName: string;
 }
 
+export interface SpotLightComponent {
+  InnerConeAngle: number;
+  LightShaftConeAngle: number;
+  OuterConeAngle: number;
+}
+
+export interface PointLightComponent {
+  SourceRadius: number;
+  SourceLength: number;
+  SoftSourceRadius: number;
+  LightFalloffExponent: number;
+  bUseInverseSquaredFalloff: boolean;
+}
+
 export interface StaticMeshComponent {
   StaticMesh: classReference<any>;
   BodyInstance: BodyInstance;

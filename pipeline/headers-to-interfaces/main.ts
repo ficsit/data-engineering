@@ -42,7 +42,8 @@ function parseAll(sourceDir = paths.sourceData.headers, destDir = paths.dataLand
 }
 
 function parse(header: string, sourceDir: string) {
-  process.stderr.write(`\u001b[2Kparsing: ${path.relative(sourceDir, header)}\r`);
+  // process.stderr.write(`\u001b[2Kparsing: ${path.relative(sourceDir, header)}\r`);
+  process.stderr.write(`parsing: ${path.relative(sourceDir, header)}\n`);
   const contents = fs.readFileSync(header, 'utf-8');
 
   if (process.env.DEBUG === 'tokens') {

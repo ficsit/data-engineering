@@ -20,6 +20,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "@types/sharp": "^0.25.0",
     "class-transformer": "^0.2.3",
     "decode-dxt": "^1.0.1",
     "dxt-js": "^0.0.3",
@@ -28,6 +29,7 @@
     "immer": "^6.0.9",
     "jimp": "^0.10.3",
     "pngjs": "^5.0.0",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "sharp": "^0.25.3"
   }
 }

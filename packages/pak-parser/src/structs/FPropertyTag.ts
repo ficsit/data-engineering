@@ -9,7 +9,6 @@ import { Shape } from '../util/parsers';
 import { FName, NameMap } from './FName';
 import { FPackageIndex } from './FPackageIndex';
 import { FSoftObjectPath } from './FSoftObjectPath';
-import { BoolProperty } from './UScript/BoolProperry';
 import { ByteProperty, BytePropertyTagMetaData } from './UScript/ByteProperty';
 import { DelegateProperty } from './UScript/DelegateProperty';
 import { EnumProperty, EnumPropertyTagMetaData } from './UScript/EnumProperty';

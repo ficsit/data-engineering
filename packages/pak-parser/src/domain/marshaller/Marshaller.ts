@@ -23,8 +23,7 @@ export class Marshaller {
     };
 
     for (const propertyName of Object.keys(propertyMeta.properties)) {
-      // @ts-ignore
-      returnedTextProperty[propertyName] = property.tag[propertyName];
+      (returnedTextProperty as any)[propertyName] = (property as any).tag[propertyName];
     }
 
     return returnedTextProperty;
@@ -123,8 +122,8 @@ export class Marshaller {
     };
   }
 
-  marshalArrayProperty(property: Shape<typeof FPropertyTag>, innerType: string, propertyMetaTmp: any) {
-    const [innerObject, isRef, templateType] = this.getType(innerType);
+  marshalArrayProperty(property: Shape<typeof FPropertyTag>, innerType: string) {
+    const [innerObject] = this.getType(innerType);
 
     const propertyData = property?.tag;
 
@@ -185,8 +184,7 @@ export class Marshaller {
     // This is a ref to another def
     if (property['$ref']) {
       isRef = true;
-      // @ts-ignore
-      typeName = /^#\/definitions\/(.*)$/g.exec(property['$ref'])[1];
+      typeName = /^#\/definitions\/(.*)$/g.exec(property['$ref']!)![1];
       if (!typeName) {
         throw new Error('Could not extract typeName from ' + property['$ref']);
       }
@@ -203,17 +201,18 @@ export class Marshaller {
       }
     } else if (property.type) {
       typeName = property.type;
-    } else {
-      // This used to throw an error but it just means that this doesn't have a defined type.
-      // console.log("Could not resolve property: ", property);
     }
+
+    // else {
+    // This used to throw an error but it just means that this doesn't have a defined type.
+    // console.log("Could not resolve property: ", property);
+    // }
 
     return [typeName, isRef, templateType];
   }
 
   marshalEnumProperty(property: Shape<typeof FPropertyTag>, enumName: string) {
-    // @ts-ignore
-    const loadedEnum = interfaces[enumName] as any;
+    const loadedEnum = (interfaces as any)[enumName];
     const data = /^.*::(.*)$/g.exec(property!.tag as string)![1];
 
     return loadedEnum[data] as number;
@@ -221,13 +220,10 @@ export class Marshaller {
 
   marshalFromPropertyList(
     propertyListIncoming: Shape<typeof FPropertyTag>[],
-    classNameIncoming: string,
+    className: string,
     defaultsMap: Map<string, any> = new Map(),
   ) {
-    let className;
     const propertyList = [...propertyListIncoming];
-
-    className = classNameIncoming;
 
     const classMeta = getJsonForObject(`${className}`);
 
@@ -236,16 +232,20 @@ export class Marshaller {
 
     const returnValue = {} as any;
 
+    if (classMeta) {
+      returnValue.__type__ = findJsonObject(className);
+    }
+
     for (const prop of propertyList) {
       const propName = prop?.name as string;
       const propertyMeta = (classMeta?.properties || {})[propName];
 
       namesToProcess.delete(propName);
 
-      if (propertyMeta || classNameIncoming.startsWith('BP_')) {
+      if (propertyMeta || className.startsWith('BP_')) {
         if (propertyMeta) {
           const [typeName] = this.getType(propertyMeta);
-          if (classNameIncoming.startsWith('BP_') && !typeName) {
+          if (className.startsWith('BP_') && !typeName) {
             this.populateByInferredType(prop, returnValue, propName);
           } else {
             this.populateByType(prop, propertyMeta, returnValue, propName);
@@ -308,7 +308,6 @@ export class Marshaller {
     propName: string,
   ) {
     const [typeName] = this.getType(propertyMeta);
-
     switch (typeName) {
       case 'string':
         returnObject[propName] = property?.tag as string;
@@ -317,7 +316,7 @@ export class Marshaller {
         returnObject[propName] = this.marshalTextProperty(property);
         break;
       case 'array':
-        returnObject[propName] = this.marshalArrayProperty(property, propertyMeta.items, propertyMeta);
+        returnObject[propName] = this.marshalArrayProperty(property, propertyMeta.items);
         break;
       case 'number':
         returnObject[propName] = this.marshalNumberProperty(property);
@@ -329,6 +328,7 @@ export class Marshaller {
         returnObject[propName] = this.marshalBooleanProperty(property);
         break;
       case 'UTexture2D':
+        returnObject[propName] = this.marshalClassReference(property);
         //TODO: handle this better. Link it to the image database maybe?
         break;
       case 'FSlateBrush':
@@ -354,10 +354,8 @@ export class Marshaller {
         try {
           // We will treat it as a reference
           if (property?.tag?.reference) {
-            let previousTraversalNode = null as any;
             let traversalNode = property.tag ? (property?.tag).reference : (property as any).reference;
             while (traversalNode.outerImport.reference) {
-              previousTraversalNode = traversalNode;
               traversalNode = traversalNode.outerImport.reference;
             }
 
@@ -372,8 +370,11 @@ export class Marshaller {
               if (traversalNode.objectName === 'Default__Build_TrainPlatformEmpty_C') {
                 return;
               }
+              //TODO: fix this default stack
+              return;
             } else {
               console.log('Unhandled default:', traversalNode);
+              return;
             }
           }
         } catch (e) {}

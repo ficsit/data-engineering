@@ -10,23 +10,17 @@ export function findJsonObject(classSearch: string) {
     jsonRetriever(`U${classSearch}`);
     UObject = `U${classSearch}`;
     retrievalCount++;
-  } catch (e) {
-    console.debug('No U found in classSearch', classSearch);
-  }
+  } catch (e) {}
   try {
     jsonRetriever(`A${classSearch}`);
     AObject = `A${classSearch}`;
     retrievalCount++;
-  } catch (e) {
-    console.debug('No A found in classSearch', classSearch);
-  }
+  } catch (e) {}
   try {
     jsonRetriever(`${classSearch}`);
     baseObject = `${classSearch}`;
     retrievalCount++;
-  } catch (e) {
-    console.debug('No name found in classSearch', classSearch);
-  }
+  } catch (e) {}
 
   if (retrievalCount === 0) {
     throw new Error(`No data found for ${classSearch}`);

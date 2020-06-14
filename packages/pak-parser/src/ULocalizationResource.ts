@@ -133,8 +133,8 @@ export class ULocalizationResource extends UBaseFile {
         } else {
           newEntry.localizedString = await this.reader.read(UnrealString);
         }
-        // @ts-ignore
-        entriesMap[key.string] = newEntry.localizedString;
+
+        (entriesMap as any)[key.string] = newEntry.localizedString;
       }
       this.dictionaryEntries[namespace.string] = entriesMap;
     }

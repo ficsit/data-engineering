@@ -283,18 +283,10 @@ export function UScriptStruct(
           // // https://github.com/EpicGames/UnrealEngine/blob/4.22/Engine/Source/Runtime/MovieScene/Public/Channels/MovieSceneFloatChannel.h#L299
           return null;
         default:
-          let ret = null;
           try {
-            ret = await reader.read(FStructFallback(asset));
-            unknowns.add(tagMetaData.structName);
-            // console.error("Error 1:", tagMetaData.structName, asset.filename);
-          } catch (e) {
-            bUnknowns.add(tagMetaData.structName);
-            // console.error("Error 2:", tagMetaData.structName, asset.filename);
-          }
-          // console.log("Unknowns: ", unknowns, bUnknowns, tagMetaData.structName, asset.filename);
-          return ret;
-
+            return await reader.read(FStructFallback(asset));
+          } catch (e) {}
+          return null;
         // throw new Error('Unknown struct type ' + tagMetaData.structName);
       }
     } else {

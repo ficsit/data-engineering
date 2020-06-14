@@ -1,8 +1,4 @@
-import {
-  AFGBuildableFactory,
-  UFGItemDescriptor,
-  UFGRecipe,
-} from '../../../../../.data-landing/interfaces/classes';
+import { AFGBuildable, UFGItemDescriptor, UFGRecipe } from '../../../../../.data-landing/interfaces/classes';
 import { toBuilding, toItem, toKebabCase } from '../utils/utils';
 
 export interface SatisfactoryParserItemAmount {
@@ -25,7 +21,7 @@ export interface SatisfactoryParserRecipe {
 export function convertRecipe(
   recipe: UFGRecipe,
   itemMap: Map<string, UFGItemDescriptor>,
-  buildingMap: Map<string, AFGBuildableFactory>,
+  buildingMap: Map<string, AFGBuildable>,
 ): SatisfactoryParserRecipe {
   const recipeObject = {
     name: recipe.mDisplayName?.sourceString,
@@ -45,9 +41,13 @@ export function convertRecipe(
         amount: ingredient.Amount,
       };
     }),
-    producedIn: recipe.mProducedIn.map(producer => {
-      return toKebabCase(toBuilding(producer.name, producer.member));
-    }),
+    producedIn: [
+      ...new Set(
+        recipe.mProducedIn.map(producer => {
+          return toKebabCase(toBuilding(producer.name, producer.member));
+        }),
+      ),
+    ],
     manualMultiplier: recipe.mManualManufacturingMultiplier,
     manufacturingDuration: recipe.mManufactoringDuration,
   };
@@ -86,7 +86,7 @@ export type RecipeEntry = {
 export function convertRecipeBatch(
   recipeEntries: RecipeEntry[],
   itemMap: Map<string, UFGItemDescriptor>,
-  buildingMap: Map<string, AFGBuildableFactory>,
+  buildingMap: Map<string, AFGBuildable>,
 ) {
   const recipeMap = {} as any;
   recipeEntries.forEach(recipeEntry => {

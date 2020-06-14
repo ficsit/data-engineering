@@ -21,7 +21,11 @@ export class UTexture2D extends UObjectBase {
   }
 
   getImage() {
-    return ImageExporter.getImage(this.textures[0].mips[0], this.textures[0].pixelFormat);
+    return {
+      x: this.textures[0].sizeX,
+      y: this.textures[0].sizeY,
+      data: ImageExporter.getImage(this.textures[0].mips[0], this.textures[0].pixelFormat),
+    };
   }
 
   async initialize() {

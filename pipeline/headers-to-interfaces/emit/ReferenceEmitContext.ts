@@ -27,6 +27,8 @@ const nativeTypes = {
   'SkeletalMeshComponent': { name: 'SkeletalMeshComponent', module: '../native/structs' },
   'StaticMeshComponent': { name: 'StaticMeshComponent', module: '../native/structs' },
   'UTextRenderComponent': { name: 'TextRenderComponent', module: '../native/structs' },
+  'SpotLightComponent': { name: 'SpotLightComponent', module: '../native/structs' },
+  'PointLightComponent': { name: 'PointLightComponent', module: '../native/structs' },
 
   'set': { name: 'set', module: '../native/collections' },
 
