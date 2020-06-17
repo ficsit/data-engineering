@@ -4,11 +4,9 @@ import { emitComment, pretty } from './util';
 
 export function emitEnum({ name: enumName, comment, entries }: EnumMetadata) {
   const mainEnum = `
-    ${emitComment(comment)}export enum ${enumName}_ {
+    ${emitComment(comment)}export enum ${enumName} {
       ${entries.map(({ name, comment }) => `${emitComment(comment)}${name},`).join('\n')}
     }
-    
-    export type ${enumName} = ${enumName}_;
   `;
 
   let displayNameMap = '';
