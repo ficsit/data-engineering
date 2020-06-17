@@ -7,7 +7,7 @@
     "pak-converter": "./bin/pak-converter.js"
   },
   "scripts": {
-    "pak-parser": "../../node_modules/.bin/ts-node ./bin/pak-parser",
+    "pak-parser": "../../node_modules/.bin/ts-node ./dist/packages/pak-parser/bin/pak-parser",
     "pak-parser-full": "node --max-old-space-size=16192 -- ../../node_modules/.bin/ts-node -P tsconfig.json ./bin/pak-parser",
     "pak-converter": "tsc --build tsconfig.json && ../../node_modules/.bin/ts-node ./dist/packages/pak-parser/bin/pak-converter",
     "dev-pak-converter": "../../node_modules/.bin/ts-node ./dist/packages/pak-parser/bin/pak-converter",

@@ -10,7 +10,8 @@ enum buildingType {
   EXTRACTOR,
   MANUFACTURER,
   GENERATOR,
-  FLOWMANIPULATOR,
+  ITEMFLOWMANIPULATOR,
+  FLUIDFLOWMANIPULATOR,
   ITEMPASSTHROUGH,
   FLUIDPASSTHROUGH,
   RESTRICTOR,
@@ -140,8 +141,10 @@ export function convertBuilding(buildingEntry: BuildingEntry, itemObjects: Map<s
     case 'AFGBuildableAttachmentMerger':
     case 'AFGBuildableAttachmentSplitter':
     case 'AFGBuildableSplitterSmart':
+      buildingObject.buildingType = getEnumName(buildingType.ITEMFLOWMANIPULATOR);
+      break;
     case 'AFGBuildablePipelineJunction':
-      buildingObject.buildingType = getEnumName(buildingType.FLOWMANIPULATOR);
+      buildingObject.buildingType = getEnumName(buildingType.FLUIDFLOWMANIPULATOR);
       break;
     case 'AFGBuildableResourceSink':
     case 'AFGBuildableSpaceElevator':

@@ -4,6 +4,9 @@ import * as path from 'path';
 
 import { PakFile } from '../src/PakFile';
 import { FileReader } from '../src/readers';
+import sharp from "sharp";
+import {UObject} from "../src/UObject";
+import {Texture2DExp} from "../src/uexpTypes/Texture2DExp";
 
 main();
 async function main() {
@@ -79,9 +82,10 @@ async function main() {
     // 'FactoryGame/Content/FactoryGame/Schematics/ResourceSink/Parts/Tier6/ResourceSink_PackagedBiofuel.uasset',
     // 'FactoryGame/Content/FactoryGame/Schematics/ResourceSink/ResourceSink_DoorWalls_Normal.uasset',
     // 'FactoryGame/Content/FactoryGame/Schematics/Tutorial/Schematic_Tutorial4.uasset',
-    'FactoryGame/Content/FactoryGame/Buildable/Factory/ResourceSink/DT_ResourceSinkRewardLevels.uexp',
+    'FactoryGame/Content/FactoryGame/Resource/Parts/Turbofuel/UI/IconDesc_LiquidTurboFuel_Pipe_512.uasset',
+    'FactoryGame/Content/FactoryGame/Buildable/Vehicle/Tractor/UI/Tractor_512.uexp '
   ];
-  const retrievedFiles = await pakFile.getFiles(files);
+  // const retrievedFiles = await pakFile.getFiles(files);
 
   function safeStringify(obj: any, indent = 2) {
     let cache = [] as any;
@@ -101,8 +105,102 @@ async function main() {
     return retVal;
   }
 
-  for (const file of retrievedFiles) {
-    const dest = path.join('dump', path.basename(file.getName()) + '.json');
-    fs.writeFileSync(dest, safeStringify(file, 2));
+  fs.mkdirSync('dump/testpath', { recursive: true });
+  const images = await getImages(pakFile, new Set(files));
+  for (const image of images) {
+    const [slug, img] = image;
+    const dest = path.join('dump/testpath', path.basename(slug) + '.png');
+    await writeImage(img, dest)
   }
+  // for (const file of retrievedFiles) {
+  //   const dest = path.join('dump', path.basename(file.getName()) + '.json');
+  //   fs.writeFileSync(dest, safeStringify(file, 2));
+  // }
+}
+
+
+async function writeImage(image: sharp.Sharp, itemPath: string) {
+  image = image.clone();
+  const baseName = path.basename(itemPath);
+
+  if (baseName.endsWith('.png')) {
+    image = image.png({
+      // We get a decent amount (~5%) of additional compression from this.
+      adaptiveFiltering: true,
+    });
+  } else if (baseName.endsWith('.webp')) {
+    image = image.webp({
+      quality: 60,
+      nearLossless: true,
+      reductionEffort: 6,
+    });
+  } else {
+    throw new Error(`Unknown format ${baseName}`);
+  }
+
+  await image.toFile(itemPath);
+}
+
+async function getImages(pakFile: PakFile, files: Set<string>) {
+  const possibleResolutions = ['', '_64', '_256', '_512'];
+  const imageDatabase = new Map<string, sharp.Sharp>();
+
+  for (const file of files) {
+    const possibleFiles = sanitizeDeps(
+      pakFile,
+      new Set(possibleResolutions.map(resolution => file + resolution)),
+    );
+    const retrievedFiles = await pakFile.getFiles([...possibleFiles]);
+    const uObjectFiles = retrievedFiles.filter(item => {
+      return item instanceof UObject;
+    }) as UObject[];
+
+    const textureFiles = uObjectFiles
+      .map(file => {
+        if (file.uexp instanceof Texture2DExp) {
+          return file.uexp.getImage();
+        }
+        return null;
+      })
+      .filter(obj => obj !== null);
+
+    if (textureFiles?.length) {
+      const largestImageSize = Math.max(...textureFiles.map(item => item?.x || -1));
+      const largestImage = textureFiles.filter(file => file!.x === largestImageSize)[0]!;
+      const image = sharp(largestImage.data);
+      imageDatabase.set(file, image);
+    }
+  }
+
+  return imageDatabase;
+}
+
+function sanitizeDeps(pakFile: PakFile, deps: Set<string>) {
+  const depSet = new Map<string, string>();
+  const entrySet = new Set(pakFile.entries.keys());
+  for (const key of pakFile.entries.keys()) {
+    depSet.set(key.toLowerCase(), key);
+    depSet.set(
+      key
+        .split('.')
+        .slice(0, 1)
+        .join('.')
+        .toLowerCase(),
+      key,
+    );
+  }
+
+  return new Set(
+    [...deps]
+      .map(inputStrRaw => {
+        // We need to remove the className if it exists
+        const cleanedEntryString = inputStrRaw.split('.').slice(0, 1)[0];
+
+        if (entrySet.has(cleanedEntryString)) {
+          return cleanedEntryString;
+        }
+        return depSet.get(cleanedEntryString.toLowerCase()) || null;
+      })
+      .filter(item => item) as string[],
+  );
 }

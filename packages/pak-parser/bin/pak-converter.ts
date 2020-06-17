@@ -550,7 +550,7 @@ async function buildConnectionMap(resourceMaps: any, buildingMap: any) {
       connectionsMap[buildingSlug] = {};
     }
 
-    pipeMap[buildingSlug]?.forEach((pipe: any) => {
+    pipeMap.get(buildingSlug)?.forEach((pipe: any) => {
       if (pipe.mPipeConnectionType === EPipeConnectionType.PCT_CONSUMER) {
         connectionsMap[buildingSlug].inputPipes = 1 + (connectionsMap[buildingSlug].inputPipes || 0);
       } else if (pipe.mPipeConnectionType === EPipeConnectionType.PCT_PRODUCER) {
@@ -568,7 +568,7 @@ async function buildConnectionMap(resourceMaps: any, buildingMap: any) {
       connectionsMap[buildingSlug] = {};
     }
 
-    beltMap[buildingSlug]?.forEach((connector: any) => {
+    beltMap.get(buildingSlug)?.forEach((connector: any) => {
       if (connector.mDirection === EFactoryConnectionDirection.FCD_INPUT) {
         connectionsMap[buildingSlug].inputBelts = 1 + (connectionsMap[buildingSlug].inputBelts || 0);
       } else if (connector.mDirection === EFactoryConnectionDirection.FCD_OUTPUT) {
@@ -646,7 +646,7 @@ async function main() {
     imageDatabase,
   );
 
-  const connectionsMap = buildConnectionMap(
+  const masterConnectionsMap = await buildConnectionMap(
     {
       pipeMap,
       beltMap,
@@ -663,7 +663,7 @@ async function main() {
   );
   fs.writeFileSync(
     path.join('dump', 'converted', 'Connections.json'),
-    JSON.stringify(connectionsMap, null, 2),
+    JSON.stringify(masterConnectionsMap, null, 2),
   );
 
   const imageNames = Object.keys(usedImages);

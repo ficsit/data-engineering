@@ -52,29 +52,31 @@ export function convertRecipe(
     manufacturingDuration: recipe.mManufactoringDuration,
   };
 
-  if (!recipe.mDisplayNameOverride) {
+
+
+  if (!recipe.mDisplayNameOverride || !recipeObject.name) {
     const firstIngredient = recipe.mProduct[0]!;
     const itemSlug = toKebabCase(toItem(firstIngredient.ItemClass.name));
     const itemDescriptor = itemMap.get(itemSlug)!;
 
     if (itemDescriptor.mDisplayName?.sourceString) {
-      recipeObject.name = itemDescriptor.mDisplayName?.sourceString;
+      recipeObject.name = itemDescriptor.mDisplayName?.sourceString || recipeObject.name
       recipeObject.translation = {
-        namespace: itemDescriptor.mDisplayName?.namespace,
-        key: itemDescriptor.mDisplayName?.key,
+        namespace: itemDescriptor.mDisplayName?.namespace || recipeObject.translation.namespace,
+        key: itemDescriptor.mDisplayName?.key || recipeObject.translation.key,
       };
-    } else {
-      const buildingSlug = toKebabCase(toBuilding(firstIngredient.ItemClass.name));
-      const buildingDescriptor = buildingMap.get(buildingSlug)!;
-      if (buildingDescriptor?.mDisplayName?.sourceString) {
-        recipeObject.name = buildingDescriptor.mDisplayName?.sourceString;
-        recipeObject.translation = {
-          namespace: buildingDescriptor.mDisplayName?.namespace,
-          key: buildingDescriptor.mDisplayName?.key,
-        };
-      }
     }
   }
+  const buildingSlug = toKebabCase(toBuilding(recipe.mProduct[0]!.ItemClass.name));
+  const buildingDescriptor = buildingMap.get(buildingSlug)!;
+  if (buildingDescriptor?.mDisplayName?.sourceString) {
+    recipeObject.name = buildingDescriptor.mDisplayName?.sourceString || recipeObject.name
+    recipeObject.translation = {
+      namespace: buildingDescriptor.mDisplayName?.namespace || recipeObject.translation.namespace,
+      key: buildingDescriptor.mDisplayName?.key || recipeObject.translation.key,
+    };
+  }
+
   return recipeObject;
 }
 
