@@ -12,13 +12,15 @@ export function emitEnum({ name: enumName, comment, entries }: EnumMetadata) {
   let displayNameMap = '';
   if (entries.some(({ displayName }) => !!displayName)) {
     displayNameMap = `
-      ${enumName}.DisplayName = {
-        ${entries
-          .map(
-            ({ name, displayName }) =>
-              `[${enumName}.${name}]: '${(displayName || `<${name}>`).replace(/'/g, "\\'")}',`,
-          )
-          .join('\n')}
+      export namespace ${enumName} {
+        export const DisplayName = {
+          ${entries
+            .map(
+              ({ name, displayName }) =>
+                `[${enumName}.${name}]: '${(displayName || `<${name}>`).replace(/'/g, "\\'")}',`,
+            )
+            .join('\n')}
+        }
       }
     `;
   }
