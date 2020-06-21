@@ -133,25 +133,34 @@ async function stackExports(pakFile: PakFile, baseObject: UObject) {
               const innerExport = innerExports[0]!;
               const resultantPropertyList: any[] = [];
 
-              const newProperties = new Map<string, any>();
+              const templatedProperties = new Map<string, any>();
               innerExport.propertyList.forEach((property: any) => {
                 if (!property?.name) {
                   throw new Error('No property name on this property');
                 }
-                newProperties.set(property?.name || '', property);
+
+                templatedProperties.set(property.name, property);
               });
 
-              outerExport.propertyList.forEach(property => {
+              const overwritingPropertyNames = new Map<string, any>();
+
+              outerExport.propertyList.forEach((property: any) => {
                 if (!property?.name) {
                   throw new Error('No property name on this property');
                 }
 
-                if (newProperties.has(property.name)) {
-                  resultantPropertyList.push(newProperties.get(property.name)!);
-                } else {
-                  resultantPropertyList.push(property);
-                }
+                overwritingPropertyNames.set(property.name, property);
               });
+
+              const allKeys = new Set([...templatedProperties.keys(), ...overwritingPropertyNames.keys()]);
+
+              for (const key of allKeys) {
+                if (overwritingPropertyNames.has(key)) {
+                  resultantPropertyList.push(overwritingPropertyNames.get(key));
+                } else {
+                  resultantPropertyList.push(templatedProperties.get(key));
+                }
+              }
 
               outerExport.propertyList = resultantPropertyList;
 
@@ -306,6 +315,7 @@ async function marshalBuildings(pakFile: PakFile, itemDepFiles: Set<string>) {
       mFuelTransferSpeed: 1,
       mFlowLimit: 5,
       mRadius: 65,
+      extractCycleTime: 1
     }),
   );
 
@@ -342,6 +352,7 @@ async function marshalBuildings(pakFile: PakFile, itemDepFiles: Set<string>) {
           exportType,
           defaultMap,
         );
+
         if (marshalledItem) {
           const slug = toKebabCase(toBuilding(getBaseFileName(itemFile.uasset.filename)));
 
