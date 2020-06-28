@@ -1,4 +1,5 @@
 import { EmitContext } from './EmitContext';
+import {emitType} from "./emitType";
 
 const primitiveTypes = {
   'bool': 'boolean',
@@ -61,7 +62,12 @@ export class ReferenceEmitContext {
 
   emit(type: string, rootType = type) {
     if (!/^[a-z0-9_:]+$/i.test(type)) {
-      throw new Error(`Unsupported type: ${rootType}`);
+      if (/^.*<.*>$/i.test(type)) {
+        return emitType(this, type, rootType)
+      } else {
+        throw new Error(`Unsupported type: ${rootType}`);
+      }
+
     }
 
     const primitive = primitiveTypes[type];

@@ -81,7 +81,14 @@ INTEGER_LITERAL: '-'? [0-9]+;
 
 // Blocks
 
-PREPROCESSOR: '#' -> skip, pushMode(PREPROCESSOR_MACRO);
+MultiLineMacro
+   : '#' (~ [\n]*? '\\' '\r'? '\n')+ ~ [\n]+ -> channel (HIDDEN)
+   ;
+
+Directive
+   : '#' ~ [\n]* -> channel (HIDDEN)
+   ;
+
 LINE_COMMENT_START:  '//' '*'* Space? -> skip, pushMode(LINE_COMMENT);
 BLOCK_COMMENT_START: '/*' '*'* Space? -> skip, pushMode(BLOCK_COMMENT);
 
@@ -101,9 +108,3 @@ BLOCK_COMMENT_END: Space* '*/' -> skip, popMode;
 BLOCK_COMMENT_NEW_LINE: Newline Space* '*'+ ~[/*] -> skip;
 BLOCK_COMMENT_TEXT: ~[*\r\n]+ -> channel(COMMENTS_CHANNEL);
 BLOCK_COMMENT_OTHER: . -> skip;
-
-mode PREPROCESSOR_MACRO;
-
-PREPROCESSOR_MACRO_SKIPPED_NEWLINE: '\\\n' -> skip;
-PREPROCESSOR_MACRO_NEWLINE: '\n' -> skip, popMode;
-PREPROCESSOR_MACRO_OTHER: . -> skip;

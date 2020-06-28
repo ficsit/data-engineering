@@ -5,7 +5,7 @@ import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker';
 import { SatisfactoryHeaderLexer } from './generated/grammar/SatisfactoryHeaderLexer';
 import { SatisfactoryHeaderParserListener } from './generated/grammar/SatisfactoryHeaderParserListener';
 import {
-  SatisfactoryHeaderParserParser,
+  SatisfactoryHeaderParser,
   ClassMethodContext,
   ClassPropertyContext,
   ClassDeclarationContext,
@@ -15,18 +15,17 @@ import {
   MacroPropertyListContext,
   MacroPropertyContext,
   LiteralContext,
-} from './generated/grammar/SatisfactoryHeaderParserParser';
+} from './generated/grammar/SatisfactoryHeaderParser';
 import { ClassMetadata, EnumMetadata, EntryType } from './interface';
 
 export function parseHeader(contents: string) {
   const stream = new ANTLRInputStream(contents);
   const lexer = new SatisfactoryHeaderLexer(stream);
   const tokens = new CommonTokenStream(lexer);
-  const parser = new SatisfactoryHeaderParserParser(tokens);
+  const parser = new SatisfactoryHeaderParser(tokens);
   const listener = new Listener(tokens);
 
   ParseTreeWalker.DEFAULT.walk(listener as ParseTreeListener, parser.file());
-
   return listener.result;
 }
 

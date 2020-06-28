@@ -1,12 +1,11 @@
-grammar SatisfactoryHeaderParser;
+parser grammar SatisfactoryHeaderParser;
 
 options {
   tokenVocab = SatisfactoryHeaderLexer;
 }
 
 file
-  : element*
-  ;
+  : element*;
 
 element
   : classDeclaration
@@ -14,6 +13,7 @@ element
   | namespaceDeclaration
   | staticMethodCall
   | staticFunctionDeclaration
+  | staticArrayDeclaration
   | staticInlineFunctionDeclaration
   | staticPropertyDeclaration
   | typedef
@@ -217,7 +217,7 @@ nestedEnum
   ;
 
 nestedClass
-  : CLASS identifier classInheritance? contentWithNestedBraces
+  : ENUM? CLASS identifier classInheritance? contentWithNestedBraces
   ;
 
 nestedStruct
@@ -254,6 +254,9 @@ staticFunctionDeclaration
   : functionModifier* typeDeclaration? functionName contentWithNestedParens CONST? contentWithNestedBraces? SEMICOLON?
   ;
 
+staticArrayDeclaration
+  : functionModifier* typeDeclaration? functionName EQUALS contentWithNestedBraces SEMICOLON
+  ;
 
 staticPropertyDeclaration
   : STATIC typeDeclaration identifier EQUALS literal SEMICOLON;

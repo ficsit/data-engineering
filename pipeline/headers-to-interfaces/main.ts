@@ -59,8 +59,8 @@ function emitCategory(context: EmitContext, category: EmittableCategory) {
 
   const entries = context.entriesInCategory(category);
   for (const entry of entries) {
-    const content = context.emit(entry);
     process.stderr.write(`\u001b[2Kemitting: ${entry}\r`);
+    const content = context.emit(entry);
     const destination = context.pathTo(entry);
     fs.writeFileSync(destination, content);
   }
