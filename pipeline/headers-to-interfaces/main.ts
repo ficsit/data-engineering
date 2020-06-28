@@ -5,6 +5,7 @@ import * as path from 'path';
 
 import { EmitContext, EmittableCategory, EntryCategory } from './emit';
 import { parseHeader, printTokens } from './parse';
+import {pretty} from "./emit/util";
 
 const natives = path.resolve(__dirname, 'emit', 'native');
 
@@ -32,10 +33,21 @@ function parseAll(sourceDir = paths.sourceData.headers, destDir = paths.dataLand
   fs.copySync(natives, path.join(destDir, 'native'));
 
   const indexLines = [] as string[];
+  const inheritanceMap: Record<string, string[]> = {};
+
   for (const category of categories) {
     emitCategory(context, category);
     indexLines.push(`export * from './${context.relativeDestination(category)}';`);
+    for (const {name, parents} of getClassInheritanceByCategory(context, category)) {
+      inheritanceMap[name] = parents;
+    }
   }
+  indexLines.push('');
+
+  indexLines.push(pretty(`export const inheritanceMap = ${JSON.stringify(inheritanceMap)}`))
+
+  console.log(pretty(`export const inheritanceMap = ${JSON.stringify(inheritanceMap)}`));
+
   indexLines.push('');
 
   fs.writeFileSync(path.join(destDir, 'index.ts'), indexLines.join('\n'), 'utf-8');
@@ -51,6 +63,11 @@ function parse(header: string, sourceDir: string) {
   }
 
   return parseHeader(contents);
+}
+
+function getClassInheritanceByCategory(context: EmitContext, category: EmittableCategory) {
+  const entries = context.entriesInCategory(category);
+  return entries.map(entry => context.getInheritanceInfo(entry)).filter(item => item)
 }
 
 function emitCategory(context: EmitContext, category: EmittableCategory) {

@@ -1,11 +1,12 @@
 import * as path from 'path';
 import * as util from 'util';
 
-import { EntryType } from '../interface';
+import {EntryType} from '../interface';
 
-import { ReferenceEmitContext } from './ReferenceEmitContext';
-import { emitClass } from './emitClass';
-import { emitEnum } from './emitEnum';
+import {ReferenceEmitContext} from './ReferenceEmitContext';
+import {emitClass} from './emitClass';
+import {emitEnum} from './emitEnum';
+import {emitType} from "./emitType";
 
 export const enum EntryCategory {
   UNKNOWN,
@@ -73,6 +74,26 @@ export class EmitContext {
   destination(category: EmittableCategory) {
     return path.join(this.destDir, this._relativeDestinations[category]);
   }
+
+  getInheritanceInfo(name: string) {
+    const {entry, category} = this._entries.get(name);
+    if (!_isEmittable(category)) {
+      throw new Error(`${name} is not of an emittable category`);
+    }
+
+    const referenceContext = new ReferenceEmitContext(this, this.destination(category), name);
+
+    if (entry.kind === 'class') {
+      const {name, extends: extensions} = entry;
+      const parents = extensions.map(e => emitType(referenceContext, e))
+
+      if (!parents.length) return null;
+
+      return {name, parents}
+    }
+    return null;
+  }
+
 
   emit(name: string) {
     const { entry, category } = this._entries.get(name);
