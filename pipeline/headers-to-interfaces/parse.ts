@@ -74,6 +74,7 @@ class Listener implements SatisfactoryHeaderParserListener {
   }
 
   enterClassExtension(context: ClassExtensionContext) {
+    if (context.identifier().text)
     this._currentClass().extends.push(context.identifier().text);
   }
 

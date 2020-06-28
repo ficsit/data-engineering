@@ -132,6 +132,7 @@ classEntry
   | classProperty
   | statDeclaration
   | nestedEnum
+  | nestedEnumClass
   | nestedClass
   | nestedStruct
   | typedef
@@ -216,8 +217,17 @@ nestedEnum
   : ENUM identifier? contentWithNestedBraces
   ;
 
+// A hack to not include this as inherited.
+nestedEnumInheritance
+  : COLON IDENTIFIER
+  ;
+
+nestedEnumClass
+  : ENUM CLASS identifier nestedEnumInheritance? contentWithNestedBraces
+  ;
+
 nestedClass
-  : ENUM? CLASS identifier classInheritance? contentWithNestedBraces
+  : CLASS identifier classInheritance? contentWithNestedBraces
   ;
 
 nestedStruct

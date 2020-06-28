@@ -40,6 +40,8 @@ import { ClassPropertyDefaultValueContext } from "./SatisfactoryHeaderParser";
 import { LiteralExpressionContext } from "./SatisfactoryHeaderParser";
 import { ClassPropertyArraySizeContext } from "./SatisfactoryHeaderParser";
 import { NestedEnumContext } from "./SatisfactoryHeaderParser";
+import { NestedEnumInheritanceContext } from "./SatisfactoryHeaderParser";
+import { NestedEnumClassContext } from "./SatisfactoryHeaderParser";
 import { NestedClassContext } from "./SatisfactoryHeaderParser";
 import { NestedStructContext } from "./SatisfactoryHeaderParser";
 import { EnumDeclarationContext } from "./SatisfactoryHeaderParser";
@@ -492,6 +494,28 @@ export interface SatisfactoryHeaderParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitNestedEnum?: (ctx: NestedEnumContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParser.nestedEnumInheritance`.
+	 * @param ctx the parse tree
+	 */
+	enterNestedEnumInheritance?: (ctx: NestedEnumInheritanceContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParser.nestedEnumInheritance`.
+	 * @param ctx the parse tree
+	 */
+	exitNestedEnumInheritance?: (ctx: NestedEnumInheritanceContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `SatisfactoryHeaderParser.nestedEnumClass`.
+	 * @param ctx the parse tree
+	 */
+	enterNestedEnumClass?: (ctx: NestedEnumClassContext) => void;
+	/**
+	 * Exit a parse tree produced by `SatisfactoryHeaderParser.nestedEnumClass`.
+	 * @param ctx the parse tree
+	 */
+	exitNestedEnumClass?: (ctx: NestedEnumClassContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `SatisfactoryHeaderParser.nestedClass`.
