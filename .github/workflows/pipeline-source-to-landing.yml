@@ -142,11 +142,10 @@ jobs:
           else
             echo No changes to data-landing. Skipping commit.
           fi
-      #          Removing tagging until the interfaces are guaranteed to be correct.
-      #          git tag -d v${GAME_VERSION};
-      #          git push origin :v${GAME_VERSION}
-      #          git tag -f v${GAME_VERSION}
-      #          git push --tags
+          git tag -d v${GAME_VERSION};
+          git push origin :v${GAME_VERSION}
+          git tag -f v${GAME_VERSION}
+          git push --tags
 
       - name: Cleanup
         run: |
